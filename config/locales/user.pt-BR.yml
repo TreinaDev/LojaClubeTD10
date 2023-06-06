@@ -1,0 +1,16 @@
+pt-BR:
+  activerecord:
+    models:
+      user:
+        one: 'Usuário'
+        other: 'Usuários'
+
+    attributes:
+      user:
+        email: 'E-mail'
+        password: 'Senha'
+        password_confirmation: 'Confirme a senha'
+        phone_number: 'Número de telefone'
+        name: 'Nome'
+        cpf: 'CPF'
+        phone_number: 'Número de telefone'

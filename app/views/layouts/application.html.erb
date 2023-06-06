@@ -11,8 +11,18 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <% if user_signed_in? && current_user.admin? %>
+      <p>administrador</p>
+    <% end %>
+
+    <% if flash.any? %>
+      <% flash.each do |type, msg| %>
+        <div class=”alert alert-<%= type %>”>
+          <%= msg %>
+        </div>
+      <% end %>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
