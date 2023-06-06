@@ -1,0 +1,47 @@
+require:
+  - rubocop-rails
+
+# Mude para a versão de Ruby a ser utilizada e inclua aqui outros arquivos que
+# você considera importante que o RuboCop não execute como: node_modules, etc..
+AllCops:
+  TargetRubyVersion: 3.1
+  NewCops: enable
+  Exclude:
+    - 'bin/**/*'
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+    - 'vendor/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'spec/rails_helper.rb'
+    - 'spec/support/*'
+    
+# Trabalhamos bastante com testes como a documentação viva do projeto então
+# desabilitamos a Cop de documentação com comentário
+Style/Documentation:
+  Enabled: false
+
+# Esta é uma Cop polêmica, pois pode ajudar na performance. Caso deseje manter esta Cop,
+# basta remover estas linhas
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# Escrevemos mais linhas em arquivos de teste do que em arquivos de 
+# código, então é importante poder ter esses arquivos do tamanho necessário
+Metrics/BlockLength:
+  AllowedMethods: ['describe', 'context', 'feature', 'scenario', 'let', 'it']
+
+Layout/EndOfLine:
+  Enabled: True
+  
+# Resolver erro: Lint/EmptyBlock: Empty block detected
+Lint/EmptyBlock:
+  Exclude:
+    - 'spec/factories/**/*'
+    - 'spec/models/**/*'
+
+# Prioriza a sintaxe compact style na definição de classes
+# Exemplo: class Api::V1::ApiController < ActionController::API
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+
