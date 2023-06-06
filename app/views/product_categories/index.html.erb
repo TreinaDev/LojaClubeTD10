@@ -1,0 +1,9 @@
+<section>
+  <%= link_to 'Nova Categoria', new_product_category_path %>
+  <h2>Categorias de produto</h2>
+  <ul>
+    <% @product_categories.each do |product_category| %>
+      <li><%= product_category.name %></li>
+    <% end %>
+  </ul>
+</section>

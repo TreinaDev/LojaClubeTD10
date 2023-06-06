@@ -1,0 +1,14 @@
+<h1>Cadastre uma categoria:</h1>
+
+<%= form_with model: @product_category do |f| %>
+  <div>
+    <%= f.label :name, 'Nome' %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+   <%= f.submit 'Salvar' %>
+  </div>
+
+
+<% end %>
