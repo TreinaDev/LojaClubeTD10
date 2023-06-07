@@ -1,0 +1,17 @@
+<div class="text-danger text-center div-max-width"><%= alert %></div>
+<div class="text-success text-center div-max-width"><%= notice %></div>
+<div class="col-md-8">
+  <div class="card-body">
+    <h3 class="card-title">Produto <%= @product.code %> - <%= @product.name %></h3>
+    <dl class="row text-muted">
+      <dt class="col-sm-6">Descrição</dt>
+      <dd class="col-sm-6"><%= @product.description %></dd>
+      <dt class="col-sm-6">Marca</dt>
+      <dd class="col-sm-6"><%= @product.brand %></dd>
+      <dt class="col-sm-6">Preço</dt>
+      <dd class="col-sm-12"><%= @product.price %></dd>
+      <dt class="col-sm-6">Categoria</dt>
+      <dd class="col-sm-6"><%= @product.product_category.name %></dd>
+    </dl>
+  </div>
+</div>

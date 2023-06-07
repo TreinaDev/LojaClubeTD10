@@ -1,0 +1,33 @@
+<h1>Produtos</h1>
+
+<div class="container div-max-width">
+  <%= form_with(model: @product) do |f| %>
+    <div class="mb-3">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control mb-2' %>
+    </div>
+    <div class="mb-3">
+    <%= f.label :code %> (g)
+    <%= f.text_field :code, class: 'form-control mb-2'  %>
+  </div>
+    <div class="mb-3">
+      <%= f.label :description %>
+      <%= f.text_area :description, class: 'form-control mb-2'  %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :brand %> (cm)
+      <%= f.text_field :brand, class: 'form-control mb-2'  %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :price %> (cm)
+      <%= f.number_field :price , class: 'form-control mb-2' %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :product_category_id %>
+      <%= f.collection_select(:product_category_id, @categories, :id, :name , { prompt: 'Selecione' }, { class: 'form-control mb-2'}) %>
+    </div>
+    <div class="mb-3">
+      <%= f.submit 'Cadastrar', class: 'btn btn-secondary  mt-2' %>
+    </div>
+  <% end %>
+</div>
