@@ -24,6 +24,10 @@
         <% end %>
       <% end %>
 
+      <% if user_signed_in? %>
+        <%= button_to "Sair", destroy_user_session_path, method: :delete, class:"btn btn-danger" %>
+      <% end %>
+
       <%= yield %>
     </div>
   </body>
