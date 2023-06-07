@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_06_185029) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_07_200621) do
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
     t.integer "attempts", default: 0, null: false
@@ -30,6 +30,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_06_185029) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "active", default: true
   end
 
   create_table "products", force: :cascade do |t|

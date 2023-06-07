@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :product_category do
-    name { 'MyString' }
+    name { 'Categoria Teste' }
+    active { true }
   end
 end
