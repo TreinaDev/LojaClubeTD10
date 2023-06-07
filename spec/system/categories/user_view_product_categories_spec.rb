@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 describe 'Usuário visualiza categorias' do
-  it 'com sucesso' do 
+  it 'com sucesso' do
     # Arrange
-    category_1 = FactoryBot.create(:product_category, name: 'Categoria Teste')
+    FactoryBot.create(:product_category, name: 'Categoria Teste')
 
-    # Act 
+    # Act
     visit product_categories_path
 
     # Assert
