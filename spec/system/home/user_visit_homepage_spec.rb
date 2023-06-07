@@ -1,11 +1,17 @@
 require 'rails_helper'
 
-describe 'Visitante navega pela app' do
-  it 'e vê tela inicial' do
+describe 'Usuário visita homepage' do
+  it 'e vê nome o nome da loja' do
     visit root_path
 
     expect(page).to have_content 'Loja do Clube'
     expect(page).to have_link('Loja do Clube', href: root_path)
+  end
+
+  it 'e vê botão para fazer o login' do
+    visit root_path
+
+    expect(page).to have_link('Login', href: new_user_session_path)
   end
 
   it 'e vê os produtos listados' do
