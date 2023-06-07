@@ -22,13 +22,13 @@
               Categorias
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Categoria1</a></li>
-              <li><a class="dropdown-item" href="#">Categoria2</a></li>
-              <li><a class="dropdown-item" href="#">Categoria3</a></li>
+              <% @product_categories.each do |pc| %>  
+                <li><a class="dropdown-item" href="#"><%= pc.name %></a></li>
+              <% end %>
             </ul>
           </div>    
 
-          <%= link_to 'Login', new_user_session_path, class: 'nav-link' %>      
+          <%= link_to I18n.t(:login), new_user_session_path, class: 'nav-link' %>      
 
         </div>
       </nav>
