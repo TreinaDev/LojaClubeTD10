@@ -22,5 +22,24 @@ RSpec.describe User, type: :model do
       # Assert
       expect(user.errors[:cpf]).to include 'inválido'
     end
+
+    it 'Formato do email' do
+      user = FactoryBot.build(:user, email: 'mailsampletest.com')
+
+      user.valid?
+
+      expect(user.errors[:email]).to include 'não é válido'
+    end
+
+    it 'tamanho do número de telefone' do
+      # Arrange
+      user = FactoryBot.build(:user, phone_number: '12345')
+
+      # Act
+      user.valid?
+
+      # Assert
+      expect(user.errors[:phone_number]).to include 'deve conter 11 dígitos.'
+    end
   end
 end

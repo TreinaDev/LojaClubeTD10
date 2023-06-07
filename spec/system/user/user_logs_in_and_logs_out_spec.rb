@@ -2,13 +2,7 @@ require 'rails_helper'
 
 describe 'Usuário entra no sistema' do
   it 'e faz login' do
-    User.create!(
-      name: 'José',
-      email: 'zezinho@mail.com',
-      cpf: '19540504023',
-      phone_number: '1998555544',
-      password: 'f4k3p455w0rd'
-    )
+    FactoryBot.create(:user, email: 'zezinho@mail.com', password: 'f4k3p455w0rd')
 
     visit new_user_session_path
 
@@ -22,13 +16,7 @@ describe 'Usuário entra no sistema' do
 
   it 'e faz logout' do
     # Arrange
-    user = User.create!(
-      name: 'José',
-      email: 'zezinho@mail.com',
-      cpf: '19540504023',
-      phone_number: '1998555544',
-      password: 'f4k3p455w0rd'
-    )
+    user = FactoryBot.create(:user)
 
     # Act
     login_as user

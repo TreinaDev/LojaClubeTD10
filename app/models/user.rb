@@ -10,6 +10,7 @@ class User < ApplicationRecord
 
   validates :name, :cpf, :phone_number, presence: true
   validates :cpf, cpf: true
+  validate :check_phone_number_length, if: :phone_number_changed?
 
   private
 
@@ -19,5 +20,11 @@ class User < ApplicationRecord
                 else
                   :common
                 end
+  end
+
+  def check_phone_number_length
+    return if phone_number.length == 11
+
+    errors.add(:phone_number, 'deve conter 11 dígitos.')
   end
 end

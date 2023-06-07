@@ -15,7 +15,11 @@ describe 'Usuário entra no sistema' do
     click_on 'Registrar'
 
     # Assert
+
+    user = User.last
+
     expect(current_path).to eq root_path
+    expect(user.role).to eq 'common'
     expect(page).to have_content 'Bem vindo! Você se registrou com sucesso.'
   end
 
