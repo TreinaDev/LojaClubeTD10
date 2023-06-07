@@ -14,3 +14,12 @@ pt-BR:
         name: 'Nome'
         cpf: 'CPF'
         phone_number: 'Número de telefone'
+
+    errors:
+        models:
+          user:
+            attributes:
+              cpf:
+                invalid: 'inválido'
+                unpermitted_chars: 'deve conter apenas números'
+                out_of_range: 'deve conter 11 números'

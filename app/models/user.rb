@@ -8,6 +8,9 @@ class User < ApplicationRecord
 
   before_create :define_role
 
+  validates :name, :cpf, :phone_number, presence: true
+  validates :cpf, cpf: true
+
   private
 
   def define_role
