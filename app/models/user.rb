@@ -25,6 +25,6 @@ class User < ApplicationRecord
   def check_phone_number_length
     return if phone_number.length == 11
 
-    errors.add(:phone_number, 'deve conter 11 dígitos.')
+    errors.add(:phone_number, :out_of_range)
   end
 end

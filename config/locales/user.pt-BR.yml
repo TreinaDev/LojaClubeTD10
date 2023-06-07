@@ -20,9 +20,11 @@ pt-BR:
           user:
             attributes:
               cpf:
-                invalid: 'inválido'
-                unpermitted_chars: 'deve conter apenas números'
-                out_of_range: 'deve conter 11 números'
+                invalid: 'inválido.'
+                unpermitted_chars: 'deve conter apenas números.'
+                out_of_range: 'deve conter 11 números.'
+              phone_number:
+                out_of_range: 'deve conter 11 números.'
 
   devise:
     sessions:
@@ -37,3 +39,21 @@ pt-BR:
         sign_up: 'Registrar'
         minimum: 'Mínimo de'
         characters: 'caracteres'
+
+    shared:
+      links:
+        login: 'Entrar'
+        sign_up: 'Registrar'
+        forgot_pass: 'Esqueceu sua senha?'
+        no_confirm_briefs: 'Não recebeu as instruções de confirmação?'
+        no_unblock_briefs: 'Não recebeu as instruções de desbloqueio?'
+        login_with: 'Entrar com %{omni}'
+
+    passwords:
+      new:
+        title: 'Esqueceu sua senha?'
+        send_reset_instructions: 'Me envie instruções para recuperar a conta'
+      edit:
+        title: 'Mude sua senha'
+        min_chars: 'caracteres no mínimo.'
+        change_password: 'Mudar minha senha'

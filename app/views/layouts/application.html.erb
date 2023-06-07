@@ -13,7 +13,7 @@
   <body>
     <div class="container mt-3">
       <% if user_signed_in? && current_user.admin? %>
-        <p>administrador</p>
+        <p><%= t('adm_tag') %></p>
       <% end %>
 
       <% if flash.any? %>
@@ -25,7 +25,7 @@
       <% end %>
 
       <% if user_signed_in? %>
-        <%= button_to "Sair", destroy_user_session_path, method: :delete, class:"btn btn-danger" %>
+        <%= button_to t('log_out'), destroy_user_session_path, method: :delete, class:"btn btn-danger" %>
       <% end %>
 
       <%= yield %>
