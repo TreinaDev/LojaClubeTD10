@@ -11,18 +11,20 @@
   </head>
 
   <body>
-    <% if user_signed_in? && current_user.admin? %>
-      <p>administrador</p>
-    <% end %>
-
-    <% if flash.any? %>
-      <% flash.each do |type, msg| %>
-        <div class=”alert alert-<%= type %>”>
-          <%= msg %>
-        </div>
+    <div class="container mt-3">
+      <% if user_signed_in? && current_user.admin? %>
+        <p>administrador</p>
       <% end %>
-    <% end %>
 
-    <%= yield %>
+      <% if flash.any? %>
+        <% flash.each do |type, msg| %>
+          <div class=”alert alert-<%= type %>”>
+            <%= msg %>
+          </div>
+        <% end %>
+      <% end %>
+
+      <%= yield %>
+    </div>
   </body>
 </html>

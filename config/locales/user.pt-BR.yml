@@ -23,3 +23,17 @@ pt-BR:
                 invalid: 'inválido'
                 unpermitted_chars: 'deve conter apenas números'
                 out_of_range: 'deve conter 11 números'
+
+  devise:
+    sessions:
+      new:
+        login: 'Entrar'
+        remember_me: 'Lembre-se de mim'
+
+    registrations:
+      edit:
+        current_password: 'Senha atual'
+      new:
+        sign_up: 'Registrar'
+        minimum: 'Mínimo de'
+        characters: 'caracteres'
