@@ -13,13 +13,10 @@ RSpec.describe User, type: :model do
     end
 
     it 'CPF válido' do
-      # Arrange
       user = FactoryBot.build(:user, cpf: '20223956030')
 
-      # Act
       user.valid?
 
-      # Assert
       expect(user.errors[:cpf]).to include 'inválido.'
     end
 
@@ -47,14 +44,20 @@ RSpec.describe User, type: :model do
       expect(user.errors[:email]).to include 'não é válido'
     end
 
-    it 'tamanho do número de telefone' do
-      # Arrange
+    it 'CPF deve ser único' do
+      FactoryBot.create(:user, cpf: '10996176004')
+      second_user = FactoryBot.build(:user, email: 'carlos@mail.com', cpf: '10996176004')
+
+      second_user.valid?
+
+      expect(second_user.errors[:cpf]).to include 'já está em uso'
+    end
+
+    it 'Tamanho do número de telefone' do
       user = FactoryBot.build(:user, phone_number: '12345')
 
-      # Act
       user.valid?
 
-      # Assert
       expect(user.errors[:phone_number]).to include 'deve conter 11 números.'
     end
   end

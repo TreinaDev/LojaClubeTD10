@@ -11,6 +11,7 @@ class User < ApplicationRecord
   validates :name, :cpf, :phone_number, presence: true
   validates :cpf, cpf: true
   validate :check_phone_number_length, if: :phone_number_changed?
+  validates :cpf, uniqueness: true
 
   private
 

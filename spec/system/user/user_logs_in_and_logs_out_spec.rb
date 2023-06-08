@@ -29,15 +29,12 @@ describe 'Usuário entra no sistema' do
   end
 
   it 'e faz logout' do
-    # Arrange
     user = FactoryBot.create(:user)
 
-    # Act
     login_as user
     visit root_path
     click_on 'Sair'
 
-    # Assert
     expect(page).to have_content 'Até breve!.'
   end
 end

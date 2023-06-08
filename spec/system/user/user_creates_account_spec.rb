@@ -4,7 +4,6 @@ describe 'Usuário entra no sistema' do
   it 'e cria uma conta' do
     # Arrange
 
-    # Act
     visit new_user_registration_path
     fill_in 'Nome', with: 'João'
     fill_in 'E-mail', with: 'joao@ig.com.br'
@@ -31,7 +30,6 @@ describe 'Usuário entra no sistema' do
     fill_in 'Confirme a senha', with: 'f4k3p455w0rd'
     click_on 'Registrar'
 
-    # Assert
     expect(current_path).to eq root_path
     expect(page).to have_content 'administrador'
   end
