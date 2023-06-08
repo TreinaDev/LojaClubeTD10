@@ -3,11 +3,14 @@ require 'rails_helper'
 describe 'Usuário acessa index de produtos' do
   it 'e vê a lista de produtos' do
     category = ProductCategory.create!(name: 'Eletrônico')
-    Product.create!(name: 'TV42', code: 'ABC123456',
-                    description: 'nova', brand: 'LG', price: 2500,
+    Product.create!(name: 'TV42',
+                    code: 'ABC123456',
+                    description: 'Descrição para o produto',
+                    brand: 'LG',
+                    price: 2500,
                     product_category: category)
     Product.create!(name: 'TV52', code: 'ABC654321',
-                    description: 'nova', brand: 'Samsung', price: 3500,
+                    description: 'Descrição para o produto', brand: 'Samsung', price: 3500,
                     product_category: category)
     visit products_path
 
@@ -19,7 +22,6 @@ describe 'Usuário acessa index de produtos' do
   end
 
   it 'e não tem produtos cadastrados' do
-
     visit products_path
 
     expect(page).to have_content 'Produtos'
@@ -27,7 +29,7 @@ describe 'Usuário acessa index de produtos' do
     expect(page).to have_content 'Não existem produtos cadastrados.'
   end
 
-  it 'e visualiza botão para cadastrar novo produto' do 
+  it 'e visualiza botão para cadastrar novo produto' do
     visit products_path
 
     expect(page).to have_link 'Cadastrar Produto'

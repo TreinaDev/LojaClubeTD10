@@ -15,4 +15,4 @@ pt-BR:
         product_category_id: "Categoria"
         product_category: "Categoria"
         price: 'Preço'
-        
+        product_image: 'Fotos do produto'

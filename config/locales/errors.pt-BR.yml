@@ -1,0 +1,8 @@
+pt-BR:
+  activerecord:
+    errors:
+      models:
+        product:
+          attributes:
+            code:
+              invalid: ' deve ser composto por 3 letras e 6 caracteres.'

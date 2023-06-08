@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  include ActiveSupport::NumberHelper
+
   before_action :set_product, only: [:show]
 
   def index
@@ -16,7 +18,7 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
 
     if @product.save
-      redirect_to @product, notice: t('.product_success')
+      redirect_to product_path(@product.id), notice: t('.product_success')
     else
       @categories = ProductCategory.all
       flash.now[:alert] = t('.product_fail')
@@ -31,6 +33,8 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, :code, :description, :brand, :product_category_id, :price)
+    params
+      .require(:product)
+      .permit(:name, :code, :description, :brand, :price, :product_category_id, :product_image)
   end
 end
