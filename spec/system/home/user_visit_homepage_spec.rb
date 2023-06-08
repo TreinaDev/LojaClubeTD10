@@ -52,4 +52,19 @@ describe 'Usuário visita homepage' do
     expect(page).to have_content 'Produtos'
     expect(page).to have_content 'Nenhum produto disponível no momento'
   end
+
+  context 'estando logado' do
+    it 'e vê uma barra de navegação' do
+      user = FactoryBot.create(:user, name: 'José', email: 'jose@gmail.com', password: 'jose1234')
+
+      login_as(user)
+      visit root_path
+
+      expect(page).to have_button 'Categorias'
+      expect(page).to have_link 'Área do Cliente'
+      expect(page).to have_button 'Sair'
+      expect(page).to have_css 'nav'
+      expect(page).not_to have_link 'Entrar'
+    end
+  end
 end
