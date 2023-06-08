@@ -5,7 +5,7 @@
 <% @products.each do |product| %>
   <div class= "col">
     <div class="card" style="width: 15rem;">
-      <img src="..." class="card-img-top" alt="" style="width:200px;height:200px;">
+    <%= image_tag "https://picsum.photos/200", alt: "Nome do produto", class:"card-img-top", style: "height:200px;"%>
       <div class="card-body">
         <h5 class="card-title"><%= product.name %></h5>
         <p><%= product.price.round %> Pontos</p>
