@@ -27,9 +27,14 @@
               <% end %>
             </ul>
           </div>    
-
-          <%= link_to I18n.t(:login), new_user_session_path, class: 'nav-link' %>      
-
+          <div class="d-flex gap-2">
+            <% if user_signed_in? %>
+              <%= link_to I18n.t(:customer_area), customer_area_index_path, class: 'btn btn-secondary' %>      
+              <%= button_to I18n.t(:logout), destroy_user_session_path, method: :delete, class: 'btn btn-info' %>
+            <% else %>
+              <%= link_to I18n.t(:login), new_user_session_path, class: 'nav-link' %>
+            <% end %>    
+          </div>
         </div>
       </nav>
     </header>

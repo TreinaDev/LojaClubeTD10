@@ -1,4 +1,6 @@
 pt-BR:
   login: "Entrar"
+  logout: "Sair"
   submit: "Enviar"
+  customer_area: "Área do Cliente"
   
