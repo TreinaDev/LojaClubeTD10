@@ -2,9 +2,10 @@
 <div class="text-success text-center div-max-width"><%= notice %></div>
 
 <div >
-<p> Foto do Produto:</p>
-  <% if @product.product_image.attached? %>
-    <%= image_tag(@product.product_image) %>
+  <% if @product.product_images.attached? %>
+    <% @product.product_images.each do |image| %>
+      <%= image_tag image.variant(:thumb) %>
+    <% end %>
   <% end %>
 </div>
 <div class="col-md-8">

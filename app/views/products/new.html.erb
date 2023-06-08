@@ -1,10 +1,12 @@
 <h1>Produtos</h1>
+<div class="text-danger text-center div-max-width"><%= alert %></div>
+<div class="text-success text-center div-max-width"><%= notice %></div>
 
 <div class="container div-max-width">
   <%= form_with(model: @product) do |f| %>
     <div class="mb-3">
-      <%= f.label :product_image, class: 'form-label' %>
-      <%= f.file_field :product_image, class: 'form-control mb-2', type: 'file' %>
+      <%= f.label :product_images, class: 'form-label' %>
+      <%= f.file_field :product_images, multiple: true, class: 'form-control mb-2', type: 'file' %>
     </div>
     <div class="mb-3">
       <%= f.label :name %>

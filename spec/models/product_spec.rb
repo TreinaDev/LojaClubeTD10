@@ -106,5 +106,17 @@ RSpec.describe Product, type: :model do
       expect(result).to be true
       expect(product.errors[:price]).to include('deve ser maior que 0')
     end
+
+    it 'true (errors.include) quando o arquivo anexado não for imagem e no o formato JPEG ou PNG' do
+      product = Product.new
+      product.product_images.attach(io: Rails.root.join('app/assets/images/Arquivo.txt').open,
+                                    filename: 'Arquivo.txt')
+
+      product.valid?
+      result = product.errors.include?(:product_images)
+
+      expect(result).to be true
+      expect(product.errors[:product_images]).to include('precisa ser do formato JPEG ou PNG')
+    end
   end
 end
