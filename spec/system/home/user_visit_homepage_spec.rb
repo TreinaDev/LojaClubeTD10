@@ -38,7 +38,7 @@ describe 'Usuário visita homepage' do
       login_as(user)
       visit root_path
 
-      expect(page).to have_button 'Categorias'
+      expect(page).to have_link 'Categorias'
       expect(page).to have_link 'Área do Cliente'
       expect(page).to have_button 'Sair'
       expect(page).to have_css 'nav'
@@ -60,7 +60,7 @@ describe 'Usuário visita homepage' do
       login_as(user)
       visit root_path
 
-      expect(page).to have_button 'Categorias'
+      expect(page).to have_link 'Categorias'
       expect(page).to have_link 'Área do Cliente'
       expect(page).to have_button 'Sair'
       expect(page).to have_css 'nav'
