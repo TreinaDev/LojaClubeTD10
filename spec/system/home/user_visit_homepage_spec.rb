@@ -45,4 +45,11 @@ describe 'Usuário visita homepage' do
       expect(page).not_to have_link 'Entrar'
     end
   end
+
+  it 'e vê menssagem caso não tenha produtos disponíveis' do
+    visit root_path
+
+    expect(page).to have_content 'Produtos'
+    expect(page).to have_content 'Nenhum produto disponível no momento'
+  end
 end
