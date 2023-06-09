@@ -1,4 +1,4 @@
-<h2><%= t('.sign_up') %></h2>
+<h2><%= t('.title') %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
@@ -25,9 +25,11 @@
 
   <div class="mb-3">
     <%= f.label :password, class:"form-label" %>
+
     <% if @minimum_password_length %>
-    <em>(<%= t('.minimum') %> <%= @minimum_password_length %> <%= t('.characters') %>)</em>
-    <% end %><br />
+      <em>(<%= t('.minimum', count: @minimum_password_length) %>)</em><br/>
+    <% end %>
+
     <%= f.password_field :password, autocomplete: "new-password", class:"form-control" %>
   </div>
 

@@ -1,0 +1,56 @@
+pt-BR:
+  devise:
+    confirmations:
+      new:
+        title: 'Comfirme seu email'
+        confirmation: 'Re-envie email de comfirmação'
+
+    mailer:
+      confirmation_instructions:
+      email_changed:
+      password_change:
+      reset_password_instructions:
+      unlock_instructions:
+
+    passwords:
+      new:
+        title: 'Esqueci minha senha'
+        send_reset_instructions: 'Recuperar conta'
+      edit:
+        title: 'Mude sua senha'
+        min_chars: 'caracteres no mínimo.'
+        change_password: 'Mudar minha senha'
+
+    registrations:
+      edit:
+        title: 'Atualize seus dados'
+        ignore_to_not_change: 'deixe em branco se não quiser alterar'
+        password_to_comfirm: 'informe sua senha para confirmar as alterações'
+        minimum: 'Mínimo de %{count} caracteres'
+        cancel_account: 'Apagar conta'
+        waiting_confirmation: 'Aguardando confirmação para: %{email}'
+        u_sure: Tem certeza?
+        update: 'Atualizar'
+        back: 'Voltar'
+      new:
+        title: 'Junte-se a nós!'
+        sign_up: 'Registrar'
+        minimum: 'Mínimo de %{count} caracteres'
+
+    sessions:
+      new:
+        title: 'Acesse sua conta'
+        login: 'Entrar'
+        remember_me: 'Lembre-se de mim'
+
+    shared:
+      links:
+        login: 'Entrar'
+        sign_up: 'Criar conta'
+        forgot_pass: 'Esqueci minha senha'
+        no_confirm_briefs: 'Não recebeu as instruções de confirmação?'
+        no_unblock_briefs: 'Não recebeu as instruções de desbloqueio?'
+        login_with: 'Entrar com %{omni}'
+
+    unlocks:
+      new:
