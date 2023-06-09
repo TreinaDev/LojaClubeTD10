@@ -1,3 +1,6 @@
 pt-BR:
-  log_out: Sair
-  adm_tag: administrador
+  log_out: 'Sair'
+  login: 'Entrar'
+  create_account: 'Criar conta'
+  adm_tag: 'administrador'
+  submit: 'Enviar'

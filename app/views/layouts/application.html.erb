@@ -8,27 +8,18 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= favicon_link_tag asset_path('favicon-32x32.png') %>
   </head>
-
+  
   <body>
-    <div class="container mt-3">
-      <% if user_signed_in? && current_user.admin? %>
-        <p><%= t('adm_tag') %></p>
-      <% end %>
-
-      <% if flash.any? %>
-        <% flash.each do |type, msg| %>
-          <div class=”alert alert-<%= type %>”>
-            <%= msg %>
-          </div>
-        <% end %>
-      <% end %>
-
-      <% if user_signed_in? %>
-        <%= button_to t('log_out'), destroy_user_session_path, method: :delete, class:"btn btn-danger" %>
-      <% end %>
-
+    <header>
+      <%= render 'navbar', locals: { product_categories: @product_categories } %>
+    </header>
+    
+    <main>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
       <%= yield %>
-    </div>
+    </main>
   </body>
 </html>

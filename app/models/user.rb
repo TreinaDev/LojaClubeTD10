@@ -16,11 +16,7 @@ class User < ApplicationRecord
   private
 
   def define_role
-    self.role = if email.present? && email.match(/\A[\w.+-]+@punti.com/)
-                  :admin
-                else
-                  :common
-                end
+    self.role = email.present? && email.match(/\A[\w.+-]+@punti.com/) ? :admin : :common
   end
 
   def check_phone_number_length
