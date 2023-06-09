@@ -13,30 +13,7 @@
   
   <body>
     <header>
-      <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-          <%= link_to 'Loja do Clube', root_path, class: 'navbar-brand' %>
-
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Categorias
-            </button>
-            <ul class="dropdown-menu">
-              <% @product_categories.each do |pc| %>  
-                <li><a class="dropdown-item" href="#"><%= pc.name %></a></li>
-              <% end %>
-            </ul>
-          </div>    
-          <div class="d-flex gap-2">
-            <% if user_signed_in? %>
-              <%= link_to I18n.t(:customer_area), customer_area_index_path, class: 'btn btn-secondary' %>      
-              <%= button_to I18n.t(:logout), destroy_user_session_path, method: :delete, class: 'btn btn-info' %>
-            <% else %>
-              <%= link_to I18n.t(:login), new_user_session_path, class: 'nav-link' %>
-            <% end %>    
-          </div>
-        </div>
-      </nav>
+      <%= render 'navbar', locals: { product_categories: @product_categories } %>
     </header>
     <main>
       <p class="notice"><%= notice %></p>

@@ -11,7 +11,7 @@ describe 'Usuário visita homepage' do
   it 'e vê uma barra de navegação' do
     visit root_path
 
-    expect(page).to have_button 'Categorias'
+    expect(page).to have_link 'Categorias'
     expect(page).to have_link 'Entrar', href: new_user_session_path
     expect(page).not_to have_link 'Área do Cliente'
     expect(page).to have_css 'nav'
