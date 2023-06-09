@@ -29,4 +29,11 @@ describe 'Usuário visita homepage' do
     expect(page).to have_content 'Camiseta Vermelha'
     expect(page).to have_content '701 Pontos'
   end
+
+  it 'e vê menssagem caso não tenha produtos disponíveis' do
+    visit root_path
+
+    expect(page).to have_content 'Produtos'
+    expect(page).to have_content 'Nenhum produto disponível no momento'
+  end
 end
