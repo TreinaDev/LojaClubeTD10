@@ -8,7 +8,7 @@ describe 'Administrador cadastra produto' do
     visit new_product_path
 
     within 'form' do
-      attach_file 'Fotos do produto', Rails.root.join('app/assets/images/TV.jpg')
+      attach_file 'Fotos do produto', Rails.root.join('spec/support/imgs/TV.jpg')
       fill_in 'Nome', with: 'TV 42'
       fill_in 'Código', with: 'ABC123456'
       fill_in 'Descrição', with: 'Descrição para o produto'
