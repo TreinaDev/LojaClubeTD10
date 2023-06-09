@@ -1,1 +1,67 @@
-<h1>Área do Cliente</h1>
+
+<div class=".container-lg text-center">
+  <h1>Área do Cliente</h1>
+  <div class="row">
+    <div class="col-4">
+      <div class="row">
+        <%= link_to 'Minha Conta', root_path %>
+      </div>
+      <div class="row">
+        <%= link_to 'Meus Pedidos', root_path %>
+      </div>
+      <div class="row">
+        <%= link_to 'Endereços Cadastrados', root_path %>
+      </div>
+      <div class="row">
+        <%= link_to 'Meus Dados', root_path %>
+      </div>
+      <div class="row">
+        <%= link_to 'Produtos Favoritos', root_path %>
+      </div>
+    </div>
+    <div class="col-8">
+      <div class="row">
+        <h3>Minha Conta</h3>
+        <p>José Cicrano Fulano</p>
+        <p>jose@gmail.com</p>
+      </div>
+      <div class="row">
+      <h3>Endereços Cadastrados</h3>
+        <div>
+          <h4>Endereço Padrão</h4>
+          <p>José Cicrano Fulano</p>
+          <p>Rua dos Bobos, 0</p>
+          <p>São Paulo, SP, 15000-000</p>
+          <p>Telefone: (11) 99992-3132</p>
+        </div>
+      </div>
+      <div class="row">
+        <h3>Pedidos Recentes</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Pedido</th>
+              <th scope="col">Data</th>
+              <th scope="col">Valor</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">123456</th>
+              <td>01/01/2021</td>
+              <td>R$ 100,00</td>
+              <td>Entregue</td>
+            </tr>
+            <tr>
+              <th scope="row">123456</th>
+              <td>01/01/2021</td>
+              <td>R$ 100,00</td>
+              <td>Entregue</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
