@@ -1,0 +1,39 @@
+pt-BR:
+  activerecord:
+    models:
+      user:
+        one: 'Usuário'
+        other: 'Usuários'
+    attributes:
+      user:
+        email: 'E-mail'
+        password: 'Senha'
+        password_confirmation: 'Confirme a senha'
+        phone_number: 'Número de telefone'
+        name: 'Nome'
+        cpf: 'CPF'
+        phone_number: 'Número de telefone'
+        current_password: 'Senha atual'
+
+    errors:
+        models:
+          user:
+            attributes:
+              cpf:
+                invalid: 'inválido.'
+                unpermitted_chars: 'deve conter apenas números.'
+                out_of_range: 'deve conter 11 números.'
+                changes_unpermited: 'não pode ser alterado!'
+              phone_number:
+                out_of_range: 'deve conter 11 números.'
+  users:
+    show:
+      my_account: 'Minha Conta'
+      my_orders: 'Meus Pedidos'
+      my_infos: 'Minhas Informações'
+      adresses: 'Endereços Cadastrados'
+      default_adresses: 'Endereço Padrão'
+      product_favorites: 'Produtos Favoritos'
+      recent_orders: 'Pedidos Recentes'
+      update_phone: 'Atualizar Contato'
+      fail: 'Você não tem acesso a essa página'

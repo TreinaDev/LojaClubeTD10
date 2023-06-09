@@ -8,4 +8,8 @@ Rails.application.routes.draw do
       patch :reactivate
     end
   end
+  resources :products, only: [:new, :create, :show, :index, :edit, :update]
+
+  resources :customer_areas, only: [:index]
+  get "me", to: "customer_areas#me"
 end

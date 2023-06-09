@@ -1,0 +1,19 @@
+<div class="container-lg text-center pt-3 pe-4 ps-4">
+  <h1 class="mb-1 fw-bold"><%= t(:client_area) %></h1>
+  <div class="mb-4 mt-4">
+
+  <%= render 'nav-tab' %>
+
+    <div class="col-lg col-sm-12 text-start fs-4">
+      <div class="row">
+        <h3 class="fw-bold"><%= User.human_attribute_name(:name)%></h3>
+        <p><%= @user.name %></p>
+        <h3 class="fw-bold"><%= User.human_attribute_name(:email)%></h3>
+        <p><%= @user.email %></p>
+        <h3 class="fw-bold"><%= User.human_attribute_name(:cpf)%></h3>
+        <p><%= @user.formatted_cpf %></p>
+        <h3 class="fw-bold"><%= User.human_attribute_name(:phone_number)%></h3>
+        <p><%= @user.formatted_phone %></p>
+        <p><%= link_to t('.update_phone'), root_path, class: "link-offset-2 link-underline link-underline-opacity-0" %></p>
+      </div>
+</div>  

@@ -1,6 +1,8 @@
 FactoryBot.define do
   factory :product_category do
-    name { 'Categoria Teste' }
+    sequence :name do |n|
+      "Categoria Teste #{n}"
+    end
     active { true }
   end
 end
