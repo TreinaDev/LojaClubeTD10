@@ -12,6 +12,7 @@ class User < ApplicationRecord
   validates :cpf, cpf: true
   validate :check_phone_number_length, if: :phone_number_changed?
   validates :cpf, uniqueness: true
+  validate :cpf_changed_block, if: :cpf_changed?, on: :update
 
   private
 
@@ -23,5 +24,9 @@ class User < ApplicationRecord
     return if phone_number.length == 11
 
     errors.add(:phone_number, :out_of_range)
+  end
+
+  def cpf_changed_block
+    errors.add(:cpf, :changes_unpermited)
   end
 end

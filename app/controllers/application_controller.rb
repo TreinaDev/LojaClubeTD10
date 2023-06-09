@@ -1,4 +1,4 @@
-class ApplicationController < ActionController::BaseZ
+class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :load_product_categories
 

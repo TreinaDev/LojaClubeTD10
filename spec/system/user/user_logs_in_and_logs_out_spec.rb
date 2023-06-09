@@ -6,9 +6,11 @@ describe 'Usuário entra no sistema' do
 
     visit new_user_session_path
 
-    fill_in 'E-mail', with: 'zezinho@mail.com'
-    fill_in 'Senha', with: 'f4k3p455w0rd'
-    click_on 'Entrar'
+    within 'form' do
+      fill_in 'E-mail', with: 'zezinho@mail.com'
+      fill_in 'Senha', with: 'f4k3p455w0rd'
+      click_on 'Entrar'
+    end
 
     expect(page).to have_content 'Logado com sucesso.'
     expect(page).to have_button 'Sair'
@@ -18,10 +20,11 @@ describe 'Usuário entra no sistema' do
     FactoryBot.create(:user, email: 'zezinho@mail.com', password: 'f4k3p455w0rd')
 
     visit new_user_session_path
-
-    fill_in 'E-mail', with: 'zezezinho@mail.com'
-    fill_in 'Senha', with: 'f4k3p455w0rd'
-    click_on 'Entrar'
+    within 'form' do
+      fill_in 'E-mail', with: 'zezezinho@mail.com'
+      fill_in 'Senha', with: 'f4k3p455w0rd'
+      click_on 'Entrar'
+    end
 
     expect(current_path).to eq new_user_session_path
     expect(page).to have_content 'E-mail ou senha inválidos.'
@@ -35,6 +38,6 @@ describe 'Usuário entra no sistema' do
     visit root_path
     click_on 'Sair'
 
-    expect(page).to have_content 'Até breve!.'
+    expect(page).to have_content 'Até breve!'
   end
 end

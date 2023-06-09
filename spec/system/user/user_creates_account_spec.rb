@@ -31,6 +31,6 @@ describe 'Usuário entra no sistema' do
     click_on 'Registrar'
 
     expect(current_path).to eq root_path
-    expect(page).to have_content 'administrador'
+    expect(page).to have_content '(ADMIN)'
   end
 end

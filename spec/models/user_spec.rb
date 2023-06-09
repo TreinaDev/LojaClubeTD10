@@ -53,6 +53,16 @@ RSpec.describe User, type: :model do
       expect(second_user.errors[:cpf]).to include 'já está em uso'
     end
 
+    it 'CPF não pode ser alterado' do
+      user = FactoryBot.create(:user, cpf: '10996176004')
+
+      user.cpf = '46353096062'
+      user.valid?
+
+      expect(user.errors[:cpf]).to include 'não pode ser alterado!'
+      expect(user.errors[:cpf].count).to eq 1
+    end
+
     it 'Tamanho do número de telefone' do
       user = FactoryBot.build(:user, phone_number: '12345')
 
