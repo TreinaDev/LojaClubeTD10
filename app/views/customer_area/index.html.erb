@@ -1,25 +1,8 @@
-
 <div class="container-lg text-center pt-3 pe-4 ps-4">
   <h1 class="mb-1 fw-bold"><%= t(:client_area) %></h1>
   <div class="mb-4 mt-4">
-    <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <%= link_to t('.my_account'), customer_area_index_path, class: 'nav-link active' %>
-      </li>
-      <li class="nav-item">
-        <%= link_to t('.my_orders'), root_path, class: 'nav-link' %>
-      </li>
-      <li class="nav-item">
-        <%= link_to t('.adresses'), root_path, class: 'nav-link' %>
-      </li>
-      <li class="nav-item">
-        <%= link_to t('.my_infos'), root_path, class: 'nav-link' %>
-      </li>
-      <li class="nav-item">
-        <%= link_to t('.product_favorites'), root_path, class: 'nav-link' %>
-      </li>
-    </ul>
-  </div> 
+
+  <%= render 'nav-tab' %>
     
     <div class="col-lg col-sm-12 text-start fs-4">
       <div class="row">

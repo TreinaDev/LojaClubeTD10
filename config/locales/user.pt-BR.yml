@@ -1,6 +1,15 @@
 pt-BR:
-  customer_area:
-    index:
+  activerecord:
+    models:
+      user: "Usuário"
+    attributes:
+      user:
+        name: "Nome"    
+        cpf: "CPF"    
+        email: "Email"    
+        phone_number: "Telefone"    
+  user:
+    show:
       my_account: "Minha Conta"
       my_orders: "Meus Pedidos"
       my_infos: "Minhas Informações"
@@ -8,10 +17,5 @@ pt-BR:
       default_adresses: "Endereço Padrão"
       product_favorites: "Produtos Favoritos"
       recent_orders: "Pedidos Recentes"
-    nav-tab:  
-      my_account: "Minha Conta"
-      my_orders: "Meus Pedidos"
-      my_infos: "Minhas Informações"
-      adresses: "Endereços Cadastrados"
-      product_favorites: "Produtos Favoritos"
-      
+      update_phone: "Atualizar Contato"
+   

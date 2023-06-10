@@ -16,23 +16,25 @@ describe 'Usuário visita área do cliente' do
 
     expect(page).to have_content 'Área do Cliente'
   end
+  context 'e estando logado' do
+    it 'vê a área do cliente' do
+      user = FactoryBot.create(:user, name: 'José', email: 'jose@gmail.com', password: 'jose1234', cpf: '60789974088',
+                                      phone_number: '8599923132')
 
-  it 'e vê a área do cliente' do
-    user = FactoryBot.create(:user, name: 'José', email: 'jose@gmail.com', password: 'jose1234', cpf: '60789974088',
-                                    phone_number: '99923132')
+      login_as(user)
+      visit root_path
+      click_on 'Área do Cliente'
 
-    login_as(user)
-    visit root_path
-    click_on 'Área do Cliente'
-
-    expect(current_path).to eq customer_area_index_path
-    expect(page).to have_content 'José'
-    expect(page).to have_content 'jose@gmail.com'
-    expect(page).to have_content '99923132'
-    expect(page).to have_content 'Pedidos Recentes'
-    expect(page).to have_link 'Endereços Cadastrados'
-    expect(page).to have_link 'Meus Pedidos'
-    expect(page).to have_link 'Produtos Favoritos'
-    expect(page).to have_link 'Minha Conta'
+      expect(current_path).to eq customer_area_index_path
+      expect(page).to have_content 'José'
+      expect(page).to have_content 'jose@gmail.com'
+      expect(page).to have_content '8599923132'
+      expect(page).to have_content 'Pedidos Recentes'
+      expect(page).to have_link 'Minhas Informações'
+      expect(page).to have_link 'Endereços Cadastrados'
+      expect(page).to have_link 'Meus Pedidos'
+      expect(page).to have_link 'Produtos Favoritos'
+      expect(page).to have_link 'Minha Conta'
+    end
   end
 end

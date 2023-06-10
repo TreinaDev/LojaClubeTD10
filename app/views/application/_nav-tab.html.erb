@@ -1,0 +1,18 @@
+    <ul class="nav nav-tabs fs-5">
+      <li class="nav-item">
+        <%= nav_link_to(t('my_account'), customer_area_index_path) %>
+      </li>
+      <li class="nav-item">
+        <%= nav_link_to(t('my_orders'), root_path) %>
+      </li>
+      <li class="nav-item">
+        <%= nav_link_to(t('adresses'), root_path) %>
+      </li>
+      <li class="nav-item">
+        <%= nav_link_to(t('my_infos'), user_path(current_user.id)) %>
+      </li>
+      <li class="nav-item">
+        <%= nav_link_to(t('product_favorites'), root_path) %>
+      </li>
+    </ul>
+  </div> 

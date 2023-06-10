@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   root "home#index"
 
   resources :customer_area, only: [:index]
+  resources :user, only: [:show]
 end

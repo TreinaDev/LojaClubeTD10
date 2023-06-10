@@ -14,10 +14,18 @@ module ApplicationHelper
     end
   end
 
+  def nav_link_to(text, url)
+    if current_page?(url)
+      link_to(text, url, class: 'nav-link active')
+    else
+      link_to(text, url, class: 'nav-link')
+    end
+  end
+
   private
 
   def logged_user_navbar
-    "<li class='nav-item'> #{link_to(user_info, edit_user_registration_path, class: 'nav-link')} </li>" \
+    "<li class='navbar-text'> <span> #{user_info} </span> </li>" \
     "<li class='nav-item'> #{button_to(t(:logout), destroy_user_session_path, method: :delete, class: 'nav-link')}" \
     '</li>' \
     "<li class='nav-item'> #{link_to(t(:client_area), customer_area_index_path, class: 'nav-link')}" \
