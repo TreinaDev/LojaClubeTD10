@@ -17,7 +17,7 @@ describe 'Usuário visita homepage' do
   end
 
   it 'e vê os produtos listados' do
-    category = ProductCategory.create!(name: 'Camisetas')
+    category = FactoryBot.create(:product_category, name: 'Camisetas')
     FactoryBot.create(:product, name: 'Camiseta Azul', price: 800, product_category: category)
     FactoryBot.create(:product, name: 'Camiseta Vermelha', price: 701, product_category: category)
 
