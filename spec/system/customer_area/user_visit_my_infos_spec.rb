@@ -8,6 +8,16 @@ describe 'Usuário visita minhas informações' do
     login_as(user)
     visit root_path
     click_on 'Área do Cliente'
+
+    expect(page).to have_link 'Minhas Informações'
+  end
+  it 'com sucesso' do
+    user = FactoryBot.create(:user, name: 'José', email: 'jose@gmail.com', password: 'jose1234', cpf: '60789974088',
+                                    phone_number: '85999923132')
+
+    login_as(user)
+    visit root_path
+    click_on 'Área do Cliente'
     click_on 'Minhas Informações'
 
     expect(current_path).to eq user_path(user.id)
@@ -20,5 +30,15 @@ describe 'Usuário visita minhas informações' do
     expect(page).to have_content 'Telefone'
     expect(page).to have_content '(85)99992-3132'
     expect(page).to have_link 'Atualizar Contato'
+  end
+  it 'e apenas do seu usuário' do
+    user1 = FactoryBot.create(:user)
+    user2 = FactoryBot.create(:user, name: 'José', email: 'jose@gmail.com', password: 'jose1234', cpf: '60789974088',
+                                     phone_number: '85999923132')
+    login_as(user2)
+    visit user_path(user1.id)
+
+    expect(current_path).to eq root_path
+    expect(page).to have_content 'Você não tem acesso a essa página'
   end
 end
