@@ -20,7 +20,7 @@ module ApplicationHelper
     "<li class='nav-item'> #{link_to(user_info, edit_user_registration_path, class: 'nav-link')} </li>" \
     "<li class='nav-item'> #{button_to(t(:logout), destroy_user_session_path, method: :delete, class: 'nav-link')}" \
     '</li>' \
-    "<li class='nav-item'> #{link_to(t(:customer_area), customer_area_index_path, class: 'nav-link')}" \
+    "<li class='nav-item'> #{link_to(t(:client_area), customer_area_index_path, class: 'nav-link')}" \
     '</li>'.html_safe
   end
 end

@@ -1,42 +1,46 @@
 
-<div class=".container-lg text-center">
-  <h1>Área do Cliente</h1>
+<div class="container-lg text-center pt-3 pe-4 ps-4">
+  <h1 class="mb-5 fw-bold"><%= t(:client_area) %></h1>
   <div class="row">
-    <div class="col-4">
-      <div class="row">
-        <%= link_to 'Minha Conta', root_path %>
-      </div>
-      <div class="row">
-        <%= link_to 'Meus Pedidos', root_path %>
-      </div>
-      <div class="row">
-        <%= link_to 'Endereços Cadastrados', root_path %>
-      </div>
-      <div class="row">
-        <%= link_to 'Meus Dados', root_path %>
-      </div>
-      <div class="row">
-        <%= link_to 'Produtos Favoritos', root_path %>
+    <div class="col-lg-4 col-sm-12 text-start fs-4 p-1">
+      <div class="card">
+        <div class="list-group list-group-flush">
+          <div class="list-group-item">
+            <%= link_to t('.my_account'), root_path, class: 'nav-link active' %>
+          </div>
+          <div class="list-group-item">
+            <%= link_to t('.my_orders'), root_path %>
+          </div>
+          <div class="list-group-item">
+            <%= link_to t('.adresses'), root_path %>
+          </div>
+          <div class="list-group-item">
+            <%= link_to t('.my_infos'), root_path %>
+          </div>
+          <div class="list-group-item">
+            <%= link_to t('.product_favorites'), root_path %>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-8">
+    
+    <div class="col-lg-8 col-sm-12 text-start fs-4">
       <div class="row">
-        <h3>Minha Conta</h3>
-        <p>José Cicrano Fulano</p>
-        <p>jose@gmail.com</p>
+        <h3 class="fw-bold"><%= t('.my_account')%></h3>
+        <p><%= current_user.name %></p>
+        <p><%= current_user.email %></p>
       </div>
       <div class="row">
-      <h3>Endereços Cadastrados</h3>
+      <h3 class="fw-bold"><%= t('.adresses') %></h3>
         <div>
-          <h4>Endereço Padrão</h4>
-          <p>José Cicrano Fulano</p>
+          <h4 class="fw-bold"><%=t('.default_adresses')%></h4>
           <p>Rua dos Bobos, 0</p>
           <p>São Paulo, SP, 15000-000</p>
-          <p>Telefone: (11) 99992-3132</p>
+          <p><%= current_user.phone_number %></p>
         </div>
       </div>
       <div class="row">
-        <h3>Pedidos Recentes</h3>
+        <h3 class="fw-bold"><%= t('.recent_orders')%></h3>
         <table class="table">
           <thead>
             <tr>

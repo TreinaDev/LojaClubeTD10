@@ -1,0 +1,11 @@
+pt-BR:
+  customer_area:
+    index:
+      my_account: "Minha Conta"
+      my_orders: "Meus Pedidos"
+      my_infos: "Meus dados"
+      adresses: "Endereços Cadastrados"
+      default_adresses: "Endereço Padrão"
+      product_favorites: "Produtos Favoritos"
+      recent_orders: "Pedidos Recentes"
+      

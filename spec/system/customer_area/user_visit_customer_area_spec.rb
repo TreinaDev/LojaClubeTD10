@@ -26,9 +26,10 @@ describe 'Usuário visita área do cliente' do
     click_on 'Área do Cliente'
 
     expect(current_path).to eq customer_area_index_path
-    expect(page).to have_content 'José Cicrano Fulano'
+    expect(page).to have_content 'José'
     expect(page).to have_content 'jose@gmail.com'
-    expect(page).to have_content '(11) 99992-3132'
+    expect(page).to have_content '99923132'
+    expect(page).to have_content 'Pedidos Recentes'
     expect(page).to have_link 'Endereços Cadastrados'
     expect(page).to have_link 'Meus Pedidos'
     expect(page).to have_link 'Produtos Favoritos'

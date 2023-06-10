@@ -2,6 +2,6 @@ pt-BR:
   login: "Entrar"
   logout: "Sair"
   submit: "Enviar"
-  customer_area: "Área do Cliente"
   create_account: "Criar conta"
+  client_area: "Área do Cliente"
   
