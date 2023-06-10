@@ -1,10 +1,6 @@
 <div class="container-lg">
 <h4>Produtos</h4>
 
-<div style = "max-width: 200px; max-heigth: 400px;" >
-  <%= render 'carousel' %>
-</div>
-
 <div class="row">
   <% if @products.any? %>
     <% @products.each do |product| %>
