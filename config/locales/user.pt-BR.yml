@@ -18,4 +18,5 @@ pt-BR:
       product_favorites: "Produtos Favoritos"
       recent_orders: "Pedidos Recentes"
       update_phone: "Atualizar Contato"
+      fail: "Você não tem acesso a essa página"
    

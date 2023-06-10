@@ -5,7 +5,7 @@ class UserController < ApplicationController
     if user_id.to_i == current_user.id
       @user = User.find(user_id)
     else
-      redirect_to root_path, alert: "Você não tem acesso a essa página"
+      redirect_to root_path, alert: t('.fail')
     end
   end
 end
