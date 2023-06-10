@@ -1,8 +1,11 @@
 pt-BR:
   products:
     create:
-      product_success: 'Produto cadastrado com sucesso.'
-      product_fail: 'Não foi possível cadastrar o produto.'
+      product_success: 'Produto cadastrado com sucesso'
+      product_fail: 'Não foi possível cadastrar o produto'
+    update:
+      product_success: 'Produto alterado com sucesso'
+      product_fail: 'Não foi possível alterar o produto'
   activerecord:
     models:
       product: Produto

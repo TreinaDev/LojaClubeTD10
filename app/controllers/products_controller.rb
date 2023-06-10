@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   include ActiveSupport::NumberHelper
 
-  before_action :set_product, only: [:show]
+  before_action :set_product, only: %i[show edit update]
 
   def index
     @products = Product.all
@@ -14,15 +14,29 @@ class ProductsController < ApplicationController
     @categories = ProductCategory.all
   end
 
+  def edit
+    @categories = ProductCategory.all
+  end
+
   def create
     @product = Product.new(product_params)
 
     if @product.save
-      redirect_to product_path(@product.id), notice: t('.product_success')
+      redirect_to product_path(@product), notice: t('.product_success')
     else
       @categories = ProductCategory.all
       flash.now[:alert] = t('.product_fail')
       render :new
+    end
+  end
+
+  def update
+    if @product.update(product_params)
+      redirect_to product_path(@product), notice: t('.product_success')
+    else
+      @categories = ProductCategory.all
+      flash.now[:alert] = t('.product_fail')
+      render :edit
     end
   end
 

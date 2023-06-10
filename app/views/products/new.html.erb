@@ -1,36 +1,5 @@
-<h1>Produtos</h1>
-<div class="container div-max-width">
-  <%= form_with(model: @product) do |f| %>
-    <div class="mb-3">
-      <%= f.label :product_images, class: 'form-label' %>
-      <%= f.file_field :product_images, multiple: true, class: 'form-control mb-2', type: 'file' %>
-    </div>
-    <div class="mb-3">
-      <%= f.label :name %>
-      <%= f.text_field :name, class: 'form-control mb-2' %>
-    </div>
-    <div class="mb-3">
-    <%= f.label :code %>
-    <%= f.text_field :code, class: 'form-control mb-2'  %>
-  </div>
-    <div class="mb-3">
-      <%= f.label :description %>
-      <%= f.text_area :description, class: 'form-control mb-2'  %>
-    </div>
-    <div class="mb-3">
-      <%= f.label :brand %>
-      <%= f.text_field :brand, class: 'form-control mb-2'  %>
-    </div>
-    <div class="mb-3">
-      <%= f.label :price %>
-      <%= f.number_field :price , class: 'form-control mb-2' %>
-    </div>
-    <div class="mb-3">
-      <%= f.label :product_category_id %>
-      <%= f.collection_select(:product_category_id, @categories, :id, :name , { prompt: 'Selecione' }, { class: 'form-control mb-2'}) %>
-    </div>
-    <div class="mb-3">
-      <%= f.submit 'Cadastrar', class: 'btn btn-secondary  mt-2' %>
-    </div>
-  <% end %>
+<div class="container shadow p-2 mb-4 bg-body-tertiary rounded">
+  <h5 class="text-center">Cadastrar Produto</h5>
 </div>
+
+<%= render 'form', product: @product, categories: @categories %>

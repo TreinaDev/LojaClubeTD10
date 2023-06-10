@@ -18,6 +18,7 @@
         <tr class="text-center">
           <td><%= link_to product.code, product_path(product), class: "link-secondary" %></td>
           <td><%= product.name %></td>
+          <td><%= link_to 'Editar', edit_product_path(product), class: 'btn btn-outline-secondary btn-sm', id: dom_id(product) %></td>
         </tr>
       <% end %>
     </tbody>

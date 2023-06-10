@@ -48,6 +48,10 @@ describe 'Administrador cadastra produto' do
       click_on 'Cadastrar'
     end
 
-    expect(page).to have_content 'Não foi possível cadastrar o produto.'
+    expect(page).to have_content 'Não foi possível cadastrar o produto'
+    expect(page).to have_content 'Nome não pode ficar em branco'
+    expect(page).to have_content 'Código não pode ficar em branco'
+    expect(page).to have_content 'Descrição não pode ficar em branco'
+    expect(page).to have_content 'Marca não pode ficar em branco'
   end
 end
