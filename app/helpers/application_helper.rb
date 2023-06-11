@@ -28,7 +28,9 @@ module ApplicationHelper
     "<li class='navbar-text'> <span> #{user_info} </span> </li>" \
     "<li class='nav-item'> #{button_to(t(:logout), destroy_user_session_path, method: :delete, class: 'nav-link')}" \
     '</li>' \
-    "<li class='nav-item'> #{link_to(t(:client_area), customer_area_index_path, class: 'nav-link')}" \
+    "<li class='nav-item'>" \
+    "#{link_to(raw("<i class='bi bi-person-circle'></i> #{t(:client_area)}"), customer_area_index_path,
+               class: 'nav-link')}" \
     '</li>'.html_safe
   end
 end

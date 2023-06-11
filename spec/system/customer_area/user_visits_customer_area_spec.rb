@@ -13,6 +13,7 @@ describe 'Usuário visita área do cliente' do
     login_as(user)
     visit root_path
 
+    expect(page).to have_css 'i.bi.bi-person-circle'
     expect(page).to have_content 'Área do Cliente'
   end
   context 'e estando logado' do
