@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 describe 'Usuário visita minhas informações' do
+  it 'apenas estando autenticado' do
+    user = FactoryBot.create(:user)
+
+    visit user_path(user.id)
+
+    expect(current_path).to eq new_user_session_path
+    expect(page).to have_content 'Você precisa fazer login ou se registrar antes de continuar'
+  end
   it 'a partir do link na Área do Cliente' do
     user = FactoryBot.create(:user, name: 'José', email: 'jose@gmail.com', password: 'jose1234', cpf: '60789974088',
                                     phone_number: '85999923132')

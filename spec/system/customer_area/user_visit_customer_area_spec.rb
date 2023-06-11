@@ -5,9 +5,8 @@ describe 'Usuário visita área do cliente' do
     visit customer_area_index_path
 
     expect(current_path).to eq new_user_session_path
-    expect(page).to have_content('Você precisa fazer login ou se registrar antes de continuar')
+    expect(page).to have_content 'Você precisa fazer login ou se registrar antes de continuar'
   end
-
   it 'a partir de um link na barra de navegação' do
     user = FactoryBot.create(:user, name: 'José', email: 'jose@gmail.com', password: 'jose1234')
 
