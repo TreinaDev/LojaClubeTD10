@@ -1,5 +1,6 @@
 class UserController < ApplicationController
   before_action :authenticate_user!, only: [:show]
+  before_action :prevent_admin, only: [:show]
   def show
     user_id = params[:id]
     if user_id.to_i == current_user.id

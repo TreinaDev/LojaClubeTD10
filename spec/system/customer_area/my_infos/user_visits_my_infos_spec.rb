@@ -39,7 +39,7 @@ describe 'Usuário visita minhas informações' do
     expect(page).to have_content '(85)99992-3132'
     expect(page).to have_link 'Atualizar Contato'
   end
-  it 'e apenas do seu usuário' do
+  it 'e não consegue ver de outro usuário' do
     user1 = FactoryBot.create(:user)
     user2 = FactoryBot.create(:user, name: 'José', email: 'jose@gmail.com', password: 'jose1234', cpf: '60789974088',
                                      phone_number: '85999923132')
