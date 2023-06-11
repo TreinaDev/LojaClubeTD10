@@ -1,6 +1,6 @@
 module ApplicationHelper
   def carousel_item(index)
-    if index == 0
+    if index.zero?
       "class='carousel-item active'".html_safe
     else
       "class='carousel-item'".html_safe

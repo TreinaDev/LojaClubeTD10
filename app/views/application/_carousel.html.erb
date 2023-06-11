@@ -8,10 +8,11 @@
               <div class="row">
                 <% product_array.each do |product| %>
                   <div class= "col">
-                    <div class="card" style="width: 15rem;">
-                      <%= image_tag "https://picsum.photos/200", alt: "Nome do produto", class:"card-img-top", style: "width: 100%; height:100%;"%>
+                    <div class="card" style="width: 15rem;" id=<%= product.code %>>
+                      <%= image_tag "https://picsum.photos/200", alt:product.name, class:"card-img-top", style: "width: 100%; height:100%;"%>
                       <div class="card-body">
                         <h5 class="card-title"><%= link_to product.name, root_path %></h5>
+                        <p class="text-truncate mw-2"><%= product.description %></p>
                         <p><%= product.price.round %> Pontos</p>
                       </div>
                     </div>
@@ -21,11 +22,11 @@
             </div>
           <% end %>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target=<%="##{id}"%> data-bs-slide="prev", style="width: 10%">
+        <button class="carousel-control-prev" type="button" data-bs-target=<%="##{id}"%> data-bs-slide="prev" style="width: 10%">
           <span class="carousel-control-prev-icon ms-auto me-auto" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next ms-auto me-auto" type="button" data-bs-target=<%="##{id}"%> data-bs-slide="next", style="width: 10%">
+        <button class="carousel-control-next ms-auto me-auto" type="button" data-bs-target=<%="##{id}"%> data-bs-slide="next" style="width: 10%">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </button>
