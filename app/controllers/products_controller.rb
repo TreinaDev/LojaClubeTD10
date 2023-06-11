@@ -19,7 +19,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(product_params)
+    @product = Product.new(create_params)
 
     if @product.save
       redirect_to product_path(@product), notice: t('.product_success')
@@ -31,7 +31,8 @@ class ProductsController < ApplicationController
   end
 
   def update
-    if @product.update(product_params)
+    if @product.update(update_params)
+      attach_images
       redirect_to product_path(@product), notice: t('.product_success')
     else
       @categories = ProductCategory.all
@@ -42,11 +43,23 @@ class ProductsController < ApplicationController
 
   private
 
+  def attach_images
+    return if params[:product][:product_images].blank?
+
+    params[:product][:product_images].each { |image| @product.product_images.attach(image) }
+  end
+
   def set_product
     @product = Product.find(params[:id])
   end
 
-  def product_params
+  def update_params
+    params
+      .require(:product)
+      .permit(:name, :code, :description, :brand, :price, :product_category_id)
+  end
+
+  def create_params
     params
       .require(:product)
       .permit(:name, :code, :description, :brand, :price, :product_category_id, product_images: [])
