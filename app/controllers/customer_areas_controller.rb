@@ -1,6 +1,6 @@
 class CustomerAreasController < ApplicationController
-  before_action :authenticate_user!, only: [:index]
-  before_action :prevent_admin, only: [:index]
+  before_action :authenticate_user!, only: %i[index me]
+  before_action :prevent_admin, only: %i[index me]
 
   def index; end
 

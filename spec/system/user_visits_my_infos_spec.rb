@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Usuário visita minhas informações' do
   it 'apenas estando autenticado' do
-    visit my_infos_path
+    visit me_path
 
     expect(current_path).to eq new_user_session_path
     expect(page).to have_content 'Você precisa fazer login ou se registrar antes de continuar'
@@ -26,7 +26,7 @@ describe 'Usuário visita minhas informações' do
     click_on 'Área do Cliente'
     click_on 'Minhas Informações'
 
-    expect(current_path).to eq my_infos_path
+    expect(current_path).to eq me_path
     expect(page).to have_content 'Nome'
     expect(page).to have_content 'José'
     expect(page).to have_content 'E-mail'
@@ -41,7 +41,7 @@ describe 'Usuário visita minhas informações' do
     user = FactoryBot.create(:user, name: 'José', email: 'jose@punti.com', role: 1)
 
     login_as(user)
-    visit my_infos_path
+    visit me_path
 
     expect(current_path).to eq root_path
     expect(page).to have_content 'Administrador não tem acesso a essa página'
