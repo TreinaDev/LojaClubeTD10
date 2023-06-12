@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <%= link_to 'Loja do Clube', root_path, class: 'navbar-brand' %>
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Categorias
+        </a>
+        <ul class="dropdown-menu">
+          <% @product_categories.each do |pc| %>
+            <li><a class="dropdown-item" href="#"><%= pc.name %></a></li>
+          <% end %>
+        </ul>
+      </li>
+
+    </ul>
+    <ul class="navbar-nav col-auto mb-2 mb-lg-0">
+      <%= user_links %>
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,71 @@
+pt-BR:
+  devise:
+    confirmations:
+      new:
+        title: 'Comfirme seu email'
+        confirmation: 'Re-envie email de comfirmação'
+
+    mailer:
+      confirmation_instructions:
+        congratulations: 'Bem vindo %{email}!'
+        to_join_us_confirm: 'É um prazer tê-lo conosco! Para finalizar o seu cadastro'
+        confirm_my_acccount: 'Comfirmar minha conta'
+      email_changed:
+        title: 'Olá %{indentifier}!'
+        notify_email_being_changed: 'Estamos contatando você para notificá-lo de que seu email está sendo alterado para %{email}.'
+        notify_email_was_changed: 'Estamos contatando você para notificá-lo de que seu email foi alterado para %{email}.'
+      password_change:
+        title: 'Olá %{indentifier}!'
+        password_change_notification: 'Estamos contatando você para notificá-lo de que sua senha foi alterada.'
+      reset_password_instructions:
+        we_received_request_change: 'Alguém solicitou um link para alterar sua senha. Você pode fazer isso através do link abaixo.'
+        change_password: 'Mudar minha senha'
+        ignore_if_not_request: 'Se você não solicitou isso, ignore este e-mail.'
+        just_changed_through_link: 'Sua senha não mudará até que você acesse o link acima e crie uma nova.'
+      unlock_instructions:
+        title: 'Olá %{indentifier}!'
+        account_locked_notification: 'Sua conta foi bloqueada devido a um número excessivo de tentativas de login sem sucesso.'
+        unlock_account_link: 'Clique no link abaixo para desbloquear sua conta:'
+        unlock_account: 'Desbloquear minha conta'
+    passwords:
+      new:
+        title: 'Esqueci minha senha'
+        send_reset_instructions: 'Recuperar conta'
+      edit:
+        title: 'Mude sua senha'
+        min_chars: 'caracteres no mínimo.'
+        change_password: 'Mudar minha senha'
+
+    registrations:
+      edit:
+        title: 'Atualize seus dados'
+        ignore_to_not_change: 'deixe em branco se não quiser alterar'
+        password_to_comfirm: 'informe sua senha para confirmar as alterações'
+        minimum: 'Mínimo de %{count} caracteres'
+        cancel_account: 'Apagar conta'
+        waiting_confirmation: 'Aguardando confirmação para: %{identifier}'
+        u_sure: Tem certeza?
+        update: 'Atualizar'
+        back: 'Voltar'
+      new:
+        title: 'Junte-se a nós!'
+        sign_up: 'Registrar'
+        minimum: 'Mínimo de %{count} caracteres'
+
+    sessions:
+      new:
+        title: 'Acesse sua conta'
+        login: 'Entrar'
+        remember_me: 'Lembre-se de mim'
+
+    shared:
+      links:
+        login: 'Entrar'
+        sign_up: 'Criar conta'
+        forgot_pass: 'Esqueci minha senha'
+        no_confirm_briefs: 'Não recebeu as instruções de confirmação?'
+        no_unblock_briefs: 'Não recebeu as instruções de desbloqueio?'
+        login_with: 'Entrar com %{omni}'
+
+    unlocks:
+      new:

@@ -1,0 +1,7 @@
+<p><%= t('.title', indentifier: @resource.email) %></p>
+
+<p><%= t('.account_locked_notification') %></p>
+
+<p><%= t('.unlock_account_link') %></p>
+
+<p><%= link_to t('.unlock_account'), unlock_url(@resource, unlock_token: @token) %></p>
