@@ -19,20 +19,20 @@ RSpec.describe Product, type: :model do
       result = product.errors.include?(:code)
 
       expect(result).to be true
-      expect(product.errors[:code]).to include(' deve ser composto por 3 letras e 6 caracteres.')
+      expect(product.errors[:code]).to include(' deve ser composto por 3 letras e 6 números')
     end
 
-    it 'inválido quando o código não é composto por 3 letras e 6 caracteres' do
+    it 'inválido quando o código não é composto por 3 letras e 6 números' do
       product = Product.new(code: '123YYYYYY')
 
       product.valid?
       result = product.errors.include?(:code)
 
       expect(result).to be true
-      expect(product.errors[:code]).to include(' deve ser composto por 3 letras e 6 caracteres.')
+      expect(product.errors[:code]).to include(' deve ser composto por 3 letras e 6 números')
     end
 
-    it 'inválido quando o código tem menos de 9 caracteres' do
+    it 'inválido quando o código já está em uso' do
       category = ProductCategory.create!(name: 'Eletrônico')
       Product.create!(name: 'TV42', code: 'ABC123456',
                       description: 'Descrição para o produto', brand: 'LG', price: 2500,
@@ -116,7 +116,7 @@ RSpec.describe Product, type: :model do
       expect(result).to be false
     end
 
-    it 'inválido quando o arquivo anexado não for imagem e no o formato JPEG ou PNG' do
+    it 'inválido quando o arquivo anexado não for imagem no formato JPEG ou PNG' do
       product = Product.new
       product.product_images.attach(io: Rails.root.join('spec/support/imgs/Arquivo.txt').open,
                                     filename: 'Arquivo.txt')

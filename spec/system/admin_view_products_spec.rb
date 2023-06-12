@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário acessa index de produtos' do
+describe 'Administrador acessa index de produtos' do
   it 'e vê a lista de produtos' do
     category = ProductCategory.create!(name: 'Eletrônico')
     Product.create!(name: 'TV42',
