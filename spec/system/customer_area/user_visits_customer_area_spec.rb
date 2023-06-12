@@ -7,17 +7,17 @@ describe 'Usuário visita área do cliente' do
     expect(current_path).to eq new_user_session_path
     expect(page).to have_content 'Você precisa fazer login ou se registrar antes de continuar'
   end
-  it 'a partir de um link na barra de navegação' do
-    user = FactoryBot.create(:user, name: 'José', email: 'jose@gmail.com', password: 'jose1234')
+  context 'estando logado' do
+    it 'a partir de um link na barra de navegação' do
+      user = FactoryBot.create(:user, name: 'José', email: 'jose@gmail.com', password: 'jose1234')
 
-    login_as(user)
-    visit root_path
+      login_as(user)
+      visit root_path
 
-    expect(page).to have_css 'i.bi.bi-person-circle'
-    expect(page).to have_content 'Área do Cliente'
-  end
-  context 'e estando logado' do
-    it 'vê a área do cliente' do
+      expect(page).to have_css 'i.bi.bi-person-circle'
+      expect(page).to have_content 'Área do Cliente'
+    end
+    it 'e vê a área do cliente' do
       user = FactoryBot.create(:user, name: 'José', email: 'jose@gmail.com', password: 'jose1234', cpf: '60789974088',
                                       phone_number: '8599923132')
 
