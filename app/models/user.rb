@@ -39,5 +39,4 @@ class User < ApplicationRecord
   def cpf_changed_block
     errors.add(:cpf, :changes_unpermited)
   end
-
 end

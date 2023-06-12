@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :load_product_categories
 
   private
-  
+
   def prevent_admin
     return unless current_user.admin?
 

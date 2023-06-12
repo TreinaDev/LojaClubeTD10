@@ -31,11 +31,11 @@ describe 'Usuário visita minhas informações' do
     expect(current_path).to eq user_path(user.id)
     expect(page).to have_content 'Nome'
     expect(page).to have_content 'José'
-    expect(page).to have_content 'Email'
+    expect(page).to have_content 'E-mail'
     expect(page).to have_content 'jose@gmail.com'
     expect(page).to have_content 'CPF'
     expect(page).to have_content '607.899.740-88'
-    expect(page).to have_content 'Telefone'
+    expect(page).to have_content 'Número de telefone'
     expect(page).to have_content '(85)99992-3132'
     expect(page).to have_link 'Atualizar Contato'
   end
