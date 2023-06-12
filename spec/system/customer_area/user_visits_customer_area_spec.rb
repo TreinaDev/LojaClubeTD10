@@ -36,4 +36,14 @@ describe 'Usuário visita área do cliente' do
       expect(page).to have_link 'Minha Conta'
     end
   end
+  it 'e sendo administrador não consegue' do
+    user_admin = FactoryBot.create(:user, email: 'josé@punti.com', role: 1)
+
+    login_as(user_admin)
+    visit root_path
+    click_on 'Área do Cliente'
+
+    expect(current_path).to eq root_path
+    expect(page).to have_content 'Administrador não tem acesso a essa página'
+  end
 end
