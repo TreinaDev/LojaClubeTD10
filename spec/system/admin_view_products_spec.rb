@@ -34,4 +34,25 @@ describe 'Administrador acessa index de produtos' do
 
     expect(page).to have_link 'Cadastrar Produto'
   end
+
+  it 'como visitante' do
+    visit root_path
+    visit products_path
+
+    expect(current_path).to eq root_path
+    expect(page).not_to have_content 'Produtos'
+    expect(page).to have_content 'Você não possui acesso a este módulo.'
+  end
+
+  it 'como usuário comum' do
+    user = User.create!(name: 'Maria Sousa', email:'maria@provedor.com', password:'senha1234', cpf: '66610881090')
+
+    login_as(user)
+    visit root_path
+    visit products_path
+
+    expect(current_path).to eq root_path
+    expect(page).not_to have_content 'Produtos'
+    expect(page).to have_content 'Você não possui acesso a este módulo.'
+  end
 end

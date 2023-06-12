@@ -54,4 +54,30 @@ describe 'Administrador cadastra produto' do
     expect(page).to have_content 'Descrição não pode ficar em branco'
     expect(page).to have_content 'Marca não pode ficar em branco'
   end
+
+  it 'como visitante' do
+    Category.create!(name: 'Eletrodoméstico')
+
+    visit root_path
+    visit new_product_path
+
+    expect(current_path).to eq root_path
+    expect(page).not_to have_field('Nome')
+    expect(page).not_to have_field('Categoria', with:'Eletrodoméstico')
+    expect(page).to have_content 'Você não possui acesso a este módulo.'
+  end
+
+  it 'como usuário comum' do
+    user = User.create!(name: 'Maria Sousa', email:'maria@provedor.com', password:'senha1234', cpf: '66610881090')
+    Category.create!(name: 'Eletrodoméstico')
+
+    login_as(user)
+    visit root_path
+    visit new_product_path
+
+    expect(current_path).to eq root_path
+    expect(page).not_to have_field('Nome')
+    expect(page).not_to have_field('Categoria', with:'Eletrodoméstico')
+    expect(page).to have_content 'Você não possui acesso a este módulo.'
+  end
 end

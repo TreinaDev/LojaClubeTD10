@@ -77,4 +77,36 @@ describe 'Administrador edita um produto' do
     expect(page).to have_content 'Nome não pode ficar em branco'
     expect(page).to have_content 'Preço não é um número'
   end
+
+  it 'como visitante' do
+    category = ProductCategory.create!(name: 'Eletrônico')
+    product = Product.create!(name: 'TV42',
+                              code: 'ABC123456',
+                              description: 'Descrição para o produto',
+                              brand: 'LG', price: 2500,
+                              product_category: category)
+
+    visit root_path
+    visit edit_product_path(product.id)
+
+    expect(current_path).to eq root_path
+    expect(page).not_to have_field('Nome')
+    expect(page).to have_content 'Você não possui acesso a este módulo'
+  end
+
+  it 'como usuário comum' do
+    user = User.create!(name: 'Maria Sousa', email:'maria@provedor.com', password:'senha1234', cpf: '66610881090')
+    category = ProductCategory.create!(name: 'Eletrônico')
+    product = Product.create!(name: 'TV42',
+                              code: 'ABC123456',
+                              description: 'Descrição para o produto',
+                              brand: 'LG', price: 2500,
+                              product_category: category)
+    login_as(user)
+    visit edit_product_path(product.id)
+
+    expect(current_path).to eq root_path
+    expect(page).not_to have_field('Nome')
+    expect(page).to have_content 'Você não possui acesso a este módulo'
+  end
 end
