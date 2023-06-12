@@ -8,10 +8,10 @@ class User < ApplicationRecord
 
   before_create :define_role
 
-  validates :name, :cpf, :phone_number, presence: true
+  validates :email, :password, :name, :cpf, :phone_number, presence: true
   validates :cpf, cpf: true
-  validate :check_phone_number_length, if: :phone_number_changed?
   validates :cpf, uniqueness: true
+  validate :check_phone_number_length, if: :phone_number_changed?
   validate :cpf_changed_block, if: :cpf_changed?, on: :update
 
   private
