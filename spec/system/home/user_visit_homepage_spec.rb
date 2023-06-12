@@ -18,8 +18,9 @@ describe 'Usuário visita homepage' do
 
   it 'e vê os produtos listados' do
     category = ProductCategory.create!(name: 'Camisetas')
-    FactoryBot.create(:product, name: 'Camiseta Azul', price: 800, product_category: category)
-    FactoryBot.create(:product, name: 'Camiseta Vermelha', price: 701, product_category: category)
+
+    FactoryBot.create(:product, code: 'ABC123456', name: 'Camiseta Azul', price: 800, product_category: category)
+    FactoryBot.create(:product, code: 'ABC654321', name: 'Camiseta Vermelha', price: 701, product_category: category)
 
     visit root_path
 

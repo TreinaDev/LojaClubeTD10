@@ -1,0 +1,21 @@
+pt-BR:
+  products:
+    create:
+      product_success: 'Produto cadastrado com sucesso'
+      product_fail: 'Não foi possível cadastrar o produto'
+    update:
+      product_success: 'Produto alterado com sucesso'
+      product_fail: 'Não foi possível alterar o produto'
+  activerecord:
+    models:
+      product: Produto
+    attributes:
+      product:
+        name: "Nome"
+        code: "Código"
+        description: "Descrição"
+        brand: 'Marca'
+        product_category_id: "Categoria"
+        product_category: "Categoria"
+        price: 'Preço'
+        product_images: 'Fotos do produto'
