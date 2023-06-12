@@ -4,3 +4,4 @@ pt-BR:
   create_account: 'Criar conta'
   adm_tag: 'administrador'
   submit: 'Enviar'
+  unauthorized_action: 'Você não possui permissão para realizar esta ação.'

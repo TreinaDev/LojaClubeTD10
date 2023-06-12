@@ -1,0 +1,14 @@
+pt-BR:
+  activerecord:
+    models:
+      product_category: 'Categoria de produtos'
+    attributes:
+      product_category:
+        name: 'Nome'
+  product_category:
+    create:
+      success: 'Categoria criada com sucesso.'
+      error: 'A categoria não foi salva.'
+    update:
+      success: 'A categoria foi editada com sucesso.'
+      error: 'A categoria não pôde ser editada.'
