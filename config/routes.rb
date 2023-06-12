@@ -6,5 +6,5 @@ Rails.application.routes.draw do
   resources :products, only: [:new, :create, :show, :index, :edit, :update]
 
   resources :customer_areas, only: [:index]
-  resources :my_infos, only: [:index]
+  get "me", to: "customer_areas#me"
 end

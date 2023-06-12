@@ -8,4 +8,6 @@ pt-BR:
       default_adresses: "Endereço Padrão"
       product_favorites: "Produtos Favoritos"
       recent_orders: "Pedidos Recentes"
+    me:
+      update_phone: 'Atualizar Contato'
       
