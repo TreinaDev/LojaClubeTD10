@@ -21,11 +21,11 @@ describe 'Admin registra uma nova categoria' do
   end
 
   it 'e falha pois o nome já existe' do
-    ProductCategory.create!(name: 'Categoria Teste')
+    category = FactoryBot.create(:product_category)
 
     visit product_categories_path
     click_on 'Nova Categoria'
-    fill_in 'Nome', with: 'Categoria Teste'
+    fill_in 'Nome', with: category.name
     click_on 'Criar Categoria de produtos'
 
     expect(page).to have_content 'Nome já está em uso'

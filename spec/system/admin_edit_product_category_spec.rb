@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Admin edita uma categoria' do
   it 'com sucesso' do
-    ProductCategory.create!(name: 'Categoria Teste')
+    category = FactoryBot.create(:product_category)
 
     visit product_categories_path
     click_on 'Editar'
@@ -11,11 +11,11 @@ describe 'Admin edita uma categoria' do
 
     expect(page).to have_content 'A categoria foi editada com sucesso.'
     expect(page).to have_content 'Categoria'
-    expect(page).not_to have_content 'Categoria Teste'
+    expect(page).not_to have_content category.name
   end
 
   it 'e recebe erro pois deixou o nome em branco' do
-    category = ProductCategory.create!(name: 'Categoria Teste')
+    category = FactoryBot.create(:product_category)
 
     visit product_categories_path
     click_on 'Editar'
