@@ -1,0 +1,42 @@
+<% if product.errors.any? %>
+  <dl>
+    <% product.errors.full_messages.each do |msg| %>
+      <dt><%= msg %></dt>
+    <% end %>
+  </dl>
+<% end %>
+<div class="container">
+  <%= form_with(model: product) do |f| %>
+    <div class="mb-3">
+      <%= f.label :product_images, class: 'form-label' %>
+      <%= f.file_field :product_images, multiple: true, class: 'form-control mb-2', type: 'file' %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control mb-2' %>
+    </div>
+    <div class="mb-3">
+    <%= f.label :code %>
+    <%= f.text_field :code, class: 'form-control mb-2'  %>
+  </div>
+    <div class="mb-3">
+      <%= f.label :description %>
+      <%= f.text_area :description, class: 'form-control mb-2'  %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :brand %>
+      <%= f.text_field :brand, class: 'form-control mb-2'  %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :price %>
+      <%= f.number_field :price , class: 'form-control mb-2' %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :product_category_id %>
+      <%= f.collection_select(:product_category_id, categories, :id, :name , { prompt: 'Selecione' }, { class: 'form-control mb-2'}) %>
+    </div>
+    <div class="mb-3">
+      <%= f.submit 'Cadastrar', class: 'btn btn-secondary  mt-2' %>
+    </div>
+  <% end %>
+</div>

@@ -1,6 +1,9 @@
 pt-BR:
-  login: "Entrar"
-  submit: "Enviar"
-  create_account: "Criar conta"
+  log_out: 'Sair'
+  login: 'Entrar'
+  create_account: 'Criar conta'
+  adm_tag: 'administrador'
+  submit: 'Enviar'
+  unauthorized_action: 'Você não possui permissão para realizar esta ação.'
   recent_products: "Produtos Recentes"
   

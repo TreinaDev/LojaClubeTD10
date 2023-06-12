@@ -1,0 +1,12 @@
+<div class="container shadow p-2 mb-4 bg-body-tertiary rounded">
+  <h5 class="text-center">Editar Produto</h5>
+</div>
+<div >
+  <% if @product.product_images.attached? %>
+    <% @product.product_images.each do |image| %>
+      <%= image_tag image.variant(:thumb) %>
+    <% end %>
+  <% end %>
+</div>
+
+<%= render 'form', product: @product, categories: @categories %>
