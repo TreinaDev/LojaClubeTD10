@@ -2,6 +2,8 @@ require 'rails_helper'
 
 describe 'Administrador edita um produto' do
   it 'a partir da listagem de produtos' do
+    user = User.create!(name: 'Usuário Administrador', email: 'admin@punti.com', password: 'senha1234',
+                        phone_number: '19998555544', cpf: '56685728701')
     category = ProductCategory.create!(name: 'Eletrônico')
     Product.create!(name: 'TV42',
                     code: 'ABC123456',
@@ -13,6 +15,7 @@ describe 'Administrador edita um produto' do
                     brand: 'Samsung', price: 3500,
                     product_category: category)
 
+    login_as(user)
     visit products_path
     find_link('Editar', id: 'product_1').click
 
@@ -26,6 +29,8 @@ describe 'Administrador edita um produto' do
   end
 
   it 'com sucesso' do
+    user = User.create!(name: 'Usuário Administrador', email: 'admin@punti.com', password: 'senha1234',
+                        phone_number: '19998555544', cpf: '56685728701')
     category = ProductCategory.create!(name: 'Eletrônico')
     product = Product.new(name: 'TV42',
                           code: 'ABC123456',
@@ -36,6 +41,7 @@ describe 'Administrador edita um produto' do
     product.product_images.attach(io: Rails.root.join('spec/support/imgs/tv_22.jpg').open, filename: 'tv_22.jpg')
     product.save!
 
+    login_as(user)
     visit products_path
     find_link('Editar', id: 'product_1').click
 
@@ -54,6 +60,8 @@ describe 'Administrador edita um produto' do
   end
 
   it 'com dados incompletos' do
+    user = User.create!(name: 'Usuário Administrador', email: 'admin@punti.com', password: 'senha1234',
+                        phone_number: '19998555544', cpf: '56685728701')
     category = ProductCategory.create!(name: 'Eletrônico')
     product = Product.new(name: 'TV42',
                           code: 'ABC123456',
@@ -64,6 +72,7 @@ describe 'Administrador edita um produto' do
     product.product_images.attach(io: Rails.root.join('spec/support/imgs/tv_22.jpg').open, filename: 'tv_22.jpg')
     product.save!
 
+    login_as(user)
     visit products_path
     find_link('Editar', id: 'product_1').click
 
@@ -89,13 +98,14 @@ describe 'Administrador edita um produto' do
     visit root_path
     visit edit_product_path(product.id)
 
-    expect(current_path).to eq root_path
+    expect(current_path).to eq new_user_session_path
     expect(page).not_to have_field('Nome')
-    expect(page).to have_content 'Você não possui acesso a este módulo'
+    expect(page).to have_content 'Você precisa fazer login ou se registrar antes de continuar'
   end
 
   it 'como usuário comum' do
-    user = User.create!(name: 'Maria Sousa', email:'maria@provedor.com', password:'senha1234', cpf: '66610881090')
+    user = User.create!(name: 'Maria Sousa', email: 'maria@provedor.com', password: 'senha1234',
+                        phone_number: '19998555544', cpf: '66610881090')
     category = ProductCategory.create!(name: 'Eletrônico')
     product = Product.create!(name: 'TV42',
                               code: 'ABC123456',

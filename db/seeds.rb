@@ -1,3 +1,8 @@
+User.create!(name: 'Usuário Administrador', email: 'admin@punti.com', password: 'senha1234',
+             phone_number: '19998555544', cpf: '56685728701')
+User.create!(name: 'Maria Sousa', email: 'maria@provedor.com', password: 'senha1234',
+             phone_number: '19998555544', cpf: '66610881090')
+
 category1 = ProductCategory.create!(name: 'TV')
 category2 = ProductCategory.create!(name: 'Celular')
 

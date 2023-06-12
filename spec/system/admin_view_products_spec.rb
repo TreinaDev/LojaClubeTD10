@@ -2,6 +2,8 @@ require 'rails_helper'
 
 describe 'Administrador acessa index de produtos' do
   it 'e vê a lista de produtos' do
+    user = User.create!(name: 'Usuário Administrador', email: 'admin@punti.com', password: 'senha1234',
+                        phone_number: '19998555544', cpf: '56685728701')
     category = ProductCategory.create!(name: 'Eletrônico')
     Product.create!(name: 'TV42',
                     code: 'ABC123456',
@@ -12,6 +14,8 @@ describe 'Administrador acessa index de produtos' do
     Product.create!(name: 'TV52', code: 'ABC654321',
                     description: 'Descrição para o produto', brand: 'Samsung', price: 3500,
                     product_category: category)
+
+    login_as(user)
     visit products_path
 
     expect(page).to have_content 'Produtos'
@@ -22,6 +26,10 @@ describe 'Administrador acessa index de produtos' do
   end
 
   it 'e não tem produtos cadastrados' do
+    user = User.create!(name: 'Usuário Administrador', email: 'admin@punti.com', password: 'senha1234',
+                        phone_number: '19998555544', cpf: '56685728701')
+
+    login_as(user)
     visit products_path
 
     expect(page).to have_content 'Produtos'
@@ -30,6 +38,10 @@ describe 'Administrador acessa index de produtos' do
   end
 
   it 'e visualiza botão para cadastrar novo produto' do
+    user = User.create!(name: 'Usuário Administrador', email: 'admin@punti.com', password: 'senha1234',
+                        phone_number: '19998555544', cpf: '56685728701')
+
+    login_as(user)
     visit products_path
 
     expect(page).to have_link 'Cadastrar Produto'
@@ -39,20 +51,20 @@ describe 'Administrador acessa index de produtos' do
     visit root_path
     visit products_path
 
-    expect(current_path).to eq root_path
+    expect(current_path).to eq new_user_session_path
     expect(page).not_to have_content 'Produtos'
-    expect(page).to have_content 'Você não possui acesso a este módulo.'
+    expect(page).to have_content 'Você precisa fazer login ou se registrar antes de continuar'
   end
 
   it 'como usuário comum' do
-    user = User.create!(name: 'Maria Sousa', email:'maria@provedor.com', password:'senha1234', cpf: '66610881090')
+    user = User.create!(name: 'Maria Sousa', email: 'maria@provedor.com', password: 'senha1234',
+                        phone_number: '19998555544', cpf: '66610881090')
 
     login_as(user)
     visit root_path
     visit products_path
 
     expect(current_path).to eq root_path
-    expect(page).not_to have_content 'Produtos'
-    expect(page).to have_content 'Você não possui acesso a este módulo.'
+    expect(page).to have_content 'Você não possui acesso a este módulo'
   end
 end

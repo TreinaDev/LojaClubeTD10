@@ -12,4 +12,10 @@ class ApplicationController < ActionController::Base
   def load_product_categories
     @product_categories = ProductCategory.all
   end
+
+  def check_user
+    return if current_user.admin?
+
+    redirect_to root_path, alert: t('access_denied')
+  end
 end
