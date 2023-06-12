@@ -1,5 +1,5 @@
 pt-BR:
-  customer_area:
+  customer_areas:
     index:
       my_account: "Minha Conta"
       my_orders: "Meus Pedidos"
@@ -8,10 +8,4 @@ pt-BR:
       default_adresses: "Endereço Padrão"
       product_favorites: "Produtos Favoritos"
       recent_orders: "Pedidos Recentes"
-    nav-tab:  
-      my_account: "Minha Conta"
-      my_orders: "Meus Pedidos"
-      my_infos: "Minhas Informações"
-      adresses: "Endereços Cadastrados"
-      product_favorites: "Produtos Favoritos"
       

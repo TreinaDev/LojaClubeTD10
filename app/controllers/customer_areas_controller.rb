@@ -1,4 +1,4 @@
-class CustomerAreaController < ApplicationController
+class CustomerAreasController < ApplicationController
   before_action :authenticate_user!, only: [:index]
   before_action :prevent_admin, only: [:index]
 

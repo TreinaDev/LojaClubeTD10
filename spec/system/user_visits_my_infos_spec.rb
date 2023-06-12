@@ -2,9 +2,7 @@ require 'rails_helper'
 
 describe 'Usuário visita minhas informações' do
   it 'apenas estando autenticado' do
-    user = FactoryBot.create(:user)
-
-    visit user_path(user.id)
+    visit my_infos_path
 
     expect(current_path).to eq new_user_session_path
     expect(page).to have_content 'Você precisa fazer login ou se registrar antes de continuar'
@@ -28,7 +26,7 @@ describe 'Usuário visita minhas informações' do
     click_on 'Área do Cliente'
     click_on 'Minhas Informações'
 
-    expect(current_path).to eq user_path(user.id)
+    expect(current_path).to eq my_infos_path
     expect(page).to have_content 'Nome'
     expect(page).to have_content 'José'
     expect(page).to have_content 'E-mail'
@@ -39,21 +37,11 @@ describe 'Usuário visita minhas informações' do
     expect(page).to have_content '(85)99992-3132'
     expect(page).to have_link 'Atualizar Contato'
   end
-  it 'e não consegue ver de outro usuário' do
-    user1 = FactoryBot.create(:user)
-    user2 = FactoryBot.create(:user, name: 'José', email: 'jose@gmail.com', password: 'jose1234', cpf: '60789974088',
-                                     phone_number: '85999923132')
-    login_as(user2)
-    visit user_path(user1.id)
-
-    expect(current_path).to eq root_path
-    expect(page).to have_content 'Você não tem acesso a essa página'
-  end
   it 'e sendo administrador não consegue' do
     user = FactoryBot.create(:user, name: 'José', email: 'jose@punti.com', role: 1)
 
     login_as(user)
-    visit user_path(user)
+    visit my_infos_path
 
     expect(current_path).to eq root_path
     expect(page).to have_content 'Administrador não tem acesso a essa página'

@@ -9,7 +9,7 @@ pt-BR:
   client_area: 'Área do Cliente'
   my_account: 'Minha Conta'
   my_orders: 'Meus Pedidos'
-  my_infos: 'Minhas Informações'
+  my_infos_tab: 'Minhas Informações'
   adresses: 'Endereços Cadastrados'
   default_adresses: 'Endereço Padrão'
   product_favorites: 'Produtos Favoritos'

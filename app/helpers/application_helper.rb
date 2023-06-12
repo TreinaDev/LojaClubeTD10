@@ -29,7 +29,7 @@ module ApplicationHelper
     "<li class='nav-item'> #{button_to(t(:log_out), destroy_user_session_path, method: :delete, class: 'nav-link')}" \
     '</li>' \
     "<li class='nav-item'>" \
-    "#{link_to(raw("<i class='bi bi-person-circle'></i> #{t(:client_area)}"), customer_area_index_path,
+    "#{link_to(raw("<i class='bi bi-person-circle'></i> #{t(:client_area)}"), customer_areas_path,
                class: 'nav-link')}" \
     '</li>'.html_safe
   end
