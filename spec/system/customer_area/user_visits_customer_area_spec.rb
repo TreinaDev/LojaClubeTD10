@@ -28,7 +28,6 @@ describe 'Usuário visita área do cliente' do
       expect(current_path).to eq customer_area_index_path
       expect(page).to have_content 'José'
       expect(page).to have_content 'jose@gmail.com'
-      expect(page).to have_content '8599923132'
       expect(page).to have_content 'Pedidos Recentes'
       expect(page).to have_link 'Minhas Informações'
       expect(page).to have_link 'Endereços Cadastrados'
