@@ -8,7 +8,7 @@ pt-BR:
         cpf: "CPF"    
         email: "Email"    
         phone_number: "Telefone"    
-  user:
+  users:
     show:
       my_account: "Minha Conta"
       my_orders: "Meus Pedidos"
