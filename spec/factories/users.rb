@@ -1,9 +1,10 @@
 FactoryBot.define do
   factory :user do
-    name { 'José' }
-    email { 'josé@gmail.com' }
-    password { 'jose1234' }
-    cpf { '89913704030' }
-    phone_number { '85940028922' }
+    name { 'João Fernandes' }
+    email { 'joao@ig.com.br' }
+    password { 'password' }
+    cpf { '20223956031' }
+    phone_number { '19998555544' }
+    role { 0 }
   end
 end
