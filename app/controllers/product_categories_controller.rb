@@ -1,5 +1,7 @@
 class ProductCategoriesController < ApplicationController
   before_action :set_product_category, only: %i[edit update]
+  before_action :authenticate_user!, only: %i[index new edit create update]
+  before_action :authorize_admin, only: %i[index new edit create update]
 
   def index
     @product_categories = ProductCategory.all
@@ -38,5 +40,11 @@ class ProductCategoriesController < ApplicationController
 
   def product_category_params
     params.require(:product_category).permit(:name)
+  end
+
+  def authorize_admin
+    return if current_user.admin?
+
+    redirect_to root_path, alert: t('unauthorized_action')
   end
 end

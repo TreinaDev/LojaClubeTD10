@@ -3,7 +3,9 @@ require 'rails_helper'
 describe 'Admin edita uma categoria' do
   it 'com sucesso' do
     category = FactoryBot.create(:product_category)
+    admin = FactoryBot.create(:user, email: 'admin@punti.com')
 
+    login_as(admin)
     visit product_categories_path
     click_on 'Editar'
     fill_in 'Nome', with: 'Categoria'
@@ -16,7 +18,9 @@ describe 'Admin edita uma categoria' do
 
   it 'e recebe erro pois deixou o nome em branco' do
     category = FactoryBot.create(:product_category)
+    admin = FactoryBot.create(:user, email: 'admin@punti.com')
 
+    login_as(admin)
     visit product_categories_path
     click_on 'Editar'
     fill_in 'Nome', with: ''

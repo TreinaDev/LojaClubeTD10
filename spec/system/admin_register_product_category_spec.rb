@@ -2,6 +2,9 @@ require 'rails_helper'
 
 describe 'Admin registra uma nova categoria' do
   it 'com sucesso' do
+    admin = FactoryBot.create(:user, email: 'admin@punti.com')
+
+    login_as(admin)
     visit product_categories_path
     click_on 'Nova Categoria'
     fill_in 'Nome', with: 'Categoria teste'
@@ -12,6 +15,9 @@ describe 'Admin registra uma nova categoria' do
   end
 
   it 'e falha pois o nome ficou em branco' do
+    admin = FactoryBot.create(:user, email: 'admin@punti.com')
+
+    login_as(admin)
     visit product_categories_path
     click_on 'Nova Categoria'
     fill_in 'Nome', with: ''
@@ -22,7 +28,9 @@ describe 'Admin registra uma nova categoria' do
 
   it 'e falha pois o nome já existe' do
     category = FactoryBot.create(:product_category)
+    admin = FactoryBot.create(:user, email: 'admin@punti.com')
 
+    login_as(admin)
     visit product_categories_path
     click_on 'Nova Categoria'
     fill_in 'Nome', with: category.name
