@@ -14,26 +14,27 @@
       </li>
     </ul>
     <ul class="navbar-nav col-auto mb-2 mb-lg-0">
-          <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Administração
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <li>
-            <a class="dropdown-item" href="#">Produtos</a>
-          </li>
-          <li>
-            <a class="dropdown-item">
-              Categoria &raquo;
-            </a>
-            <ul class="dropdown-menu dropdown-submenu">
-              <li><%= link_to 'Cadastrar categoria', root_path, class: 'dropdown-item' %></li>
-              <li><%= link_to 'Editar categoria', root_path, class: 'dropdown-item' %></li>
-              <li><%= link_to 'Excluir categoria', root_path, class: 'dropdown-item' %></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
+    <%if user_signed_in? && current_user.admin? %>
+      <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Administração
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li>
+              <%= link_to("Produtos", products_path, class: "dropdown-item")%>
+            <li>
+              <a class="dropdown-item">
+                Categoria &raquo;
+              </a>
+              <ul class="dropdown-menu dropdown-submenu">
+                <li><%= link_to 'Cadastrar categoria', root_path, class: 'dropdown-item' %></li>
+                <li><%= link_to 'Editar categoria', root_path, class: 'dropdown-item' %></li>
+                <li><%= link_to 'Excluir categoria', root_path, class: 'dropdown-item' %></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      <% end %>
       <%= user_links %>
     </ul>
   </div>
