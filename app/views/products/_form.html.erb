@@ -1,12 +1,6 @@
-<% if product.errors.any? %>
-  <dl>
-    <% product.errors.full_messages.each do |msg| %>
-      <dt><%= msg %></dt>
-    <% end %>
-  </dl>
-<% end %>
 <div class="container">
-  <%= form_with(model: product) do |f| %>
+  <%= form_with model: product, data: { turbo: false } do |f| %>
+    <%= render partial: 'form_errors', locals: { object: product } %>
     <div class="mb-3">
       <%= f.label :product_images, class: 'form-label' %>
       <%= f.file_field :product_images, multiple: true, class: 'form-control', type: 'file' %>
