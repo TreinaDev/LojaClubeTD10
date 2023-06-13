@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Admin edita uma categoria' do
+describe 'Administrador edita uma categoria' do
   it 'com sucesso' do
     category = FactoryBot.create(:product_category)
     admin = FactoryBot.create(:user, email: 'admin@punti.com')

@@ -1,8 +1,4 @@
 <div class="container-lg mt-4">
 <h4><%= t(:recent_products)%></h4>
   <%= render partial: "carousel", locals:{ products: @products, id: "1" }%>
-<% if @products_category_last.present? %>
-  <h4><%= @products_category_last.name %></h4>  
-  <%= render partial: "carousel", locals:{ products: @products_category_last.products, id: "2"}%>
-<% end %>
 </div>
