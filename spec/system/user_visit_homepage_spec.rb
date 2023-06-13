@@ -44,17 +44,17 @@ describe 'Usuário visita homepage' do
     within('#1.carousel') do
       within('.card#CMA123456') do
         expect(page).to have_content 'Camiseta Azul'
-        expect(page).to have_content '800 Pontos'
+        expect(page).not_to have_content '800 Pontos'
         expect(page).to have_content 'Uma camisa azul muito bonita'
       end
       within('.card#CMV123789') do
         expect(page).to have_content 'Camiseta Vermelha'
-        expect(page).to have_content '701 Pontos'
+        expect(page).not_to have_content '701 Pontos'
         expect(page).to have_content 'Uma camisa vermelha bem grande'
       end
       within('.card#ABC123456') do
         expect(page).to have_content 'TV42'
-        expect(page).to have_content '2500'
+        expect(page).not_to have_content '2500'
         expect(page).to have_content 'Descrição para o produto'
         expect(page).to have_content 'Descrição para o produto'
         expect(page).to have_css('img[src*="tv_2.jpg"]')
@@ -72,7 +72,6 @@ describe 'Usuário visita homepage' do
     within('#1.carousel') do
       within('.card#CMA123456') do
         expect(page).to have_content 'Camiseta Azul'
-        expect(page).to have_content '800 Pontos'
         expect(page).to have_content 'Uma camisa azul muito bonita'
         expect(page).to have_css('img[src*="no_image"]')
       end
@@ -85,7 +84,7 @@ describe 'Usuário visita homepage' do
     expect(page).to have_content 'Nenhum produto disponível no momento'
   end
   context 'estando logado' do
-    it 'e vê uma barra de navegação' do
+    it 'e vê uma barra de navegação exclusiva' do
       user = FactoryBot.create(:user, name: 'José', email: 'jose@gmail.com', password: 'jose1234')
 
       login_as(user)
@@ -97,6 +96,23 @@ describe 'Usuário visita homepage' do
       expect(page).to have_button 'Sair'
       expect(page).to have_css 'nav'
       expect(page).not_to have_link 'Entrar'
+    end
+    it 'e vê os preços dos produtos' do
+      user = FactoryBot.create(:user)
+      category = FactoryBot.create(:product_category, name: 'Eletrodomestico')
+      FactoryBot.create(:product, name: 'Geladeira branca', code: 'GLD678456', description: 'Geladeira bonita',
+                                  price: 200, product_category: category)
+
+      login_as(user)
+      visit root_path
+
+      within('#1.carousel') do
+        within('.card#GLD678456') do
+          expect(page).to have_content 'Geladeira branca'
+          expect(page).to have_content 'Geladeira bonita'
+          expect(page).to have_content '200 Pontos'
+        end
+      end
     end
   end
 end

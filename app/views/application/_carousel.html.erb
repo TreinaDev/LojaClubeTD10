@@ -12,12 +12,12 @@
                     <% if product.product_images.attached? %>
                       <%= image_tag(product.product_images[0], alt:product.name, class:"card-img-top", style: "width: 200px; height:150px;")%>
                       <% else %>
-                      <%= image_tag(asset_path('no_image.jpg'), alt:product.name, class:"card-img-top")%>
+                      <%= image_tag(asset_path('no_image.jpg'), alt:product.name, class:"card-img-top", style: "width: 200px; height:150px;")%>
                     <% end %> 
                       <div class="card-body">
                         <h5 class="card-title"><%= link_to product.name, product_path(product.id) %></h5>
                         <p class="text-truncate mw-2"><%= product.description %></p>
-                        <p><%= product.price.round %> Pontos</p>
+                        <p><%= show_price(product) %></p>
                       </div>
                     </div>
                   </div>   
