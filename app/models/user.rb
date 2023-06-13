@@ -14,6 +14,16 @@ class User < ApplicationRecord
   validate :check_phone_number_length, if: :phone_number_changed?
   validate :cpf_changed_block, if: :cpf_changed?, on: :update
 
+  def formatted_cpf
+    cpf = self.cpf
+    cpf.to_s.gsub(/(\d{3})(\d{3})(\d{3})(\d{2})/, '\1.\2.\3-\4')
+  end
+
+  def formatted_phone
+    phone_number = self.phone_number
+    phone_number.to_s.gsub(/(\d{2})(\d{5})(\d{4})/, '(\1)\2-\3')
+  end
+
   private
 
   def define_role

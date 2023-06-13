@@ -4,6 +4,12 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def prevent_admin
+    return unless current_user.admin?
+
+    redirect_to root_path, alert: t(:prevent_admin_message)
+  end
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: %i[name cpf phone_number])
     devise_parameter_sanitizer.permit(:account_update, keys: %i[name phone_number])

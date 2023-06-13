@@ -12,7 +12,15 @@ describe 'Usuário visita homepage' do
 
     expect(page).to have_link 'Categorias'
     expect(page).to have_link 'Entrar', href: new_user_session_path
+    expect(page).not_to have_link 'Área do Cliente'
     expect(page).to have_css 'nav'
+  end
+  it 'é vê um footer com informações' do
+    visit root_path
+
+    within('footer') do
+      expect(page).to have_content 'Copyright © Loja do Clube, 2023'
+    end
   end
   it 'e vê os produtos recém adicionados' do
     category1 = FactoryBot.create(:product_category, name: 'Camisetas')
@@ -76,11 +84,19 @@ describe 'Usuário visita homepage' do
     expect(page).to have_content 'Produtos'
     expect(page).to have_content 'Nenhum produto disponível no momento'
   end
-  it 'é vê um footer com informações' do
-    visit root_path
+  context 'estando logado' do
+    it 'e vê uma barra de navegação' do
+      user = FactoryBot.create(:user, name: 'José', email: 'jose@gmail.com', password: 'jose1234')
 
-    within('footer') do
-      expect(page).to have_content 'Copyright © Loja do Clube, 2023'
+      login_as(user)
+      visit root_path
+
+      expect(page).to have_content 'jose@gmail.com'
+      expect(page).to have_link 'Categorias'
+      expect(page).to have_link 'Área do Cliente'
+      expect(page).to have_button 'Sair'
+      expect(page).to have_css 'nav'
+      expect(page).not_to have_link 'Entrar'
     end
   end
 end
