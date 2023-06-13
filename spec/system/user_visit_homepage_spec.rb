@@ -53,6 +53,23 @@ describe 'Usuário visita homepage' do
       end
     end
   end
+  it 'e vê menssagem caso produto não tenha imagem' do
+    category = FactoryBot.create(:product_category, name: 'Celular')
+    FactoryBot.create(:product, name: 'Camiseta Azul', price: 800, product_category: category,
+                                description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+
+    visit root_path
+
+    expect(page).to have_content 'Produtos Recentes'
+    within('#1.carousel') do
+      within('.card#CMA123456') do
+        expect(page).to have_content 'Camiseta Azul'
+        expect(page).to have_content '800 Pontos'
+        expect(page).to have_content 'Uma camisa azul muito bonita'
+        expect(page).to have_css('img[src*="no_image"]')
+      end
+    end
+  end
   it 'e vê menssagem caso não tenha produtos disponíveis' do
     visit root_path
 

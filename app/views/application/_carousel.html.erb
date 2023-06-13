@@ -11,6 +11,8 @@
                     <div class="card shadow-sm p-3 mb-5 bg-white rounded" style="width: 15rem;" id=<%= product.code %>>
                     <% if product.product_images.attached? %>
                       <%= image_tag(product.product_images[0], alt:product.name, class:"card-img-top", style: "width: 200px; height:150px;")%>
+                      <% else %>
+                      <%= image_tag(asset_path('no_image.jpg'), alt:product.name, class:"card-img-top")%>
                     <% end %> 
                       <div class="card-body">
                         <h5 class="card-title"><%= link_to product.name, product_path(product.id) %></h5>
