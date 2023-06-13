@@ -9,7 +9,7 @@
   <%= form_with(model: product) do |f| %>
     <div class="mb-3">
       <%= f.label :product_images, class: 'form-label' %>
-      <%= f.file_field :product_images, multiple: true, class: 'form-control mb-2', type: 'file' %>
+      <%= f.file_field :product_images, multiple: true, class: 'form-control', type: 'file' %>
     </div>
     <div class="mb-3">
       <%= f.label :name %>

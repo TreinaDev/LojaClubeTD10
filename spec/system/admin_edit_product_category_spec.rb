@@ -9,7 +9,7 @@ describe 'Administrador edita uma categoria' do
     visit product_categories_path
     click_on 'Editar'
     fill_in 'Nome', with: 'Categoria'
-    click_on 'Atualizar Categoria de produtos'
+    click_on 'Enviar'
 
     expect(page).to have_content 'A categoria foi editada com sucesso.'
     expect(page).to have_content 'Categoria'
@@ -24,7 +24,7 @@ describe 'Administrador edita uma categoria' do
     visit product_categories_path
     click_on 'Editar'
     fill_in 'Nome', with: ''
-    click_on 'Atualizar Categoria de produtos'
+    click_on 'Enviar'
 
     expect(current_path).to eq product_category_path(category.id)
     expect(page).to have_content 'A categoria não pôde ser editada.'
