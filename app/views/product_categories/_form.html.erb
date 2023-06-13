@@ -1,10 +1,12 @@
+<div class="container">
 <%= form_with model: @product_category, data: { turbo: false } do |f| %>
-  <div>
+  <div class="mb-3">
     <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
 
-  <div>
+  <div class="mb-3">
     <%= f.submit %>
   </div>
 <% end %>
+</div>
