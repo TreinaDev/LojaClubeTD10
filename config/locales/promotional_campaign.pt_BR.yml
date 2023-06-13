@@ -1,0 +1,16 @@
+pt-BR:
+  promotional_campaign:
+    create:
+      promotional_campaign_success: 'Campanha cadastrada com sucesso'
+      promotional_campaign_fail: 'Não foi possível cadastrar a campanha'
+    update:
+      promotional_campaign_success: 'Campanha alterada com sucesso'
+      promotional_campaign_fail: 'Não foi possível alterar a campanha'
+  activerecord:
+    models:
+      promotional_campaign: "Campanha Promocional"
+    attributes:
+      promotional_campaign:
+        name: "Nome"
+        start_date: "Data Inicial"
+        end_date: "Data Final"
