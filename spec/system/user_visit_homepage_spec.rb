@@ -53,7 +53,7 @@ describe 'Usuário visita homepage' do
       end
     end
   end
-  it 'e vê menssagem caso produto não tenha imagem' do
+  it 'e vê imagem padrão caso produto não tenha imagem' do
     category = FactoryBot.create(:product_category, name: 'Celular')
     FactoryBot.create(:product, name: 'Camiseta Azul', price: 800, product_category: category,
                                 description: 'Uma camisa azul muito bonita', code: 'CMA123456')
@@ -75,5 +75,12 @@ describe 'Usuário visita homepage' do
 
     expect(page).to have_content 'Produtos'
     expect(page).to have_content 'Nenhum produto disponível no momento'
+  end
+  it 'é vê um footer com informações' do
+    visit root_path
+
+    within('footer') do
+      expect(page).to have_content 'Copyright © Loja do Clube, 2023'
+    end
   end
 end
