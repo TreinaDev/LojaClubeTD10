@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :favorites
+
   enum role: { common: 0, admin: 1 }
 
   before_create :define_role
@@ -22,6 +24,10 @@ class User < ApplicationRecord
   def formatted_phone
     phone_number = self.phone_number
     phone_number.to_s.gsub(/(\d{2})(\d{5})(\d{4})/, '(\1)\2-\3')
+  end
+
+  def favorite_products
+    favorites.map { |f| f.product }
   end
 
   private
