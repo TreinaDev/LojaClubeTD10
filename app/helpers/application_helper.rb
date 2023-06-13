@@ -15,7 +15,7 @@ module ApplicationHelper
 
   def user_links
     if user_signed_in?
-      "<li class='nav-item'> #{link_to(user_info, edit_user_registration_path, class: 'nav-link')} </li>" \
+      "<li class='navbar-text'>#{user_info}</li>" \
       "<li class='nav-item'> #{button_to(t(:log_out), destroy_user_session_path, method: :delete, class: 'nav-link')}" \
       '</li>'.html_safe
     else
