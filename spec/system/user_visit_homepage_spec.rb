@@ -10,7 +10,7 @@ describe 'Usuário visita homepage' do
   it 'e vê uma barra de navegação' do
     visit root_path
 
-    expect(page).to have_link 'Categorias'
+    expect(page).to have_link 'Categorias de Produtos'
     expect(page).to have_link 'Entrar', href: new_user_session_path
     expect(page).not_to have_link 'Área do Cliente'
     expect(page).to have_css 'nav'
@@ -91,11 +91,14 @@ describe 'Usuário visita homepage' do
       visit root_path
 
       expect(page).to have_content 'jose@gmail.com'
-      expect(page).to have_link 'Categorias'
+      expect(page).to have_link 'Categorias de Produtos'
       expect(page).to have_link 'Área do Cliente'
       expect(page).to have_button 'Sair'
       expect(page).to have_css 'nav'
       expect(page).not_to have_link 'Entrar'
+      expect(page).not_to have_link 'Administração'
+      expect(page).not_to have_link 'Categorias', href: product_categories_path
+      expect(page).not_to have_content 'jose@gmail.com (ADMIN)'
     end
     it 'e vê os preços dos produtos' do
       user = FactoryBot.create(:user)

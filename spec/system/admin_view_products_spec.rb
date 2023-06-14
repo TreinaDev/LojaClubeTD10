@@ -54,7 +54,6 @@ describe 'Administrador acessa index de produtos' do
     visit products_path
 
     expect(current_path).to eq new_user_session_path
-    expect(page).not_to have_content 'Produtos'
     expect(page).to have_content 'Você precisa fazer login ou se registrar antes de continuar'
   end
 

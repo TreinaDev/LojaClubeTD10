@@ -10,8 +10,8 @@ describe 'Administrador visita homepage' do
     expect(page).to have_css 'nav'
     expect(page).to have_content 'mario@punti.com (ADMIN)'
     expect(page).to have_link 'Administração'
-    expect(page).to have_link 'Categorias'
-    expect(page).to have_link 'Produtos'
+    expect(page).to have_link 'Categorias', href: product_categories_path
+    expect(page).to have_link 'Produtos', href: products_path
     expect(page).not_to have_link 'Área do Cliente'
   end
 end
