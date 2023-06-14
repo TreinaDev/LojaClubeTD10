@@ -18,7 +18,7 @@
             <%= f.text_field :phone_number, class: "form-control w-2", value: @user.formatted_phone,  maxlength: 14, id:'phone_number' %>
             <%= f.submit t('.update_phone'), class:"btn btn-outline-secondary btn-sm ms-2" %>
           </div>
-           <%= render partial: 'shared/errors', locals: { obj: @user } %>
+           <%= render partial: 'form_errors', locals: { object: @user } %>
         <% end %>
       </div>
 </div>
