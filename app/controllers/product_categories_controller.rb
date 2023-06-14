@@ -1,5 +1,5 @@
 class ProductCategoriesController < ApplicationController
-  before_action :set_product_category, only: %i[edit update]
+  before_action :set_product_category, only: %i[edit update deactivate reactivate]
   before_action :authenticate_user!, only: %i[index new edit create update]
   before_action :authorize_admin, only: %i[index new edit create update]
 
@@ -34,12 +34,12 @@ class ProductCategoriesController < ApplicationController
 
   def deactivate
     @product_category.update(active: false)
-    redirect_to product_categories_path
+    redirect_to product_categories_path, notice: t('product_category.deactivate.success')
   end
 
   def reactivate
     @product_category.update(active: true)
-    redirect_to product_categories_path
+    redirect_to product_categories_path, notice: t('product_category.reactivate.success')
   end
 
   private

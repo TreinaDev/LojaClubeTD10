@@ -1,16 +1,24 @@
-<section class="mx-auto p-4 bg-success bg-opacity-10 border border-3 border-success p-2 mb-2 border-opacity-50 rounded-4 mt-4 container">
-  
+<section class="container">
   <%= render 'shared/errors', { obj: @product_category } %>
 
-  <h2 class="mb-4 text-success">Edite a categoria:</h2>
+  <h2>Edite a categoria:</h2>
 
   <%= render 'form' %>
 
-  <div class="d-grid">
-  <% if @product_category.active %>
-    <%= button_to 'Desativar Categoria', deactivate_product_category_path(@product_category), method: :patch, data: { turbo_confirm: 'Você tem certeza? Todos os produtos vinculados a essa categoria serão desativados.' }, class: "btn btn-success btn-lg" %>
-  <% else %>
-    <%= button_to 'Reativar Categoria', reactivate_product_category_path(@product_category), method: :patch, data: { turbo_confirm: 'Você tem certeza? Todos os produtos vinculados a essa categoria serão reativados.' }, class: "btn btn-success w-100 opacity-50" %>
-  <% end %>
+  <p>
+    <button class="btn btn-secondary mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      <%= @product_category.active ? 'Desativar' : 'Reativar' %>
+    </button>
+  </p>
+  <div class="collapse" id="collapseExample">
+    <div class="card card-body">
+      <% if @product_category.active? %>
+        Você tem certeza? Todos os produtos vinculados a essa categoria serão desativados.
+        <%= button_to 'Desativar categoria', deactivate_product_category_path(@product_category), method: :patch, class: 'btn btn-danger mt-2' %>
+      <% else %>
+        Você tem certeza? Todos os produtos vinculados a essa categoria serão reativados.
+        <%= button_to 'Reativar categoria', reactivate_product_category_path(@product_category), method: :patch, class: 'btn btn-success mt-2' %>
+      <% end %>
+    </div>
   </div>
 </section>

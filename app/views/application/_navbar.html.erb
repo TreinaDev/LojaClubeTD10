@@ -12,7 +12,11 @@
           <% end %>
         </ul>
       </li>
-
+      <% if current_user&.admin? %>
+        <li class="nav-item" id="new-category">
+          <%= link_to 'Gerenciar categoria', product_categories_path, class: "nav-link" %>
+        </li>
+      <% end %>
     </ul>
     <ul class="navbar-nav col-auto mb-2 mb-lg-0">
       <%= user_links %>

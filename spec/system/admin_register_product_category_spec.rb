@@ -1,14 +1,6 @@
 require 'rails_helper'
 
 describe 'Admin registra uma nova categoria' do
-  it 'através do menu' do
-    visit root_path
-    within('nav') do
-      click_on 'Nova Categoria'
-    end
-    expect(page).to have_content 'Cadastre uma categoria:'
-  end 
-
   it 'com sucesso' do
     admin = FactoryBot.create(:user, email: 'admin@punti.com')
 
@@ -45,5 +37,15 @@ describe 'Admin registra uma nova categoria' do
     click_on 'Criar Categoria de produtos'
 
     expect(page).to have_content 'Nome já está em uso'
+  end
+
+  it 'como usuário comum e não tem permissão' do
+    user = FactoryBot.create(:user, email: 'user@email.com')
+
+    login_as(user)
+    visit product_categories_path
+
+    expect(current_path).to eq root_path
+    expect(page).to have_content 'Você não possui permissão para realizar esta ação.'
   end
 end
