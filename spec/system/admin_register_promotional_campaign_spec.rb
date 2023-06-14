@@ -9,8 +9,8 @@ describe 'Admin registra uma nova Campanha Promocional' do
     visit promotional_campaigns_path
     click_on 'Nova Campanha Promocional'
     fill_in 'Nome', with: 'Verão 2023'
-    fill_in 'Data Inicial', with: '23/09/2023'
-    fill_in 'Data Final', with: '23/10/2023'
+    fill_in 'Data Inicial', with: 1.week.from_now.to_date
+    fill_in 'Data Final', with: 1.month.from_now.to_date
     select 'CodeCampus', from: 'Empresa'
     click_on 'Cadastrar'
 
@@ -34,7 +34,6 @@ describe 'Admin registra uma nova Campanha Promocional' do
     expect(page).to have_content 'Empresa é obrigatório(a)'
     expect(page).to have_content 'Data Inicial não pode ficar em branco'
     expect(page).to have_content 'Data Final não pode ficar em branco'
-
   end
 
   it 'como visitante' do
@@ -48,8 +47,7 @@ describe 'Admin registra uma nova Campanha Promocional' do
   end
 
   it 'como usuário comum' do
-    user = User.create!(name: 'Maria Sousa', email: 'maria@provedor.com', password: 'senha1234',
-                        phone_number: '19998555544', cpf: '66610881090')
+    user = FactoryBot.create(:user)
 
     login_as(user)
     visit root_path

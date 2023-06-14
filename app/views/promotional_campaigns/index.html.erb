@@ -16,12 +16,13 @@
       </tr>
     </thead>
     <tbody class="table-group-divider">
-      <% @promotional_campaigns.each do |campaigns| %>
+      <% @promotional_campaigns.each do |campaign| %>
         <tr class="text-center">
-          <td><%= campaigns.name %></td>
-          <td><%= I18n.l(campaigns.start_date) %></td>
-          <td><%= I18n.l(campaigns.end_date) %></td>
-          <td><%= campaigns.company.brand_name %></td>
+          <td><%= link_to campaign.name, campaign, class: "link-secondary"%></td>
+          <td><%= I18n.l(campaign.start_date) %></td>
+          <td><%= I18n.l(campaign.end_date) %></td>
+          <td><%= campaign.company.brand_name %></td>
+          <td><%= link_to 'Editar', edit_promotional_campaign_path(campaign), class: 'btn btn-outline-secondary btn-sm', id: dom_id(campaign) %></td>
         </tr>
       <% end %>
     </tbody>

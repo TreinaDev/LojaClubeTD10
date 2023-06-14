@@ -2,17 +2,16 @@ require 'rails_helper'
 
 describe 'Administrador acessa index de campanhas promocionais' do
   it 'e vê a lista de campanhas promocionais' do
-    user = User.create!(name: 'Usuário Administrador', email: 'admin@punti.com', password: 'senha1234',
-                        phone_number: '19998555544', cpf: '56685728701')
+    user = FactoryBot.create(:user, email: 'adm@punti.com')
 
-    login_as(user)
     company = Company.create!(brand_name: 'CodeCampus', registration_number: '45918500000145',
                               corporate_name: 'CodeCampus LTDA.')
-    PromotionalCampaign.create!(name: 'Natal 2023', company:, start_date: '01/12/2023',
-                                end_date: '31/12/2023')
-    PromotionalCampaign.create!(name: 'Verão 2023', company:, start_date: '23/09/2023',
-                                end_date: '23/10/2023')
+    PromotionalCampaign.create!(name: 'Natal 2023', company:, start_date: 1.week.from_now.to_date,
+                                end_date: 1.month.from_now.to_date)
+    PromotionalCampaign.create!(name: 'Verão 2023', company:, start_date: 2.weeks.from_now.to_date,
+                                end_date: 2.months.from_now.to_date)
 
+    login_as(user)
     visit promotional_campaigns_path
 
     expect(page).to have_content 'Campanhas Promocionais'
@@ -22,25 +21,24 @@ describe 'Administrador acessa index de campanhas promocionais' do
     expect(page).to have_content 'CodeCampus'
     expect(page).to have_content 'Data Final'
     expect(page).to have_content 'Natal 2023'
-    expect(page).to have_content '01/12/2023'
-    expect(page).to have_content '31/12/2023'
+    expect(page).to have_content I18n.l(1.week.from_now.to_date)
+    expect(page).to have_content I18n.l(1.month.from_now.to_date)
     expect(page).to have_content 'Verão 2023'
-    expect(page).to have_content '23/09/2023'
-    expect(page).to have_content '23/10/2023'
+    expect(page).to have_content I18n.l(2.weeks.from_now.to_date)
+    expect(page).to have_content I18n.l(2.months.from_now.to_date)
   end
 
   it 'e não tem campanhas promocionais cadastradas' do
-    user = User.create!(name: 'Usuário Administrador', email: 'admin@punti.com', password: 'senha1234',
-    phone_number: '19998555544', cpf: '56685728701')
+    user = FactoryBot.create(:user, email: 'adm@punti.com')
 
     login_as(user)
     visit promotional_campaigns_path
-    
+
     expect(page).to have_content 'Campanhas Promocionais'
     expect(page).to have_content 'Não existem Campanhas Promocionais cadastradas'
   end
 
-  it 'como visitante' do
+  it 'como visitante tenta acessar, mas é direcionado para logar' do
     visit root_path
     visit promotional_campaigns_path
 
@@ -49,9 +47,8 @@ describe 'Administrador acessa index de campanhas promocionais' do
     expect(page).to have_content 'Você precisa fazer login ou se registrar antes de continuar'
   end
 
-  it 'como usuário comum' do
-    user = User.create!(name: 'Maria Sousa', email: 'maria@provedor.com', password: 'senha1234',
-                        phone_number: '19998555544', cpf: '66610881090')
+  it 'como usuário comum tenta acessar, mas não tem acesso e é direcionado para o root' do
+    user = FactoryBot.create(:user)
 
     login_as(user)
     visit root_path
@@ -60,5 +57,4 @@ describe 'Administrador acessa index de campanhas promocionais' do
     expect(current_path).to eq root_path
     expect(page).to have_content 'Você não possui acesso a este módulo'
   end
-
 end
