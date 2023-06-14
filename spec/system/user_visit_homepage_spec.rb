@@ -41,7 +41,7 @@ describe 'Usuário visita homepage' do
     visit root_path
 
     expect(page).to have_content 'Produtos Recentes'
-    within('#1.carousel') do
+    within('#recent_products.carousel') do
       within('.card#CMA123456') do
         expect(page).to have_content 'Camiseta Azul'
         expect(page).not_to have_content '800 Pontos'
@@ -69,7 +69,7 @@ describe 'Usuário visita homepage' do
     visit root_path
 
     expect(page).to have_content 'Produtos Recentes'
-    within('#1.carousel') do
+    within('#recent_products.carousel') do
       within('.card#CMA123456') do
         expect(page).to have_content 'Camiseta Azul'
         expect(page).to have_content 'Uma camisa azul muito bonita'
@@ -109,7 +109,7 @@ describe 'Usuário visita homepage' do
       login_as(user)
       visit root_path
 
-      within('#1.carousel') do
+      within('#recent_products.carousel') do
         within('.card#GLD678456') do
           expect(page).to have_content 'Geladeira branca'
           expect(page).to have_content 'Geladeira bonita'
