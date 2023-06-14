@@ -35,7 +35,8 @@ describe 'Usuário acessa detalhes de um produto' do
                               brand: 'LG', price: 2500,
                               product_category: category)
 
-    visit product_path(product.id)
+    visit root_path
+    click_on 'TV42'
 
     expect(page).to have_content product.name
     expect(page).to have_content product.code
