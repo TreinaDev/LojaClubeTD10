@@ -21,7 +21,7 @@ describe 'Usuário visualiza lista de favoritos' do
   end
 
   it 'e não tem nenhum favorito selecionado' do
-    user = User.create!(name: 'matheus', email: 'matheus@mail.com', password: 'senha1234',
+    user = User.create!(name: 'matheus', email: 'matheus@email.com', password: 'senha1234',
                         phone_number: '19998555544', cpf: '56685728701')
     login_as user
     visit customer_areas_path
