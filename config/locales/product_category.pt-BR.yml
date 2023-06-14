@@ -12,3 +12,4 @@ pt-BR:
     update:
       success: 'A categoria foi editada com sucesso.'
       error: 'A categoria não pôde ser editada.'
+  submit: 'Criar categoria de produtos'      
