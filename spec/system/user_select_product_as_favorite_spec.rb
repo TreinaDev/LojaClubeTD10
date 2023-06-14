@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'Usuário seleciona favorito' do 
-  it 'a partir da tela de produto' do 
+describe 'Usuário seleciona favorito' do
+  it 'a partir da tela de produto' do
     user = User.create!(name: 'matheus', email: 'matheus@mail.com', password: 'senha1234',
                         phone_number: '19998555544', cpf: '56685728701')
     category = FactoryBot.create(:product_category)

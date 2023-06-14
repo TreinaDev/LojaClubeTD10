@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :favorites
+  has_many :favorites, dependent: :destroy
 
   enum role: { common: 0, admin: 1 }
 
@@ -27,7 +27,7 @@ class User < ApplicationRecord
   end
 
   def favorite_products
-    favorites.map { |f| f.product }
+    favorites.map(&:product)
   end
 
   private
