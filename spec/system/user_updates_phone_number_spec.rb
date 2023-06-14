@@ -54,4 +54,18 @@ describe 'Usuário atualiza o número de telefone' do
     expect(page).to have_content 'Erro: O número de telefone deve conter 11 dígitos'
     expect(page).not_to have_field 'phone_number', with: ''
   end
+  it 'sem sucesso, pois usou letras no campo' do
+    user = FactoryBot.create(:user, phone_number: '19934567890')
+
+    login_as(user)
+    visit root_path
+    click_on 'Área do Cliente'
+    click_on 'Minhas Informações'
+    fill_in 'phone_number',	with: 'abx123'
+    click_on 'Atualizar Contato'
+
+    expect(current_path).to eq me_path
+    expect(page).to have_content 'Erro: O número de telefone deve conter 11 dígitos'
+    expect(page).not_to have_field 'phone_number', with: 'abx123'
+  end
 end
