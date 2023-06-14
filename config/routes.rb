@@ -7,4 +7,7 @@ Rails.application.routes.draw do
 
   resources :customer_areas, only: [:index]
   get "me", to: "customer_areas#me"
+  post "cart/add", to: "shopping_carts#add"
+  post "cart/remove", to: "shopping_carts#remove"
+  resources :shopping_carts, only: [:show]
 end

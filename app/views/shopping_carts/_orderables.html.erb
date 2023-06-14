@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="m-lg-3 p-3 border shadow white-bkg">
+    <div>
+      <%# render partial: "alert" %>
+      <h2 class="mb-4"><i class="bi bi-cart4"></i> Carrinho de compras</h2>
+      <% @shopping_cart.orderables.each do |orderable| %>
+        <% product = orderable.product %>
+        <div id="<%= "cart-#{product.id}" %>">
+          <div class="row">
+            <div class="col-sm">
+              <%= product.name %>
+            </div>
+            <div class="col-sm">
+              <%= product.price %>
+            </div>
+            <div class="col-sm-4">
+              <%= form_with(url: cart_add_path)  do |f| %>
+                <%= f.hidden_field :id, value: product.id %>
+
+                  <%= f.label :quantity, "Quantidade", class: "form-label" %>
+                  <%= f.number_field :quantity, value: orderable.quantity, style: "width: 3em;" %>
+                <%= f.submit "Alterar", class: "btn btn-outline-secondary mb-1 btn-sm" %>
+              <% end %>
+            </div>
+
+            <div class="col-sm text-center">
+              <%= form_with(url: cart_remove_path)  do |f| %>
+                <%= f.hidden_field :id, value: orderable.id %>
+                <div class="actions"><%= f.submit "Remover", class: "btn btn-outline-danger mb-1 btn-sm" %></div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <p>Total: <%= @shopping_cart.total %></p>
+        <%= link_to "Continuar comprando", root_path, class:"btn btn-secondary" %>
+        <%# link_to "Checkout", checkout_path, class:"btn btn-outline-primary btn-sm" %>
+    </div>
+  </div>
+</div>
