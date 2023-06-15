@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
+
   def update_phone
     @user = current_user
     phone = params[:phone_number]

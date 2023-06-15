@@ -13,7 +13,7 @@
         <h3 class="fw-bold"><%= User.human_attribute_name(:cpf)%></h3>
         <p><%= @user.formatted_cpf %></p>
         <h3 class="fw-bold"><%= User.human_attribute_name(:phone_number)%></h3>
-        <%= form_with url: update_phone_number_path, method: :post, data: { turbo: false } do |f| %>
+        <%= form_with url: update_phone_number_path(current_user.id), method: :post, data: { turbo: false } do |f| %>
           <div class="w-50 d-flex mb-3">
             <%= f.text_field :phone_number, class: "form-control w-2", value: @user.formatted_phone,  maxlength: 14, id:'phone_number' %>
             <%= f.submit t('.update_phone'), class:"btn btn-outline-secondary btn-sm ms-2" %>
