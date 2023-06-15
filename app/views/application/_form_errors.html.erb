@@ -1,0 +1,10 @@
+<% if object.errors.any? %>
+  <p class="text-danger">Atenção:</p>
+  <ul>
+    <% object.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%# render "form_errors", object: model_name %>

@@ -1,0 +1,42 @@
+  <div class="row">
+    <% if products.any? %>
+      <div>
+      <div id=<%= id %> class="carousel slide p-4 mb-3" data-bs-ride="carousel">
+        <div class="carousel-inner w-75 ms-auto me-auto">
+          <% products.each_slice(3).with_index do |product_array, index| %>
+             <div <%= carousel_item(index) %>>
+              <div class="row align-items-center">
+                <% product_array.each do |product| %>
+                  <div class= "col">
+                    <div class="card shadow-sm p-3 mb-5 bg-white rounded product-card" id=<%= product.code %>>
+                    <% if product.product_images.attached? %>
+                      <%= image_tag(product.product_images[0], alt:product.name, class:"card-img-top card-image")%>
+                      <% else %>
+                      <%= image_tag(asset_path('no_image.jpg'), alt:product.name, class:"card-img-top card-image")%>
+                    <% end %>
+                      <div class="card-body">
+                        <h5 class="card-title"><%= link_to product.name, product_path(product.id) %></h5>
+                        <p class="text-truncate mw-2"><%= product.description %></p>
+                        <p><%= show_price(product) %></p>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target=<%="##{id}"%> data-bs-slide="prev" style="width: 10%">
+          <span class="carousel-control-prev-icon ms-auto me-auto" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next ms-auto me-auto" type="button" data-bs-target=<%="##{id}"%> data-bs-slide="next" style="width: 10%">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+    <% else %>
+      <h3>Nenhum produto disponível no momento</h3>
+    <% end %>
+  </div>

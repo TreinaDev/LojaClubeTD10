@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :product do
-    name { 'MyString' }
+    name { 'Celular' }
     code { 'ABC123456' }
     description { 'Descrição do produto' }
-    brand { 'MyString' }
+    brand { 'Samsung' }
     product_category { nil }
-    price { '9.99' }
+    price { '500' }
   end
 end
