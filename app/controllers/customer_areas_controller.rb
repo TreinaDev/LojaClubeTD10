@@ -10,6 +10,7 @@ class CustomerAreasController < ApplicationController
 
   def favorite_tab
     @user = current_user
-    @products = @user.favorite_products
+    # @products = @user.favorite_products
+    @favorites = @user.favorites
   end
 end

@@ -10,6 +10,9 @@ class ProductsController < ApplicationController
 
   def show
     @favorite = Favorite.new
+    return unless user_signed_in? && current_user.favorite_products.include?(@product)
+
+    @favorite = Favorite.where('product_id = ? AND user_id = ?', current_user.id, @product.id).first
   end
 
   def new
