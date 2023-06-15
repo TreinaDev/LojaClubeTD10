@@ -12,4 +12,5 @@ Rails.application.routes.draw do
 
   resources :customer_areas, only: [:index]
   get "me", to: "customer_areas#me"
+  post "update_phone_number", to: "users#update_phone"
 end
