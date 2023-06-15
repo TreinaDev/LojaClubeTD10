@@ -14,11 +14,12 @@ class ShoppingCartsController < ApplicationController
     quantity = params[:quantity].to_i
     current_orderable = @shopping_cart.orderables.find_by(product_id: @product.id)
     if current_orderable && quantity > 0
-      current_orderable.update(quantity:)
+      # quantity = current_orderable.quantity + quantity
+      current_orderable.update(quantity: quantity)
     elsif quantity <= 0
       current_orderable.destroy
     else
-      @shopping_cart.orderables.create(product: @product, quantity:)
+      @shopping_cart.orderables.create(product: @product, quantity: quantity)
     end
     redirect_to @shopping_cart
   end
@@ -26,7 +27,7 @@ class ShoppingCartsController < ApplicationController
   def remove
     @shopping_cart = ShoppingCart.find_by(id: session[:cart_id])
     Orderable.find_by(id: params[:id]).destroy
-    if @shopping_cart.orderables.count < 0
+    if @shopping_cart.orderables.count <= 0
       @shopping_cart.destroy
       session[:cart_id] = nil
       return redirect_to root_path

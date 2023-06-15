@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :load_product_categories
+  before_action :shopping_cart_exists
 
   private
 
@@ -23,5 +24,9 @@ class ApplicationController < ActionController::Base
     return if current_user.admin?
 
     redirect_to root_path, alert: t('access_denied')
+  end
+
+  def shopping_cart_exists
+    @cart ||= ShoppingCart.find_by(id: session[:cart_id])
   end
 end
