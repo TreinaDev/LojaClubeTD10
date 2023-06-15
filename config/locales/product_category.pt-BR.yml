@@ -5,6 +5,8 @@ pt-BR:
     attributes:
       product_category:
         name: 'Nome'
+        status: 'Status'
+        actions: 'Ações'
   product_category:
     create:
       success: 'Categoria criada com sucesso.'

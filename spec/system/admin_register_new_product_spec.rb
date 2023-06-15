@@ -22,7 +22,7 @@ describe 'Administrador cadastra produto' do
     prod = Product.last
     expect(current_path).to eq product_path(prod.id)
     expect(page).to have_css('img[src*="TV.jpg"]')
-    expect(page).to have_content 'Produto ABC123456 - TV 42'
+    expect(page).to have_content 'Produto TV 42 - ABC123456'
     expect(page).to have_content 'Descrição'
     expect(page).to have_content 'Descrição para o produto'
     expect(page).to have_content 'Marca'
