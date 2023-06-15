@@ -76,7 +76,7 @@ describe 'Administrador edita uma campanha promocional' do
     user = FactoryBot.create(:user)
     company = FactoryBot.create(:company)
     FactoryBot.create(:company, brand_name: 'PlayCode', registration_number: '90155816000187')
-    FactoryBot.create(:promotional_campaign, company:)
+    promotional_campaign = FactoryBot.create(:promotional_campaign, company:)
 
     login_as(user)
     visit edit_promotional_campaign_path(promotional_campaign.id)
