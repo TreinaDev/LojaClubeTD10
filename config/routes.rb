@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root "home#index"
 
   resources :product_categories, only: [:index, :new, :create, :edit, :update] do
-    member do 
+    member do
       patch :deactivate
       patch :reactivate
     end
@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   post "cart/add", to: "shopping_carts#add"
   post "cart/remove", to: "shopping_carts#remove"
   resources :shopping_carts, only: [:show]
+  post "update_phone_number", to: "users#update_phone"
 end
