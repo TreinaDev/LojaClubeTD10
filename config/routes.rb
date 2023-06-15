@@ -2,7 +2,12 @@ Rails.application.routes.draw do
   devise_for :users
   root "home#index"
 
-  resources :product_categories, only: [:index, :new, :create, :edit, :update]
+  resources :product_categories, only: [:index, :new, :create, :edit, :update] do
+    member do 
+      patch :deactivate
+      patch :reactivate
+    end
+  end
   resources :products, only: [:new, :create, :show, :index, :edit, :update]
   resources :promotional_campaigns, only: [:index, :new, :create, :show, :edit, :update]
 
