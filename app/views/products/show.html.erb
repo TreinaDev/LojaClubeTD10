@@ -8,6 +8,7 @@
 <div class="col-md-8">
   <div class="card-body">
     <h3 class="card-title">Produto <%= @product.code %> - <%= @product.name %></h3>
+
     <% if user_signed_in? && !current_user.favorite_products.include?(@product) %>
       <%= form_with model: @favorite do |f| %>
         <%= f.hidden_field :product_id, value: @product.id %>
@@ -15,7 +16,7 @@
         <%= f.submit 'Marcar como favorito' %>
       <% end %>  
     <% elsif user_signed_in? %>  
-      <%= button_to 'Remover dos favoritos' %>
+      <%= button_to 'Remover dos favoritos', favorite_path(@favorite.id), method: :delete %>
     <% end %>
 
     <dl class="row text-muted">

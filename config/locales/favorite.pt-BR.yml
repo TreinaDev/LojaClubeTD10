@@ -1,0 +1,12 @@
+pt-BR:
+  favorites:
+    destroy:
+      destroy_success: 'Produto excluído da sua lista de favoritos'
+      destroy_fails: 'Não foi possível excluir o produto da lista de favoritos'
+  activerecord:
+    models:
+      favorite: 'Favorito'
+    attributes:
+      favorite:
+        user: 'Usuário'
+        product: 'Produto'

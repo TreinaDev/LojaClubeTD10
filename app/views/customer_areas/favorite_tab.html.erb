@@ -6,10 +6,11 @@
 
     <div class="col-lg col-sm-12 text-start fs-4">
       <div class="row">
-        <% @products&.each do |product| %>
-          <h3><%= product.code %> - <%= product.name %></h3>
+        <% @favorites&.each do |favorite| %>
+          <h3><%= favorite.product.code %> - <%= favorite.product.name %></h3>
+          <%= button_to 'Excluir', favorite_path(favorite), method: :delete, id: favorite.id %>
         <% end %> 
-        <% if @products.empty? %>       
+        <% if @favorites.empty? %>       
           <h3>Você não selecionou nenhum produto como favorito</h3>
         <% end %>
       </div>
