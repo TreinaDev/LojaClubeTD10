@@ -11,7 +11,7 @@
               <%= product.name %>
             </div>
             <div class="col-sm mt-1">
-              Valor em pontos: <%= product.price %>
+              Valor em pontos: <%= product.price.round %>
             </div>
             <div class="col-sm-4">
               <%= form_with(url: cart_add_path)  do |f| %>
@@ -31,7 +31,7 @@
             </div>
           </div>
         <% end %>
-        <p class="fw-bold">Total: <%= @shopping_cart.total %></p>
+        <p class="fw-bold">Total: <%= @shopping_cart.total.round%> pontos</p>
         <%= link_to "Continuar comprando", root_path, class:"btn btn-secondary" %>
         <%# link_to "Checkout", checkout_path, class:"btn btn-outline-primary btn-sm" %>
     </div>

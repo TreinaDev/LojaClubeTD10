@@ -1,5 +1,4 @@
 class ShoppingCartsController < ApplicationController
-
   def show
     @shopping_cart = ShoppingCart.find(session[:cart_id])
   end

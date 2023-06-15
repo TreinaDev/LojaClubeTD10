@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :load_product_categories
-  before_action :shopping_cart_exists
+  before_action :cart
 
   private
 
@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, alert: t('access_denied')
   end
 
-  def shopping_cart_exists
+  def cart
     @cart ||= ShoppingCart.find_by(id: session[:cart_id])
   end
 end
