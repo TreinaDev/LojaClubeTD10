@@ -67,6 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_15_142259) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "active", default: true
     t.index ["name"], name: "index_product_categories_on_name", unique: true
   end
 

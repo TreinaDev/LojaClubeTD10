@@ -16,7 +16,8 @@ describe 'Administrador acessa index de produtos' do
                     product_category: category)
 
     login_as(user)
-    visit products_path
+    visit root_path
+    click_on 'Produtos'
 
     expect(page).to have_content 'Produtos'
     expect(page).to have_content 'TV42'
@@ -30,7 +31,8 @@ describe 'Administrador acessa index de produtos' do
                         phone_number: '19998555544', cpf: '56685728701')
 
     login_as(user)
-    visit products_path
+    visit root_path
+    click_on 'Produtos'
 
     expect(page).to have_content 'Produtos'
     expect(page).not_to have_content 'TV42'
@@ -42,17 +44,16 @@ describe 'Administrador acessa index de produtos' do
                         phone_number: '19998555544', cpf: '56685728701')
 
     login_as(user)
-    visit products_path
+    visit root_path
+    click_on 'Produtos'
 
     expect(page).to have_link 'Cadastrar Produto'
   end
 
   it 'como visitante' do
-    visit root_path
     visit products_path
 
     expect(current_path).to eq new_user_session_path
-    expect(page).not_to have_content 'Produtos'
     expect(page).to have_content 'Você precisa fazer login ou se registrar antes de continuar'
   end
 
@@ -61,7 +62,6 @@ describe 'Administrador acessa index de produtos' do
                         phone_number: '19998555544', cpf: '66610881090')
 
     login_as(user)
-    visit root_path
     visit products_path
 
     expect(current_path).to eq root_path

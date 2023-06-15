@@ -1,0 +1,30 @@
+.alert-alert { @extend .alert-warning; }
+.alert-notice { @extend .alert-success; }
+
+.flash {
+  max-width: 100%;
+  width: max-content;
+  padding: 10px 10px;
+  z-index: 99;
+}
+
+.flash-outer {
+  position:absolute;
+  top: 60px;
+  right: 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  animation: appear-then-fade 5s both;
+}
+
+@keyframes appear-then-fade {
+  0%, 100% {
+    opacity:0
+  }
+  5%, 60% {
+    opacity:1
+  }
+}
