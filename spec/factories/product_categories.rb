@@ -3,5 +3,6 @@ FactoryBot.define do
     sequence :name do |n|
       "Categoria Teste #{n}"
     end
+    active { true }
   end
 end
