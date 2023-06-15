@@ -12,7 +12,8 @@ describe 'Administrador acessa index de campanhas promocionais' do
                                 end_date: 2.months.from_now.to_date)
 
     login_as(user)
-    visit promotional_campaigns_path
+    visit root_path
+    click_on 'Campanhas'
 
     expect(page).to have_content 'Campanhas Promocionais'
     expect(page).to have_content 'Campanha'

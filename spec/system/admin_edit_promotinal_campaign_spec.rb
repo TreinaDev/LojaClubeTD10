@@ -7,7 +7,8 @@ describe 'Administrador edita uma campanha promocional' do
     FactoryBot.create(:promotional_campaign, company:)
 
     login_as(user)
-    visit promotional_campaigns_path
+    visit root_path
+    click_on 'Campanhas'
     find_link('Editar', id: 'promotional_campaign_1').click
 
     expect(current_path).to eq edit_promotional_campaign_path(1)
@@ -24,7 +25,8 @@ describe 'Administrador edita uma campanha promocional' do
     FactoryBot.create(:promotional_campaign, company:)
 
     login_as(user)
-    visit promotional_campaigns_path
+    visit root_path
+    click_on 'Campanhas'
     find_link('Editar', id: 'promotional_campaign_1').click
 
     fill_in 'Nome', with: 'Eletrofest 2023'
@@ -47,7 +49,8 @@ describe 'Administrador edita uma campanha promocional' do
     FactoryBot.create(:promotional_campaign, company:)
 
     login_as(user)
-    visit promotional_campaigns_path
+    visit root_path
+    click_on 'Campanhas'
     find_link('Editar', id: 'promotional_campaign_1').click
 
     fill_in 'Nome', with: ''

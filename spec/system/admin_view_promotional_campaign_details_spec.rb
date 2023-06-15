@@ -7,7 +7,8 @@ describe 'Administrador acessa detalhes de uma campanha promocional' do
     PromotionalCampaign.create!(name: 'Natal 2023', company:, start_date: 1.week.from_now, end_date: 1.month.from_now)
 
     login_as(user)
-    visit promotional_campaigns_path
+    visit root_path
+    click_on 'Campanhas'
     click_on 'Natal 2023'
 
     expect(page).to have_content 'Natal 2023'

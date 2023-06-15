@@ -6,7 +6,8 @@ describe 'Admin registra uma nova Campanha Promocional' do
     FactoryBot.create(:company)
 
     login_as(admin)
-    visit promotional_campaigns_path
+    visit root_path
+    click_on 'Campanhas'
     click_on 'Nova Campanha Promocional'
     fill_in 'Nome', with: 'Verão 2023'
     fill_in 'Data Inicial', with: 1.week.from_now.to_date
@@ -22,7 +23,8 @@ describe 'Admin registra uma nova Campanha Promocional' do
     admin = FactoryBot.create(:user, email: 'admin@punti.com')
 
     login_as(admin)
-    visit promotional_campaigns_path
+    visit root_path
+    click_on 'Campanhas'
     click_on 'Nova Campanha Promocional'
     fill_in 'Nome', with: ''
     fill_in 'Data Inicial', with: ''
