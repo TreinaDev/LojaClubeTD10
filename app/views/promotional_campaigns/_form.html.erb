@@ -1,12 +1,6 @@
-<% if promotional_campaign.errors.any? %>
-  <dl>
-    <% promotional_campaign.errors.full_messages.each do |msg| %>
-      <dt><%= msg %></dt>
-    <% end %>
-  </dl>
-<% end %>
 <div class="container">
-  <%= form_with(model: promotional_campaign) do |f| %>
+  <%= form_with model: promotional_campaign, data: { turbo: false } do |f| %>
+    <%= render partial: 'form_errors', locals: { object: promotional_campaign } %>
     <div class="mb-3">
       <%= f.label :name %>
       <%= f.text_field :name, class: 'form-control mb-2' %>

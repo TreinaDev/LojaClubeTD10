@@ -1,33 +1,7 @@
-<div class="container shadow p-2 mb-4 bg-body-tertiary rounded div-max-width">
-  <h5 class="text-center">Campanhas Promocionais</h5>
-</div>
-<% if @promotional_campaign.errors.any? %>
-  <dl>
-    <% @promotional_campaign.errors.full_messages.each do |msg| %>
-      <dt><%= msg %></dt>
-    <% end %>
-  </dl>
-<% end %>
-<div class="container">
-  <%= form_with(model: @promotional_campaign) do |f| %>
-    <div class="mb-3">
-      <%= f.label :name %>
-      <%= f.text_field :name, class: 'form-control mb-2' %>
-    </div>
-    <div class="mb-3">
-      <%= f.label :start_date %>
-      <%= f.date_field :start_date, class: 'form-control mb-2'  %>
-    </div>
-    <div class="mb-3">
-      <%= f.label :end_date %>
-      <%= f.date_field :end_date , class: 'form-control mb-2' %>
-    </div>
-    <div class="mb-3">
-      <%= f.label :company_id %>
-      <%= f.collection_select(:company_id, @companies, :id, :brand_name , { prompt: 'Selecione' }, { class: 'form-control mb-2'}) %>
-    </div>
-    <div class="mb-3">
-      <%= f.submit 'Cadastrar', class: 'btn btn-secondary  mt-2' %>
-    </div>
-  <% end %>
-</div>
+<section>
+  <div class="container shadow p-2 my-4 bg-body-tertiary rounded">
+    <h2 class="text-center">Cadastrar Campanha Promocional</h2>
+
+    <%= render 'form', promotional_campaign: @promotional_campaign, companies: @companies %>
+  </div>
+</section>
