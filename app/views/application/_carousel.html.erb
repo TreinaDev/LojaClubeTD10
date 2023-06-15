@@ -10,18 +10,18 @@
                   <div class= "col">
                     <div class="card shadow-sm p-3 mb-5 bg-white rounded product-card" id=<%= product.code %>>
                     <% if product.product_images.attached? %>
-                      <%= image_tag(product.product_images[0], alt:product.name, class:"card-img-top", style: "width: 200px; height:150px;")%>
+                      <%= image_tag(product.product_images[0], alt:product.name, class:"card-img-top card-image")%>
                       <% else %>
-                      <%= image_tag(asset_path('no_image.jpg'), alt:product.name, class:"card-img-top", style: "width: 200px; height:150px;")%>
-                    <% end %> 
+                      <%= image_tag(asset_path('no_image.jpg'), alt:product.name, class:"card-img-top card-image")%>
+                    <% end %>
                       <div class="card-body">
                         <h5 class="card-title"><%= link_to product.name, product_path(product.id) %></h5>
                         <p class="text-truncate mw-2"><%= product.description %></p>
                         <p><%= show_price(product) %></p>
                       </div>
                     </div>
-                  </div>   
-                <% end %>  
+                  </div>
+                <% end %>
               </div>
             </div>
           <% end %>
@@ -37,6 +37,6 @@
       </div>
     </div>
     <% else %>
-      <h3>Nenhum produto disponível no momento</h3>      
+      <h3>Nenhum produto disponível no momento</h3>
     <% end %>
   </div>

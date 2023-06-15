@@ -10,7 +10,7 @@ describe 'Usuário visita homepage' do
   it 'e vê uma barra de navegação' do
     visit root_path
 
-    expect(page).to have_link 'Categorias'
+    expect(page).to have_link 'Categorias de Produtos'
     expect(page).to have_link 'Entrar', href: new_user_session_path
     expect(page).not_to have_link 'Área do Cliente'
     expect(page).to have_css 'nav'
@@ -41,7 +41,7 @@ describe 'Usuário visita homepage' do
     visit root_path
 
     expect(page).to have_content 'Produtos Recentes'
-    within('#1.carousel') do
+    within('#recent_products.carousel') do
       within('.card#CMA123456') do
         expect(page).to have_content 'Camiseta Azul'
         expect(page).not_to have_content '800 Pontos'
@@ -69,7 +69,7 @@ describe 'Usuário visita homepage' do
     visit root_path
 
     expect(page).to have_content 'Produtos Recentes'
-    within('#1.carousel') do
+    within('#recent_products.carousel') do
       within('.card#CMA123456') do
         expect(page).to have_content 'Camiseta Azul'
         expect(page).to have_content 'Uma camisa azul muito bonita'
@@ -91,11 +91,14 @@ describe 'Usuário visita homepage' do
       visit root_path
 
       expect(page).to have_content 'jose@gmail.com'
-      expect(page).to have_link 'Categorias'
+      expect(page).to have_link 'Categorias de Produtos'
       expect(page).to have_link 'Área do Cliente'
       expect(page).to have_button 'Sair'
       expect(page).to have_css 'nav'
       expect(page).not_to have_link 'Entrar'
+      expect(page).not_to have_link 'Administração'
+      expect(page).not_to have_link 'Categorias', href: product_categories_path
+      expect(page).not_to have_content 'jose@gmail.com (ADMIN)'
     end
     it 'e vê os preços dos produtos' do
       user = FactoryBot.create(:user)
@@ -106,7 +109,7 @@ describe 'Usuário visita homepage' do
       login_as(user)
       visit root_path
 
-      within('#1.carousel') do
+      within('#recent_products.carousel') do
         within('.card#GLD678456') do
           expect(page).to have_content 'Geladeira branca'
           expect(page).to have_content 'Geladeira bonita'

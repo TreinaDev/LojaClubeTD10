@@ -21,13 +21,47 @@ a, a:hover {
  }
 
 
+.resize-sml {
+  height: auto;
+  width: auto;
+  max-width: 80px;
+  max-height: 80px;
+}
+
 // Para tirar as setas do campo number_field
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
 input[type=number] {
- -moz-appearance: textfield;
- appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.resize-big {
+  height: auto;
+  width: auto;
+  max-width: 450px;
+  max-height: 300px;
+}
+
+.image-size {
+  width: 450px;
+  height: 300px;
+}
+
+.img-cursor {
+  cursor: pointer;
+}
+
+.product-card {
+  width: 15rem;
+  height: 320px;
+}
+
+.card-image {
+  width: 200px;
+  height:150px;
 }
