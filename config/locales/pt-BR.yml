@@ -4,8 +4,6 @@ pt-BR:
   submit: 'Enviar'
   create_account: 'Criar conta'
   adm_tag: 'administrador'
-  submit: 'Enviar'
-  unauthorized_action: 'Você não possui permissão para realizar esta ação.'
   client_area: 'Área do Cliente'
   my_account: 'Minha Conta'
   my_orders: 'Meus Pedidos'
@@ -15,5 +13,3 @@ pt-BR:
   product_favorites: 'Produtos Favoritos'
   recent_orders: 'Pedidos Recentes'
   prevent_admin_message: 'Administrador não tem acesso a essa página'
-
-  
