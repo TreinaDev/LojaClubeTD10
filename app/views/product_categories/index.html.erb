@@ -1,22 +1,28 @@
-<section>
-  <div class="container shadow p-2 mb-4 bg-body-tertiary rounded div-max-width">
+<section class="container shadow p-2 mb-4 bg-body-tertiary rounded">
   <h2 class="text-center">Categorias de produto</h2>
-  </div> 
+
   <div class="container div-max-width p-2">
     <%= link_to 'Nova Categoria', new_product_category_path, class: 'btn btn-secondary' %>
   </div> 
-  <table class="table table-striped table-hover mt-4 ">
+ 
+  <table class="table table-striped table-hover mt-4">
     <thead>
       <tr class="text-center">
-        <th><%= Product.human_attribute_name(:name) %></th>
+        <th><%= ProductCategory.human_attribute_name(:name) %></th>
+        <th><%= ProductCategory.human_attribute_name(:status) %></th>
+        <th><%= ProductCategory.human_attribute_name(:actions) %></th>
       </tr>
     </thead>
-    <tbody class="table-group-divider">    
-    <% @product_categories.each do |product_category| %>
-      <tr class="text-center">
-      <td><%= product_category.name %><td> 
-      <td><%= link_to 'Editar', edit_product_category_path(product_category.id), class: 'btn btn-outline-secondary btn-sm' %><td>
-    <% end %>
+    <tbody class="table-group-divider">
+      <% @product_categories&.each do |product_category| %>
+        <tr class="text-center">
+          <td><%= product_category.name %></td>
+          <td><%= product_category.active ? 'Ativado' : 'Desativado' %></td>
+          <td>
+            <%= link_to 'Editar', edit_product_category_path(product_category.id), class: "btn btn-outline-secondary btn-sm" %>
+          </td>
+        </tr>
+      <% end %>
     </tbody>
-  </table>  
+  </table>
 </section>
