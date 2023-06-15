@@ -1,6 +1,6 @@
 class PromotionalCampaignsController < ApplicationController
-  before_action :authenticate_user!, only: %i[index new create show edit]
-  before_action :check_user, only: %i[index new create show edit]
+  before_action :authenticate_user!, only: %i[index new create show edit update]
+  before_action :check_user, only: %i[index new create show edit update]
   before_action :set_promotional_campaign, only: %i[show edit update]
 
   def index

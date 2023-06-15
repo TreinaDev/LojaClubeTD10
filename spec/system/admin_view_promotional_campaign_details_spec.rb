@@ -2,11 +2,11 @@ require 'rails_helper'
 
 describe 'Administrador acessa detalhes de uma campanha promocional' do
   it 'a partir da listagem de campanhas promocional' do
-    user = FactoryBot.create(:user, email: 'adm@punti.com')
-    company = FactoryBot.create(:company)
-    PromotionalCampaign.create!(name: 'Natal 2023', company:, start_date: 1.week.from_now, end_date: 1.month.from_now)
+    admin = create(:user, email: 'adm@punti.com')
+    company = create(:company)
+    create(:promotional_campaign, name: 'Natal 2023', company:, start_date: 1.week.from_now, end_date: 1.month.from_now)
 
-    login_as(user)
+    login_as(admin)
     visit root_path
     click_on 'Campanhas'
     click_on 'Natal 2023'
@@ -18,11 +18,8 @@ describe 'Administrador acessa detalhes de uma campanha promocional' do
   end
 
   it 'como visitante tenta acessar, mas é direcionado para logar' do
-    company = FactoryBot.create(:company)
-    promotional_campaign = PromotionalCampaign.create!(name: 'Verão 2023', company:,
-                                                       start_date: 1.week.from_now, end_date: 1.month.from_now)
-    PromotionalCampaign.create!(name: 'Natal 2023', company:,
-                                start_date: 5.months.from_now, end_date: 6.months.from_now)
+    company = create(:company)
+    promotional_campaign = create(:promotional_campaign, company:)
 
     visit root_path
     visit promotional_campaign_path(promotional_campaign.id)
@@ -33,12 +30,9 @@ describe 'Administrador acessa detalhes de uma campanha promocional' do
   end
 
   it 'como usuário comum tenta acessar, mas não tem acesso e é direcionado para o root' do
-    user = FactoryBot.create(:user)
-    company = FactoryBot.create(:company)
-    promotional_campaign = PromotionalCampaign.create!(name: 'Verão 2023', company:,
-                                                       start_date: 1.week.from_now, end_date: 1.month.from_now)
-    PromotionalCampaign.create!(name: 'Natal 2023', company:,
-                                start_date: 5.months.from_now, end_date: 6.months.from_now)
+    user = create(:user)
+    company = create(:company)
+    promotional_campaign = create(:promotional_campaign, company:)
 
     login_as(user)
     visit root_path

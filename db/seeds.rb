@@ -37,5 +37,7 @@ product4.save!
 Company.create!(registration_number: '86654033000170', corporate_name: 'Punti LTDA.', brand_name: 'Punti')
 Company.create!(registration_number: '34997507000183', corporate_name: 'CodeCampus SA.', brand_name: 'CodeCampus')
 
-PromotionalCampaign.create!(name: 'Natal 2023', start_date: 1.week.from_now, end_date: 1.month.from_now)
-PromotionalCampaign.create!(name: 'Verão 2023', start_date: 5.days.from_now, end_date: 2.months.from_now)
+PromotionalCampaign.create!(name: 'Natal 2023', start_date: 1.week.from_now, end_date: 1.month.from_now,
+                            company: Company.first)
+PromotionalCampaign.create!(name: 'Verão 2023', start_date: 5.days.from_now, end_date: 2.months.from_now,
+                            company: Company.first)

@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'Admin registra uma nova Campanha Promocional' do
   it 'com sucesso' do
-    admin = FactoryBot.create(:user, email: 'admin@punti.com')
-    FactoryBot.create(:company)
+    admin = create(:user, email: 'admin@punti.com')
+    create(:company)
 
     login_as(admin)
     visit root_path
@@ -20,7 +20,7 @@ describe 'Admin registra uma nova Campanha Promocional' do
   end
 
   it 'com dados incompletos' do
-    admin = FactoryBot.create(:user, email: 'admin@punti.com')
+    admin = create(:user, email: 'admin@punti.com')
 
     login_as(admin)
     visit root_path
@@ -38,8 +38,7 @@ describe 'Admin registra uma nova Campanha Promocional' do
     expect(page).to have_content 'Data Final não pode ficar em branco'
   end
 
-  it 'como visitante' do
-    visit root_path
+  it 'como visitante tenta acessar, mas é direcionado para logar' do
     visit new_promotional_campaign_path
 
     expect(current_path).to eq new_user_session_path
@@ -48,11 +47,10 @@ describe 'Admin registra uma nova Campanha Promocional' do
     expect(page).to have_content 'Você precisa fazer login ou se registrar antes de continuar'
   end
 
-  it 'como usuário comum' do
-    user = FactoryBot.create(:user)
+  it 'como usuário comum tenta acessar, mas não tem acesso e é direcionado para o root' do
+    user = create(:user)
 
     login_as(user)
-    visit root_path
     visit new_promotional_campaign_path
 
     expect(current_path).to eq root_path

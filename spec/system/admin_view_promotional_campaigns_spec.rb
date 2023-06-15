@@ -2,16 +2,15 @@ require 'rails_helper'
 
 describe 'Administrador acessa index de campanhas promocionais' do
   it 'e vê a lista de campanhas promocionais' do
-    user = FactoryBot.create(:user, email: 'adm@punti.com')
+    admin = create(:user, email: 'adm@punti.com')
 
-    company = Company.create!(brand_name: 'CodeCampus', registration_number: '45918500000145',
-                              corporate_name: 'CodeCampus LTDA.')
-    PromotionalCampaign.create!(name: 'Natal 2023', company:, start_date: 1.week.from_now.to_date,
-                                end_date: 1.month.from_now.to_date)
-    PromotionalCampaign.create!(name: 'Verão 2023', company:, start_date: 2.weeks.from_now.to_date,
-                                end_date: 2.months.from_now.to_date)
+    company = create(:company, brand_name: 'CodeCampus')
+    create(:promotional_campaign, name: 'Natal 2023', company:, start_date: 1.week.from_now.to_date,
+                                  end_date: 1.month.from_now.to_date)
+    create(:promotional_campaign, name: 'Verão 2023', company:, start_date: 2.weeks.from_now.to_date,
+                                  end_date: 2.months.from_now.to_date)
 
-    login_as(user)
+    login_as(admin)
     visit root_path
     click_on 'Campanhas'
 
@@ -30,9 +29,9 @@ describe 'Administrador acessa index de campanhas promocionais' do
   end
 
   it 'e não tem campanhas promocionais cadastradas' do
-    user = FactoryBot.create(:user, email: 'adm@punti.com')
+    admin = create(:user, email: 'adm@punti.com')
 
-    login_as(user)
+    login_as(admin)
     visit promotional_campaigns_path
 
     expect(page).to have_content 'Campanhas Promocionais'
@@ -49,7 +48,7 @@ describe 'Administrador acessa index de campanhas promocionais' do
   end
 
   it 'como usuário comum tenta acessar, mas não tem acesso e é direcionado para o root' do
-    user = FactoryBot.create(:user)
+    user = create(:user)
 
     login_as(user)
     visit root_path
