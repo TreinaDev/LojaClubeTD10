@@ -32,6 +32,26 @@ describe 'Usuário adiciona produto ao carrinho' do
     expect(page).to have_content 'Total:'
     expect(page).to have_content '800 pontos'
   end
+  it 'com quantidade acima de um, com sucesso' do
+    user = create(:user)
+    category1 = create(:product_category, name: 'Camisetas')
+    create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
+                     description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+    login_as(user)
+    visit root_path
+    click_on 'Camiseta Azul'
+    fill_in 'number_field', with: '4'
+    click_on 'Comprar'
+
+    expect(current_path).to eq shopping_cart_path(1)
+    expect(page).to have_content 'Carrinho de compras'
+    expect(page).to have_content 'Camiseta Azul'
+    expect(page).to have_content 'Valor em pontos: 800'
+    expect(page).to have_content 'Quantidade'
+    expect(page).to have_field 'quantity', with: '4'
+    expect(page).to have_content 'Total:'
+    expect(page).to have_content '3200 pontos'
+  end
   it 'com sucesso, e consegue continuar comprando' do
     user = create(:user)
     category1 = create(:product_category, name: 'Camisetas')
