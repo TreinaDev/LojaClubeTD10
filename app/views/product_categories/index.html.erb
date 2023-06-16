@@ -9,26 +9,29 @@
     <thead>
       <tr class="text-center">
         <th><%= Product.human_attribute_name(:name) %></th>
+        <th>Editar</th>
+        <th>Status</th>
       </tr>
     </thead>
     <tbody class="table-group-divider">
     <% @product_categories.each do |product_category| %>
       <tr class="text-center">
-      <td><%= product_category.name %><td>
-      <td><%= link_to 'Editar', edit_product_category_path(product_category.id), class: 'btn btn-outline-secondary btn-sm' %></td>
-      <% if product_category.active? %>
-        <td>
-          <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-<%= dom_id(product_category) %>" id="<%= dom_id(product_category) %>_button">
-            Desativar
-          </button>
-        </td>
-      <% else %>
-        <td>
-          <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target= "#modal-<%= dom_id(product_category) %>" id="<%= dom_id(product_category) %>_button" >
-            Reativar
-          </button>
-        </td>
+        <td><%= product_category.name %></td>
+        <td><%= link_to 'Editar', edit_product_category_path(product_category.id), class: 'btn btn-outline-secondary btn-sm' %></td>
+        <% if product_category.active? %>
+          <td>
+            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-<%= dom_id(product_category) %>" id="<%= dom_id(product_category) %>_button">
+              Desativar
+            </button>
+          </td>
+        <% else %>
+          <td>
+            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target= "#modal-<%= dom_id(product_category) %>" id="<%= dom_id(product_category) %>_button" >
+              Reativar
+            </button>
+          </td>
       <% end %>
+      </tr>
       <div class="modal fade" id="modal-<%= dom_id(product_category) %>" tabindex="-1" aria-labelledby="exampleModaLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
