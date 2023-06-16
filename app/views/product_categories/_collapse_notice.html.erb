@@ -1,0 +1,18 @@
+  <div>
+    <p>
+      <button class="btn btn-secondary mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        <%= product_category.active ? 'Desativar' : 'Reativar' %>
+      </button>
+    </p>
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body">
+        <% if product_category.active? %>
+          Você tem certeza? Todos os produtos vinculados a essa categoria serão desativados.
+          <%= button_to 'Desativar categoria', deactivate_product_category_path(product_categories), method: :patch, class: 'btn btn-danger mt-2 mb-3' %>
+        <% else %>
+          Você tem certeza? Todos os produtos vinculados a essa categoria serão reativados.
+          <%= button_to 'Reativar categoria', reactivate_product_category_path(product_category), method: :patch, class: 'btn btn-success mt-2 mb-3' %>
+        <% end %>
+      </div>
+    </div>
+  </div>

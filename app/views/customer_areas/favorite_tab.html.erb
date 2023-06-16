@@ -1,0 +1,18 @@
+<div class="container-lg text-center pt-3 pe-4 ps-4">
+  <h1 class="mb-1 fw-bold"><%= t(:product_favorites) %></h1>
+  <div class="mb-4 mt-4">
+
+  <%= render 'nav-tab' %>
+
+    <div class="col-lg col-sm-12 text-start fs-4">
+      <div class="row">
+        <% @products&.each do |product| %>
+          <h3><%= product.code %> - <%= product.name %></h3>
+        <% end %> 
+        <% if @products.empty? %>       
+          <h3>Você não selecionou nenhum produto como favorito</h3>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>  
