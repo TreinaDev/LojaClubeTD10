@@ -9,11 +9,11 @@
         <% @favorites&.each do |favorite| %>
           <h3><%= favorite.product.code %> - <%= favorite.product.name %></h3>
           <%= button_to 'Excluir', favorite_path(favorite), method: :delete, id: favorite.id %>
-        <% end %> 
-        <% if @favorites.empty? %>       
+        <% end %>
+        <% if @favorites&.empty? %>
           <h3>Você não selecionou nenhum produto como favorito</h3>
         <% end %>
       </div>
     </div>
   </div>
-</div>  
+</div>

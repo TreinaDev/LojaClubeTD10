@@ -7,7 +7,7 @@ describe 'Usuário remove um produto de sua lista de favoritos' do
     category = FactoryBot.create(:product_category)
     product = FactoryBot.create(:product, name: 'TV', code: 'HJK123456', product_category: category)
 
-    Favorite.create!(user:, product: product)
+    Favorite.create!(user:, product:)
 
     login_as user
     visit product_path(product)

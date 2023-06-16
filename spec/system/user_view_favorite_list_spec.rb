@@ -1,12 +1,29 @@
 require 'rails_helper'
 
 describe 'Usuário visualiza lista de favoritos' do
+  it 'e usuário comum não consegue acessar' do
+    visit favorite_tab_path
+
+    expect(current_path).to eq new_user_session_path
+    expect(page).to have_content 'Faça login para acessar'
+  end
+
+  it 'e administrador não consegue acessar' do
+    admin = create(:user, email: 'matheus@punti.com', password: 'abrir123')
+    login_as(admin)
+
+    visit favorite_tab_path
+
+    expect(current_path).to eq root_path
+    expect(page).to have_content 'Administrador não tem acesso a essa página'
+  end
+
   it 'na área do cliente' do
     user = User.create!(name: 'matheus', email: 'matheus@mail.com', password: 'senha1234',
                         phone_number: '19998555544', cpf: '56685728701')
-    category = FactoryBot.create(:product_category)
-    product1 = FactoryBot.create(:product, name: 'TV', code: 'HJK123456', product_category: category)
-    product2 = FactoryBot.create(:product, name: 'Iphone', code: 'ASD123456', product_category: category)
+    category = create(:product_category)
+    product1 = create(:product, name: 'TV', code: 'HJK123456', product_category: category)
+    product2 = create(:product, name: 'Iphone', code: 'ASD123456', product_category: category)
 
     Favorite.create!(user:, product: product1)
     Favorite.create!(user:, product: product2)

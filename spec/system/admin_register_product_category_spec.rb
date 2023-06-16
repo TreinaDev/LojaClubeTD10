@@ -39,7 +39,7 @@ describe 'Admin registra uma nova categoria' do
     expect(page).to have_content 'Nome já está em uso'
   end
 
-  it 'e não consegue acessar, pois não tem permissão' do
+  it 'e usuário comum não consegue acessar' do
     user = FactoryBot.create(:user)
 
     login_as(user)
