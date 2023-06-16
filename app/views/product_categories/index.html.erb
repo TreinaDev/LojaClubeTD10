@@ -6,8 +6,13 @@
   <ul>
     <% @product_categories&.each do |product_category| %>
       <li>
-        <%= product_category.name %> 
-        <%= link_to 'Editar', edit_product_category_path(product_category.id) %>
+        <%= product_category.name %>
+
+        <% if product_category.type == 'ProductCategory' %>
+          <%= link_to 'Editar', edit_product_category_path(product_category.id) %>
+        <% else %>
+          <%= link_to 'Editar', edit_product_subcategory_path(product_category.id) %>
+        <% end %>
       </li> 
     <% end %>
   </ul>

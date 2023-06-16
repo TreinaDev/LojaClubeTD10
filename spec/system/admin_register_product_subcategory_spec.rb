@@ -14,7 +14,7 @@ describe 'Administrador registra uma subcategoria' do
     expect(page).to have_content 'Subcategoria criada com sucesso.'
     expect(page).to have_content 'Categoria Teste'
     expect(page).to have_content 'Subcategoria Teste'
-    expect(current_path).to eq product_subcategories_path
+    expect(current_path).to eq product_categories_path
   end
 
   context 'sem sucesso' do

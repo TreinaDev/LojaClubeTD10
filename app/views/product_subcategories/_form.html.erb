@@ -1,0 +1,13 @@
+<%= form_with model: @product_subcategory, data: { turbo: false } do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :parent_id %>
+    <%= f.collection_select :parent_id, @categories, :id, :name %>
+  </div>
+
+  <%= f.submit t("#{controller_name}.#{action_name}.form.submit_text") %>
+<% end %>

@@ -36,11 +36,11 @@
       <%= f.collection_select(:product_category_id, categories, :id, :name, { prompt: "Selecione uma categoria" }, { data: { controller: "product-category", action: "change->product-category#update" }, class: 'form-control mb-2' }) %>
     </div>
     <div class="mb-3">
-      <%= f.label :product_category_id, 'Subcategoria' %>
+      <%= f.label :product_category_id, 'Subcategoria', for: 'subcategorySelect'  %>
       <%= f.collection_select(:product_category_id, [], :id, :name, { prompt: "Selecione uma subcategoria" }, { id: 'subcategorySelect', class: 'form-control mb-2', disabled: true }) %>
     </div>
     <div class="mb-3">
-      <%= f.submit 'Cadastrar', class: 'btn btn-secondary  mt-2' %>
+      <%= f.submit 'Cadastrar', class: 'btn btn-secondary mt-2' %>
     </div>
   <% end %>
 </div>

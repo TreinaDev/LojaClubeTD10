@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root "home#index"
 
   resources :product_categories, only: [:index, :new, :create, :edit, :update]
-  resources :product_subcategories, only: [:index, :new, :create, :edit, :update] do
+  resources :product_subcategories, only: [:new, :create, :edit, :update] do
     get :subcategories, on: :member
   end
 
