@@ -151,7 +151,7 @@ describe 'Usuário adiciona produto ao carrinho' do
     expect(current_path).to eq product_path(product.id)
     expect(page).to have_content 'Não pode adicionar produto sem quantidade!'
   end
-  it 'sem sucesso, pois já tem um produto no carrinho, e adiciona outro com quantidade 0' do
+  it 'e adiciona outro produto com quantidade 0, causando um erro' do
     user = create(:user)
     category1 = create(:product_category, name: 'Camisetas')
     create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
