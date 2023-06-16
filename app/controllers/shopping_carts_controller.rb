@@ -1,7 +1,6 @@
 class ShoppingCartsController < ApplicationController
   before_action :set_product_and_quantity, only: [:add]
   before_action :set_shopping_cart, only: %i[add remove remove_all]
-  
 
   def show
     @shopping_cart = ShoppingCart.find(session[:cart_id])
@@ -25,18 +24,16 @@ class ShoppingCartsController < ApplicationController
     if @shopping_cart.orderables.count <= 0
       @shopping_cart.destroy
       session[:cart_id] = nil
-      return redirect_to root_path
+      return redirect_to root_path,  notice: t('.remove_success')
     end
-    redirect_to @shopping_cart
+    redirect_to @shopping_cart, notice: t('.remove_success')
   end
 
   def remove_all
-    @shopping_cart.orderables.each do |orderable|
-      orderable.destroy
-    end
+    @shopping_cart.orderables.each(&:destroy)
     @shopping_cart.destroy
     session[:cart_id] = nil
-    redirect_to root_path, notice: 'Carrinho excluído.'
+    redirect_to root_path, notice: t('.success_remove_all')
   end
 
   private
@@ -59,9 +56,10 @@ class ShoppingCartsController < ApplicationController
       return redirect_to @shopping_cart, notice: t('.update_success')
     elsif request.referer == shopping_cart_url(@shopping_cart)
       return redirect_to @shopping_cart, alert: t('.update_error')
-      
+
     end
-    redirect_to @product, alert: t('.error')
+
+    redirect_to @product, alert: t('.add_error')
   end
 
   def create_orderable
@@ -70,7 +68,6 @@ class ShoppingCartsController < ApplicationController
     if shopping.save
       redirect_to @shopping_cart, notice: t('.add_success')
     else
-      @shopping_cart.destroy if @shopping_cart.orderables.blank?
       redirect_to @product, alert: t('.add_error')
     end
   end

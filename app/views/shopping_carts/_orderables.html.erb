@@ -17,7 +17,7 @@
                 <%= f.hidden_field :id, value: product.id %>
 
                   <%= f.label :quantity, "Quantidade", class: "form-label" %>
-                  <%= f.number_field :quantity, value: orderable.quantity, style: "width: 3em;" %>
+                  <%= f.number_field :quantity, value: orderable.quantity, class: "text-center",style: "width: 3em;" %>
                 <%= f.submit "Alterar", class: "btn btn-outline-secondary mb-1 btn-sm" %>
               <% end %>
             </div>
@@ -25,7 +25,7 @@
             <div class="col-sm text-center">
               <%= form_with(url: remove_shopping_carts_path)  do |f| %>
                 <%= f.hidden_field :id, value: orderable.id %>
-                <div class="actions"><%= f.submit "Remover", class: "btn btn-outline-danger mb-1 btn-sm" %></div>
+                <div class="actions"><%= f.submit "Remover", class: "btn btn-outline-danger mb-1 btn-sm", id: "#{orderable.product.code}" %></div>
               <% end %>
             </div>
           </div>

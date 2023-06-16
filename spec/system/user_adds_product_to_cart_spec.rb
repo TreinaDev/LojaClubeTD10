@@ -18,7 +18,7 @@ describe 'Usuário adiciona produto ao carrinho' do
       user = create(:user)
       category1 = create(:product_category, name: 'Camisetas')
       create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
-                      description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+                       description: 'Uma camisa azul muito bonita', code: 'CMA123456')
       login_as(user)
       visit root_path
       click_on 'Camiseta Azul'
@@ -37,7 +37,7 @@ describe 'Usuário adiciona produto ao carrinho' do
       user = create(:user)
       category1 = create(:product_category, name: 'Camisetas')
       create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
-                      description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+                       description: 'Uma camisa azul muito bonita', code: 'CMA123456')
       login_as(user)
       visit root_path
       click_on 'Camiseta Azul'
@@ -57,7 +57,7 @@ describe 'Usuário adiciona produto ao carrinho' do
       user = create(:user)
       category1 = create(:product_category, name: 'Camisetas')
       create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
-                      description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+                       description: 'Uma camisa azul muito bonita', code: 'CMA123456')
       login_as(user)
       visit root_path
       click_on 'Camiseta Azul'
@@ -70,9 +70,9 @@ describe 'Usuário adiciona produto ao carrinho' do
       user = create(:user)
       category1 = create(:product_category, name: 'Camisetas')
       create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
-                      description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+                       description: 'Uma camisa azul muito bonita', code: 'CMA123456')
       create(:product, name: 'Camiseta Vermelha', price: 100, product_category: category1,
-                      description: 'Uma camisa vermelha muito grande', code: 'ZDS123789')
+                       description: 'Uma camisa vermelha muito grande', code: 'ZDS123789')
       login_as(user)
       visit root_path
       click_on 'Camiseta Azul'
@@ -97,15 +97,34 @@ describe 'Usuário adiciona produto ao carrinho' do
     it 'sem sucesso, ao informar 0 como quantidade' do
       user = create(:user)
       category1 = create(:product_category, name: 'Camisetas')
-      create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
-                      description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+      product = create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
+                       description: 'Uma camisa azul muito bonita', code: 'CMA123456')
       login_as(user)
       visit root_path
       click_on 'Camiseta Azul'
       fill_in 'number_field', with: '0'
       click_on 'Comprar'
 
-      expect(current_path).not_to eq shopping_cart_path(1)
+      expect(current_path).to eq product_path(product.id)
+      expect(page).to have_content 'Não pode adicionar produto sem quantidade!'
+    end
+    it 'sem sucesso, pois já tem um produto no carrinho, e adiciona outro com quantidade 0' do
+      user = create(:user)
+      category1 = create(:product_category, name: 'Camisetas')
+      create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
+                       description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+      create(:product, name: 'Camiseta Vermelha', price: 100, product_category: category1,
+                       description: 'Uma camisa vermelha muito grande', code: 'ZDS123789')                       
+      login_as(user)
+      visit root_path
+      click_on 'Camiseta Azul'
+      click_on 'Comprar'
+      click_on 'Continuar comprando'
+      click_on 'Camiseta Vermelha'
+      fill_in 'number_field', with: '0'
+      click_on 'Comprar'
+
+      expect(current_path).not_to eq shopping_cart_path(ShoppingCart.last.id)
       expect(page).to have_content 'Não pode adicionar produto sem quantidade!'
     end
   end

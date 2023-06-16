@@ -1,11 +1,8 @@
 class SessionsController < Devise::SessionsController
-  before_action :clear_cart, only: :destroy
+  def destroy
+    super
+    return unless @cart
 
-  private
-
-  def clear_cart
-    if @cart
-      @cart.destroy!
-    end
+    @cart.destroy!
   end
 end
