@@ -21,13 +21,13 @@
           <td><%= link_to 'Editar', edit_product_category_path(product_category.id), class: 'btn btn-outline-secondary btn-sm' %></td>
           <% if product_category.active? %>
             <td>
-              <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-<%= dom_id(product_category) %>" id="<%= dom_id(product_category) %>_button">
+              <button type="button" class="change-status-begin btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-<%= dom_id(product_category) %>" id="<%= dom_id(product_category) %>_button">
                 Desativar
               </button>
             </td>
           <% else %>
             <td>
-              <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target= "#modal-<%= dom_id(product_category) %>" id="<%= dom_id(product_category) %>_button" >
+              <button type="button" class="change-status-begin btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target= "#modal-<%= dom_id(product_category) %>" id="<%= dom_id(product_category) %>_button" >
                 Reativar
               </button>
             </td>
@@ -47,9 +47,9 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
               <% if product_category.active? %>
-                  <%= button_to 'Desativar', deactivate_product_category_path(product_category.id), method: :patch, class: 'btn btn-danger', id: product_category.id %>
+                  <%= button_to 'Desativar', deactivate_product_category_path(product_category.id), method: :patch, class: 'change-status btn btn-danger', id: product_category.id,  remote: true %>
               <% else %>
-                  <%= button_to 'Reativar', reactivate_product_category_path(product_category.id), method: :patch, class: 'btn btn-danger', id: product_category.id %>
+                  <%= button_to 'Reativar', reactivate_product_category_path(product_category.id), method: :patch, class: 'change-status btn btn-danger', id: product_category.id,  remote: true %>
               <% end %>
             </div>
           </div>
@@ -62,3 +62,25 @@
       <h3><i>Não há nenhuma categoria de produto cadastrada</i></h3>
     <% end %>
 </section>
+
+<script>
+
+    const statusButtons = document.querySelectorAll('.change-status');
+
+    statusButtons.forEach((statusButton) => {
+
+      statusButton.addEventListener('click', () => {
+
+        const initialBtns = document.querySelectorAll('.change-status-begin');
+
+        initialBtns.forEach((btn) => {
+          btn.disabled = true;
+        });
+
+        setTimeout(() => {
+          location.reload();
+        }, 5000);
+      });
+    });
+
+</script>
