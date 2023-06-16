@@ -1,6 +1,7 @@
 class ShoppingCartsController < ApplicationController
   before_action :set_product_and_quantity, only: [:add]
   before_action :set_shopping_cart, only: %i[add remove remove_all]
+  before_action :prevent_admin, only: [:add]
   before_action :authenticate_user!
 
   def show
