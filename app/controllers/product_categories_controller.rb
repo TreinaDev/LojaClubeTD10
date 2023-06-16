@@ -1,7 +1,7 @@
 class ProductCategoriesController < ApplicationController
   before_action :set_product_category, only: %i[edit update deactivate reactivate]
-  before_action :authenticate_user!, only: %i[index new edit create update]
-  before_action :authorize_admin, only: %i[index new edit create update]
+  before_action :authenticate_user!, only: %i[index new edit create update deactivate reactivate]
+  before_action :check_user, only: %i[index new edit create update deactivate reactivate]
 
   def index
     @product_categories = ProductCategory.all
@@ -52,9 +52,9 @@ class ProductCategoriesController < ApplicationController
     params.require(:product_category).permit(:name, :status)
   end
 
-  def authorize_admin
+  def check_user
     return if current_user.admin?
 
-    redirect_to root_path, alert: t('unauthorized_action')
+    redirect_to root_path, alert: t('access_denied')
   end
 end
