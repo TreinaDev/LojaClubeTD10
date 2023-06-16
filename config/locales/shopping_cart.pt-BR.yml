@@ -10,5 +10,6 @@ pt-BR:
   shopping_carts:
     add:
       add_success: 'Adicionado produto ao carrinho'
-      success: 'Alterado quantidade do produto'
-      error: 'Não pode adicionar produto sem quantidade!'
+      add_error: 'Não pode adicionar produto sem quantidade!'
+      update_success: 'Alterado quantidade do produto'
+      update_error: 'Não pode adicionar produto sem quantidade!'

@@ -13,7 +13,7 @@
               Valor em pontos: <%= product.price.round %>
             </div>
             <div class="col-sm-4">
-              <%= form_with(url: cart_add_path)  do |f| %>
+              <%= form_with(url: add_shopping_carts_path)  do |f| %>
                 <%= f.hidden_field :id, value: product.id %>
 
                   <%= f.label :quantity, "Quantidade", class: "form-label" %>
@@ -23,7 +23,7 @@
             </div>
 
             <div class="col-sm text-center">
-              <%= form_with(url: cart_remove_path)  do |f| %>
+              <%= form_with(url: remove_shopping_carts_path)  do |f| %>
                 <%= f.hidden_field :id, value: orderable.id %>
                 <div class="actions"><%= f.submit "Remover", class: "btn btn-outline-danger mb-1 btn-sm" %></div>
               <% end %>
@@ -31,8 +31,9 @@
           </div>
         <% end %>
         <p class="fw-bold">Total: <%= @shopping_cart.total.round%> pontos</p>
-        <%= link_to "Continuar comprando", root_path, class:"btn btn-secondary" %>
-        <%# link_to "Checkout", checkout_path, class:"btn btn-outline-primary btn-sm" %>
+        <div class="d-flex gap-3">
+          <%= link_to "Continuar comprando", root_path, class:"btn btn-secondary" %>
+          <%= button_to "Limpar carrinho", remove_all_shopping_carts_path, class:"btn btn-danger" %>
     </div>
   </div>
 </div>

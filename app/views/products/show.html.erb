@@ -33,7 +33,7 @@
 
   <% if user_signed_in? %>
     <div style="margin-top:20px;">
-      <%= form_with(url: cart_add_path) do |f| %>
+      <%= form_with(url: add_shopping_carts_path) do |f| %>
         <%= f.hidden_field :id, value: @product.id %>
         <%= f.hidden_field :from, value: 1 %>
         <div class="form-group" style="margin-bottom:10px;">
