@@ -15,7 +15,8 @@ class ShoppingCartsController < ApplicationController
         redirect_to @shopping_cart
       else
         flash[:alert] = "Não pode adicionar produto sem quantidade!"
-        redirect_to @shopping_cart
+        return redirect_to @shopping_cart if request.referer == shopping_cart_url(@shopping_cart)
+        redirect_to @product
       end
     else
       shopping = @shopping_cart.orderables.new(product: @product, quantity:)

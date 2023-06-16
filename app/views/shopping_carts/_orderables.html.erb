@@ -1,7 +1,6 @@
 <div class="container">
   <div class="m-lg-3 p-3 border shadow">
     <div>
-      <%# render partial: "alert" %>
       <h2 class="mb-4 text-center"><i class="bi bi-cart4"></i> Carrinho de compras</h2>
       <% @shopping_cart.orderables.each do |orderable| %>
         <% product = orderable.product %>
