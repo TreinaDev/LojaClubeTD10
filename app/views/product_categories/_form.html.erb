@@ -1,7 +1,7 @@
 
 <div class="container">
   <%= render partial: 'form_errors', locals: { object: @product_category } %>
-
+  
   <%= form_with model: @product_category, data: { turbo: false } do |f| %>
     <div class="form-group mb-3">
       <%= f.label :name %>

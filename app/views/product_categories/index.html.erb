@@ -1,64 +1,28 @@
-<section>
-  <div class="container shadow p-2 mb-4 bg-body-tertiary rounded div-max-width">
+<section class="container shadow p-2 mb-4 bg-body-tertiary rounded">
   <h2 class="text-center">Categorias de produto</h2>
-  </div>
+
   <div class="container div-max-width p-2">
     <%= link_to 'Nova Categoria', new_product_category_path, class: 'btn btn-secondary' %>
-  </div>
-  <% if @product_categories.any? %>
-    <table class="table table-striped table-hover mt-4 ">
-      <thead>
-        <tr class="text-center">
-          <th><%= ProductCategory.human_attribute_name(:name) %></th>
-          <th>Editar</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody class="table-group-divider">
-      <% @product_categories.each do |product_category| %>
+  </div> 
+ 
+  <table class="table table-striped table-hover mt-4">
+    <thead>
+      <tr class="text-center">
+        <th><%= ProductCategory.human_attribute_name(:name) %></th>
+        <th><%= ProductCategory.human_attribute_name(:status) %></th>
+        <th><%= ProductCategory.human_attribute_name(:actions) %></th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <% @product_categories&.each do |product_category| %>
         <tr class="text-center">
           <td><%= product_category.name %></td>
-          <td><%= link_to 'Editar', edit_product_category_path(product_category.id), class: 'btn btn-outline-secondary btn-sm' %></td>
-          <% if product_category.active? %>
-            <td>
-              <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-<%= dom_id(product_category) %>" id="<%= dom_id(product_category) %>_button">
-                Desativar
-              </button>
-            </td>
-          <% else %>
-            <td>
-              <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target= "#modal-<%= dom_id(product_category) %>" id="<%= dom_id(product_category) %>_button" >
-                Reativar
-              </button>
-            </td>
-        <% end %>
+          <td><%= product_category.active ? 'Ativado' : 'Desativado' %></td>
+          <td>
+            <%= link_to 'Editar', edit_product_category_path(product_category.id), class: "btn btn-outline-secondary btn-sm" %>
+          </td>
         </tr>
-        <div class="modal fade" id="modal-<%= dom_id(product_category) %>" tabindex="-1" aria-labelledby="exampleModaLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModaLabel">Você tem certeza? Isto irá afetar todos os produtos desta categoria.
-              </h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <strong>Categoria: <%= product_category.name %></strong>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-              <% if product_category.active? %>
-                  <%= button_to 'Desativar', deactivate_product_category_path(product_category.id), method: :patch, class: 'btn btn-danger', id: product_category.id %>
-              <% else %>
-                  <%= button_to 'Reativar', reactivate_product_category_path(product_category.id), method: :patch, class: 'btn btn-danger', id: product_category.id %>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      </div>
       <% end %>
-      </tbody>
-    </table>
-    <% else %>
-      <h3><i>Não há nenhuma categoria de produto cadastrada</i></h3>
-    <% end %>
+    </tbody>
+  </table>
 </section>
