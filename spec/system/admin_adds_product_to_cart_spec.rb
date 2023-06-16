@@ -5,7 +5,7 @@ describe 'Administrador adiciona produto no carrinho' do
     user = create(:user, email: 'jose@punti.com')
     category1 = create(:product_category, name: 'Camisetas')
     create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
-                      description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+                     description: 'Uma camisa azul muito bonita', code: 'CMA123456')
     login_as(user)
     visit root_path
     click_on 'Camiseta Azul'

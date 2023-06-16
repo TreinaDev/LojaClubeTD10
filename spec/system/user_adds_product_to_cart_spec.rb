@@ -17,7 +17,8 @@ describe 'Usuário adiciona produto ao carrinho' do
     user = create(:user)
     category1 = create(:product_category, name: 'Camisetas')
     create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
-                      description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+                     description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+
     login_as(user)
     visit root_path
     click_on 'Camiseta Azul'
@@ -32,16 +33,17 @@ describe 'Usuário adiciona produto ao carrinho' do
     expect(page).to have_content 'Total:'
     expect(page).to have_content '800 pontos'
   end
-  it 'e altera a quantidade' do
+  it 'e altera a quantidade com sucesso' do
     user = create(:user)
     category1 = create(:product_category, name: 'Camisetas')
     create(:product, name: 'Camiseta Azul', price: 1000, product_category: category1,
-                      description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+                     description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+
     login_as(user)
     visit root_path
     click_on 'Camiseta Azul'
     click_on 'Comprar'
-    fill_in 'quantity',	with: "5" 
+    fill_in 'quantity',	with: '5'
     click_on 'Alterar'
 
     expect(current_path).to eq shopping_cart_path(1)
@@ -54,11 +56,28 @@ describe 'Usuário adiciona produto ao carrinho' do
     expect(page).to have_content 'Total:'
     expect(page).to have_content '5000 pontos'
   end
+  it 'e altera quantidade sem sucesso ao informar 0 como quantidade' do
+    user = create(:user)
+    category1 = create(:product_category, name: 'Camisetas')
+    create(:product, name: 'Camiseta Azul', price: 1000, product_category: category1,
+                     description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+
+    login_as(user)
+    visit root_path
+    click_on 'Camiseta Azul'
+    click_on 'Comprar'
+    fill_in 'quantity',	with: '0'
+    click_on 'Alterar'
+
+    expect(current_path).to eq shopping_cart_path(1)
+    expect(page).to have_content 'Não foi possível alterar quantidade de produto!'
+  end
   it 'com quantidade acima de um, com sucesso' do
     user = create(:user)
     category1 = create(:product_category, name: 'Camisetas')
     create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
-                      description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+                     description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+
     login_as(user)
     visit root_path
     click_on 'Camiseta Azul'
@@ -78,7 +97,8 @@ describe 'Usuário adiciona produto ao carrinho' do
     user = create(:user)
     category1 = create(:product_category, name: 'Camisetas')
     create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
-                      description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+                     description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+
     login_as(user)
     visit root_path
     click_on 'Camiseta Azul'
@@ -91,9 +111,10 @@ describe 'Usuário adiciona produto ao carrinho' do
     user = create(:user)
     category1 = create(:product_category, name: 'Camisetas')
     create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
-                      description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+                     description: 'Uma camisa azul muito bonita', code: 'CMA123456')
     create(:product, name: 'Camiseta Vermelha', price: 100, product_category: category1,
-                      description: 'Uma camisa vermelha muito grande', code: 'ZDS123789')
+                     description: 'Uma camisa vermelha muito grande', code: 'ZDS123789')
+
     login_as(user)
     visit root_path
     click_on 'Camiseta Azul'
@@ -119,7 +140,8 @@ describe 'Usuário adiciona produto ao carrinho' do
     user = create(:user)
     category1 = create(:product_category, name: 'Camisetas')
     product = create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
-                                description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+                               description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+
     login_as(user)
     visit root_path
     click_on 'Camiseta Azul'
@@ -133,9 +155,10 @@ describe 'Usuário adiciona produto ao carrinho' do
     user = create(:user)
     category1 = create(:product_category, name: 'Camisetas')
     create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
-                      description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+                     description: 'Uma camisa azul muito bonita', code: 'CMA123456')
     create(:product, name: 'Camiseta Vermelha', price: 100, product_category: category1,
-                      description: 'Uma camisa vermelha muito grande', code: 'ZDS123789')
+                     description: 'Uma camisa vermelha muito grande', code: 'ZDS123789')
+
     login_as(user)
     visit root_path
     click_on 'Camiseta Azul'
