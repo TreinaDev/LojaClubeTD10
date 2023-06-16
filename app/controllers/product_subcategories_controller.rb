@@ -1,5 +1,5 @@
 class ProductSubcategoriesController < ApplicationController
-  before_action :set_category, only: %i[new create]
+  before_action :set_category, only: %i[new create subcategories]
   before_action :authenticate_user!, only: %i[index new create]
   before_action :check_user, only: %i[index new create]
 
@@ -24,6 +24,13 @@ class ProductSubcategoriesController < ApplicationController
       flash.now[:alert] = t('.error')
       render :new
     end
+  end
+
+  def subcategories
+    @product_category = ProductCategory.find(params[:id])
+    @subcategories = @product_category.subcategories
+
+    render json: @subcategories
   end
 
   private

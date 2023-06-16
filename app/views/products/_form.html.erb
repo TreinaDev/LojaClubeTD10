@@ -6,7 +6,7 @@
   </dl>
 <% end %>
 <div class="container">
-  <%= form_with(model: product) do |f| %>
+  <%= form_with(model: product, data: { turbo: false }) do |f| %>
     <div class="mb-3">
       <%= f.label :product_images, class: 'form-label' %>
       <%= f.file_field :product_images, multiple: true, class: 'form-control mb-2', type: 'file' %>
@@ -32,8 +32,12 @@
       <%= f.number_field :price , class: 'form-control mb-2' %>
     </div>
     <div class="mb-3">
-      <%= f.label :product_category_id %>
-      <%= f.collection_select(:product_category_id, categories, :id, :name , { prompt: 'Selecione' }, { class: 'form-control mb-2'}) %>
+      <%= f.label :product_category_id, 'Categoria' %>
+      <%= f.collection_select(:product_category_id, categories, :id, :name, { prompt: "Selecione uma categoria" }, { data: { controller: "product-category", action: "change->product-category#update" }, class: 'form-control mb-2' }) %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :product_category_id, 'Subcategoria' %>
+      <%= f.collection_select(:product_category_id, [], :id, :name, { prompt: "Selecione uma subcategoria" }, { id: 'subcategorySelect', class: 'form-control mb-2', disabled: true }) %>
     </div>
     <div class="mb-3">
       <%= f.submit 'Cadastrar', class: 'btn btn-secondary  mt-2' %>

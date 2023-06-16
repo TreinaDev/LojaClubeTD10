@@ -12,11 +12,11 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
-    @categories = ProductCategory.all
+    @categories = ProductCategory.where(parent_id: nil)
   end
 
   def edit
-    @categories = ProductCategory.all
+    @categories = ProductCategory.where(parent_id: nil)
   end
 
   def create
@@ -25,7 +25,7 @@ class ProductsController < ApplicationController
     if @product.save
       redirect_to product_path(@product), notice: t('.product_success')
     else
-      @categories = ProductCategory.all
+      @categories = ProductCategory.where(parent_id: nil)
       flash.now[:alert] = t('.product_fail')
       render :new
     end
@@ -36,7 +36,7 @@ class ProductsController < ApplicationController
       attach_images
       redirect_to product_path(@product), notice: t('.product_success')
     else
-      @categories = ProductCategory.all
+      @categories = ProductCategory.where(parent_id: nil)
       flash.now[:alert] = t('.product_fail')
       render :edit
     end
