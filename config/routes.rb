@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root "home#index"
 
   resources :product_categories, only: [:index, :new, :create, :edit, :update] do
-    member do
+    member do 
       patch :deactivate
       patch :reactivate
     end
