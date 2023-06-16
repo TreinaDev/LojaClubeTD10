@@ -7,4 +7,9 @@ class CustomerAreasController < ApplicationController
   def me
     @user = current_user
   end
+
+  def favorite_tab
+    @user = current_user
+    @products = @user.favorite_products
+  end
 end

@@ -16,13 +16,13 @@
       <%= render 'navbar', locals: { product_categories: @product_categories } %>
     </header>
     
+    
     <main>
-      <div>
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
+      <%= render 'flash' %>
+      <div class="container mt-3">
+        <%= yield %>
       </div>
-      
-      <%= yield %>
     </main>
+    <%= render 'footer' %>
   </body>
 </html>
