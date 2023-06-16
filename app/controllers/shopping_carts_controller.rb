@@ -1,6 +1,6 @@
 class ShoppingCartsController < ApplicationController
   before_action :set_shopping_cart, only: %i[add remove]
-  before_action :params_product, only: %i[add]
+  before_action :set_product, only: %i[add]
 
   def show
     @shopping_cart = ShoppingCart.find(session[:cart_id])
@@ -22,7 +22,7 @@ class ShoppingCartsController < ApplicationController
       if shopping.save
         redirect_to @shopping_cart
       else
-        @shopping_cart.destroy if !@shopping_cart.orderables.present?
+        @shopping_cart.destroy unless @shopping_cart.orderables.present?
         redirect_to @product, alert: "Não pode adicionar produto sem quantidade!"
       end
     end
@@ -40,7 +40,7 @@ class ShoppingCartsController < ApplicationController
 
   private
 
-  def params_product
+  def set_product
     @product = Product.find(params[:id])
   end
 
