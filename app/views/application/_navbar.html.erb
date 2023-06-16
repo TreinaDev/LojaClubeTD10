@@ -19,11 +19,10 @@
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Administração
           </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="admin-menu">
-          <li>
-            <%= link_to("Produtos", products_path, class: "dropdown-item")%>
-            <%= link_to("Categorias", product_categories_path, class: "dropdown-item")%>
-          </li>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <li><%= link_to("Produtos", products_path, class: "dropdown-item")%></li>
+          <li><%= link_to("Categorias", product_categories_path, class: "dropdown-item")%></li>
+          <li><%= link_to("Campanhas", promotional_campaigns_path, class: "dropdown-item")%></li>
         </ul>
       </li>
     <% end %>

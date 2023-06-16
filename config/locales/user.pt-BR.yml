@@ -37,3 +37,6 @@ pt-BR:
       recent_orders: 'Pedidos Recentes'
       update_phone: 'Atualizar Contato'
       fail: 'Você não tem acesso a essa página'
+    update_phone:
+      success_message: 'Número de telefone atualizado com sucesso'
+      error_message: 'Erro: O número de telefone deve conter 11 dígitos'

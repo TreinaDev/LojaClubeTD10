@@ -4,7 +4,7 @@
 
   <%= render 'nav-tab' %>
 
-    <div class="col-lg col-sm-12 text-start fs-4">
+    <div class="col-lg col-sm-12 text-start fs-3">
       <div class="row">
         <h3 class="fw-bold"><%= User.human_attribute_name(:name)%></h3>
         <p><%= @user.name %></p>
@@ -13,7 +13,12 @@
         <h3 class="fw-bold"><%= User.human_attribute_name(:cpf)%></h3>
         <p><%= @user.formatted_cpf %></p>
         <h3 class="fw-bold"><%= User.human_attribute_name(:phone_number)%></h3>
-        <p><%= @user.formatted_phone %></p>
-        <p><%= link_to t('.update_phone'), root_path, class: "link-offset-2 link-underline link-underline-opacity-0" %></p>
+        <%= form_with url: update_phone_number_path(current_user.id), method: :post, data: { turbo: false } do |f| %>
+          <div class="w-50 d-flex mb-3">
+            <%= f.text_field :phone_number, class: "form-control w-2", value: @user.formatted_phone,  maxlength: 14, id:'phone_number' %>
+            <%= f.submit t('.update_phone'), class:"btn btn-outline-secondary btn-sm ms-2" %>
+          </div>
+           <%= render partial: 'form_errors', locals: { object: @user } %>
+        <% end %>
       </div>
-</div>  
+</div>
