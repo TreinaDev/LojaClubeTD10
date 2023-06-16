@@ -9,14 +9,23 @@ class ShoppingCartsController < ApplicationController
   def add
     quantity = params[:quantity].to_i
     current_orderable = @shopping_cart.orderables.find_by(product_id: @product.id)
-    if current_orderable && quantity.positive?
-      current_orderable.update(quantity:)
-    elsif quantity <= 0
-      current_orderable.destroy
+    if current_orderable
+      if current_orderable.update(quantity:)
+        flash[:alert] = "Alterado quantidade do produto"
+        redirect_to @shopping_cart
+      else
+        flash[:alert] = "Não pode adicionar produto sem quantidade!"
+        redirect_to @shopping_cart
+      end
     else
-      @shopping_cart.orderables.create(product: @product, quantity:)
+      shopping = @shopping_cart.orderables.new(product: @product, quantity:)
+      if shopping.save
+        redirect_to @shopping_cart
+      else
+        @shopping_cart.destroy if !@shopping_cart.orderables.present?
+        redirect_to @product, alert: "Não pode adicionar produto sem quantidade!"
+      end
     end
-    redirect_to @shopping_cart
   end
 
   def remove

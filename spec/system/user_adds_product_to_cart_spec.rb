@@ -93,4 +93,18 @@ describe 'Usuário adiciona produto ao carrinho' do
     expect(page).to have_content 'Total:'
     expect(page).to have_content '900 pontos'
   end
+  it 'sem sucesso, ao informar 0 como quantidade' do
+    user = create(:user)
+    category1 = create(:product_category, name: 'Camisetas')
+    create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
+                     description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+    login_as(user)
+    visit root_path
+    click_on 'Camiseta Azul'
+    fill_in 'number_field', with: '0'
+    click_on 'Comprar'
+
+    expect(current_path).not_to eq shopping_cart_path(1)
+    expect(page).to have_content 'Não pode adicionar produto com zero quantidades'
+  end
 end
