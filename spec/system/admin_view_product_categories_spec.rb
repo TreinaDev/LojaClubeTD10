@@ -1,9 +1,29 @@
 require 'rails_helper'
 
 describe 'Administrador visualiza categorias' do
+  it 'só se estiver logado' do
+    visit root_path
+
+    within('nav') do
+      expect(page).not_to have_button 'Administração'
+      expect(page).not_to have_button 'Categorias'
+    end
+  end
+
+  it 'só se for admin' do
+    user = create(:user, email: 'admin@exemple.com')
+    visit root_path
+
+    login_as user
+    within('nav') do
+      expect(page).not_to have_button 'Administração'
+      expect(page).not_to have_button 'Categorias'
+    end
+  end
+
   it 'com sucesso' do
-    category = FactoryBot.create(:product_category)
-    admin = FactoryBot.create(:user, email: 'admin@punti.com')
+    category = create(:product_category)
+    admin = create(:user, email: 'admin@punti.com')
 
     login_as(admin)
     visit product_categories_path

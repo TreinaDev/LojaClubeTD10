@@ -14,7 +14,7 @@ describe 'Administrador desativa uma categoria' do
 
     find_button('Desativar', id: cat.id).click
 
-    expect(page).to have_content 'Você tem certeza? Todos os produtos vinculados a essa categoria serão desativados.'
+    expect(page).to have_content 'Você tem certeza? Isto irá afetar todos os produtos desta categoria.'
   end
 
   it 'com sucesso' do

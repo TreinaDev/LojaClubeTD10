@@ -18,7 +18,7 @@
       <td><%= link_to 'Editar', edit_product_category_path(product_category.id), class: 'btn btn-outline-secondary btn-sm' %></td>
       <% if product_category.active? %>
         <td>
-          <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-<%=  product_category.id %>" id="<%= dom_id(product_category) %>_button">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-<%= dom_id(product_category) %>" id="<%= dom_id(product_category) %>_button">
             Desativar
           </button>
         </td>
@@ -33,19 +33,19 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModaLabel">Você tem certeza? Todos os produtos vinculados a essa categoria serão desativados.
+            <h1 class="modal-title fs-5" id="exampleModaLabel">Você tem certeza? Isto irá afetar todos os produtos desta categoria.
             </h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <%= product_category.name %>
+            <strong>Categoria: <%= product_category.name %></strong>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
             <% if product_category.active? %>
-                <%= button_to 'Desativar', deactivate_product_category_path(product_category.id), method: :patch, class: 'btn btn-primary', id: product_category.id %>
+                <%= button_to 'Desativar', deactivate_product_category_path(product_category.id), method: :patch, class: 'btn btn-danger', id: product_category.id %>
             <% else %>
-                <%= button_to 'Reativar', reactivate_product_category_path(product_category.id), method: :patch, class: 'btn btn-primary', id: product_category.id %>
+                <%= button_to 'Reativar', reactivate_product_category_path(product_category.id), method: :patch, class: 'btn btn-danger', id: product_category.id %>
             <% end %>
           </div>
         </div>
@@ -57,9 +57,3 @@
     </tbody>
   </table>
 </section>
-<%# <%= button_to 'Desativar', deactivate_product_category_path(product_category.id),
-                method: :patch, class: 'btn btn-outline-secondary btn-sm', id: product_category.id, type: "button", data-bs-toggle: "modal", data-bs-target: "#exampleModal" %>
-            <%# <button type="button" class="btn btn-primary">Confirmar</button> %>
-
-<%# <%= button_to 'Reativar', reactivate_product_category_path(product_category.id),
-method: :patch, class: 'btn btn-outline-secondary btn-sm', id: product_category.id, type: "button", data-bs-toggle: "modal", data-bs-target: "#exampleModal"  %>

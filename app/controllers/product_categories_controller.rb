@@ -34,12 +34,12 @@ class ProductCategoriesController < ApplicationController
 
   def deactivate
     @product_category.update(active: false)
-    redirect_to product_categories_path, notice: t('product_category.deactivate.success')
+    redirect_to request.referer, notice: t('product_category.deactivate.success')
   end
 
   def reactivate
     @product_category.update(active: true)
-    redirect_to product_categories_path, notice: t('product_category.reactivate.success')
+    redirect_to request.referer, notice: t('product_category.reactivate.success')
   end
 
   private
