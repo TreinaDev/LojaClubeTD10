@@ -18,17 +18,7 @@
   <div class="col-6">
     <div class="card-body">
       <h3 class="card-title mb-4 fw-bold">Produto <%= @product.name %> - <%= @product.code %></h3>
-      <% if user_signed_in? && !current_user.favorite_products.include?(@product) %>
-      <%= form_with model: @favorite do |f| %>
-        <%= f.hidden_field :product_id, value: @product.id %>
-        <%= f.hidden_field :user_id, value: current_user.id %>
-        <%= f.submit 'Marcar como favorito' %>
-      <% end %>
-    <% elsif user_signed_in? %>
-      <%= button_to 'Remover dos favoritos' %>
-    <% end %>
-
-    <dl class="row text-muted">
+      <dl class="row text-muted">
         <dt class="col-sm-6 fw-bold">Descrição</dt>
         <dd class="col-sm-6"><%= @product.description %></dd>
         <dt class="col-sm-6">Marca</dt>
