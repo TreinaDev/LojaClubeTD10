@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :promotional_campaign do
-    name { 'MyString' }
-    start_date { '2023-06-06' }
-    end_date { '2023-06-06' }
+    name { 'Natal 2023' }
+    start_date { 1.week.from_now }
+    end_date { 2.months.from_now }
   end
 end
