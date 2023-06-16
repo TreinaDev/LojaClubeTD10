@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 describe 'Usuário remove produto do carrinho' do
+  it 'apenas estando autenticado' do
+    visit shopping_cart_path(1)
+
+    expect(current_path).to eq new_user_session_path
+  end
   it 'com sucesso, e é redirecionado para página inicial' do
     user = create(:user)
     category1 = create(:product_category, name: 'Camisetas')

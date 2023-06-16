@@ -1,6 +1,7 @@
 class ShoppingCartsController < ApplicationController
   before_action :set_product_and_quantity, only: [:add]
   before_action :set_shopping_cart, only: %i[add remove remove_all]
+  before_action :authenticate_user!
 
   def show
     @shopping_cart = ShoppingCart.find(session[:cart_id])
@@ -24,7 +25,7 @@ class ShoppingCartsController < ApplicationController
     if @shopping_cart.orderables.count <= 0
       @shopping_cart.destroy
       session[:cart_id] = nil
-      return redirect_to root_path,  notice: t('.remove_success')
+      return redirect_to root_path, notice: t('.remove_success')
     end
     redirect_to @shopping_cart, notice: t('.remove_success')
   end
