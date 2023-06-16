@@ -1,31 +1,18 @@
 class ShoppingCartsController < ApplicationController
   before_action :set_shopping_cart, only: %i[add remove]
-  before_action :set_product, only: %i[add]
+  before_action :set_product_and_quantity, only: [:add]
 
   def show
     @shopping_cart = ShoppingCart.find(session[:cart_id])
   end
 
   def add
-    quantity = params[:quantity].to_i
     current_orderable = @shopping_cart.orderables.find_by(product_id: @product.id)
+
     if current_orderable
-      if current_orderable.update(quantity:)
-        flash[:alert] = "Alterado quantidade do produto"
-        redirect_to @shopping_cart
-      else
-        flash[:alert] = "Não pode adicionar produto sem quantidade!"
-        return redirect_to @shopping_cart if request.referer == shopping_cart_url(@shopping_cart)
-        redirect_to @product
-      end
+      update_quantity(current_orderable)
     else
-      shopping = @shopping_cart.orderables.new(product: @product, quantity:)
-      if shopping.save
-        redirect_to @shopping_cart
-      else
-        @shopping_cart.destroy unless @shopping_cart.orderables.present?
-        redirect_to @product, alert: "Não pode adicionar produto sem quantidade!"
-      end
+      create_orderable
     end
   end
 
@@ -41,8 +28,9 @@ class ShoppingCartsController < ApplicationController
 
   private
 
-  def set_product
+  def set_product_and_quantity
     @product = Product.find(params[:id])
+    @quantity = params[:quantity].to_i
   end
 
   def set_shopping_cart
@@ -51,5 +39,24 @@ class ShoppingCartsController < ApplicationController
 
     @shopping_cart = ShoppingCart.create
     session[:cart_id] = @shopping_cart.id
+  end
+
+  def update_quantity(current_orderable)
+    if current_orderable.update(quantity: @quantity)
+      redirect_to @shopping_cart, notice: t('.success')
+    elsif request.referer == shopping_cart_url(@shopping_cart)
+      redirect_to @shopping_cart, alert: t('.error')
+    end
+  end
+
+  def create_orderable
+    shopping = @shopping_cart.orderables.new(product: @product, quantity: @quantity)
+
+    if shopping.save
+      redirect_to @shopping_cart, notice: t('.add_success')
+    else
+      @shopping_cart.destroy if @shopping_cart.orderables.blank?
+      redirect_to @product, alert: t('.error')
+    end
   end
 end

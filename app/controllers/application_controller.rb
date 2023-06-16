@@ -27,6 +27,6 @@ class ApplicationController < ActionController::Base
   end
 
   def cart
-    @cart ||= ShoppingCart.find_by(id: session[:cart_id])
+    @cart = ShoppingCart.find_by(id: session[:cart_id])
   end
 end

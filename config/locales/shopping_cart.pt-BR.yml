@@ -1,0 +1,14 @@
+pt-BR:
+  activerecord:
+    models:
+      shopping_carts: 'Carrinho de compras'
+    attributes:
+      shopping_carts:
+        name: 'Nome'
+        status: 'Status'
+        actions: 'Ações'
+  shopping_carts:
+    add:
+      add_success: 'Adicionado produto ao carrinho'
+      success: 'Alterado quantidade do produto'
+      error: 'Não pode adicionar produto sem quantidade!'
