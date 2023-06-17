@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg bg-light">
-  <div class="container-fluid">
+  <div class="container-fluid d-flex justify-content-between">
     <%= link_to 'Loja do Clube', root_path, class: 'navbar-brand' %>
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       <li class="nav-item dropdown">
@@ -11,6 +11,13 @@
             <li><a class="dropdown-item" href="#"><%= pc.name %></a></li>
           <% end %>
         </ul>
+      </li>
+    </ul>
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li>
+        <button type="button" class="btn btn-outline-secondary" id="searchProduct" data-bs-toggle="modal" data-bs-target="#searchModal">
+          <i class="bi bi-search"></i>
+        </button>
       </li>
     </ul>
     <ul class="navbar-nav col-auto mb-2 mb-lg-0">

@@ -6,7 +6,7 @@ describe 'Usuário entra no sistema' do
 
     visit new_user_session_path
 
-    within 'form' do
+    within 'form#new_user' do
       fill_in 'E-mail', with: 'zezinho@mail.com'
       fill_in 'Senha', with: 'f4k3p455w0rd'
       click_on 'Entrar'
@@ -20,7 +20,7 @@ describe 'Usuário entra no sistema' do
     FactoryBot.create(:user, email: 'zezinho@mail.com', password: 'f4k3p455w0rd')
 
     visit new_user_session_path
-    within 'form' do
+    within 'form#new_user' do
       fill_in 'E-mail', with: 'zezezinho@mail.com'
       fill_in 'Senha', with: 'f4k3p455w0rd'
       click_on 'Entrar'

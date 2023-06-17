@@ -3,12 +3,14 @@ Rails.application.routes.draw do
   root "home#index"
 
   resources :product_categories, only: [:index, :new, :create, :edit, :update] do
-    member do 
+    member do
       patch :deactivate
       patch :reactivate
     end
   end
-  resources :products, only: [:new, :create, :show, :index, :edit, :update]
+  resources :products, only: [:new, :create, :show, :index, :edit, :update] do
+    get 'search', on: :collection
+  end
   resources :promotional_campaigns, only: [:index, :new, :create, :show, :edit, :update]
 
   resources :customer_areas, only: [:index]
