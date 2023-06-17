@@ -2,14 +2,13 @@ require 'rails_helper'
 
 describe 'Administrador edita uma subcategoria' do
   it 'com sucesso' do
-    FactoryBot.create(:product_subcategory, name: 'Minha subcategoria')
-
-    admin = FactoryBot.create(:user, email: 'admin@punti.com')
+    subcategory = create(:product_subcategory, name: 'Minha subcategoria')
+    admin = create(:user, email: 'admin@punti.com')
 
     login_as(admin)
     visit product_categories_path
 
-    subcategory_element = find('li:contains("Minha subcategoria") a[href*="/edit"]')
+    subcategory_element = find("a[href*='#{subcategory.id}/edit']")
     subcategory_element.click
 
     fill_in 'Nome', with: 'Subcategoria'
@@ -21,12 +20,12 @@ describe 'Administrador edita uma subcategoria' do
   end
 
   it 'e recebe erro pois deixou o nome em branco' do
-    subcategory = FactoryBot.create(:product_subcategory, name: 'Minha subcategoria')
-    admin = FactoryBot.create(:user, email: 'admin@punti.com')
+    subcategory = create(:product_subcategory, name: 'Minha subcategoria')
+    admin = create(:user, email: 'admin@punti.com')
 
     login_as(admin)
     visit product_categories_path
-    subcategory_element = find('li:contains("Minha subcategoria") a[href*="/edit"]')
+    subcategory_element = find("a[href*='#{subcategory.id}/edit']")
     subcategory_element.click
 
     fill_in 'Nome', with: ''
@@ -37,14 +36,14 @@ describe 'Administrador edita uma subcategoria' do
   end
 
   it 'e recebe erro pois usou nome já existente' do
-    FactoryBot.create(:product_subcategory, name: 'Subcategoria')
+    create(:product_subcategory, name: 'Subcategoria')
 
-    subcategory = FactoryBot.create(:product_subcategory, name: 'Minha subcategoria')
-    admin = FactoryBot.create(:user, email: 'admin@punti.com')
+    subcategory = create(:product_subcategory, name: 'Minha subcategoria')
+    admin = create(:user, email: 'admin@punti.com')
 
     login_as(admin)
     visit product_categories_path
-    subcategory_element = find('li:contains("Minha subcategoria") a[href*="/edit"]')
+    subcategory_element = find("a[href*='#{subcategory.id}/edit']")
     subcategory_element.click
     fill_in 'Nome', with: 'Subcategoria'
     click_on 'Atualizar subcategoria de produtos'
@@ -55,8 +54,8 @@ describe 'Administrador edita uma subcategoria' do
   end
 
   it 'como usuário comum tenta acessar, mas não tem acesso' do
-    subcategory = FactoryBot.create(:product_subcategory, name: 'Minha subcategoria')
-    user = FactoryBot.create(:user, email: 'admin@mail.com')
+    subcategory = create(:product_subcategory, name: 'Minha subcategoria')
+    user = create(:user, email: 'admin@mail.com')
 
     login_as(user)
     visit edit_product_subcategory_path(subcategory)
@@ -66,7 +65,7 @@ describe 'Administrador edita uma subcategoria' do
   end
 
   it 'como usuário visitante tenta acessar, mas não tem acesso' do
-    subcategory = FactoryBot.create(:product_subcategory, name: 'Minha subcategoria')
+    subcategory = create(:product_subcategory, name: 'Minha subcategoria')
 
     visit edit_product_subcategory_path(subcategory)
 

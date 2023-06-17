@@ -5,12 +5,11 @@ describe 'Administrador cadastra produto' do
     it 'para uma categoria' do
       Capybara.current_driver = :selenium
 
-      user = User.create!(name: 'Usuário Administrador', email: 'admin@punti.com', password: 'senha1234',
-                          phone_number: '19998555544', cpf: '56685728701')
-      ProductCategory.create!(name: 'Eletrônico')
-      ProductCategory.create!(name: 'Eletrodoméstico')
+      admin = create(:user, email: 'admin@punti.com')
+      create(:product_category, name: 'Eletrônico')
+      create(:product_category, name: 'Eletrodoméstico')
 
-      login_as(user)
+      login_as(admin)
       visit new_product_path
 
       attach_file 'Fotos do produto', Rails.root.join('spec/support/imgs/TV.jpg')
@@ -25,7 +24,7 @@ describe 'Administrador cadastra produto' do
       prod = Product.last
       expect(current_path).to eq product_path(prod.id)
       expect(page).to have_css('img[src*="TV.jpg"]')
-      expect(page).to have_content 'Produto ABC123456 - TV 42'
+      expect(page).to have_content 'Produto TV 42 - ABC123456'
       expect(page).to have_content 'Descrição'
       expect(page).to have_content 'Descrição para o produto'
       expect(page).to have_content 'Marca'
@@ -39,13 +38,12 @@ describe 'Administrador cadastra produto' do
     it 'para uma subcategoria' do
       Capybara.current_driver = :selenium
 
-      user = User.create!(name: 'Usuário Administrador', email: 'admin@punti.com', password: 'senha1234',
-                          phone_number: '19998555544', cpf: '56685728701')
-      category = ProductCategory.create(name: 'Eletrônicos')
-      ProductSubcategory.create(name: 'TV', parent: category)
-      ProductSubcategory.create(name: 'Smartphones', parent: category)
+      admin = create(:user, email: 'admin@punti.com')
+      category = create(:product_category, name: 'Eletrônicos')
+      create(:product_subcategory, name: 'TV', parent: category)
+      create(:product_subcategory, name: 'Smartphones', parent: category)
 
-      login_as(user)
+      login_as(admin)
       visit new_product_path
 
       attach_file 'Fotos do produto', Rails.root.join('spec/support/imgs/TV.jpg')
@@ -61,8 +59,7 @@ describe 'Administrador cadastra produto' do
       prod = Product.last
       expect(current_path).to eq product_path(prod.id)
       expect(page).to have_css('img[src*="TV.jpg"]')
-      expect(page).to have_content 'Produto ABC123456 - TV 42'
-      expect(page).to have_content 'Descrição'
+      expect(page).to have_content 'Produto TV 42 - ABC123456'
       expect(page).to have_content 'Descrição para o produto'
       expect(page).to have_content 'Marca'
       expect(page).to have_content 'LG'
