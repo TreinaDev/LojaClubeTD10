@@ -10,26 +10,22 @@ describe 'Usuário pesquisa um produto' do
       expect(page).to have_button 'Buscar'
     end
   end
-  it 'e encontra um produto' do
+  it 'e encontra o produto, nenhum outro diferente' do
     category = create(:product_category, name: 'Celulares')
-    create(:product, name: 'Celular 1', code: 'AFG123456', product_category: category)
+    create(:product, name: 'Carro Veloz', code: 'ZXA123789', product_category: category)
+    create(:product, name: 'Moto Veloz', code: 'AZX123789', product_category: category)
 
     visit root_path
     find('#searchProduct').click
-    fill_in 'query',	with: 'Celular'
+    fill_in 'query',	with: 'Carro Veloz'
     click_on 'Buscar'
 
-    expect(page).to have_content '2 resultados encontrados'
-    within('.card#AFG123456') do
-      expect(page).to have_link 'Celular 1'
+    expect(page).to have_content '1 resultado encontrado'
+    within('.card#ZXA123789') do
+      expect(page).to have_link 'Carro Veloz'
       expect(page).to have_content 'Descrição do produto'
     end
-    within('.card#ZXF456123') do
-      expect(page).to have_link 'Celular 2'
-      expect(page).to have_content 'Descrição do produto'
-    end
-    expect(page).not_to have_css '.card#CAL456123'
-    expect(page).not_to have_link 'Calculadora'
+    expect(page).not_to have_content 'Moto Veloz'
   end
   it 'e encontra vários produtos' do
     category = create(:product_category, name: 'Celulares')
