@@ -9,8 +9,10 @@ Rails.application.routes.draw do
     end
   end
   resources :products, only: [:new, :create, :show, :index, :edit, :update]
+  resources :promotional_campaigns, only: [:index, :new, :create, :show, :edit, :update]
+
   resources :customer_areas, only: [:index]
-  
+
   resources :shopping_carts, only: [:show] do
     post "add", on: :collection
     post "remove", on: :collection
