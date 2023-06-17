@@ -1,8 +1,8 @@
 class ShoppingCartsController < ApplicationController
   before_action :set_product_and_quantity, only: [:add]
-  before_action :set_shopping_cart, only: %i[add remove remove_all]
-  before_action :prevent_admin, only: [:add]
+  before_action :set_shopping_cart, only: %i[add remove]
   before_action :authenticate_user!
+  before_action :prevent_admin, only: [:add]
 
   def show
     @shopping_cart = ShoppingCart.find(session[:cart_id])
@@ -32,6 +32,7 @@ class ShoppingCartsController < ApplicationController
   end
 
   def remove_all
+    @shopping_cart = ShoppingCart.find_by(id: session[:cart_id])
     @shopping_cart.orderables.each(&:destroy)
     @shopping_cart.destroy
     session[:cart_id] = nil
