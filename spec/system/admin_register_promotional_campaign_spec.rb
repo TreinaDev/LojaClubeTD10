@@ -1,6 +1,18 @@
 require 'rails_helper'
 
 describe 'Admin registra uma nova Campanha Promocional' do
+  # it 'e as empresas vinda atavés da API são carregadas' do
+  #   json_data = Rails.root.join('spec/support/json/companies.json').read
+  #   fake_response = double('faraday_response', status: 200, body: json_data)
+  #   allow(Faraday).to receive(:get).with('https://temporary-companies-api-treinadev-10.onrender.com/api/v1/companies').and_return(fake_response)
+
+  #   json_response = JSON.parse(fake_response.body)
+
+  #   expect(json_response.count).to eq 2
+  #   expect(json_response["registration_number"]).to eq('34997507000183')
+  #   expect(json_response["name"]).to eq('CodeCampus')
+  # end
+
   it 'com sucesso' do
     admin = create(:user, email: 'admin@punti.com')
     create(:company)

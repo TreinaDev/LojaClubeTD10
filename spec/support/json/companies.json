@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "registration_number": "34997507000183",
+    "brand_name": "CodeCampus",
+    "corporate_name": "CodeCampus LTDA.",
+    "status": 0
+  },
+  {
+    "id": 2,
+    "registration_number": "86654033000170",
+    "brand_name": "Punti",
+    "corporate_name": "Punti LTDA.",
+    "status": 0
+  }
+]

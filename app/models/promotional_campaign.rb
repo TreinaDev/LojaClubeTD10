@@ -1,8 +1,15 @@
 class PromotionalCampaign < ApplicationRecord
   belongs_to :company
+  has_many :campaign_categories, dependent: :restrict_with_error
+  has_many :product_categories, through: :campaign_categories
+
   validates :name, :start_date, :end_date, presence: true
 
   validate :check_start_date, :check_end_date, on: :create
+
+  def in_progress?
+    Time.zone.today.between?(start_date, end_date)
+  end
 
   private
 
