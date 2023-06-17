@@ -4,6 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :client_addresses, dependent: :destroy
+  has_many :addresses, through: :client_addresses
+
   enum role: { common: 0, admin: 1 }
 
   before_create :define_role

@@ -1,0 +1,39 @@
+<section class="container-lg text-center pt-3 pe-4 ps-4">
+  <h1 class="mb-1 fw-bold"><%= t(:client_area) %></h1>
+  <div class="mb-4 mt-4">
+
+    <%= render 'nav-tab' %>
+    
+    <div class="col-lg col-sm-12 text-start fs-4">
+      <div class="row">
+        <h3 class="fw-bold"><%= t('.my_account')%></h3>
+        <%= link_to 'Cadastrar novo endereço', new_address_path %>
+      </div>
+    
+      <% if @user.addresses.any? %>
+        <% @user.addresses.each do |address| %>
+          <div class="p-4 my-4 bg-light rounded shadow-sm">
+            <div class="d-flex">
+              <p>
+                <%= Address.human_attribute_name(:address) %> - 
+                <%= address.address %>, <%= address.number %>
+              </p>
+            </div>
+
+            <div class="d-flex">
+              <p>
+                <%= Address.human_attribute_name(:zipcode) %> <%= address.zipcode %> -  
+                <%= address.city %>, <%= address.state %>
+              </p>
+            </div>
+            <div class="d-flex justify-content-end">
+              <%= button_to 'Editar', edit_address_path(address), method: :get, class: "btn btn-outline-secondary btn-sm" %>
+
+              <%= button_to 'Remover', address_path(address), method: :delete, class: "btn btn-outline-danger btn-sm mx-2" %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</section>
