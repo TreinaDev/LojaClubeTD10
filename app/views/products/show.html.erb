@@ -5,7 +5,7 @@
         <div class="d-inline-flex flex-column flex-wrap gap-2" id="images">
           <% @product.product_images.each do |image| %>
             <div>
-              <%= image_tag(image, class:"resize-sml img-cursor", onclick: "displayImage(this);") %>
+              <%= image_tag(image, class:"resize-sml img-cursor", data: { controller: "images", action: "click->images#change" }) %>
             </div>
           <% end %>
         </div>
@@ -31,16 +31,16 @@
     </div>
   </div>
 
-  <% if user_signed_in? %>
+  <% if user_signed_in? && current_user.common? %>
     <div style="margin-top:20px;">
       <%= form_with(url: add_shopping_carts_path) do |f| %>
         <%= f.hidden_field :id, value: @product.id %>
         <%= f.hidden_field :from, value: 1 %>
         <div class="form-group" style="margin-bottom:10px;">
           <%= f.label :quantity, "Quantidade", class: "form-label" %>
-          <button type="button" onclick="decrementNum()" id="decrease_button" class="clean-button">-</button>
-          <%= f.number_field :quantity, value: 1, style: "width: 4em;", id: "number_field" %>
-          <button type="button" onclick="incrementNum()" id="increase_button" class="clean-button">+</button>
+          <button type="button" id="decrease_button" class="clean-button" data-controller="quantity" data-action="click->quantity#decrement">-</button>
+          <%= f.number_field :quantity, value: 1, class: "text-center", style: "width: 4em;", id: "number_field" %>
+          <button type="button" id="increase_button" class="clean-button" data-controller="quantity" data-action="click->quantity#increment">+</button>
         </div>
         <div class="actions"><%= f.submit "Comprar", class: "btn btn-danger mb-3" %></div>
       <% end %>
@@ -48,24 +48,4 @@
   <% end %>
 </div>
 
-<script>
 
-function displayImage(image) {
-  const displayedImage = document.querySelector("#displayed-image");
-  displayedImage.src = image.src;
-}
-
-function incrementNum() {
-  var numberField = document.getElementById("number_field")
-  let currentValue = parseInt(numberField.value);
-  numberField.value = currentValue + 1;
-};
-
-function decrementNum() {
-  var numberField = document.getElementById("number_field")
-  let currentValue = parseInt(numberField.value);
-  if (currentValue > 1) {
-    numberField.value = currentValue - 1;
-  }
-};
-</script>

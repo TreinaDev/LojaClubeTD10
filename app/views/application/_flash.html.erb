@@ -1,5 +1,6 @@
 <% if flash.any? %>
-  <div class="flash-outer" id="flashMessage">
+  <div class="flash-outer" id="flashMessage" data-controller="removals"
+       data-action="animationend->removals#remove">
     <% flash.each do |key, value| %>
       <div class="alert flash alert-<%= key %>">
         <%= value %>
@@ -8,14 +9,4 @@
   </div>
 <% end %>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const flashMessage = document.getElementById('flashMessage')
-    if (flashMessage) {
-      const timeOutDuration = 8000;
-      setTimeout(() => {
-        flashMessage.remove();
-      }, timeOutDuration);
-    }
-  });
-</script>
+

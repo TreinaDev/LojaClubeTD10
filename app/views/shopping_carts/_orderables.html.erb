@@ -1,39 +1,50 @@
 <div class="container">
   <div class="m-lg-3 p-3 border shadow">
-    <div>
-      <h2 class="mb-4 text-center"><i class="bi bi-cart4"></i> Carrinho de compras</h2>
-      <% @shopping_cart.orderables.each do |orderable| %>
-        <% product = orderable.product %>
-        <div id="<%= "cart-#{product.id}" %>">
-          <div class="row">
-            <div class="col-sm mt-1">
-              <%= product.name %>
-            </div>
-            <div class="col-sm mt-1">
-              Valor em pontos: <%= product.price.round %>
-            </div>
-            <div class="col-sm-4">
-              <%= form_with(url: add_shopping_carts_path)  do |f| %>
-                <%= f.hidden_field :id, value: product.id %>
+    <h2 class="mb-4 text-center"><i class="bi bi-cart4"></i> Carrinho de compras</h2>
+      <table class="table table-striped table-hover  mt-4 ">
+        <thead>
+          <tr class="text-center">
+            <th>Produto</th>
+            <th>Valor (pontos)</th>
+            <th>Desconto</th>
+            <th>Valor Final</th>
+            <th>Quantidade</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <% @shopping_cart.orderables.each do |orderable| %>
+            <% product = orderable.product %>
+            <div id="<%= "cart-#{product.id}" %>">
+              <tr class="text-center">
+                <td><%= product.name %></td>
+                <td><%= product.price.round %></td>
+                <td>0</td>
+                <td><%= product.price.round %></td>
+                <td>
+                  <%= form_with(url: add_shopping_carts_path)  do |f| %>
+                    <%= f.hidden_field :id, value: product.id %>
 
-                  <%= f.label :quantity, "Quantidade", class: "form-label" %>
-                  <%= f.number_field :quantity, value: orderable.quantity, class: "text-center",style: "width: 3em;" %>
-                <%= f.submit "Alterar", class: "btn btn-outline-secondary mb-1 btn-sm" %>
-              <% end %>
+                      <%# f.label :quantity, "Quantidade", class: "form-label" %>
+                      <%= f.number_field :quantity, value: orderable.quantity, class: "text-center", style: "width: 3em;" %>
+                    <%= f.submit "Alterar", class: "btn btn-outline-secondary mb-1 btn-sm", style:"margin-top: 2px;" %>
+                  <% end %>
+                </td>
+                <td>
+                  <%= form_with(url: remove_shopping_carts_path)  do |f| %>
+                    <%= f.hidden_field :id, value: orderable.id %>
+                    <div class="actions"><%= f.submit "Remover", class: "btn btn-outline-danger mb-1 btn-sm", style:"margin-top: 2px;", id: "#{orderable.product.code}" %></div>
+                  <% end %>
+                </td>
+              </tr>
             </div>
-
-            <div class="col-sm text-center">
-              <%= form_with(url: remove_shopping_carts_path)  do |f| %>
-                <%= f.hidden_field :id, value: orderable.id %>
-                <div class="actions"><%= f.submit "Remover", class: "btn btn-outline-danger mb-1 btn-sm", id: "#{orderable.product.code}" %></div>
-              <% end %>
-            </div>
-          </div>
-        <% end %>
-        <p class="fw-bold">Total: <%= @shopping_cart.total.round%> pontos</p>
-        <div class="d-flex gap-3">
-          <%= link_to "Continuar comprando", root_path, class:"btn btn-secondary" %>
-          <%= button_to "Limpar carrinho", remove_all_shopping_carts_path, class:"btn btn-danger" %>
-    </div>
+          <% end %>
+        </tbody>
+      </table>
+      <p class="fw-bold">Total: <%= @shopping_cart.total.round%> pontos</p>
+      <div class="d-flex gap-3">
+        <%= link_to "Continuar comprando", root_path, class:"btn btn-secondary" %>
+        <%= button_to "Limpar carrinho", remove_all_shopping_carts_path, class:"btn btn-danger" %>
+      </div>
   </div>
 </div>

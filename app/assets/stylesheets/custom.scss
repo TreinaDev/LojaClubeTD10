@@ -67,3 +67,10 @@ input[type=number] {
   width: 200px;
   height:150px;
 }
+
+.resize-promo {
+  height: auto;
+  width: auto;
+  max-width: 80px;
+  max-height: 80px;
+}

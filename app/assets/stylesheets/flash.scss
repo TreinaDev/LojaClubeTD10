@@ -1,4 +1,4 @@
-.alert-alert { @extend .alert-warning; }
+.alert-alert { @extend .alert-danger; }
 .alert-notice { @extend .alert-success; }
 
 .flash {
@@ -10,7 +10,7 @@
 
 .flash-outer {
   position:absolute;
-  top: 60px;
+  top: 70px;
   right: 10px;
 
   display: flex;
@@ -27,4 +27,8 @@
   5%, 60% {
     opacity:1
   }
+}
+
+.alert-success, .alert-warning, .alert-danger {
+  border-radius: 0;
 }
