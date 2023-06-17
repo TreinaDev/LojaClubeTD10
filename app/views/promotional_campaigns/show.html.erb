@@ -1,0 +1,13 @@
+<div class="col-md-8">
+  <div class="card-body">
+    <h3 class="card-title">Campanha <%= @promotional_campaign.name %></h3>
+    <dl class="row text-muted">
+      <dt class="col-sm-6">Data Inicial</dt>
+      <dd class="col-sm-6"><%= I18n.l(@promotional_campaign.start_date) %></dd>
+      <dt class="col-sm-6">Data Final</dt>
+      <dd class="col-sm-6"><%= I18n.l(@promotional_campaign.end_date) %></dd>
+      <dt class="col-sm-6">Empresa Participante</dt>
+      <dd class="col-sm-6"><%= @promotional_campaign.company.brand_name %></dd>
+    </dl>
+  </div>
+</div>

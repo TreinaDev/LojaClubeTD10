@@ -1,0 +1,21 @@
+<% if flash.any? %>
+  <div class="flash-outer" id="flashMessage">
+    <% flash.each do |key, value| %>
+      <div class="alert flash alert-<%= key %>">
+        <%= value %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const flashMessage = document.getElementById('flashMessage')
+    if (flashMessage) {
+      const timeOutDuration = 8000;
+      setTimeout(() => {
+        flashMessage.remove();
+      }, timeOutDuration);
+    }
+  });
+</script>

@@ -39,6 +39,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_15_195915) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "companies", force: :cascade do |t|
+    t.string "registration_number"
+    t.string "brand_name"
+    t.string "corporate_name"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
     t.integer "attempts", default: 0, null: false
@@ -60,6 +69,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_15_195915) do
     t.datetime "updated_at", null: false
     t.integer "parent_id"
     t.string "type"
+    t.boolean "active", default: true
     t.index ["name"], name: "index_product_categories_on_name", unique: true
     t.index ["parent_id"], name: "index_product_categories_on_parent_id"
   end
@@ -83,6 +93,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_15_195915) do
     t.date "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "company_id", null: false
+    t.index ["company_id"], name: "index_promotional_campaigns_on_company_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -106,4 +118,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_15_195915) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "product_categories", "product_categories", column: "parent_id"
   add_foreign_key "products", "product_categories"
+  add_foreign_key "promotional_campaigns", "companies"
 end
