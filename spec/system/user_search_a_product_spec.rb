@@ -83,4 +83,18 @@ describe 'Usuário pesquisa um produto' do
 
     expect(page).to have_content 'Nenhum produto encontrado!'
   end
+  it 'sem sucesso, ao informar campo em branco' do
+    category = create(:product_category, name: 'Celulares')
+    create(:product, name: 'Celular 1', code: 'AFG123456', product_category: category)
+    create(:product, name: 'Celular 2', code: 'ZXF456123', product_category: category)
+    create(:product, name: 'Calculadora', code: 'CAL456123', product_category: category)
+
+    visit root_path
+    find('#searchProduct').click
+    fill_in 'query',	with: ''
+    click_on 'Buscar'
+
+    expect(current_path).to eq root_path
+    expect(page).to have_content 'Não é possível realizar uma busca vazia'
+  end
 end
