@@ -23,3 +23,5 @@ pt-BR:
     update:
       success: 'Endereço editado com sucesso'
       error: 'Não foi possível editar o endereço, revise os campos abaixo:'
+    set_default:
+      success: 'Endereço definido como padrão com sucesso.'

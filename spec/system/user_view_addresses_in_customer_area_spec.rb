@@ -32,23 +32,26 @@ describe 'Usuário vê seus endereços na área do cliente' do
 
   it 'e remove um endereço' do
     user = create(:user)
-    address = create(:address, city: 'Maruim', state: 'Sergipe', zipcode: '49770000')
-    create(:client_address, user:, address:)
+    first_address = create(:address, city: 'Maruim', state: 'Sergipe', zipcode: '49770000')
+    second_address = create(:address, city: 'Curitiba', state: 'Paraná', zipcode: '83430000')
+    create(:client_address, user:, address: second_address)
+    create(:client_address, user:, address: first_address)
 
     login_as(user)
     visit root_path
     click_on 'Área do Cliente'
     click_on 'Endereços Cadastrados'
-    click_on 'Remover'
+    within ".controls form[action='/addresses/#{first_address.id}']" do
+      click_on 'Remover'
+    end
 
     expect(current_path).to eq client_addresses_path
-    expect(user.addresses.count).to be 0
+    expect(user.addresses.count).to be 1
+    expect(page).to have_content 'Curitiba'
+    expect(page).to have_content 'Paraná'
+    expect(page).to have_content '83430000'
     expect(page).not_to have_content 'Maruim'
     expect(page).not_to have_content 'Sergipe'
     expect(page).not_to have_content '49770000'
-  end
-
-  it 'e seleciona um endereço padrão' do
-    #
   end
 end

@@ -34,6 +34,19 @@ class AddressesController < ApplicationController
     end
   end
 
+  def set_default
+    @address = Address.find(params[:id])
+    @user = current_user
+
+    ClientAddress.transaction do
+      @user.client_addresses.each do |client_address|
+        client_address.update(default: client_address.address == @address)
+      end
+    end
+
+    redirect_to addresses_path, notice: t('.success')
+  end
+
   def destroy
     @user = current_user
     @address = @user.addresses.find(params[:id])
