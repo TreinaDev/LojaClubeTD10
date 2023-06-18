@@ -1,12 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  connect() {
-    const subcategorySelect = document.querySelector('#subcategorySelect');
-
-    subcategorySelect.disabled = true;
-    this.update();
-  }
+  connect() { }
 
   update() {
     const categoryId = this.element.value;

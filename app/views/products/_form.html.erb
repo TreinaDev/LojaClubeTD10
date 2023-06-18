@@ -1,3 +1,16 @@
+
+<% pctg = product.product_category %>
+<% pctg_prnt_id = pctg&.parent_id %>
+<% pctg_id = pctg&.id %>
+
+<% selected_category, selected_subcategory = (
+     pctg_prnt_id.nil? ? [ pctg_id, pctg_prnt_id ] : [ pctg_prnt_id, pctg_id ]
+   )
+%>
+
+<% subcategories = (pctg_prnt_id ? pctg&.parent : pctg)&.subcategories || [] %>
+
+
 <div class="container">
   <%= form_with model: product, data: { turbo: false } do |f| %>
     <%= render partial: 'form_errors', locals: { object: product } %>
@@ -34,12 +47,34 @@
 
     <div class="mb-3">
       <%= f.label :product_category_id, 'Categoria' %>
-      <%= f.collection_select(:product_category_id, categories, :id, :name, { prompt: "Selecione uma categoria" }, { data: { controller: "product-category", action: "change->product-category#update" }, class: 'form-control mb-2' }) %>
+
+      <%= f.collection_select(
+        :product_category_id, categories, :id, :name,
+        {
+          selected: selected_category,
+          prompt: "Selecione uma categoria"
+        },
+        {
+          data: { controller: "product-category", action: "change->product-category#update" },
+          class: 'form-control mb-2'
+        })
+      %>
     </div>
 
     <div class="mb-3">
       <%= f.label :product_category_id, 'Subcategoria', for: 'subcategorySelect'  %>
-      <%= f.collection_select(:product_category_id, [], :id, :name, { prompt: "Selecione uma subcategoria" }, { id: 'subcategorySelect', class: 'form-control mb-2', disabled: true }) %>
+
+      <%= f.collection_select(
+        :product_category_id, subcategories, :id, :name,
+        {
+          selected: selected_subcategory,
+          prompt: subcategories.empty? ? "Nenhuma subcategoria encontrada" : "Selecione uma subcategoria"
+        },
+        {
+          id: 'subcategorySelect', class: 'form-control mb-2',
+          disabled: subcategories.empty?
+        })
+      %>
     </div>
 
     <div class="mb-3">
