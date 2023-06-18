@@ -21,6 +21,9 @@ describe 'Administrador adiciona uma categoria e seu respectivo desconto para um
     expect(current_path).to eq promotional_campaign_path(promotional_campaign.id)
     expect(page).to have_content 'Categoria/Desconto cadastrados com sucesso'
     expect(page).to have_content 'Eletrônicos - 10% de desconto'
+    within '#form_campaign_category' do
+      expect(page).not_to have_select('campaign_category[product_category_id]', with_options: ['Eletrônicos'])
+    end
   end
 
   it 'com dados incompletos' do
@@ -41,5 +44,21 @@ describe 'Administrador adiciona uma categoria e seu respectivo desconto para um
     expect(page).to have_content 'Não foi possível cadastrar Categoria/Desconto à Campanha'
     expect(page).to have_content 'Desconto não pode ficar em branco'
     expect(page).not_to have_content 'Desconto cadastrados com sucesso'
+  end
+
+  it 'e não vê uma categoria desativada' do
+    admin = create(:user, email: 'adm@punti.com')
+    create(:product_category, name: 'Celulares', active: false)
+    company = create(:company)
+    create(:promotional_campaign, company:)
+
+    login_as(admin)
+    visit root_path
+    click_on 'Campanhas'
+    click_on 'Natal 2023'
+
+    within '#form_campaign_category' do
+      expect(page).not_to have_select('campaign_category[product_category_id]', with_options: ['Celulares'])
+    end
   end
 end
