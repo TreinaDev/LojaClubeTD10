@@ -24,9 +24,7 @@
                 <td>
                   <%= form_with(url: add_shopping_carts_path)  do |f| %>
                     <%= f.hidden_field :id, value: product.id %>
-
-                      <%# f.label :quantity, "Quantidade", class: "form-label" %>
-                      <%= f.number_field :quantity, value: orderable.quantity, class: "text-center", style: "width: 3em;" %>
+                    <%= f.number_field :quantity, value: orderable.quantity, class: "text-center", style: "width: 3em;" %>
                     <%= f.submit "Alterar", class: "btn btn-outline-secondary mb-1 btn-sm", style:"margin-top: 2px;" %>
                   <% end %>
                 </td>

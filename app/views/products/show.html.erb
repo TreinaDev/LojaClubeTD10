@@ -35,7 +35,6 @@
     <div style="margin-top:20px;">
       <%= form_with(url: add_shopping_carts_path) do |f| %>
         <%= f.hidden_field :id, value: @product.id %>
-        <%= f.hidden_field :from, value: 1 %>
         <div class="form-group" style="margin-bottom:10px;">
           <%= f.label :quantity, "Quantidade", class: "form-label" %>
           <button type="button" id="decrease_button" class="clean-button" data-controller="quantity" data-action="click->quantity#decrement">-</button>
