@@ -9,7 +9,7 @@ describe 'Usuário visita área do cliente' do
   end
   context 'estando logado' do
     it 'a partir de um link na barra de navegação' do
-      user = FactoryBot.create(:user, name: 'José', email: 'jose@gmail.com', password: 'jose1234')
+      user = create(:user, name: 'José', email: 'jose@gmail.com', password: 'jose1234')
 
       login_as(user)
       visit root_path
@@ -18,8 +18,8 @@ describe 'Usuário visita área do cliente' do
       expect(page).to have_content 'Área do Cliente'
     end
     it 'e vê a área do cliente' do
-      user = FactoryBot.create(:user, name: 'José', email: 'jose@gmail.com', password: 'jose1234', cpf: '60789974088',
-                                      phone_number: '85999923132')
+      user = create(:user, name: 'José', email: 'jose@gmail.com', password: 'jose1234', cpf: '60789974088',
+                           phone_number: '85999923132')
 
       login_as(user)
       visit root_path
@@ -37,7 +37,7 @@ describe 'Usuário visita área do cliente' do
     end
   end
   it 'e sendo administrador não consegue' do
-    user_admin = FactoryBot.create(:user, email: 'jose@punti.com')
+    user_admin = create(:user, email: 'jose@punti.com')
 
     login_as(user_admin)
     visit customer_areas_path
