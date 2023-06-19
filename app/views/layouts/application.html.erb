@@ -10,19 +10,23 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <%= favicon_link_tag asset_path('favicon-32x32.png') %>
   </head>
-  
+
+
   <body>
     <header>
       <%= render 'navbar', locals: { product_categories: @product_categories } %>
     </header>
-    
-    
+
     <main>
+    <% if !devise_controller?%>
+      <%= render 'search_modal' %>
+    <% end %>  
       <%= render 'flash' %>
       <div class="container mt-3">
         <%= yield %>
       </div>
     </main>
+
     <%= render 'footer' %>
   </body>
 </html>

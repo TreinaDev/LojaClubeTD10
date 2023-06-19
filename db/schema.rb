@@ -14,8 +14,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_145458) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.bigint "blob_id", null: false
+    t.integer "record_id", null: false
+    t.integer "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -34,9 +34,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_145458) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.bigint "blob_id", null: false
+    t.integer "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "campaign_categories", force: :cascade do |t|
+    t.integer "promotional_campaign_id", null: false
+    t.integer "product_category_id", null: false
+    t.integer "discount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_category_id"], name: "index_campaign_categories_on_product_category_id"
+    t.index ["promotional_campaign_id"], name: "index_campaign_categories_on_promotional_campaign_id"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -122,6 +132,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_145458) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "campaign_categories", "product_categories"
+  add_foreign_key "campaign_categories", "promotional_campaigns"
   add_foreign_key "favorites", "products"
   add_foreign_key "favorites", "users"
   add_foreign_key "products", "product_categories"
