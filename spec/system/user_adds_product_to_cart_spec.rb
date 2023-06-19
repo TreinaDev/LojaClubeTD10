@@ -22,7 +22,7 @@ describe 'Usuário adiciona produto ao carrinho' do
     login_as(user)
     visit root_path
     click_on 'Camiseta Azul'
-    click_on 'Comprar'
+    click_on 'Adicionar ao carrinho'
 
     expect(current_path).to eq shopping_cart_path(1)
     expect(page).to have_content 'Carrinho de compras'
@@ -43,7 +43,7 @@ describe 'Usuário adiciona produto ao carrinho' do
     login_as(user)
     visit root_path
     click_on 'Camiseta Azul'
-    click_on 'Comprar'
+    click_on 'Adicionar ao carrinho'
     fill_in 'quantity',	with: '5'
     click_on 'Alterar'
 
@@ -67,7 +67,7 @@ describe 'Usuário adiciona produto ao carrinho' do
     login_as(user)
     visit root_path
     click_on 'Camiseta Azul'
-    click_on 'Comprar'
+    click_on 'Adicionar ao carrinho'
     fill_in 'quantity',	with: '0'
     click_on 'Alterar'
 
@@ -84,7 +84,7 @@ describe 'Usuário adiciona produto ao carrinho' do
     visit root_path
     click_on 'Camiseta Azul'
     fill_in 'number_field', with: '4'
-    click_on 'Comprar'
+    click_on 'Adicionar ao carrinho'
 
     expect(current_path).to eq shopping_cart_path(1)
     expect(page).to have_content 'Carrinho de compras'
@@ -105,7 +105,7 @@ describe 'Usuário adiciona produto ao carrinho' do
     login_as(user)
     visit root_path
     click_on 'Camiseta Azul'
-    click_on 'Comprar'
+    click_on 'Adicionar ao carrinho'
     click_on 'Continuar comprando'
 
     expect(current_path).to eq root_path
@@ -121,10 +121,10 @@ describe 'Usuário adiciona produto ao carrinho' do
     login_as(user)
     visit root_path
     click_on 'Camiseta Azul'
-    click_on 'Comprar'
+    click_on 'Adicionar ao carrinho'
     click_on 'Continuar comprando'
     click_on 'Camiseta Vermelha'
-    click_on 'Comprar'
+    click_on 'Adicionar ao carrinho'
 
     expect(current_path).to eq shopping_cart_path(1)
     expect(page).to have_content 'Carrinho de compras'
@@ -150,7 +150,7 @@ describe 'Usuário adiciona produto ao carrinho' do
     visit root_path
     click_on 'Camiseta Azul'
     fill_in 'number_field', with: '0'
-    click_on 'Comprar'
+    click_on 'Adicionar ao carrinho'
 
     expect(current_path).to eq product_path(product.id)
     expect(page).to have_content 'Não pode adicionar produto sem quantidade!'
@@ -166,11 +166,11 @@ describe 'Usuário adiciona produto ao carrinho' do
     login_as(user)
     visit root_path
     click_on 'Camiseta Azul'
-    click_on 'Comprar'
+    click_on 'Adicionar ao carrinho'
     click_on 'Continuar comprando'
     click_on 'Camiseta Vermelha'
     fill_in 'number_field', with: '0'
-    click_on 'Comprar'
+    click_on 'Adicionar ao carrinho'
 
     expect(current_path).not_to eq shopping_cart_path(ShoppingCart.last.id)
     expect(page).to have_content 'Não pode adicionar produto sem quantidade!'
@@ -186,14 +186,14 @@ describe 'Usuário adiciona produto ao carrinho' do
     login_as(user)
     visit root_path
     click_on 'Camiseta Azul'
-    click_on 'Comprar'
+    click_on 'Adicionar ao carrinho'
     click_on 'Continuar comprando'
     click_on 'Camiseta Vermelha'
-    click_on 'Comprar'
+    click_on 'Adicionar ao carrinho'
     click_on 'Continuar comprando'
     click_on 'Camiseta Azul'
     fill_in 'quantity',	with: '0'
-    click_on 'Comprar'
+    click_on 'Adicionar ao carrinho'
 
     expect(current_path).to eq product_path(1)
     expect(page).to have_content 'Não pode adicionar produto sem quantidade!'

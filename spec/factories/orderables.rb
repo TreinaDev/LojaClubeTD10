@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :orderable do
-    product { nil }
-    shopping_cart { nil }
+    product { create(:product) }
+    shopping_cart { create(:shopping_cart) }
     quantity { 1 }
   end
 end

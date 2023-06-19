@@ -73,15 +73,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_16_175909) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
-  create_table "favorites", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "product_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_favorites_on_product_id"
-    t.index ["user_id"], name: "index_favorites_on_user_id"
-  end
-
   create_table "orderables", force: :cascade do |t|
     t.integer "product_id", null: false
     t.integer "shopping_cart_id", null: false
@@ -147,8 +138,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_16_175909) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "favorites", "products"
-  add_foreign_key "favorites", "users"
   add_foreign_key "campaign_categories", "product_categories"
   add_foreign_key "campaign_categories", "promotional_campaigns"
   add_foreign_key "orderables", "products"

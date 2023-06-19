@@ -15,7 +15,7 @@ describe 'Usuário remove produto do carrinho' do
     login_as(user)
     visit root_path
     click_on 'Camiseta Azul'
-    click_on 'Comprar'
+    click_on 'Adicionar ao carrinho'
     click_on 'Remover'
 
     expect(current_path).to eq root_path
@@ -32,10 +32,10 @@ describe 'Usuário remove produto do carrinho' do
     login_as(user)
     visit root_path
     click_on 'Camiseta Azul'
-    click_on 'Comprar'
+    click_on 'Adicionar ao carrinho'
     click_on 'Continuar comprando'
     click_on 'Camiseta Vermelha'
-    click_on 'Comprar'
+    click_on 'Adicionar ao carrinho'
     find('#ZDS123789').click
 
     expect(current_path).to eq shopping_cart_path(1)
@@ -46,23 +46,23 @@ describe 'Usuário remove produto do carrinho' do
   end
   it 'todos de uma vez, com sucesso' do
     user = create(:user)
+    cart = create(:shopping_cart)
     category1 = create(:product_category, name: 'Camisetas')
-    create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
-                     description: 'Uma camisa azul muito bonita', code: 'CMA123456')
-    create(:product, name: 'Camiseta Vermelha', price: 100, product_category: category1,
-                     description: 'Uma camisa vermelha muito grande', code: 'ZDS123789')
-    create(:product, name: 'Camiseta Verde', price: 500, product_category: category1,
-                     description: 'Uma camisa verde muito grande', code: 'ATY123789')
+    product1 = create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
+                                description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+    product2 = create(:product, name: 'Camiseta Vermelha', price: 100, product_category: category1,
+                                description: 'Uma camisa vermelha muito grande', code: 'ZDS123789')
+    product3 = create(:product, name: 'Camiseta Verde', price: 500, product_category: category1,
+                                description: 'Uma camisa verde muito grande', code: 'ATY123789')
+    cart.orderables.create(product: product1, shopping_cart: cart, quantity: 2)
+    cart.orderables.create(product: product2, shopping_cart: cart, quantity: 2)
+    cart.orderables.create(product: product3, shopping_cart: cart, quantity: 2)
+    session = { cart_id: cart.id }
+    allow_any_instance_of(ApplicationController).to receive(:session).and_return(session)
+
     login_as(user)
     visit root_path
-    click_on 'Camiseta Azul'
-    click_on 'Comprar'
-    click_on 'Continuar comprando'
-    click_on 'Camiseta Vermelha'
-    click_on 'Comprar'
-    click_on 'Continuar comprando'
-    click_on 'Camiseta Verde'
-    click_on 'Comprar'
+    click_on 'Carrinho'
     click_on 'Limpar carrinho'
 
     expect(current_path).to eq root_path
@@ -77,7 +77,7 @@ describe 'Usuário remove produto do carrinho' do
     login_as(user)
     visit root_path
     click_on 'Camiseta Azul'
-    click_on 'Comprar'
+    click_on 'Adicionar ao carrinho'
     click_on 'Continuar comprando'
     click_on 'Sair'
 
