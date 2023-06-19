@@ -4,7 +4,7 @@
 <% pctg_id = pctg&.id %>
 
 <% selected_category, selected_subcategory = (
-     pctg_prnt_id.nil? ? [ pctg_id, pctg_prnt_id ] : [ pctg_prnt_id, pctg_id ]
+     pctg_prnt_id.nil? ? [ pctg_id, nil ] : [ pctg_prnt_id, pctg_id ]
    )
 %>
 
