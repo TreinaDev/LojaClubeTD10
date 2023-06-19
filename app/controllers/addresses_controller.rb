@@ -2,6 +2,8 @@ class AddressesController < ApplicationController
   before_action :authenticate_user!, only: %i[new create]
   before_action :prevent_admin, only: %i[new create]
 
+  def index; end
+
   def new
     @address = Address.new
   end
@@ -44,7 +46,7 @@ class AddressesController < ApplicationController
       end
     end
 
-    redirect_to addresses_path, notice: t('.success')
+    redirect_to client_addresses_path, notice: t('.success')
   end
 
   def destroy

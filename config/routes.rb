@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :products, only: [:new, :create, :show, :index, :edit, :update]
   resources :promotional_campaigns, only: [:index, :new, :create, :show, :edit, :update]
   resources :addresses, only: [:new, :create, :edit, :update, :destroy] do
-    patch :set_default, on: :member
+    post :set_default, on: :member
   end
 
   resources :customer_areas, only: [:index]

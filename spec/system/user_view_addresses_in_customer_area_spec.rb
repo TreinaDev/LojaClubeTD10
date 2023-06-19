@@ -54,4 +54,32 @@ describe 'Usuário vê seus endereços na área do cliente' do
     expect(page).not_to have_content 'Sergipe'
     expect(page).not_to have_content '49770000'
   end
+
+  it 'e seleciona um endereço como padrão' do
+    user = create(:user)
+
+    first_address = create(:address)
+    second_address = create(:address, address: 'Rua Santo Antonio', number: '22',
+                                      city: 'Maruim', state: 'Sergipe', zipcode: '49770000')
+
+    ClientAddress.create!(user:, address: first_address)
+    ClientAddress.create!(user:, address: second_address)
+
+    login_as(user)
+    visit root_path
+    click_on 'Área do Cliente'
+    click_on 'Endereços Cadastrados'
+
+    within "#select_address_#{second_address.id}" do
+      click_on 'Selecionar como Padrão'
+    end
+
+    within "#select_address_#{first_address.id}" do
+      expect(page).to have_button 'Selecionar como Padrão'
+    end
+
+    within "#select_address_#{second_address.id}" do
+      expect(page).not_to have_button 'Selecionar como Padrão'
+    end
+  end
 end

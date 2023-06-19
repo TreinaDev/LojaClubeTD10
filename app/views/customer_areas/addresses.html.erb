@@ -12,25 +12,27 @@
     
       <% if @user.addresses.any? %>
         <% @user.addresses.each do |address| %>
-          <div class="p-4 my-4 bg-light rounded shadow-sm">
-            <p class="d-flex">
-              <%= Address.human_attribute_name(:address) %> - 
-              <%= address.address %>, <%= address.number %>
-            </p>
+          <div class="address-painel card w-75 p-4 my-4 mx-auto bg-light rounded shadow-sm">
+            <div class="d-flex justify-content-between" id="select_address_<%= address.id %>">
+              <div>
+                <p><%= address.address %>, <%= address.number %></p>
+                <p><%= address.city %>, <%= address.state %></p>
+                <p><%= Address.human_attribute_name(:zipcode) %> <%= address.zipcode %></p>
+              </div>
+              
+              <div class="actions d-flex flex-column align-self-center justify-content-between controls">
+                <% unless @user.client_addresses.exists?(address_id: address.id, default: true) %>
+                  <%= button_to 'Selecionar como Padrão', set_default_address_path(address), method: :post, class: "btn btn-outline-primary btn-sm" %>
+                <% end %>
 
-            <p class="d-flex">
-              <%= Address.human_attribute_name(:zipcode) %> <%= address.zipcode %> -  
-              <%= address.city %>, <%= address.state %>
-            </p>
-            
-            <div class="d-flex justify-content-end controls">
-              <% unless @user.client_addresses.exists?(address_id: address.id, default: true) %>
-                <%= button_to 'Selecionar como Padrão', set_default_address_path(address), method: :patch, class: "btn btn-outline-primary btn-sm select_address_#{address.id}" %>
-              <% end %>
+                <div class="d-flex gap-1">
+                  <%= form_with url: edit_address_path(address), method: :get, class: "flex-grow-1" do |f| %>
+                    <%= f.button 'Editar', type: "submit", class: "w-100 btn btn-outline-secondary btn-sm" %>
+                  <% end %>
 
-              <%= button_to 'Editar', edit_address_path(address), method: :get, class: "btn btn-outline-secondary btn-sm mx-2" %>
-
-              <%= button_to 'Remover', address_path(address), method: :delete, class: "btn btn-outline-danger btn-sm" %>
+                  <%= button_to 'Remover', address_path(address), method: :delete, class: "btn btn-outline-danger btn-sm" %>
+                </div>
+              </div>
             </div>
           </div>
         <% end %>
