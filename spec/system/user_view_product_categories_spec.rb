@@ -23,7 +23,7 @@ describe 'Usuário vê as categorias dos produtos' do
       visit product_categories_path
 
       expect(current_path).to eq root_path
-      expect(page).to have_content 'Você não possui permissão para realizar esta ação.'
+      expect(page).to have_content 'Você não possui acesso a este módulo'
     end
   end
 end

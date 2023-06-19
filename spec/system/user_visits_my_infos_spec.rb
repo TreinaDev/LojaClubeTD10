@@ -34,8 +34,7 @@ describe 'Usuário visita minhas informações' do
     expect(page).to have_content 'CPF'
     expect(page).to have_content '607.899.740-88'
     expect(page).to have_content 'Número de telefone'
-    expect(page).to have_content '(85)99992-3132'
-    expect(page).to have_link 'Atualizar Contato'
+    expect(page).to have_field 'phone_number', with: '(85)99992-3132'
   end
   it 'e sendo administrador não consegue' do
     user = FactoryBot.create(:user, name: 'José', email: 'jose@punti.com', role: 1)

@@ -1,0 +1,9 @@
+pt-BR:
+  activerecord:
+    models:
+      company: "Empresa"
+    attributes:
+      company:
+        registration_number: "CNPJ"
+        brand_name: "Nome Fantasia"
+        corporate_name: "Nome Coorporativo"

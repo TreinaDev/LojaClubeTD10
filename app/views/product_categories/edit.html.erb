@@ -1,7 +1,24 @@
-<section>
-  <%= render 'shared/errors', { obj: @product_category } %>
-
-  <h2>Edite a categoria:</h2>
-
-  <%= render 'form' %>
+<section class="container">
+  <div class="shadow p-2 my-4 bg-body-tertiary rounded">
+    <h2 class="text-center">Edite a categoria</h2>
+    
+    <%= render 'form' %>
+  
+    <p>
+      <button class="btn btn-secondary mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        <%= @product_category.active ? 'Desativar' : 'Reativar' %>
+      </button>
+    </p>
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body">
+        <% if @product_category.active? %>
+          Você tem certeza? Todos os produtos vinculados a essa categoria serão desativados.
+          <%= button_to 'Desativar categoria', deactivate_product_category_path(@product_category), method: :patch, class: 'btn btn-danger mt-2' %>
+        <% else %>
+          Você tem certeza? Todos os produtos vinculados a essa categoria serão reativados.
+          <%= button_to 'Reativar categoria', reactivate_product_category_path(@product_category), method: :patch, class: 'btn btn-success mt-2' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </section>
