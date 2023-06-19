@@ -8,10 +8,14 @@ Rails.application.routes.draw do
       patch :reactivate
     end
   end
+
   resources :products, only: [:new, :create, :show, :index, :edit, :update] do
     get 'search', on: :collection
   end
-  resources :promotional_campaigns, only: [:index, :new, :create, :show, :edit, :update]
+
+  resources :promotional_campaigns, only: [:index, :new, :create, :show, :edit, :update] do
+    resources :campaign_categories, only:  [:create, :destroy]
+  end
 
   resources :customer_areas, only: [:index]
   get "me", to: "customer_areas#me"
