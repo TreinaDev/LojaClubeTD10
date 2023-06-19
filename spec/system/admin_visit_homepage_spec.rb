@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Administrador visita homepage' do
   it 'e vê barra de navegação exclusiva' do
-    user_admin = FactoryBot.create(:user, name: 'Mario', email: 'mario@punti.com')
+    user_admin = create(:user, name: 'Mario', email: 'mario@punti.com')
 
     login_as(user_admin)
     visit root_path

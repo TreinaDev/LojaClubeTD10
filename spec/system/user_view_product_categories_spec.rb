@@ -1,11 +1,10 @@
 require 'rails_helper'
 
 describe 'Usuário vê as categorias dos produtos' do
-  context 'com sucesso' do
-    it 'a partir da barra de navegação' do
-      FactoryBot.create(:product_category, name: 'Camisetas')
-      FactoryBot.create(:product_category, name: 'Eletrodomésticos')
-      FactoryBot.create(:product_category, name: 'Utensílios')
+  it 'a partir da barra de navegação' do
+    create(:product_category, name: 'Camisetas')
+    create(:product_category, name: 'Eletrodomésticos')
+    create(:product_category, name: 'Utensílios')
 
       visit root_path
 
