@@ -5,6 +5,8 @@ User.create!(name: 'Maria Sousa', email: 'maria@provedor.com', password: 'senha1
 
 category1 = ProductCategory.create!(name: 'TV')
 category2 = ProductCategory.create!(name: 'Celular')
+ProductCategory.create!(name: 'Eletrodomésticos')
+ProductCategory.create!(name: 'Produtos de Higiene')
 
 product1 = Product.new(name: 'TV55', code: 'TVS123456',
                        description: 'Smart TV 65” 4K Neo QLED Samsung VA 120Hz - Wi-Fi Bluetooth Alexa Google 4 HDMI',
@@ -34,10 +36,15 @@ product4.product_images.attach(io: Rails.root.join('spec/support/imgs/cel_2.jpg'
 product4.product_images.attach(io: Rails.root.join('spec/support/imgs/cel_22.jpg').open, filename: 'cel_22.jpg')
 product4.save!
 
+Company.create!(registration_number: '34997507000183', corporate_name: 'CodeCampus LTDA.', brand_name: 'CodeCampus')
 Company.create!(registration_number: '86654033000170', corporate_name: 'Punti LTDA.', brand_name: 'Punti')
-Company.create!(registration_number: '34997507000183', corporate_name: 'CodeCampus SA.', brand_name: 'CodeCampus')
 
+promotional_campaign = PromotionalCampaign.create!(name: 'Verão 2023',
+                                                   start_date: 5.days.from_now,
+                                                   end_date: 2.months.from_now,
+                                                   company: Company.first)
 PromotionalCampaign.create!(name: 'Natal 2023', start_date: 1.week.from_now, end_date: 1.month.from_now,
                             company: Company.first)
-PromotionalCampaign.create!(name: 'Verão 2023', start_date: 5.days.from_now, end_date: 2.months.from_now,
-                            company: Company.first)
+
+CampaignCategory.create!(promotional_campaign:, product_category: category1, discount: 10)
+CampaignCategory.create!(promotional_campaign:, product_category: category2, discount: 20)
