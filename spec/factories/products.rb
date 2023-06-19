@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :product do
-    name { 'Celular' }
+    name { 'Celular Branco' }
     code { 'ABC123456' }
     description { 'Descrição do produto' }
     brand { 'Samsung' }

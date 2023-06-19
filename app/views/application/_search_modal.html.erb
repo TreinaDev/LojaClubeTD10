@@ -1,0 +1,18 @@
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="searchModalLabel">Procurar por produto</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= form_with url: search_products_path, method: :get do |f|%>
+        <div class="d-flex gap-2">
+          <%= f.text_field :query, placeholder: 'Produto...', class: 'form-control' %>
+          <%= f.submit 'Buscar', class: 'btn btn-outline-secondary' %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

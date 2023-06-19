@@ -6,6 +6,11 @@ pt-BR:
     update:
       product_success: 'Produto alterado com sucesso'
       product_fail: 'Não foi possível alterar o produto'
+    search:
+      qwery_empty: 'Não é possível realizar uma busca vazia'
+      found:
+        one: 'resultado encontrado'
+        other: 'resultados encontrados'
   activerecord:
     models:
       product: Produto

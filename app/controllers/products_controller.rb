@@ -42,6 +42,16 @@ class ProductsController < ApplicationController
     end
   end
 
+  def search
+    @query = params['query']
+    if @query == ''
+      flash[:alert] = t('.qwery_empty')
+      return redirect_to root_path
+    end
+    @products = Product.where('name LIKE ?', "%#{@query}%")
+    @quantity = @products.length
+  end
+
   private
 
   def attach_images
