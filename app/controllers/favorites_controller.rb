@@ -8,7 +8,7 @@ class FavoritesController < ApplicationController
 
   def destroy
     @favorite = Favorite.find params[:id]
-    if @favorite.destroy
+    if request.referer
       redirect_to request.referer, notice: t('.destroy_success')
     else
       redirect_to request.referer, alert: t('.destroy_fails')
