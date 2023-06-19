@@ -5,8 +5,7 @@ describe 'Administrador adiciona uma categoria e seu respectivo desconto para um
     it 'com sucesso' do
       admin = create(:user, email: 'admin@punti.com')
       category = create(:product_category)
-      company = create(:company)
-      promotional_campaign = create(:promotional_campaign, company:)
+      promotional_campaign = create(:promotional_campaign)
 
       login_as(admin)
       post promotional_campaign_campaign_categories_path(promotional_campaign.id),
@@ -20,8 +19,7 @@ describe 'Administrador adiciona uma categoria e seu respectivo desconto para um
   context 'enquanto visitante' do
     it 'mas não está logado e é direcionado para o login' do
       category = create(:product_category)
-      company = create(:company)
-      promotional_campaign = create(:promotional_campaign, company:)
+      promotional_campaign = create(:promotional_campaign)
 
       post promotional_campaign_campaign_categories_path(promotional_campaign.id),
            params: { campaign_category: { product_category_id: category.id, discount: 10 } }
@@ -35,8 +33,7 @@ describe 'Administrador adiciona uma categoria e seu respectivo desconto para um
     it 'mas não tem acesso e é direcionado para o root' do
       user = create(:user)
       category = create(:product_category)
-      company = create(:company)
-      promotional_campaign = create(:promotional_campaign, company:)
+      promotional_campaign = create(:promotional_campaign)
 
       login_as(user)
       post promotional_campaign_campaign_categories_path(promotional_campaign.id),

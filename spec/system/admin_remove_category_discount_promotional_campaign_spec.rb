@@ -3,13 +3,11 @@ require 'rails_helper'
 describe 'Administrador revome uma categoria e seu respectivo desconto para uma campanha promocional' do
   it 'a partir da tela de detalhes da campanha' do
     admin = create(:user, email: 'adm@punti.com')
-    category1 = create(:product_category, name: 'Celulares')
     category2 = create(:product_category, name: 'Eletrônicos')
-    company = create(:company)
-    promotional_campaign = create(:promotional_campaign, name: 'Natal 2023', company:, start_date: 1.week.from_now,
-                                                         end_date: 1.month.from_now)
-    CampaignCategory.create!(promotional_campaign:, product_category: category1, discount: 10)
-    CampaignCategory.create!(promotional_campaign:, product_category: category2, discount: 20)
+    promotional_campaign = create(:promotional_campaign, name: 'Natal 2023',
+                                                         start_date: 1.week.from_now, end_date: 1.month.from_now)
+    create(:campaign_category, promotional_campaign:)
+    create(:campaign_category, product_category: category2, promotional_campaign:, discount: 20)
 
     login_as(admin)
     visit root_path
@@ -24,5 +22,29 @@ describe 'Administrador revome uma categoria e seu respectivo desconto para uma 
     expect(page).to have_content 'Categoria/Desconto removidos com sucesso'
     expect(page).not_to have_content 'Celulares - 10% de desconto'
     expect(page).to have_content 'Eletrônicos - 20% de desconto'
+  end
+
+  it 'como visitante tenta acessar, mas é direcionado para logar' do
+    promotional_campaign = create(:promotional_campaign)
+    create(:campaign_category, promotional_campaign:)
+
+    visit edit_promotional_campaign_path(promotional_campaign.id)
+
+    expect(current_path).to eq new_user_session_path
+    expect(page).not_to have_field('Nome')
+    expect(page).to have_content 'Você precisa fazer login ou se registrar antes de continuar'
+  end
+
+  it 'como usuário comum tenta acessar, mas não tem acesso e é direcionado para o root' do
+    user = create(:user)
+    promotional_campaign = create(:promotional_campaign)
+    create(:campaign_category, promotional_campaign:)
+
+    login_as(user)
+    visit edit_promotional_campaign_path(promotional_campaign.id)
+
+    expect(current_path).to eq root_path
+    expect(page).not_to have_field('Nome')
+    expect(page).to have_content 'Você não possui acesso a este módulo'
   end
 end

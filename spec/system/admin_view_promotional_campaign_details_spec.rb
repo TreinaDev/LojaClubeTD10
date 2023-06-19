@@ -3,8 +3,7 @@ require 'rails_helper'
 describe 'Administrador acessa detalhes de uma campanha promocional' do
   it 'a partir da listagem de campanhas promocional' do
     admin = create(:user, email: 'adm@punti.com')
-    company = create(:company)
-    create(:promotional_campaign, name: 'Natal 2023', company:, start_date: 1.week.from_now, end_date: 1.month.from_now)
+    create(:promotional_campaign, name: 'Natal 2023', start_date: 1.week.from_now, end_date: 1.month.from_now)
 
     login_as(admin)
     visit root_path
@@ -18,8 +17,7 @@ describe 'Administrador acessa detalhes de uma campanha promocional' do
   end
 
   it 'como visitante tenta acessar, mas é direcionado para logar' do
-    company = create(:company)
-    promotional_campaign = create(:promotional_campaign, company:)
+    promotional_campaign = create(:promotional_campaign)
 
     visit root_path
     visit promotional_campaign_path(promotional_campaign.id)
@@ -31,8 +29,7 @@ describe 'Administrador acessa detalhes de uma campanha promocional' do
 
   it 'como usuário comum tenta acessar, mas não tem acesso e é direcionado para o root' do
     user = create(:user)
-    company = create(:company)
-    promotional_campaign = create(:promotional_campaign, company:)
+    promotional_campaign = create(:promotional_campaign)
 
     login_as(user)
     visit root_path
@@ -46,8 +43,7 @@ describe 'Administrador acessa detalhes de uma campanha promocional' do
     admin = create(:user, email: 'adm@punti.com')
     category1 = create(:product_category, name: 'Celulares')
     category2 = create(:product_category, name: 'Eletrônicos')
-    company = create(:company)
-    promotional_campaign = create(:promotional_campaign, name: 'Natal 2023', company:, start_date: 1.week.from_now,
+    promotional_campaign = create(:promotional_campaign, name: 'Natal 2023', start_date: 1.week.from_now,
                                                          end_date: 1.month.from_now)
     CampaignCategory.create!(promotional_campaign:, product_category: category1, discount: 10)
     CampaignCategory.create!(promotional_campaign:, product_category: category2, discount: 20)

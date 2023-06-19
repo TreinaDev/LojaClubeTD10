@@ -6,12 +6,11 @@ describe 'Usuário remove uma categoria de uma campanha promocional' do
       admin = create(:user, email: 'adm@punti.com')
       category1 = create(:product_category, name: 'Celulares')
       category2 = create(:product_category, name: 'Eletrônicos')
-      company = create(:company)
-      promotional_campaign = create(:promotional_campaign, name: 'Natal 2023', company:, start_date: 1.week.from_now,
+      promotional_campaign = create(:promotional_campaign, name: 'Natal 2023', start_date: 1.week.from_now,
                                                            end_date: 1.month.from_now)
-      campaign_category = CampaignCategory.create!(promotional_campaign:, product_category: category1,
-                                                   discount: 10)
-      CampaignCategory.create!(promotional_campaign:, product_category: category2, discount: 20)
+      campaign_category = create(:campaign_category, promotional_campaign:, product_category: category1,
+                                                     discount: 10)
+      create(:campaign_category, promotional_campaign:, product_category: category2, discount: 20)
 
       login_as(admin)
       delete(promotional_campaign_campaign_category_path(promotional_campaign.id, campaign_category.id))
@@ -24,11 +23,10 @@ describe 'Usuário remove uma categoria de uma campanha promocional' do
   context 'enquanto visitante' do
     it 'mas não está logado e é direcionado para o login' do
       category1 = create(:product_category, name: 'Celulares')
-      company = create(:company)
-      promotional_campaign = create(:promotional_campaign, name: 'Natal 2023', company:,
+      promotional_campaign = create(:promotional_campaign, name: 'Natal 2023',
                                                            start_date: 1.week.from_now, end_date: 1.month.from_now)
-      campaign_category = CampaignCategory.create!(promotional_campaign:, product_category: category1,
-                                                   discount: 10)
+      campaign_category = create(:campaign_category, promotional_campaign:, product_category: category1,
+                                                     discount: 10)
 
       delete(promotional_campaign_campaign_category_path(promotional_campaign.id, campaign_category.id))
 
@@ -41,11 +39,10 @@ describe 'Usuário remove uma categoria de uma campanha promocional' do
     it 'mas não tem acesso e é direcionado para o root' do
       user = create(:user)
       category1 = create(:product_category, name: 'Celulares')
-      company = create(:company)
-      promotional_campaign = create(:promotional_campaign, name: 'Natal 2023', company:,
+      promotional_campaign = create(:promotional_campaign, name: 'Natal 2023',
                                                            start_date: 1.week.from_now, end_date: 1.month.from_now)
-      campaign_category = CampaignCategory.create!(promotional_campaign:, product_category: category1,
-                                                   discount: 10)
+      campaign_category = create(:campaign_category, promotional_campaign:, product_category: category1,
+                                                     discount: 10)
 
       login_as(user)
       delete(promotional_campaign_campaign_category_path(promotional_campaign.id, campaign_category.id))
