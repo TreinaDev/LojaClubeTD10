@@ -7,7 +7,7 @@ class ProductCategory < ApplicationRecord
            foreign_key: :parent_id,
            dependent: :destroy,
            inverse_of: :parent
-           
+
   validates :name, presence: true, uniqueness: true
   after_validation :set_type
 

@@ -29,7 +29,7 @@ Style/FrozenStringLiteralComment:
 # Escrevemos mais linhas em arquivos de teste do que em arquivos de 
 # código, então é importante poder ter esses arquivos do tamanho necessário
 Metrics/BlockLength:
-  AllowedMethods: ['describe', 'context', 'feature', 'scenario', 'let', 'it']
+  AllowedMethods: ['describe', 'context', 'feature', 'scenario', 'let', 'it', 'xit']
 
 Layout/EndOfLine:
   Enabled: True

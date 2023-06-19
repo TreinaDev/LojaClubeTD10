@@ -13,13 +13,18 @@ Rails.application.routes.draw do
     get :subcategories, on: :member
   end
 
-  resources :products, only: [:new, :create, :show, :index, :edit, :update]
+  resources :favorites, only: [:create, :destroy]
+
+  resources :products, only: [:new, :create, :show, :index, :edit, :update] do
+    get 'search', on: :collection
+  end
 
   resources :promotional_campaigns, only: [:index, :new, :create, :show, :edit, :update] do
     resources :campaign_categories, only:  [:create, :destroy]
   end
 
-  resources :customer_areas, only: [:index]
+  get "customer_areas", to: "customer_areas#index"
   get "me", to: "customer_areas#me"
+  get "favorite_tab", to: "customer_areas#favorite_tab"
   post "update_phone_number", to: "users#update_phone"
 end

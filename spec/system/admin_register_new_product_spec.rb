@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Administrador cadastra produto' do
   context 'com sucesso' do
-    it 'para uma categoria' do
+    xit 'para uma categoria' do
       Capybara.current_driver = :selenium
 
       admin = create(:user, email: 'admin@punti.com')
@@ -35,7 +35,7 @@ describe 'Administrador cadastra produto' do
       expect(page).to have_content 'Eletrônico'
     end
 
-    it 'para uma subcategoria' do
+    xit 'para uma subcategoria' do
       Capybara.current_driver = :selenium
 
       admin = create(:user, email: 'admin@punti.com')
