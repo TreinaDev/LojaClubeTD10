@@ -11,7 +11,7 @@ describe 'Usuário pesquisa um produto' do
       expect(page).to have_content 'Procurar por produto'
     end
   end
-  it 'a partir de um botão que não aparece na tela de login' do
+  it 'e barra de busca não aparece na tela de login' do
     visit new_user_session_path
 
     expect(page).not_to have_content 'Procurar por produto'
