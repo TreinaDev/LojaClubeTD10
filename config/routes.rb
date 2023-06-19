@@ -9,8 +9,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :products, only: [:new, :create, :show, :index, :edit, :update]
   resources :favorites, only: [:create, :destroy]
+
+  resources :products, only: [:new, :create, :show, :index, :edit, :update] do
+    get 'search', on: :collection
+  end
 
   resources :promotional_campaigns, only: [:index, :new, :create, :show, :edit, :update] do
     resources :campaign_categories, only:  [:create, :destroy]
