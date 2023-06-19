@@ -1,34 +1,59 @@
-<div >
-  <% if @product.product_images.attached? %>
-    <% @product.product_images.each do |image| %>
-      <%= image_tag image.variant(:thumb) %>
-    <% end %>
-  <% end %>
-</div>
-<div class="col-md-8">
-  <div class="card-body">
-    <h3 class="card-title">Produto <%= @product.code %> - <%= @product.name %></h3>
-    <% if user_signed_in? && !current_user.admin? %>
-      <% if !current_user.favorite_products.include?(@product) %>
-        <%= form_with model: @favorite do |f| %>
-          <%= f.hidden_field :product_id, value: @product.id %>
-          <%= f.hidden_field :user_id, value: current_user.id %>
-          <%= f.submit 'Marcar como favorito' %>
-        <% end %>
-      <% else %>
-        <%= button_to 'Remover dos favoritos', favorite_path(@favorite.id), method: :delete %>
+<div class="row my-5">
+  <div class="col-6">
+    <div class="d-flex gap-2">
+      <% if @product.product_images.attached? %>
+        <div class="d-inline-flex flex-column flex-wrap gap-2" id="images">
+          <% @product.product_images.each do |image| %>
+            <div>
+              <%= image_tag(image, class:"resize-sml img-cursor", onclick: "displayImage(this);") %>
+            </div>
+          <% end %>
+        </div>
+        <div id="display-area">
+          <%= image_tag(@product.product_images[0], class: 'resize-big image-size', id: 'displayed-image')%>
+        </div>
       <% end %>
-    <% end %>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="card-body">
+      <h3 class="card-title mb-4 fw-bold">Produto <%= @product.name %> - <%= @product.code %></h3>
+      <dl class="row text-muted">
+        <dt class="col-sm-6 fw-bold">Descrição</dt>
+        <dd class="col-sm-6"><%= @product.description %></dd>
+        <dt class="col-sm-6">Marca</dt>
+        <dd class="col-sm-6"><%= @product.brand %></dd>
+        <dt class="col-sm-6">Preço</dt>
+        <dd class="col-sm-6"><%= number_to_currency @product.price %></dd>
+        <dt class="col-sm-6">Categoria</dt>
+        <dd class="col-sm-6"><%= @product.product_category.name %></dd>
+      </dl>
 
-    <dl class="row text-muted">
-      <dt class="col-sm-6">Descrição</dt>
-      <dd class="col-sm-6"><%= @product.description %></dd>
-      <dt class="col-sm-6">Marca</dt>
-      <dd class="col-sm-6"><%= @product.brand %></dd>
-      <dt class="col-sm-6">Preço</dt>
-      <dd class="col-sm-6"><%= number_to_currency @product.price %></dd>
-      <dt class="col-sm-6">Categoria</dt>
-      <dd class="col-sm-6"><%= @product.product_category.name %></dd>
-    </dl>
+      <% if user_signed_in? && !current_user.admin? %>
+        <% if !current_user.favorite_products.include?(@product) %>
+          <%= form_with model: @favorite do |f| %>
+            <%= f.hidden_field :product_id, value: @product.id %>
+            <%= f.hidden_field :user_id, value: current_user.id %>
+            <%= f.submit 'Marcar como favorito' %>
+          <% end %>
+        <% else %>
+          <%= button_to 'Remover dos favoritos', favorite_path(@favorite.id), method: :delete %>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 </div>
+
+<script>
+document.addEventListener("turbo:load", function () {
+  const firstImage = document.querySelector("#images img:first");
+  const displayedImage = document.querySelector("#displayed-image");
+  displayedImage.attr("src", firstImage.attr("src"));
+});
+
+
+function displayImage(image) {
+  const displayedImage = document.querySelector("#displayed-image");
+  displayedImage.src = image.src;
+}
+</script>

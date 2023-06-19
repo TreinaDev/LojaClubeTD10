@@ -5,6 +5,8 @@ pt-BR:
     attributes:
       product_category:
         name: 'Nome'
+        status: 'Status'
+        actions: 'Ações'
   product_category:
     create:
       success: 'Categoria criada com sucesso.'
@@ -12,3 +14,7 @@ pt-BR:
     update:
       success: 'A categoria foi editada com sucesso.'
       error: 'A categoria não pôde ser editada.'
+    reactivate:
+      success: 'Categoria reativada com sucesso.'
+    deactivate:
+      success: 'Categoria desabilitada com sucesso.'

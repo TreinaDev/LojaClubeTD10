@@ -1,6 +1,6 @@
 
 
-<div class="w-50 m-auto card bg-secondary bg-opacity-25 p-2">
+<div class="w-25 m-auto card bg-light p-5 my-4">
   <h2><%= t('.title') %></h2>
   
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -22,7 +22,7 @@
     <% end %>
 
     <div class="mb-3">
-      <%= f.submit t('.login'), class:"btn btn-primary" %>
+      <%= f.submit t('.login'), class:"btn btn-secondary" %>
     </div>
   <% end %>
 
