@@ -1,4 +1,6 @@
 class FavoritesController < ApplicationController
+  before_action :set_favorite, only: [:destroy]
+
   def create
     @favorite = Favorite.new(favorite_params)
     @product = Product.find(params[:favorite][:product_id])
@@ -7,7 +9,6 @@ class FavoritesController < ApplicationController
   end
 
   def destroy
-    @favorite = Favorite.find params[:id]
     if @favorite.destroy
       if request.referer
         redirect_to request.referer, notice: t('.destroy_success')
@@ -25,5 +26,9 @@ class FavoritesController < ApplicationController
     params
       .require(:favorite)
       .permit(:user_id, :product_id)
+  end
+
+  def set_favorite
+    @favorite = Favorite.find params[:id]
   end
 end

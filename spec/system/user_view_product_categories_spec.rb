@@ -6,12 +6,11 @@ describe 'Usuário vê as categorias dos produtos' do
     create(:product_category, name: 'Eletrodomésticos')
     create(:product_category, name: 'Utensílios')
 
-      visit root_path
+    visit root_path
 
-      expect(page).to have_link 'Camisetas'
-      expect(page).to have_link 'Eletrodomésticos'
-      expect(page).to have_link 'Utensílios'
-    end
+    expect(page).to have_link 'Camisetas'
+    expect(page).to have_link 'Eletrodomésticos'
+    expect(page).to have_link 'Utensílios'
   end
 
   context 'pela página de categorias' do
