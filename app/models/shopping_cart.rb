@@ -3,14 +3,12 @@ class ShoppingCart < ApplicationRecord
   has_many :products, through: :orderables
 
   def total
-    orderables.to_a.sum(&:total)
+    orderables.sum(&:total)
   end
 
   def total_items
     sum = 0
-    orderables.each do |orderable|
-      sum += orderable.quantity
-    end
+    orderables.sum(&:quantity)
     sum
   end
 end
