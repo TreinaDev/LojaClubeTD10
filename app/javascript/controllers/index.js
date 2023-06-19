@@ -12,3 +12,6 @@ application.register("quantity", QuantityController)
 
 import RemovalsController from "./removals_controller"
 application.register("removals", RemovalsController)
+
+import ProductCategoryController from "./product_category_controller"
+application.register("product-category", ProductCategoryController)

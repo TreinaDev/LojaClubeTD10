@@ -28,6 +28,18 @@
         <dt class="col-sm-6">Categoria</dt>
         <dd class="col-sm-6"><%= @product.product_category.name %></dd>
       </dl>
+
+      <% if user_signed_in? && !current_user.admin? %>
+        <% if !current_user.favorite_products.include?(@product) %>
+          <%= form_with model: @favorite do |f| %>
+            <%= f.hidden_field :product_id, value: @product.id %>
+            <%= f.hidden_field :user_id, value: current_user.id %>
+            <%= f.submit 'Marcar como favorito', class: 'btn btn-secondary' %>
+          <% end %>
+        <% else %>
+          <%= button_to 'Remover dos favoritos', favorite_path(@favorite.id), method: :delete, class: 'btn btn-secondary' %>
+        <% end %>
+      <% end %>
     </div>
   </div>
 

@@ -3,8 +3,9 @@
 
   <div class="container div-max-width p-2">
     <%= link_to 'Nova Categoria', new_product_category_path, class: 'btn btn-secondary' %>
-  </div>
-
+    <%= link_to 'Nova Subcategoria', new_product_subcategory_path, class: 'btn btn-secondary' %>
+  </div> 
+ 
   <table class="table table-striped table-hover mt-4">
     <thead>
       <tr class="text-center">
@@ -25,7 +26,13 @@
             <td>Inativa</td>
           <% end %>
 
-          <td><%= link_to 'Editar', edit_product_category_path(product_category.id), class: 'btn btn-outline-secondary btn-sm' %></td>
+          <td>
+            <% if product_category.type == 'ProductCategory' %>
+              <%= link_to 'Editar', edit_product_category_path(product_category.id), class: "btn btn-outline-secondary btn-sm" %>
+            <% else %>
+              <%= link_to 'Editar', edit_product_subcategory_path(product_category.id), class: "btn btn-outline-secondary btn-sm" %>
+            <% end %>
+          </td>
 
           <% if product_category.active? %>
             <td>
