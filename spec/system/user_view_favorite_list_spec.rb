@@ -22,8 +22,8 @@ describe 'Usuário visualiza lista de favoritos' do
     user = User.create!(name: 'matheus', email: 'matheus@mail.com', password: 'senha1234',
                         phone_number: '19998555544', cpf: '56685728701')
     category = create(:product_category)
-    product1 = create(:product, name: 'TV', code: 'HJK123456', product_category: category)
-    product2 = create(:product, name: 'Iphone', code: 'ASD123456', product_category: category)
+    product1 = create(:product, name: 'TV', code: 'HJK123456', brand: 'Samsung', product_category: category)
+    product2 = create(:product, name: 'Iphone', code: 'ASD123456', brand: 'Apple', product_category: category)
 
     Favorite.create!(user:, product: product1)
     Favorite.create!(user:, product: product2)
@@ -33,8 +33,8 @@ describe 'Usuário visualiza lista de favoritos' do
     click_on 'Produtos Favoritos'
 
     expect(current_path).to eq favorite_tab_path
-    expect(page).to have_content 'HJK123456 - TV'
-    expect(page).to have_content 'ASD123456 - Iphone'
+    expect(page).to have_content 'TV, Samsung'
+    expect(page).to have_content 'Iphone, Apple'
   end
 
   it 'e não tem nenhum favorito selecionado' do

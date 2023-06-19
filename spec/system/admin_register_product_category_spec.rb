@@ -46,7 +46,7 @@ describe 'Administrador registra uma nova categoria' do
     visit product_categories_path
 
     expect(current_path).to eq root_path
-    expect(page).to have_content 'Você não possui permissão para realizar esta ação.'
+    expect(page).to have_content 'Você não possui acesso a este módulo'
   end
 
   it 'como visitante e não tem permissão' do

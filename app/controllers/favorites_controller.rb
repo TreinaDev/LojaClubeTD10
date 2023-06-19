@@ -2,9 +2,9 @@ class FavoritesController < ApplicationController
   def create
     @favorite = Favorite.new(favorite_params)
     @product = Product.find(params[:favorite][:product_id])
-    if @favorite.save
-      redirect_to product_path(@product), notice: "#{@product.name} está na sua lista de produtos favoritos"
-    end
+    return unless @favorite.save
+
+    redirect_to product_path(@product), notice: "#{@product.name} está na sua lista de produtos favoritos"
   end
 
   def destroy
