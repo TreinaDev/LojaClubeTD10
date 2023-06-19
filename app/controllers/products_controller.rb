@@ -8,7 +8,12 @@ class ProductsController < ApplicationController
     @products = Product.all
   end
 
-  def show; end
+  def show
+    @favorite = Favorite.new
+    return unless user_signed_in? && current_user.favorite_products.include?(@product)
+
+    @favorite = current_user.favorites.find { |fav| fav.product_id == @product.id }
+  end
 
   def new
     @product = Product.new

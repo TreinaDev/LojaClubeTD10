@@ -39,8 +39,8 @@ describe 'Administrador registra uma nova categoria' do
     expect(page).to have_content 'Nome já está em uso'
   end
 
-  it 'como usuário comum e não tem permissão' do
-    user = create(:user, email: 'user@email.com')
+  it 'e usuário comum não consegue acessar' do
+    user = FactoryBot.create(:user)
 
     login_as(user)
     visit product_categories_path
