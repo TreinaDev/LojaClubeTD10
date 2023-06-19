@@ -1,5 +1,5 @@
 {
-  "name":"club_store",
+  "name": "club_store",
   "dependencies": {
     "@hotwired/stimulus": "^3.2.1",
     "@hotwired/turbo-rails": "^7.3.0",
