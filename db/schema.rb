@@ -75,13 +75,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_145458) do
 
   create_table "favorites", force: :cascade do |t|
     t.integer "product_id", null: false
-    t.integer "shopping_cart_id", null: false
-    t.integer "quantity"
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_orderables_on_product_id"
-    t.index ["shopping_cart_id"], name: "index_orderables_on_shopping_cart_id"
+    t.index ["product_id"], name: "index_favorites_on_product_id"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
   create_table "orderables", force: :cascade do |t|
