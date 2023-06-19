@@ -1,6 +1,8 @@
 class FavoritesController < ApplicationController
-  before_action :prevent_admin, only: %i[create]
+  before_action :authenticate_user!, only: %i[create destroy]
+  before_action :prevent_admin, only: %i[create destroy]
   before_action :prevent_visitor, only: %i[create]
+  before_action :set_favorite, only: [:destroy]
 
   def create
     @favorite = Favorite.new(favorite_params)
@@ -13,7 +15,6 @@ class FavoritesController < ApplicationController
   end
 
   def destroy
-    @favorite = Favorite.find params[:id]
     if @favorite.destroy
       redirect_definition
     else
@@ -29,6 +30,10 @@ class FavoritesController < ApplicationController
     else
       redirect_to product_path(@favorite.product_id)
     end
+  end
+
+  def set_favorite
+    @favorite = Favorite.find params[:id]
   end
 
   def favorite_params

@@ -52,7 +52,7 @@ describe 'Usuário acessa rota de favorito de um produto' do
       post favorites_path, params: { favorite: { user_id: user.id, product_id: product.id } }
 
       expect(response).to have_http_status 302
-      expect(flash[:alert]).to eq 'Faça login para acessar'
+      expect(flash[:alert]).to eq 'Você precisa fazer login ou se registrar antes de continuar'
       expect(response).to redirect_to new_user_session_path
     end
   end
