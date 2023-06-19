@@ -1,0 +1,21 @@
+pt-BR:
+  campaign_categories:
+    create:
+      campaign_category_success: 'Categoria/Desconto cadastrados com sucesso'
+      campaign_category_fail: 'Não foi possível cadastrar Categoria/Desconto à Campanha'
+    update:
+      campaign_category_success: 'Categoria/Desconto alterados com sucesso'
+      campaign_category_fail: 'Não foi possível alterar Categoria/Desconto da Campanha'
+    destroy:
+      campaign_category_success: 'Categoria/Desconto removidos com sucesso'
+      campaign_category_fail: 'Não foi possível remover Categoria/Desconto da Campanha'
+  activerecord:
+    models:
+      campaign_category: Categoria da Campanha
+    attributes:
+      campaign_category:
+        promotional_campaign_id: "Campanha"
+        promotional_campaign: "Campanha"
+        product_category_id: "Categoria"
+        product_category: "Categoria"
+        discount: "Desconto"

@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'Administrador visualiza categorias' do
   it 'com sucesso' do
-    category = FactoryBot.create(:product_category)
-    admin = FactoryBot.create(:user, email: 'admin@punti.com')
+    category = create(:product_category)
+    admin = create(:user, email: 'admin@punti.com')
 
     login_as(admin)
     visit product_categories_path
