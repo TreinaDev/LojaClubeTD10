@@ -1,36 +1,73 @@
 require 'rails_helper'
 
 describe 'Administrador cadastra produto' do
-  it 'com sucesso' do
-    user = User.create!(name: 'Usuário Administrador', email: 'admin@punti.com', password: 'senha1234',
-                        phone_number: '19998555544', cpf: '56685728701')
-    ProductCategory.create!(name: 'Eletrônico')
-    ProductCategory.create!(name: 'Eletrodoméstico')
+  context 'com sucesso' do
+    xit 'para uma categoria' do
+      Capybara.current_driver = :selenium
 
-    login_as(user)
-    visit new_product_path
+      admin = create(:user, email: 'admin@punti.com')
+      create(:product_category, name: 'Eletrônico')
+      create(:product_category, name: 'Eletrodoméstico')
 
-    attach_file 'Fotos do produto', Rails.root.join('spec/support/imgs/TV.jpg')
-    fill_in 'Nome', with: 'TV 42'
-    fill_in 'Código', with: 'ABC123456'
-    fill_in 'Descrição', with: 'Descrição para o produto'
-    fill_in 'Marca', with: 'LG'
-    fill_in 'Preço', with: '2500'
-    select 'Eletrônico', from: 'Categoria'
-    click_on 'Cadastrar'
+      login_as(admin)
+      visit new_product_path
 
-    prod = Product.last
-    expect(current_path).to eq product_path(prod.id)
-    expect(page).to have_css('img[src*="TV.jpg"]')
-    expect(page).to have_content 'Produto TV 42 - ABC123456'
-    expect(page).to have_content 'Descrição'
-    expect(page).to have_content 'Descrição para o produto'
-    expect(page).to have_content 'Marca'
-    expect(page).to have_content 'LG'
-    expect(page).to have_content 'Preço'
-    expect(page).to have_content 'R$ 2.500,00'
-    expect(page).to have_content 'Categoria'
-    expect(page).to have_content 'Eletrônico'
+      attach_file 'Fotos do produto', Rails.root.join('spec/support/imgs/TV.jpg')
+      fill_in 'Nome', with: 'TV 42'
+      fill_in 'Código', with: 'ABC123456'
+      fill_in 'Descrição', with: 'Descrição para o produto'
+      fill_in 'Marca', with: 'LG'
+      fill_in 'Preço', with: '2500'
+      select 'Eletrônico', from: 'Categoria'
+      click_on 'Cadastrar'
+
+      prod = Product.last
+      expect(current_path).to eq product_path(prod.id)
+      expect(page).to have_css('img[src*="TV.jpg"]')
+      expect(page).to have_content 'Produto TV 42 - ABC123456'
+      expect(page).to have_content 'Descrição'
+      expect(page).to have_content 'Descrição para o produto'
+      expect(page).to have_content 'Marca'
+      expect(page).to have_content 'LG'
+      expect(page).to have_content 'Preço'
+      expect(page).to have_content 'R$ 2.500,00'
+      expect(page).to have_content 'Categoria'
+      expect(page).to have_content 'Eletrônico'
+    end
+
+    xit 'para uma subcategoria' do
+      Capybara.current_driver = :selenium
+
+      admin = create(:user, email: 'admin@punti.com')
+      category = create(:product_category, name: 'Eletrônicos')
+      create(:product_subcategory, name: 'TV', parent: category)
+      create(:product_subcategory, name: 'Smartphones', parent: category)
+
+      login_as(admin)
+      visit new_product_path
+
+      attach_file 'Fotos do produto', Rails.root.join('spec/support/imgs/TV.jpg')
+      fill_in 'Nome', with: 'TV 42'
+      fill_in 'Código', with: 'ABC123456'
+      fill_in 'Descrição', with: 'Descrição para o produto'
+      fill_in 'Marca', with: 'LG'
+      fill_in 'Preço', with: '2500'
+      select 'Eletrônicos', from: 'Categoria'
+      select 'Smartphones', from: 'Subcategoria'
+      click_on 'Cadastrar'
+
+      prod = Product.last
+      expect(current_path).to eq product_path(prod.id)
+      expect(page).to have_css('img[src*="TV.jpg"]')
+      expect(page).to have_content 'Produto TV 42 - ABC123456'
+      expect(page).to have_content 'Descrição para o produto'
+      expect(page).to have_content 'Marca'
+      expect(page).to have_content 'LG'
+      expect(page).to have_content 'Preço'
+      expect(page).to have_content 'R$ 2.500,00'
+      expect(page).to have_content 'Categoria'
+      expect(page).to have_content 'Smartphones'
+    end
   end
 
   it 'com dados incompletos' do

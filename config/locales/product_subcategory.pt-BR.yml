@@ -1,0 +1,26 @@
+pt-BR:
+  activerecord:
+    models:
+      product_subcategory: 'Subcategoria de produtos'
+    attributes:
+      product_subcategory:
+        name: 'Nome'
+        parent: 'Categoria de produtos'
+        parent_id: 'Categoria de produtos'
+
+  product_subcategories:
+    new:
+      form: &new_form_translations
+        submit_text: 'Criar subcategoria'
+    create:
+      form: *new_form_translations
+      success: 'Subcategoria criada com sucesso.'
+      error: 'Não foi possível criar a subcategoria, revise os campos abaixo:'
+      
+    edit:
+      form: &edit_form_translations
+        submit_text: 'Atualizar subcategoria de produtos'
+    update:
+      form: *edit_form_translations
+      success: 'A subcategoria foi editada com sucesso.'
+      error: 'A subcategoria não pôde ser editada, revise os campos abaixo:'
