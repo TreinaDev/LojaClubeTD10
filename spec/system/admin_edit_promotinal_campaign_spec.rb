@@ -3,8 +3,7 @@ require 'rails_helper'
 describe 'Administrador edita uma campanha promocional' do
   it 'a partir da listagem de campanhas' do
     admin = create(:user, email: 'admin@punti.com')
-    company = create(:company)
-    create(:promotional_campaign, company:)
+    create(:promotional_campaign)
 
     login_as(admin)
     visit root_path
@@ -20,9 +19,8 @@ describe 'Administrador edita uma campanha promocional' do
 
   it 'com sucesso' do
     admin = create(:user, email: 'admin@punti.com')
-    company = create(:company)
     create(:company, brand_name: 'PlayCode', registration_number: '90155816000187')
-    create(:promotional_campaign, company:)
+    create(:promotional_campaign)
 
     login_as(admin)
     visit root_path
@@ -44,9 +42,8 @@ describe 'Administrador edita uma campanha promocional' do
 
   it 'com dados incompletos' do
     admin = create(:user, email: 'admin@punti.com')
-    company = create(:company)
     create(:company, brand_name: 'PlayCode', registration_number: '90155816000187')
-    create(:promotional_campaign, company:)
+    create(:promotional_campaign)
 
     login_as(admin)
     visit root_path
@@ -65,8 +62,7 @@ describe 'Administrador edita uma campanha promocional' do
   end
 
   it 'como visitante tenta acessar, mas é direcionado para logar' do
-    company = create(:company)
-    promotional_campaign = create(:promotional_campaign, company:)
+    promotional_campaign = create(:promotional_campaign)
 
     visit edit_promotional_campaign_path(promotional_campaign.id)
 
@@ -77,9 +73,8 @@ describe 'Administrador edita uma campanha promocional' do
 
   it 'como usuário comum tenta acessar, mas não tem acesso e é direcionado para o root' do
     user = create(:user)
-    company = create(:company)
     create(:company, brand_name: 'PlayCode', registration_number: '90155816000187')
-    promotional_campaign = create(:promotional_campaign, company:)
+    promotional_campaign = create(:promotional_campaign)
 
     login_as(user)
     visit edit_promotional_campaign_path(promotional_campaign.id)
