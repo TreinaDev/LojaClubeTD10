@@ -8,7 +8,15 @@ describe 'Usuário pesquisa um produto' do
     within('#searchModal') do
       expect(page).to have_field 'query'
       expect(page).to have_button 'Buscar'
+      expect(page).to have_content 'Procurar por produto'
     end
+  end
+  it 'a partir de um botão que não aparece na tela de login' do
+    visit new_user_session_path
+
+    expect(page).not_to have_content 'Procurar por produto'
+    expect(page).not_to have_css '#searchModal'
+    expect(page).not_to have_button '#searchModal'
   end
   it 'e encontra o produto, nenhum outro diferente' do
     category = create(:product_category, name: 'Celulares')
