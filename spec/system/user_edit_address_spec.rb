@@ -44,4 +44,29 @@ describe 'Usuário edita um endereço' do
       expect(page).to have_content 'Não foi possível editar o endereço, revise os campos abaixo:'
     end
   end
+
+  it 'e como visitante não tem acesso' do
+    user = create(:user)
+    address = create(:address, city: 'Maruim', state: 'Sergipe', zipcode: '49770000')
+    create(:client_address, user:, address:)
+
+    visit edit_address_path(address)
+
+    expect(current_path).to eq new_user_session_path
+    expect(page).to have_content 'Você precisa fazer login ou se registrar antes de continuar'
+  end
+
+  it 'e como administrador não tem acesso' do
+    user = create(:user)
+    admin = create(:user, cpf: '24034550082', email: 'admin@punti.com')
+    address = create(:address, city: 'Maruim', state: 'Sergipe', zipcode: '49770000')
+    create(:client_address, user:, address:)
+
+    login_as(admin)
+    
+    visit edit_address_path(address)
+
+    expect(current_path).to eq root_path
+    expect(page).to have_content 'Administrador não tem acesso a essa página'
+  end
 end

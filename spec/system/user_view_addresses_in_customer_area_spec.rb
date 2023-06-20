@@ -58,7 +58,8 @@ describe 'Usuário vê seus endereços na área do cliente' do
   it 'e seleciona um endereço como padrão' do
     user = create(:user)
 
-    first_address = create(:address)
+    first_address = create(:address, address: 'Rua Aquidabã', number: '115',
+                                     city: 'Aracaju', state: 'Sergipe', zipcode: '48005000')
     second_address = create(:address, address: 'Rua Santo Antonio', number: '22',
                                       city: 'Maruim', state: 'Sergipe', zipcode: '49770000')
 
@@ -70,16 +71,53 @@ describe 'Usuário vê seus endereços na área do cliente' do
     click_on 'Área do Cliente'
     click_on 'Endereços Cadastrados'
 
-    within "#select_address_#{second_address.id}" do
+    within :xpath, '//div[div/p[text()="Rua Santo Antonio, 22"]]' do
       click_on 'Selecionar como Padrão'
     end
 
-    within "#select_address_#{first_address.id}" do
+    within :xpath, '//div[div/p[text()="Rua Aquidabã, 115"]]' do
       expect(page).to have_button 'Selecionar como Padrão'
     end
 
-    within "#select_address_#{second_address.id}" do
+    within :xpath, '//div[div/p[text()="Rua Santo Antonio, 22"]]' do
       expect(page).not_to have_button 'Selecionar como Padrão'
     end
+  end
+
+  it 'e vê endereço padrão no topo da lista' do
+    user = create(:user)
+
+    first_address = create(:address, address: 'Rua Aquidabã', number: '115',
+                                     city: 'Aracaju', state: 'Sergipe', zipcode: '48005000')
+    second_address = create(:address, address: 'Rua Santo Antonio', number: '22',
+                                      city: 'Maruim', state: 'Sergipe', zipcode: '49770000')
+
+    ClientAddress.create!(user:, address: first_address)
+    ClientAddress.create!(user:, address: second_address, default: true)
+
+    login_as(user)
+    visit client_addresses_path
+
+    within '.address-painel:first-child' do
+      expect(page).to have_content 'Rua Santo Antonio, 22'
+    end
+  end
+
+  it 'e como visitante não tem acesso' do
+    visit client_addresses_path
+
+    expect(current_path).to eq new_user_session_path
+    expect(page).to have_content 'Você precisa fazer login ou se registrar antes de continuar'
+  end
+
+  it 'e como administrador não tem acesso' do
+    admin = create(:user, cpf: '24034550082', email: 'admin@punti.com')
+
+    login_as(admin)
+    
+    visit client_addresses_path
+
+    expect(current_path).to eq root_path
+    expect(page).to have_content 'Administrador não tem acesso a essa página'
   end
 end
