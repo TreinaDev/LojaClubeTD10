@@ -1,7 +1,7 @@
 <section>
   <div class="container shadow p-2 mb-4 bg-body-tertiary rounded div-max-width">
     <h2 class="text-center">Produtos</h2>
-  
+
     <div class="container div-max-width p-2">
       <%= link_to 'Cadastrar Produto', new_product_path, class: 'btn btn-secondary' %>
     </div>
@@ -20,6 +20,11 @@
               <td><%= link_to product.code, product_path(product), class: "link-secondary" %></td>
               <td><%= product.name %></td>
               <td><%= link_to 'Editar', edit_product_path(product), class: 'btn btn-outline-secondary btn-sm', id: dom_id(product) %></td>
+              <% if product.active? %>
+                <td><%= button_to 'Desativar', deactivate_product_path(product.id), method: :patch, class: 'btn btn-outline-danger btn-sm', id: "#{product.id}_deactivate" %></td>
+              <% else %>
+                <td><%= button_to 'Reativar', reactivate_product_path(product.id), method: :patch, class: 'btn btn-outline-danger btn-sm', id: "#{product.id}_reactivate" %></td>
+              <% end %>
             </tr>
           <% end %>
         </tbody>

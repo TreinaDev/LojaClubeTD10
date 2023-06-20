@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       patch :reactivate
     end
   end
-  
+
   resources :product_subcategories, only: [:new, :create, :edit, :update] do
     get :subcategories, on: :member
   end
@@ -16,6 +16,10 @@ Rails.application.routes.draw do
   resources :favorites, only: [:create, :destroy]
 
   resources :products, only: [:new, :create, :show, :index, :edit, :update] do
+    member do
+      patch :deactivate
+      patch :reactivate
+    end
     get 'search', on: :collection
   end
 

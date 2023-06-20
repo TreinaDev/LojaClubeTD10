@@ -1,8 +1,9 @@
 class ProductsController < ApplicationController
   include ActiveSupport::NumberHelper
   before_action :authenticate_user!, only: %i[index new create edit update]
-  before_action :check_user, only: %i[index new create edit update]
-  before_action :set_product, only: %i[show edit update]
+  before_action :prevent_visitor, only: %i[deactivate reactivate]
+  before_action :check_user, only: %i[index new create edit update deactivate reactivate]
+  before_action :set_product, only: %i[show edit update deactivate reactivate]
 
   def index
     @products = Product.all
@@ -55,6 +56,16 @@ class ProductsController < ApplicationController
     end
     @products = Product.where('name LIKE ?', "%#{@query}%")
     @quantity = @products.length
+  end
+
+  def deactivate
+    @product.update(active: false)
+    redirect_to products_path, notice: t('.product_success')
+  end
+
+  def reactivate
+    @product.update(active: true)
+    redirect_to products_path, notice: t('.product_success')
   end
 
   private

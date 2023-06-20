@@ -6,6 +6,10 @@ pt-BR:
     update:
       product_success: 'Produto alterado com sucesso'
       product_fail: 'Não foi possível alterar o produto'
+    reactivate:
+      product_success: 'Produto reativado com sucesso'
+    deactivate:
+      product_success: 'Produto desativado com sucesso'
     search:
       qwery_empty: 'Não é possível realizar uma busca vazia'
       found:
