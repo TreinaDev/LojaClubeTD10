@@ -1,0 +1,19 @@
+pt-BR:
+  activerecord:
+    models:
+      shopping_carts: 'Carrinho de compras'
+    attributes:
+      shopping_carts:
+        name: 'Nome'
+        status: 'Status'
+        actions: 'Ações'
+  shopping_carts:
+    add:
+      add_success: 'Adicionado produto ao carrinho'
+      add_error: 'Não pode adicionar produto sem quantidade!'
+      update_success: 'Alterado quantidade do produto'
+      update_error: 'Não foi possível alterar quantidade de produto!'
+    remove:
+      remove_success: 'Produto removido com sucesso'  
+    remove_all:
+      success_remove_all: 'Produtos removidos com sucesso'

@@ -37,6 +37,9 @@
     <% end %>
       <%= user_links %>
       <%= link_to_customer_area %>
+      <% if @cart.present? %>
+        <li class="nav-link"><i class="bi bi-cart4"></i> <%= link_to "Carrinho", shopping_cart_path(@cart), class: "navbar-text link-offset-2 link-underline link-underline-opacity-0" %><span class="ms-1 badge rounded-pill bg-danger"><%= cart_total(@cart) %></span></li>
+      <% end %>
     </ul>
   </div>
 </nav>
