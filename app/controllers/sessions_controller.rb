@@ -11,4 +11,11 @@ class SessionsController < Devise::SessionsController
       flash[:alert] = 'Você não tem cartão vinculado.'
     end
   end
+
+  def destroy
+    super
+    return unless @cart
+
+    @cart.destroy!
+  end
 end

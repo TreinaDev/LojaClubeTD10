@@ -20,13 +20,24 @@ a, a:hover {
    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
  }
 
-// IMAGEM DO PRODUTO
 
 .resize-sml {
   height: auto;
   width: auto;
   max-width: 80px;
   max-height: 80px;
+}
+
+// Para tirar as setas do campo number_field
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 .resize-big {
@@ -55,4 +66,11 @@ a, a:hover {
 .card-image {
   width: 200px;
   height:150px;
+}
+
+.resize-promo {
+  height: auto;
+  width: auto;
+  max-width: 80px;
+  max-height: 80px;
 }

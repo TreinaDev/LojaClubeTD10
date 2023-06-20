@@ -5,7 +5,7 @@
         <div class="d-inline-flex flex-column flex-wrap gap-2" id="images">
           <% @product.product_images.each do |image| %>
             <div>
-              <%= image_tag(image, class:"resize-sml img-cursor", onclick: "displayImage(this);") %>
+              <%= image_tag(image, class:"resize-sml img-cursor", data: { controller: "images", action: "click->images#change" }) %>
             </div>
           <% end %>
         </div>
@@ -42,18 +42,21 @@
       <% end %>
     </div>
   </div>
+
+  <% if user_signed_in? && current_user.common? %>
+    <div style="margin-top:20px;">
+      <%= form_with(url: add_shopping_carts_path) do |f| %>
+        <%= f.hidden_field :id, value: @product.id %>
+        <div class="form-group" style="margin-bottom:10px;">
+          <%= f.label :quantity, "Quantidade", class: "form-label" %>
+          <button type="button" id="decrease_button" class="clean-button" data-controller="quantity" data-action="click->quantity#decrement">-</button>
+          <%= f.number_field :quantity, value: 1, class: "text-center", style: "width: 4em;", id: "number_field" %>
+          <button type="button" id="increase_button" class="clean-button" data-controller="quantity" data-action="click->quantity#increment">+</button>
+        </div>
+        <div class="actions"><%= f.submit "Adicionar ao carrinho", class: "btn btn-success mb-3" %></div>
+      <% end %>
+    </div>
+  <% end %>
 </div>
 
-<script>
-document.addEventListener("turbo:load", function () {
-  const firstImage = document.querySelector("#images img:first");
-  const displayedImage = document.querySelector("#displayed-image");
-  displayedImage.attr("src", firstImage.attr("src"));
-});
 
-
-function displayImage(image) {
-  const displayedImage = document.querySelector("#displayed-image");
-  displayedImage.src = image.src;
-}
-</script>

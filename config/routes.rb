@@ -24,6 +24,13 @@ Rails.application.routes.draw do
   end
 
   get "customer_areas", to: "customer_areas#index"
+
+  resources :shopping_carts, only: [:show] do
+    post "add", on: :collection
+    post "remove", on: :collection
+    post "remove_all", on: :collection
+  end
+
   get "me", to: "customer_areas#me"
   get "favorite_tab", to: "customer_areas#favorite_tab"
   post "update_phone_number", to: "users#update_phone"

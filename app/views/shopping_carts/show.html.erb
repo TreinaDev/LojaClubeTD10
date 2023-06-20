@@ -1,0 +1,8 @@
+<div class="m-3">
+  <% if @shopping_cart.orderables.count > 0 %>
+    <%= render "orderables" %>
+  <% else %>
+    <p>Nenhum produto.</p>
+    <%= link_to "Voltar à página inicial", root_path, class: "btn btn-secondary" %>
+  <% end %>
+</div>
