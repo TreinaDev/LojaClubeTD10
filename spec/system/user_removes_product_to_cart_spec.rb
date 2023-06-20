@@ -29,6 +29,10 @@ describe 'Usuário remove produto do carrinho' do
                      description: 'Uma camisa azul muito bonita', code: 'CMA123456')
     create(:product, name: 'Camiseta Vermelha', price: 100, product_category: category1,
                      description: 'Uma camisa vermelha muito grande', code: 'ZDS123789')
+    json_data = Rails.root.join('spec/support/json/card_data_active.json').read
+    session = { card_data: JSON.parse(json_data) }
+    allow_any_instance_of(ApplicationController).to receive(:session).and_return(session)
+
     login_as(user)
     visit root_path
     click_on 'Camiseta Azul'
@@ -41,7 +45,7 @@ describe 'Usuário remove produto do carrinho' do
     expect(current_path).to eq shopping_cart_path(1)
     expect(page).to have_content 'Produto removido com sucesso'
     expect(page).to have_content 'Camiseta Azul'
-    expect(page).to have_content 'Total: 800'
+    expect(page).to have_content 'Total: 16.000'
     expect(page).not_to have_content 'Camiseta Vermelha'
   end
   it 'todos de uma vez, com sucesso' do

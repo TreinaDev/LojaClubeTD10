@@ -39,12 +39,12 @@ describe 'Usuário vê os preços em pontos' do
 
     expect(page).to have_content 'O seu cartão não está ativo, entre em contato com sua empresa.'
   end
-  it 'não sendo possuíndo cartão' do
+  it 'não possuíndo cartão' do
     user = create(:user, email: 'user@email.com')
     category = create(:product_category, name: 'Eletrodomestico')
     create(:product, name: 'Geladeira branca', code: 'GLD678456', description: 'Geladeira bonita',
                      price: 200, product_category: category)
-    fake_response = double('faraday_response', status: 404, body: {errros: 'Cartão não encontrado'})
+    fake_response = double('faraday_response', status: 404, body: { errros: 'Cartão não encontrado' })
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{user.cpf}").and_return(fake_response)
 
     visit root_path

@@ -39,27 +39,27 @@ module ApplicationHelper
     end
   end
 
-  def show_price(product)
+  def show_price(price)
     if current_user&.common?
-      show_common_user_price(product)
+      show_common_user_price(price)
     elsif current_user&.admin?
-      show_admin_price(product)
+      show_admin_price(price)
     end
   end
 
   private
 
-  def show_common_user_price(product)
+  def show_common_user_price(price)
     return if session[:card_data].blank?
 
-    price_points = number_with_delimiter((product.price * session[:card_data]['conversion_tax'].to_f).round,
+    price_points = number_with_delimiter((price * session[:card_data]['conversion_tax'].to_f).round,
                                          delimiter: '.')
 
-    "#{price_points} Pontos"
+    price_points.to_s
   end
 
-  def show_admin_price(product)
-    number_to_currency product.price.to_s
+  def show_admin_price(price)
+    number_to_currency price.to_s
   end
 
   def logged_user_navbar

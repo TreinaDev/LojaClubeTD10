@@ -1,0 +1,10 @@
+pt-BR:
+  sessions:
+    create:
+      sucess_active: 'Logado com sucesso. O seu cartão está ativo, vamos às compras.'
+      sucess_inactive: 'Logado com sucesso. O seu cartão não está ativo, entre em contato com sua empresa.'
+      error:  'Logado com sucesso. Você não tem cartão ativo no nosso clube!'
+      
+
+      
+     

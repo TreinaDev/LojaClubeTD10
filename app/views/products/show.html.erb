@@ -25,7 +25,7 @@
         <dd class="col-sm-6"><%= @product.brand %></dd>
         <% if user_signed_in? %>
           <dt class="col-sm-6">Preço</dt>
-          <dd class="col-sm-6"><%= show_price(@product) %></dd>
+          <dd class="col-sm-6"><%= "#{show_price(@product.price)} Pontos" %></dd>
         <% end %>
         <dt class="col-sm-6">Categoria</dt>
         <dd class="col-sm-6"><%= @product.product_category.name %></dd>

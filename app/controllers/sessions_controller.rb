@@ -1,21 +1,9 @@
 class SessionsController < Devise::SessionsController
   def create
     super
-
     response = Faraday.get("http://localhost:4000/api/v1/cards/#{current_user.cpf}")
 
-    case response.status
-    when 200
-      @data = JSON.parse(response.body)
-      if @data['status'] == 'active' 
-        flash[:notice] = 'Logado com sucesso. O seu cartão está ativo, vamos às compras.'
-        session[:card_data] = @data
-      else
-        flash[:notice] = 'Logado com sucesso. O seu cartão não está ativo, entre em contato com sua empresa.'
-      end
-    when 404
-      flash[:notice] = 'Logado com sucesso. Você não tem cartão ativo no nosso clube!'
-    end
+    response_tratament(response)
   end
 
   def destroy
@@ -23,5 +11,22 @@ class SessionsController < Devise::SessionsController
     return unless @cart
 
     @cart.destroy!
+  end
+
+  private
+
+  def response_tratament(response)
+    create_session(response) if response.status == 200
+    flash[:notice] = t('.error') if response.status == 404
+  end
+
+  def create_session(response)
+    @data = JSON.parse(response.body)
+    if @data['status'] == 'active'
+      flash[:notice] = t('.sucess_active')
+      session[:card_data] = @data
+    else
+      flash[:notice] = t('.sucess_inactive')
+    end
   end
 end
