@@ -1,7 +1,6 @@
 class FavoritesController < ApplicationController
   before_action :authenticate_user!, only: %i[create destroy]
   before_action :prevent_admin, only: %i[create destroy]
-  before_action :prevent_visitor, only: %i[create]
   before_action :set_favorite, only: [:destroy]
 
   def create
