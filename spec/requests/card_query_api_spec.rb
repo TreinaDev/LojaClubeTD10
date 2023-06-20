@@ -3,12 +3,12 @@ require 'rails_helper'
 describe 'API de Consulta de cartão' do
   it 'retorna os dados do cartão com sucesso' do
     user = create(:user)
-    json_data = File.read(Rails.root.join('spec/support/json/card_data.json'))
+    json_data = Rails.root.join('spec/support/json/card_data.json').read
     fake_response = double('faraday_response', status: 200, body: json_data)
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{user.cpf}").and_return(fake_response)
 
     response = Faraday.get("http://localhost:4000/api/v1/cards/#{user.cpf}")
-    
+
     expect(response.status).to eq 200
     expect(response.body).to include 'id'
     expect(response.body).to include 'cpf'
@@ -24,8 +24,8 @@ describe 'API de Consulta de cartão' do
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{user.cpf}").and_return(fake_response)
 
     response = Faraday.get("http://localhost:4000/api/v1/cards/#{user.cpf}")
-    
+
     expect(response.status).to eq 404
-    expect(response.body[:errors]).to include "Cartão não encontrado"
+    expect(response.body[:errors]).to include 'Cartão não encontrado'
   end
 end
