@@ -55,7 +55,7 @@ module ApplicationHelper
     price_points = number_with_delimiter((price * session[:card_data]['conversion_tax'].to_f).round,
                                          delimiter: '.')
 
-    price_points.to_s
+    "#{price_points} Pontos"
   end
 
   def show_admin_price(price)

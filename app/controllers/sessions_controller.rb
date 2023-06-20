@@ -1,6 +1,8 @@
 class SessionsController < Devise::SessionsController
   def create
     super
+    return unless current_user.common?
+
     response = Faraday.get("http://localhost:4000/api/v1/cards/#{current_user.cpf}")
 
     response_tratament(response)
