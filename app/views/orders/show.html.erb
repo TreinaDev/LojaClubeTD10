@@ -1,0 +1,28 @@
+<div class="m-3">
+  <div class="m-lg-3 p-3 border shadow">
+    <h2 class="mb-4 text-center">Pedido número <%= @order.order_number %></h2>
+    <table class="table table-striped table-hover mt-4 ">
+      <thead>
+        <tr class="text-center">
+          <th>Produto</th>
+          <th>Valor (pontos)</th>
+          <th>Desconto</th>
+          <th>Valor Final</th>
+          <th>Quantidade</th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        <% @order.order_items.each do |oi| %>
+          <% product = oi.product %>
+          <tr class="text-center">
+            <td><%= product.name %></td>
+            <td><%= product.price.round %></td>
+            <td>0</td>
+            <td><%= product.price.round %></td>
+            <td><%= oi.quantity %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_19_145458) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_20_205409) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -82,6 +82,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_145458) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "product_id", null: false
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["product_id"], name: "index_order_items_on_product_id"
+  end
+
   create_table "orderables", force: :cascade do |t|
     t.integer "product_id", null: false
     t.integer "shopping_cart_id", null: false
@@ -90,6 +100,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_145458) do
     t.datetime "updated_at", null: false
     t.index ["product_id"], name: "index_orderables_on_product_id"
     t.index ["shopping_cart_id"], name: "index_orderables_on_shopping_cart_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "order_number"
+    t.integer "total_value"
+    t.integer "discount_amount", default: 0
+    t.integer "final_value"
+    t.string "cpf"
+    t.integer "card_number"
+    t.string "payment_date"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "product_categories", force: :cascade do |t|
@@ -109,7 +133,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_145458) do
     t.text "description"
     t.string "brand"
     t.integer "product_category_id", null: false
-    t.decimal "price"
+    t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["code"], name: "index_products_on_code", unique: true
@@ -154,8 +178,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_145458) do
   add_foreign_key "campaign_categories", "promotional_campaigns"
   add_foreign_key "favorites", "products"
   add_foreign_key "favorites", "users"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "products"
   add_foreign_key "orderables", "products"
   add_foreign_key "orderables", "shopping_carts"
+  add_foreign_key "orders", "users"
   add_foreign_key "product_categories", "product_categories", column: "parent_id"
   add_foreign_key "products", "product_categories"
   add_foreign_key "promotional_campaigns", "companies"
