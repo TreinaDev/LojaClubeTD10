@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { sessions: 'sessions' }
   root "home#index"
 
   resources :product_categories, only: [:index, :new, :create, :edit, :update] do
