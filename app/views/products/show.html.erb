@@ -23,8 +23,10 @@
         <dd class="col-sm-6"><%= @product.description %></dd>
         <dt class="col-sm-6">Marca</dt>
         <dd class="col-sm-6"><%= @product.brand %></dd>
-        <dt class="col-sm-6">Preço</dt>
-        <dd class="col-sm-6"><%= show_price(@product) %></dd>
+        <% if user_signed_in? %>
+          <dt class="col-sm-6">Preço</dt>
+          <dd class="col-sm-6"><%= show_price(@product) %></dd>
+        <% end %>
         <dt class="col-sm-6">Categoria</dt>
         <dd class="col-sm-6"><%= @product.product_category.name %></dd>
       </dl>

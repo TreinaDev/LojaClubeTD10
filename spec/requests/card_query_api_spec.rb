@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'API de Consulta de cartão' do
   it 'retorna os dados do cartão com sucesso' do
     user = create(:user)
-    json_data = Rails.root.join('spec/support/json/card_data.json').read
+    json_data = Rails.root.join('spec/support/json/card_data_active.json').read
     fake_response = double('faraday_response', status: 200, body: json_data)
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{user.cpf}").and_return(fake_response)
 
