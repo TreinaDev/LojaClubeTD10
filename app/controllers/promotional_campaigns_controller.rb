@@ -7,7 +7,10 @@ class PromotionalCampaignsController < ApplicationController
     @promotional_campaigns = PromotionalCampaign.all
   end
 
-  def show; end
+  def show
+    @campaign_category = CampaignCategory.new
+    @categories = ProductCategory.where.not(id: @promotional_campaign.product_categories.pluck(:id)).where(active: true)
+  end
 
   def new
     @promotional_campaign = PromotionalCampaign.new

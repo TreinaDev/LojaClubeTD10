@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :client_addresses, dependent: :destroy
   has_many :addresses, through: :client_addresses
+  has_many :favorites, dependent: :destroy
 
   enum role: { common: 0, admin: 1 }
 
@@ -27,10 +28,14 @@ class User < ApplicationRecord
     phone_number.to_s.gsub(/(\d{2})(\d{5})(\d{4})/, '(\1)\2-\3')
   end
 
+  def favorite_products
+    favorites.map(&:product)
+  end
+
   private
 
   def define_role
-    self.role = email.present? && email.match(/\A[\w.+-]+@punti.com/) ? :admin : :common
+    self.role = email.present? && email.match(/\A[\w.+-]+@punti.com\z/) ? :admin : :common
   end
 
   def check_phone_number_length

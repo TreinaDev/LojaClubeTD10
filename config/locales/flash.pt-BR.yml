@@ -1,2 +1,3 @@
 pt-BR:
   access_denied: 'Você não possui acesso a este módulo'
+  prevent_logged_out_visitor: 'Faça login para acessar'

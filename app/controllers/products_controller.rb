@@ -8,15 +8,20 @@ class ProductsController < ApplicationController
     @products = Product.all
   end
 
-  def show; end
+  def show
+    @favorite = Favorite.new
+    return unless user_signed_in? && current_user.favorite_products.include?(@product)
+
+    @favorite = current_user.favorites.find { |fav| fav.product_id == @product.id }
+  end
 
   def new
     @product = Product.new
-    @categories = ProductCategory.all
+    @categories = ProductCategory.where(parent_id: nil)
   end
 
   def edit
-    @categories = ProductCategory.all
+    @categories = ProductCategory.where(parent_id: nil)
   end
 
   def create
@@ -25,7 +30,7 @@ class ProductsController < ApplicationController
     if @product.save
       redirect_to product_path(@product), notice: t('.product_success')
     else
-      @categories = ProductCategory.all
+      @categories = ProductCategory.where(parent_id: nil)
       flash.now[:alert] = t('.product_fail')
       render :new
     end
@@ -36,10 +41,20 @@ class ProductsController < ApplicationController
       attach_images
       redirect_to product_path(@product), notice: t('.product_success')
     else
-      @categories = ProductCategory.all
+      @categories = ProductCategory.where(parent_id: nil)
       flash.now[:alert] = t('.product_fail')
       render :edit
     end
+  end
+
+  def search
+    @query = params['query']
+    if @query == ''
+      flash[:alert] = t('.qwery_empty')
+      return redirect_to root_path
+    end
+    @products = Product.where('name LIKE ?', "%#{@query}%")
+    @quantity = @products.length
   end
 
   private

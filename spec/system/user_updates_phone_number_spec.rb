@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Usuário atualiza o número de telefone' do
   it 'a partir do campo em minhas informações' do
-    user = FactoryBot.create(:user, phone_number: '19934567890')
+    user = create(:user, phone_number: '19934567890')
 
     login_as(user)
     visit root_path
@@ -13,7 +13,7 @@ describe 'Usuário atualiza o número de telefone' do
     expect(page).to have_button 'Atualizar Contato'
   end
   it 'com sucesso' do
-    user = FactoryBot.create(:user, phone_number: '19934567890')
+    user = create(:user, phone_number: '19934567890')
 
     login_as(user)
     visit root_path
@@ -27,7 +27,7 @@ describe 'Usuário atualiza o número de telefone' do
     expect(page).to have_field 'phone_number', with: '(19)93456-7823'
   end
   it 'sem sucesso, pois deixou número com 9 dígitos' do
-    user = FactoryBot.create(:user, phone_number: '19934567890')
+    user = create(:user, phone_number: '19934567890')
 
     login_as(user)
     visit root_path
@@ -41,7 +41,7 @@ describe 'Usuário atualiza o número de telefone' do
     expect(page).not_to have_field 'phone_number', with: '(19)93456-78'
   end
   it 'sem sucesso, pois deixou o campo em branco' do
-    user = FactoryBot.create(:user, phone_number: '19934567890')
+    user = create(:user, phone_number: '19934567890')
 
     login_as(user)
     visit root_path
@@ -55,7 +55,7 @@ describe 'Usuário atualiza o número de telefone' do
     expect(page).not_to have_field 'phone_number', with: ''
   end
   it 'sem sucesso, pois usou letras no campo' do
-    user = FactoryBot.create(:user, phone_number: '19934567890')
+    user = create(:user, phone_number: '19934567890')
 
     login_as(user)
     visit root_path

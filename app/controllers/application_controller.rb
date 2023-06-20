@@ -5,9 +5,15 @@ class ApplicationController < ActionController::Base
   private
 
   def prevent_admin
-    return unless current_user.admin?
+    return unless user_signed_in? && current_user.admin?
 
     redirect_to root_path, alert: t(:prevent_admin_message)
+  end
+
+  def prevent_visitor
+    return if user_signed_in?
+
+    redirect_to new_user_session_path, alert: t('prevent_logged_out_visitor')
   end
 
   def configure_permitted_parameters
@@ -16,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_product_categories
-    @product_categories = ProductCategory.all
+    @product_categories = ProductCategory.where('active = true')
   end
 
   def check_user

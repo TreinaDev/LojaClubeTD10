@@ -2,11 +2,11 @@ require 'rails_helper'
 
 describe 'Usuário entra no sistema' do
   it 'e faz login' do
-    FactoryBot.create(:user, email: 'zezinho@mail.com', password: 'f4k3p455w0rd')
+    create(:user, email: 'zezinho@mail.com', password: 'f4k3p455w0rd')
 
     visit new_user_session_path
 
-    within 'form' do
+    within 'form#new_user' do
       fill_in 'E-mail', with: 'zezinho@mail.com'
       fill_in 'Senha', with: 'f4k3p455w0rd'
       click_on 'Entrar'
@@ -17,10 +17,10 @@ describe 'Usuário entra no sistema' do
   end
 
   it 'com informações incorretas' do
-    FactoryBot.create(:user, email: 'zezinho@mail.com', password: 'f4k3p455w0rd')
+    create(:user, email: 'zezinho@mail.com', password: 'f4k3p455w0rd')
 
     visit new_user_session_path
-    within 'form' do
+    within 'form#new_user' do
       fill_in 'E-mail', with: 'zezezinho@mail.com'
       fill_in 'Senha', with: 'f4k3p455w0rd'
       click_on 'Entrar'
@@ -32,7 +32,7 @@ describe 'Usuário entra no sistema' do
   end
 
   it 'e faz logout' do
-    user = FactoryBot.create(:user)
+    user = create(:user)
 
     login_as user
     visit root_path

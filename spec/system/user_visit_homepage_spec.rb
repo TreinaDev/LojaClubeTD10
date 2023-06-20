@@ -23,12 +23,12 @@ describe 'Usuário visita homepage' do
     end
   end
   it 'e vê os produtos recém adicionados' do
-    category1 = FactoryBot.create(:product_category, name: 'Camisetas')
-    category2 = FactoryBot.create(:product_category, name: 'Celulares')
-    FactoryBot.create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
-                                description: 'Uma camisa azul muito bonita', code: 'CMA123456')
-    FactoryBot.create(:product, name: 'Camiseta Vermelha', price: 701, product_category: category1,
-                                description: 'Uma camisa vermelha bem grande', code: 'CMV123789')
+    category1 = create(:product_category, name: 'Camisetas')
+    category2 = create(:product_category, name: 'Celulares')
+    create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
+                     description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+    create(:product, name: 'Camiseta Vermelha', price: 701, product_category: category1,
+                     description: 'Uma camisa vermelha bem grande', code: 'CMV123789')
     product = Product.new(name: 'TV42',
                           code: 'ABC123456',
                           description: 'Descrição para o produto',
@@ -62,9 +62,9 @@ describe 'Usuário visita homepage' do
     end
   end
   it 'e vê imagem padrão caso produto não tenha imagem' do
-    category = FactoryBot.create(:product_category, name: 'Celular')
-    FactoryBot.create(:product, name: 'Camiseta Azul', price: 800, product_category: category,
-                                description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+    category = create(:product_category, name: 'Celular')
+    create(:product, name: 'Camiseta Azul', price: 800, product_category: category,
+                     description: 'Uma camisa azul muito bonita', code: 'CMA123456')
 
     visit root_path
 
@@ -85,7 +85,7 @@ describe 'Usuário visita homepage' do
   end
   context 'estando logado' do
     it 'e vê uma barra de navegação exclusiva' do
-      user = FactoryBot.create(:user, name: 'José', email: 'jose@gmail.com', password: 'jose1234')
+      user = create(:user, name: 'José', email: 'jose@gmail.com', password: 'jose1234')
 
       login_as(user)
       visit root_path
@@ -101,10 +101,10 @@ describe 'Usuário visita homepage' do
       expect(page).not_to have_content 'jose@gmail.com (ADMIN)'
     end
     it 'e vê os preços dos produtos' do
-      user = FactoryBot.create(:user)
-      category = FactoryBot.create(:product_category, name: 'Eletrodomestico')
-      FactoryBot.create(:product, name: 'Geladeira branca', code: 'GLD678456', description: 'Geladeira bonita',
-                                  price: 200, product_category: category)
+      user = create(:user)
+      category = create(:product_category, name: 'Eletrodomestico')
+      create(:product, name: 'Geladeira branca', code: 'GLD678456', description: 'Geladeira bonita',
+                       price: 200, product_category: category)
 
       login_as(user)
       visit root_path
