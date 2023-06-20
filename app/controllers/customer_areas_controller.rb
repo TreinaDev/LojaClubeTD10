@@ -3,6 +3,8 @@ class CustomerAreasController < ApplicationController
   before_action :prevent_admin, only: %i[index me favorite_tab addresses]
   before_action :prevent_visitor, only: %i[favorite_tab]
 
+  def index; end
+
   def me
     @user = current_user
   end

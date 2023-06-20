@@ -7,7 +7,7 @@
     <div class="col-lg col-sm-12 text-start fs-4">
       <div class="row">
         <h3 class="fw-bold"><%= t('.my_addresses')%></h3>
-        <%= link_to 'Cadastrar novo endereço', new_address_path %>
+        <%= button_to 'Cadastrar novo endereço', new_address_path, method: :get, class: "btn btn-primary" %>
       </div>
     
       <% if @user.addresses.any? %>
