@@ -9,8 +9,9 @@ class OrdersController < ApplicationController
     @order.user_id = current_user.id
     if @order.save
       transfer_products(@order)
-      return redirect_to root_path, notice: 'Seu pedido foi realizado com sucesso!'
+      return redirect_to root_path, notice: t('order.create.success')
     end
+    flash.now[:alert] = t('order.create.error')
     render :new
   end
 
@@ -18,8 +19,9 @@ class OrdersController < ApplicationController
 
   def order_params
     params
-    .require(:order)
-    .permit(:order_number, :total_value, :discount_amount, :final_value, :cpf, :card_number, :payment_date, :user_id, :shopping_cart_id)
+      .require(:order)
+      .permit(:order_number, :total_value, :discount_amount, :final_value,
+              :cpf, :card_number, :payment_date, :user_id, :shopping_cart_id)
   end
 
   def transfer_products(order)
@@ -28,5 +30,4 @@ class OrdersController < ApplicationController
     end
     @cart.destroy!
   end
-
 end

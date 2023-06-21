@@ -1,0 +1,18 @@
+pt-BR:
+  activerecord:
+    models:
+      order: 'Pedido'
+    attributes:
+      order:
+        order_number: 'Número do pedido'
+        total_value: 'Valor total'
+        discount_amount: 'Desconto'
+        final_value: 'Valor final'
+        cpf: 'CPF'
+        card_number: 'Número do cartão'
+        payment_date: 'Data de pagamento'
+        user_id: 'Usuário'
+  order:
+    create:
+      success: 'Pedido criado com sucesso.'
+      error: 'Pedido cancelado.'
