@@ -9,6 +9,10 @@ Rails.application.routes.draw do
     end
   end
   
+  resources :addresses, only: [:new, :create, :edit, :update, :destroy] do
+    post :set_default, on: :member
+  end
+
   resources :product_subcategories, only: [:new, :create, :edit, :update] do
     get :subcategories, on: :member
   end
@@ -32,6 +36,7 @@ Rails.application.routes.draw do
   end
 
   get "me", to: "customer_areas#me"
+  get "client_addresses", to: "customer_areas#addresses"
   get "favorite_tab", to: "customer_areas#favorite_tab"
   post "update_phone_number", to: "users#update_phone"
 end

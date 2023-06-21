@@ -39,6 +39,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_145458) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "addresses", force: :cascade do |t|
+    t.string "address"
+    t.string "number"
+    t.string "city"
+    t.string "state"
+    t.string "zipcode"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "campaign_categories", force: :cascade do |t|
     t.integer "promotional_campaign_id", null: false
     t.integer "product_category_id", null: false
@@ -47,6 +57,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_145458) do
     t.datetime "updated_at", null: false
     t.index ["product_category_id"], name: "index_campaign_categories_on_product_category_id"
     t.index ["promotional_campaign_id"], name: "index_campaign_categories_on_promotional_campaign_id"
+  end
+
+  create_table "client_addresses", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "address_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "default", default: false
+    t.index ["address_id"], name: "index_client_addresses_on_address_id"
+    t.index ["user_id"], name: "index_client_addresses_on_user_id"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -152,6 +172,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_145458) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "campaign_categories", "product_categories"
   add_foreign_key "campaign_categories", "promotional_campaigns"
+  add_foreign_key "client_addresses", "addresses"
+  add_foreign_key "client_addresses", "users"
   add_foreign_key "favorites", "products"
   add_foreign_key "favorites", "users"
   add_foreign_key "orderables", "products"
