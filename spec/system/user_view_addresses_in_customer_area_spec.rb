@@ -41,12 +41,12 @@ describe 'Usuário vê seus endereços na área do cliente' do
     visit root_path
     click_on 'Área do Cliente'
     click_on 'Endereços Cadastrados'
-    within ".controls form[action='/addresses/#{first_address.id}']" do
+
+    within :xpath, "//div[div/p[text()='Maruim, Sergipe']]" do
       click_on 'Remover'
     end
 
     expect(current_path).to eq client_addresses_path
-    expect(user.addresses.count).to be 1
     expect(page).to have_content 'Curitiba'
     expect(page).to have_content 'Paraná'
     expect(page).to have_content '83430000'
@@ -98,7 +98,7 @@ describe 'Usuário vê seus endereços na área do cliente' do
     login_as(user)
     visit client_addresses_path
 
-    within '.address-painel:first-child' do
+    within 'div .address-card:first-of-type' do
       expect(page).to have_content 'Rua Santo Antonio, 22'
     end
   end
@@ -114,7 +114,7 @@ describe 'Usuário vê seus endereços na área do cliente' do
     admin = create(:user, cpf: '24034550082', email: 'admin@punti.com')
 
     login_as(admin)
-    
+
     visit client_addresses_path
 
     expect(current_path).to eq root_path

@@ -1,7 +1,7 @@
 class CustomerAreasController < ApplicationController
   before_action :authenticate_user!, only: %i[index me addresses]
   before_action :prevent_admin, only: %i[index me favorite_tab addresses]
-  before_action :prevent_visitor, only: %i[favorite_tab]
+  before_action :prevent_visitor, only: %i[favorite_tab addresses]
 
   def index; end
 

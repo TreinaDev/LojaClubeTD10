@@ -1,6 +1,8 @@
 
-.address-painel {
-  &actions {
-    width: clamp(100px, 35%, 150px);
+.address-card {
+  width: max(450px, 75%);
+
+  .actions {
+    min-width: 200px;
   }
 }

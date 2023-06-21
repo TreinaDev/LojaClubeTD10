@@ -12,8 +12,8 @@
     
       <% if @user.addresses.any? %>
         <% @user.addresses.each do |address| %>
-          <div class="address-painel card w-75 p-4 my-4 mx-auto bg-light rounded shadow-sm">
-            <div class="d-flex justify-content-between" id="select_address_<%= address.id %>">
+          <div class="address-card card p-4 my-4 mx-auto bg-light rounded shadow-sm">
+            <div class="d-flex justify-content-between">
               <div>
                 <p><%= address.address %>, <%= address.number %></p>
                 <p><%= address.city %>, <%= address.state %></p>
@@ -22,15 +22,18 @@
               
               <div class="actions d-flex flex-column align-self-center justify-content-between controls">
                 <% unless @user.client_addresses.exists?(address_id: address.id, default: true) %>
-                  <%= button_to 'Selecionar como Padrão', set_default_address_path(address), method: :post, class: "btn btn-outline-primary btn-sm" %>
+                  <%= button_to 'Selecionar como Padrão', set_default_address_path(address), {
+                        method: :post, class: "w-100 btn btn-outline-primary btn-sm", form_class: "flex-grow-1" }
+                  %>
                 <% end %>
 
                 <div class="d-flex gap-1">
-                  <%= form_with url: edit_address_path(address), method: :get, class: "flex-grow-1" do |f| %>
-                    <%= f.button 'Editar', type: "submit", class: "w-100 btn btn-outline-secondary btn-sm" %>
-                  <% end %>
-
-                  <%= button_to 'Remover', address_path(address), method: :delete, class: "btn btn-outline-danger btn-sm" %>
+                  <%= button_to 'Editar', edit_address_path(address), {
+                        method: :get, class: "w-100 btn btn-outline-secondary btn-sm", form_class: "flex-grow-1" }
+                  %>
+                  <%= button_to 'Remover', address_path(address), {
+                        method: :delete, class: "w-100 btn btn-outline-danger btn-sm", form_class: "flex-grow-1" }
+                  %>
                 </div>
               </div>
             </div>

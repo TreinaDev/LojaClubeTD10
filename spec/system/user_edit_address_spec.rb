@@ -63,7 +63,7 @@ describe 'Usuário edita um endereço' do
     create(:client_address, user:, address:)
 
     login_as(admin)
-    
+
     visit edit_address_path(address)
 
     expect(current_path).to eq root_path
