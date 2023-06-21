@@ -1,0 +1,76 @@
+<div class="m-3">
+  <div class="m-lg-3 p-3 border shadow">
+    <h2 class="mb-4 text-center">Finalize seu Pedido</h2>
+    <div>
+      <h3>Meus Dados</h3>
+      <div class="border p-3">
+        <p>Nome: <%= current_user.name %></p>
+        <p>E-mail: <%= current_user.email %></p>
+        <p>CPF: <%= current_user.formatted_cpf %></p>
+        <p>Telefone: <%= current_user.formatted_phone %></p>
+      </div>
+    </div>
+    <div>
+      <h3>Endereço de entrega</h3>
+      <div class="border p-3">
+        <p>Destinarário: <%= current_user.name %></p>
+        <p>Rua das Mangabeiras, 127, Quadra 8</p>
+        <p>15000-000 - São Paulo / SP</p>
+      </div>
+    </div>
+    <div>
+      <h3>Itens da Compra</h3>
+      <table class="table table-striped table-hover mt-4 ">
+        <thead>
+          <tr class="text-center">
+            <th>Produto</th>
+            <th>Valor</th>
+            <th>Quantidade</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <% @shopping_cart.orderables.each do |orderable| %>
+            <% product = orderable.product %>
+            <div id="<%= "cart-#{product.id}" %>">
+              <tr class="text-center">
+                <td><%= product.name %></td>
+                <td><%= product.price.round %></td>
+                <td>0</td>
+                <td><%= product.price.round %></td>
+                <td><%= orderable.quantity %></td>
+              </tr>
+            </div>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h3>Pagamento</h3>
+      <div class="border p-3">
+      <table class="table table-striped table-hover mt-4 ">
+        <thead>
+          <tr class="text-center">
+            <th>Subtotal</th>
+            <th>Desconto</th>
+            <th>Valor Final</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            <div>
+              <tr class="text-center">
+                <td><%= @shopping_cart.total_items %></td>
+                <td>0</td>
+                <td><%= @shopping_cart.total_items %></td>
+              </tr>
+            </div>
+        </tbody>
+      </table>
+        <%= form_with url: close_order_path, method: :post do |f| %>
+          <%= f.label :card_number, 'Número do cartão', class:'form-label' %>
+          <%= f.text_field :card_number, class:'form-control' %>
+          <%= f.submit 'Enviar', class:'btn btn-secondary' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

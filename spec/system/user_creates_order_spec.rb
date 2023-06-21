@@ -15,6 +15,8 @@ describe 'Usuário logado acessa a página do carrinho' do
     visit root_path
     click_on 'Carrinho'
     click_on 'Finalizar compra'
+    fill_in 'Número do Cartão', '1234567890123456'
+    click_on 'Concluir compra'
 
     expect(current_path).to eq orders_path(Order.last.id)
     expect(page).to have_content("Número do Pedido: #{Order.last.number}")

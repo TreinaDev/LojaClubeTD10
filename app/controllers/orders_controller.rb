@@ -1,4 +1,8 @@
 class OrdersController < ApplicationController
+  def show
+    @order = Order.find(params[:id])
+  end
+
   def new
     @order = Order.new
   end
@@ -13,6 +17,12 @@ class OrdersController < ApplicationController
     end
     flash.now[:alert] = t('order.create.error')
     render :new
+  end
+
+  def close_order
+    order_params = {card_number: params[:card_number]}
+    response = Faraday.post('https://localhost:4000/api/v1/orders', order: order_params,
+                            'Content-Type' => 'application/json')
   end
 
   private

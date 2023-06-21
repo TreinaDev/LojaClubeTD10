@@ -1,6 +1,6 @@
 class ShoppingCartsController < ApplicationController
   before_action :set_product_and_quantity, only: [:add]
-  before_action :set_shopping_cart, only: %i[add remove]
+  before_action :set_shopping_cart, only: %i[add remove close]
   before_action :authenticate_user!
   before_action :prevent_admin, only: [:add]
 
@@ -37,6 +37,9 @@ class ShoppingCartsController < ApplicationController
     @shopping_cart.destroy
     session[:cart_id] = nil
     redirect_to root_path, notice: t('.success_remove_all')
+  end
+
+  def close
   end
 
   private

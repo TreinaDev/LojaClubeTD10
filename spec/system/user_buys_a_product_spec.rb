@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Usuário entra no sistema' do
   it 'e compra um produto' do
     user = create(:user)
-    product = create(:product, name:'Camiseta')
+    product = create(:product, name: 'Camiseta')
 
     visit root_path
     click_on 'Camiseta'
