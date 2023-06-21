@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   include ActiveSupport::NumberHelper
+
   before_action :authenticate_user!, only: %i[index new create edit update]
   before_action :check_user, only: %i[index new create edit update]
   before_action :set_product, only: %i[show edit update]

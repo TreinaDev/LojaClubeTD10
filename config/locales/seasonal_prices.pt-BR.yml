@@ -1,0 +1,19 @@
+pt-BR:
+  activerecord:
+    models:
+      seasonal_price:
+        one: 'Preço sazonal'
+        other: 'Preços sazonais'
+
+    attributes:
+      seasonal_price:
+        value: 'Valor'
+        start_date: 'Data de início'
+        end_date: 'Data de encerramento'
+        product: 'Produto'
+        product_id: 'Produto'
+
+  seasonal_prices:
+    create:
+      success: 'Preço sazonal criado com sucesso'
+      fail: 'Não foi possível cadastrar preço sazonal, revise os campos'
