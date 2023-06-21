@@ -14,8 +14,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_145458) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.bigint "blob_id", null: false
+    t.integer "record_id", null: false
+    t.integer "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -34,7 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_145458) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.bigint "blob_id", null: false
+    t.integer "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
@@ -102,6 +102,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_145458) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
+  create_table "orderables", force: :cascade do |t|
+    t.integer "product_id", null: false
+    t.integer "shopping_cart_id", null: false
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_orderables_on_product_id"
+    t.index ["shopping_cart_id"], name: "index_orderables_on_shopping_cart_id"
+  end
+
   create_table "product_categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -136,6 +146,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_145458) do
     t.index ["company_id"], name: "index_promotional_campaigns_on_company_id"
   end
 
+  create_table "shopping_carts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -161,6 +176,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_145458) do
   add_foreign_key "client_addresses", "users"
   add_foreign_key "favorites", "products"
   add_foreign_key "favorites", "users"
+  add_foreign_key "orderables", "products"
+  add_foreign_key "orderables", "shopping_carts"
   add_foreign_key "product_categories", "product_categories", column: "parent_id"
   add_foreign_key "products", "product_categories"
   add_foreign_key "promotional_campaigns", "companies"

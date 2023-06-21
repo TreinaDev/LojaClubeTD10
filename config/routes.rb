@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { sessions: 'sessions' }
   root "home#index"
 
   resources :product_categories, only: [:index, :new, :create, :edit, :update] do
@@ -28,6 +28,13 @@ Rails.application.routes.draw do
   end
 
   get "customer_areas", to: "customer_areas#index"
+
+  resources :shopping_carts, only: [:show] do
+    post "add", on: :collection
+    post "remove", on: :collection
+    post "remove_all", on: :collection
+  end
+
   get "me", to: "customer_areas#me"
   get "client_addresses", to: "customer_areas#addresses"
   get "favorite_tab", to: "customer_areas#favorite_tab"

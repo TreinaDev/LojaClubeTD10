@@ -1,5 +1,7 @@
 class Product < ApplicationRecord
   belongs_to :product_category
+  has_many :orderables, dependent: :destroy
+  has_many :shopping_carts, through: :orderables
   has_many :favorites, dependent: :destroy
 
   has_many_attached :product_images do |attachable|

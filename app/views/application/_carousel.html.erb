@@ -9,6 +9,7 @@
                 <% product_array.each do |product| %>
                   <div class= "col">
                     <div class="card shadow-sm p-3 mb-5 bg-white rounded product-card" id=<%= product.code %>>
+
                     <% if product.product_images.attached? %>
                       <%= image_tag(product.product_images[0], alt:product.name, class:"card-img-top card-image")%>
                       <% else %>

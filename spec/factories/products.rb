@@ -4,7 +4,7 @@ FactoryBot.define do
     code { 'ABC123456' }
     description { 'Descrição do produto' }
     brand { 'Samsung' }
-    product_category { nil }
+    product_category { create(:product_category) }
     price { '500' }
   end
 end
