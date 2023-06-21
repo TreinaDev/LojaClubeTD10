@@ -20,6 +20,10 @@ Rails.application.routes.draw do
       patch :deactivate
       patch :reactivate
     end
+    collection do
+      patch :deactivate_all
+      patch :reactivate_all
+    end
     get 'search', on: :collection
   end
 

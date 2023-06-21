@@ -6,7 +6,11 @@ class ProductsController < ApplicationController
   before_action :set_product, only: %i[show edit update deactivate reactivate]
 
   def index
-    @products = Product.all
+    @products = Product.order(:name)
+    return if params[:query_products].blank?
+
+    @query = params[:query_products]
+    @products = @products.where('name LIKE ?', "%#{@query}%")
   end
 
   def show
@@ -59,13 +63,27 @@ class ProductsController < ApplicationController
   end
 
   def deactivate
+    @query = params[:query_products]
     @product.update(active: false)
-    redirect_to products_path, notice: t('.product_success')
+    redirect_to products_path(query_products: @query), notice: t('.product_success')
   end
 
   def reactivate
+    @query = params[:query_products]
     @product.update(active: true)
-    redirect_to products_path, notice: t('.product_success')
+    redirect_to products_path(query_products: @query), notice: t('.product_success')
+  end
+
+  def deactivate_all
+    @query = params[:query_products]
+    @products = Product.where('name LIKE ?', "%#{@query}%").update(active: false)
+    redirect_to products_path(query_products: @query), notice: t('.product_success')
+  end
+
+  def reactivate_all
+    @query = params[:query_products]
+    @products = Product.where('name LIKE ?', "%#{@query}%").update(active: true)
+    redirect_to products_path(query_products: @query), notice: t('.product_success')
   end
 
   private
