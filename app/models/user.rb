@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :favorites, dependent: :destroy
+  has_one :card_info, dependent: :destroy
 
   enum role: { common: 0, admin: 1 }
 

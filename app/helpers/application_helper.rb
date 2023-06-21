@@ -50,9 +50,9 @@ module ApplicationHelper
   private
 
   def show_common_user_price(price)
-    return if session[:card_data].blank?
+    return if current_user.card_info.nil? || current_user.card_info.status == 'inactive'
 
-    price_points = number_with_delimiter((price * session[:card_data]['conversion_tax'].to_f).round,
+    price_points = number_with_delimiter((price * current_user.card_info.conversion_tax.to_f).round,
                                          delimiter: '.')
 
     "#{price_points} Pontos"

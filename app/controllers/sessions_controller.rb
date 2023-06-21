@@ -3,7 +3,11 @@ class SessionsController < Devise::SessionsController
     super
     return unless current_user.common?
 
-    response = Faraday.get("http://localhost:4000/api/v1/cards/#{current_user.cpf}")
+    begin
+      response = Faraday.get("http://localhost:4000/api/v1/cards/#{current_user.cpf}")
+    rescue
+      return flash[:notice] = t('.api_error')
+    end
 
     response_tratament(response)
   end
@@ -18,17 +22,18 @@ class SessionsController < Devise::SessionsController
   private
 
   def response_tratament(response)
-    create_session(response) if response.status == 200
+    create_user_card(response) if response.status == 200
     flash[:notice] = t('.error') if response.status == 404
   end
 
-  def create_session(response)
+  def create_user_card(response)
     @data = JSON.parse(response.body)
-    if @data['status'] == 'active'
-      flash[:notice] = t('.sucess_active')
-      session[:card_data] = @data
-    else
-      flash[:notice] = t('.sucess_inactive')
-    end
+    CardInfo.create!(user: current_user, conversion_tax: @data['conversion_tax'],
+                     name: @data['name'], status: @data['status'], points: @data['points'])
+    flash[:notice] = if @data['status'] == 'active'
+                       t('.sucess_active')
+                     else
+                       t('.sucess_inactive')
+                     end
   end
 end

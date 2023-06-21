@@ -32,6 +32,8 @@ describe 'Usuário vê os preços em pontos' do
       click_on 'Entrar'
     end
 
+    expect(user.card_info.conversion_tax).to eq '20.0'
+    expect(user.card_info.status).to eq 'active'
     expect(page).to have_content 'O seu cartão está ativo, vamos às compras.'
     expect(page).to have_content '4.000 Pontos'
   end
@@ -74,7 +76,7 @@ describe 'Usuário vê os preços em pontos' do
     expect(page).to have_content 'Logado com sucesso. Você não tem cartão ativo no nosso clube!'
     expect(page).not_to have_content '4.000 Pontos'
   end
-  it 'enquanto administrador vê os preços em reais' do
+  it 'enquanto administrador e sem cartão ativo vê os preços em reais' do
     admin = create(:user, email: 'admin@punti.com')
     category = create(:product_category, name: 'Eletrodomestico')
     create(:product, name: 'Geladeira branca', code: 'GLD678456', description: 'Geladeira bonita',

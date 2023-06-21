@@ -3,6 +3,7 @@ class ShoppingCartsController < ApplicationController
   before_action :set_shopping_cart, only: %i[add remove]
   before_action :authenticate_user!
   before_action :prevent_admin, only: [:add]
+  before_action :verify_session, only: [:add]
 
   def show
     @shopping_cart = ShoppingCart.find(session[:cart_id])
@@ -40,6 +41,10 @@ class ShoppingCartsController < ApplicationController
   end
 
   private
+
+  def verify_session
+    return redirect_to root_path, alert: t('.session_error') if current_user.card_info.nil?
+  end
 
   def set_product_and_quantity
     @product = Product.find(params[:id])

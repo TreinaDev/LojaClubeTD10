@@ -11,6 +11,7 @@ describe 'Usuário remove produto do carrinho' do
     category1 = create(:product_category, name: 'Camisetas')
     create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
                      description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+    create(:card_info, user:)
 
     login_as(user)
     visit root_path
@@ -29,9 +30,7 @@ describe 'Usuário remove produto do carrinho' do
                      description: 'Uma camisa azul muito bonita', code: 'CMA123456')
     create(:product, name: 'Camiseta Vermelha', price: 100, product_category: category1,
                      description: 'Uma camisa vermelha muito grande', code: 'ZDS123789')
-    json_data = Rails.root.join('spec/support/json/card_data_active.json').read
-    session = { card_data: JSON.parse(json_data) }
-    allow_any_instance_of(ApplicationController).to receive(:session).and_return(session)
+    create(:card_info, user:)
 
     login_as(user)
     visit root_path
@@ -78,6 +77,8 @@ describe 'Usuário remove produto do carrinho' do
     category1 = create(:product_category, name: 'Camisetas')
     create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
                      description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+    create(:card_info, user:)
+
     login_as(user)
     visit root_path
     click_on 'Camiseta Azul'
