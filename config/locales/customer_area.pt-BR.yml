@@ -4,7 +4,7 @@ pt-BR:
       my_account: 'Minha Conta'
       my_orders: 'Meus Pedidos'
       my_infos: 'Minhas Informações'
-      adresses: 'Endereços Cadastrados'
+      adresses: 'Meus endereços'
       default_adresses: 'Endereço Padrão'
       product_favorites: 'Produtos Favoritos'
       recent_orders: 'Pedidos Recentes'
