@@ -35,5 +35,5 @@ Rails.application.routes.draw do
   get "favorite_tab", to: "customer_areas#favorite_tab"
   post "update_phone_number", to: "users#update_phone"
 
-  resources :seasonal_prices, only: [:index, :new, :create]
+  resources :seasonal_prices, only: [:index, :new, :create, :edit, :update, :destroy]
 end

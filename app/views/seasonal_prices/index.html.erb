@@ -16,6 +16,8 @@
             <th><%= SeasonalPrice.human_attribute_name(:start_date) %></th>
             <th><%= SeasonalPrice.human_attribute_name(:end_date) %></th>
             <th><%= SeasonalPrice.human_attribute_name(:value) %></th>
+            <th>Ações</th>
+            <th></th>
           </tr>
         </thead>
 
@@ -26,6 +28,18 @@
               <td><%= l(seasonal_price.start_date) %></td>
               <td><%= l(seasonal_price.end_date) %></td>
               <td><%= number_to_currency(seasonal_price.value) %></td>
+              <td>
+                <div class="d-flex flex-row justify-content-around">
+                  <%= button_to 'Editar', edit_seasonal_price_path(seasonal_price), {
+                        method: :get, id: dom_id(seasonal_price), class: "btn btn-outline-secondary btn-sm",
+                        disabled: (seasonal_price.ongoing? || seasonal_price.finished?) }
+                  %>
+
+                  <%= button_to 'Excluir', seasonal_price_path(seasonal_price), {
+                    method: :delete, id: "delete_#{dom_id(seasonal_price)}", class: "btn btn-outline-danger btn-sm" }
+                  %>
+                </div>
+              </td>
             </tr>
           <% end %>
         </tbody>

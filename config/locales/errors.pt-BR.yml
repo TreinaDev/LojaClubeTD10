@@ -9,6 +9,11 @@ pt-BR:
         seasonal_price:
           attributes:
             start_date:
-              greater_than: 'deve ser futura'
+              greater_than_or_equal_to: 'deve ser futura'
             end_date:
               greater_than: 'deve suceder data de início'
+            value: 
+              less_than: 'não pode ser maior ou igual ao preço de produto'
+              greater_than: 'precisa ser maior que zero'
+            base:
+              unpermited_update: Não é possível alterar um preço sazonal em andamento

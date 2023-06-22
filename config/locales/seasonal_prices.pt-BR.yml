@@ -14,6 +14,20 @@ pt-BR:
         product_id: 'Produto'
 
   seasonal_prices:
+    new:
+      form: &new_form_sp
+        submit_text: 'Cadastrar'
+    edit:
+      form: &edit_form_sp
+        submit_text: 'Salvar'
     create:
+      form: *new_form_sp
       success: 'Preço sazonal criado com sucesso'
       fail: 'Não foi possível cadastrar preço sazonal, revise os campos'
+    update:
+      form: *edit_form_sp
+      success: 'Preço sazonal atualizado com sucesso'
+      fail: 'Não foi possível atualizar preço sazonal, revise os campos'
+    destroy:
+      success: 'Preço sazonal excluído com sucesso'
+      fail: 'Não foi possível apagar preço sazonal, tente novamente'

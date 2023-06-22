@@ -18,16 +18,18 @@
       <%= f.date_field :end_date, class: 'form-control'  %>
     </div>
 
-    <div class="mb-3">
-      <%= f.label :product_id %>
+    <% if products.any? %>
+      <div class="mb-3">
+        <%= f.label :product_id %>
 
-      <%= f.collection_select(
-        :product_id, products, :id, :name, { prompt: "Selecione um produto" }, { class: 'form-control mb-2' }
-      )%>
-    </div>
+        <%= f.collection_select(
+          :product_id, products, :id, :name, { prompt: "Selecione um produto" }, { class: 'form-control mb-2' }
+        )%>
+      </div>
+    <% end %>
 
     <div class="mb-3">
-      <%= f.submit 'Cadastrar', class: 'btn btn-secondary mt-2' %>
+      <%= f.submit t("#{controller_name}.#{action_name}.form.submit_text"), class: 'btn btn-secondary mt-2' %>
     </div>
   <% end %>
 </div>
