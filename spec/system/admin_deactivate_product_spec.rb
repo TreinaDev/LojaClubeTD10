@@ -38,6 +38,40 @@ describe 'Administrador desativa produto' do
   end
 
   context 'em grupo' do
+    it 'e vê mensagem de confirmação ao desativar todos' do
+      admin = create(:user, email: 'admin@punti.com')
+      create(:product, name: 'TV LG')
+      create(:product, code: 'ASD456789', name: 'TV Samsung')
+      create(:product, code: 'CVB987675', name: 'Celular Motorola')
+
+      login_as(admin)
+      visit products_path
+      fill_in 'query_products', with: 'TV'
+      within('.input-group') do
+        click_on 'Filtrar'
+      end
+      click_on 'Desativar todos'
+
+      expect(page).to have_content 'Você tem certeza disso?'
+    end
+
+    it 'e vê mensagem de confirmação ao reativar todos' do
+      admin = create(:user, email: 'admin@punti.com')
+      create(:product, name: 'TV LG', active: false)
+      create(:product, code: 'ASD456789', name: 'TV Samsung', active: false)
+      create(:product, code: 'CVB987675', name: 'Celular Motorola')
+
+      login_as(admin)
+      visit products_path
+      fill_in 'query_products', with: 'TV'
+      within('.input-group') do
+        click_on 'Filtrar'
+      end
+      click_on 'Reativar todos'
+
+      expect(page).to have_content 'Você tem certeza disso?'
+    end
+
     it 'após resultado da busca' do
       admin = create(:user, email: 'admin@punti.com')
       product_a = create(:product, name: 'TV LG')
@@ -51,6 +85,9 @@ describe 'Administrador desativa produto' do
         click_on 'Filtrar'
       end
       click_on 'Desativar todos'
+      within('.final-dea') do
+        click_on 'Desativar'
+      end
 
       expect(page).not_to have_content 'Celular Motorola'
       expect(page).to have_content 'TV LG'

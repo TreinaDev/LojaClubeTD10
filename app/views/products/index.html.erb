@@ -7,8 +7,44 @@
 
       <% if @query.present? %>
         <%= button_to 'Ver Todos', products_path, method: :get, class: 'btn btn-secondary me-2' %>
-        <%= button_to 'Desativar todos', deactivate_all_products_path(query_products: @query), method: :patch, class: 'btn btn-danger' %>
-        <%= button_to 'Reativar todos', reactivate_all_products_path(query_products: @query), method: :patch, class: 'btn btn-danger' %>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target= "#modal-deactivate-all">
+          Desativar todos
+        </button>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target= "#modal-reactivate-all">
+          Reativar todos
+        </button>
+
+            <div class="modal fade" id="modal-deactivate-all" tabindex="-1" aria-labelledby="exampleModaLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModaLabel">Você tem certeza disso?
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="final-dea modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                      <%= button_to 'Desativar', deactivate_all_products_path(query_products: @query), method: :patch, class: 'btn btn-danger' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal fade" id="modal-reactivate-all" tabindex="-1" aria-labelledby="exampleModaLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModaLabel">Você tem certeza disso?
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                      <%= button_to 'Reativar', reactivate_all_products_path(query_products: @query), method: :patch, class: 'btn btn-danger' %>
+                  </div>
+                </div>
+              </div>
+            </div>
       <% end %>
 
       <%= form_with(url: products_path, method: :get, class: "d-flex", role: "search") do |f|  %>
@@ -40,6 +76,7 @@
                 <td><%= button_to 'Reativar', reactivate_product_path(product.id, query_products: @query), method: :patch, class: 'btn btn-outline-danger btn-sm', id: "#{product.id}_reactivate" %></td>
               <% end %>
             </tr>
+
           <% end %>
         </tbody>
       </table>
