@@ -6,17 +6,16 @@ class FavoritesController < ApplicationController
   def create
     @favorite = Favorite.new(favorite_params)
     @product = Product.find(params[:favorite][:product_id])
-    @favorite.save
-    redirect_to product_path(@product), notice: "#{@product.name} está na sua lista de produtos favoritos"
+    if @favorite.save
+      redirect_to product_path(@product), notice: "#{@product.name} está na sua lista de produtos favoritos"
+    else
+      redirect_to product_path(@product)
+    end
   end
 
   def destroy
     if @favorite.destroy
-      if request.referer
-        redirect_to request.referer, notice: t('.destroy_success')
-      else
-        redirect_to product_path(@favorite.product_id)
-      end
+      redirect_definition
     else
       redirect_to request.referer, alert: t('.destroy_fails')
     end
@@ -24,13 +23,21 @@ class FavoritesController < ApplicationController
 
   private
 
-  def favorite_params
-    params
-      .require(:favorite)
-      .permit(:user_id, :product_id)
+  def redirect_definition
+    if request.referer
+      redirect_to request.referer, notice: t('.destroy_success')
+    else
+      redirect_to product_path(@favorite.product_id)
+    end
   end
 
   def set_favorite
     @favorite = Favorite.find params[:id]
+  end
+
+  def favorite_params
+    params
+      .require(:favorite)
+      .permit(:user_id, :product_id)
   end
 end

@@ -1,0 +1,28 @@
+<%= form_with model: @address, class: "p-4", data: { turbo: false } do |form| %>
+  <%= render partial: 'form_errors', locals: { object: @address } %>
+
+  <div class="mb-3">
+    <%= form.label :address, class: "form-label" %>
+    <%= form.text_field :address, placeholder: 'Ex: Rua Principal', class: 'form-control' %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :number, class: "form-label" %>
+    <%= form.text_field :number, placeholder: 'Ex: 123', class: 'form-control' %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :city, class: "form-label" %>
+    <%= form.text_field :city, placeholder: 'Ex: Belo Horizonte', class: 'form-control' %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :state, class: "form-label" %>
+    <%= form.text_field :state, placeholder: 'Ex: Minas Gerais', class: 'form-control' %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :zipcode, class: "form-label" %>
+    <%= form.text_field :zipcode, placeholder: 'Ex: 12345678', maxlength: 8, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.submit 'Salvar endereço', class: 'btn btn-secondary' %>
+  </div>
+<% end %>
