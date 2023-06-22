@@ -19,7 +19,7 @@ describe 'Usuário entra no sistema' do
   it 'e cria uma conta com cartão ativo' do
     json_data = Rails.root.join('spec/support/json/card_data_active.json').read
     fake_response = double('faraday_response', status: 200, body: json_data)
-    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/30383993024").and_return(fake_response)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/cards/30383993024').and_return(fake_response)
 
     visit new_user_registration_path
     fill_in 'Nome', with: 'João'
@@ -34,13 +34,13 @@ describe 'Usuário entra no sistema' do
     expect(page).to have_content 'Bem vindo! O seu cartão está ativo, vamos às compras.'
     expect(page).not_to have_content 'administrador'
   end
-  
+
   it 'e cria uma conta que não tem cartão ativo' do
     category = create(:product_category)
     create(:product, name: 'Geladeira branca', code: 'GLD678456', description: 'Geladeira bonita',
                      price: 200, product_category: category)
     fake_response = double('faraday_response', status: 404, body: { errros: 'Cartão não encontrado' })
-    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/26502001033").and_return(fake_response)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/cards/26502001033').and_return(fake_response)
 
     visit new_user_registration_path
     fill_in 'Nome', with: 'João'
@@ -51,15 +51,16 @@ describe 'Usuário entra no sistema' do
     fill_in 'Confirme a senha', with: 'password'
     click_on 'Registrar'
 
+    msg = 'Bem vindo! Você não tem cartão ativo no nosso clube, entre em contato com sua empresa.'
     expect(current_path).to eq root_path
-    expect(page).to have_content 'Bem vindo! Você não tem cartão ativo no nosso clube, entre em contato com sua empresa.'
+    expect(page).to have_content msg
     expect(page).not_to have_content 'administrador'
   end
   it 'e cria uma conta e ocorre errro na api de cartões' do
     category = create(:product_category)
     create(:product, name: 'Geladeira branca', code: 'GLD678456', description: 'Geladeira bonita',
                      price: 200, product_category: category)
-    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/26502001033").and_raise(Faraday::ConnectionFailed)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/cards/26502001033').and_raise(Faraday::ConnectionFailed)
 
     visit new_user_registration_path
     fill_in 'Nome', with: 'João'

@@ -13,7 +13,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   private
-  
+
   def response_tratament(response)
     create_user_card(response) if response.status == 200
     flash[:notice] = t('.error') if response.status == 404

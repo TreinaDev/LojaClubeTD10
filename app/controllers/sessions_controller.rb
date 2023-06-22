@@ -29,20 +29,20 @@ class SessionsController < Devise::SessionsController
   def create_user_card(response)
     @data = JSON.parse(response.body)
     if current_user.card_info.present?
-      update_card
+      update_card(@data)
     else
-      create_card
+      create_card(@data)
     end
     flash[:notice] = t('.sucess_active')
   end
 
-  def update_card
-    current_user.card_info.update!(user: current_user, conversion_tax: @data['conversion_tax'],
-                                   name: @data['name'], status: @data['status'], points: @data['points'])
+  def update_card(data)
+    current_user.card_info.update!(user: current_user, conversion_tax: data['conversion_tax'],
+                                   name: data['name'], status: data['status'], points: data['points'])
   end
 
-  def create_card
-    CardInfo.create!(user: current_user, conversion_tax: @data['conversion_tax'],
-                     name: @data['name'], status: @data['status'], points: @data['points'])
+  def create_card(data)
+    CardInfo.create!(user: current_user, conversion_tax: data['conversion_tax'],
+                     name: data['name'], status: data['status'], points: data['points'])
   end
 end
