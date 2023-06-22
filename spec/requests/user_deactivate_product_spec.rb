@@ -117,14 +117,14 @@ describe 'Usuário desativa produto' do
     end
   end
 
-  context 'enquanto visitante  - individualmente' do
+  context 'enquanto visitante - individualmente' do
     it 'e tenta desativar, mas falha devido à falta de autorização e autentificação' do
       product = create(:product)
 
       patch deactivate_product_path(product)
 
       expect(response).to redirect_to new_user_session_path
-      expect(flash[:alert]).to eq 'Faça login para acessar'
+      expect(flash[:alert]).to eq 'Você precisa fazer login ou se registrar antes de continuar'
       expect(product.reload.active).to eq true
     end
 
@@ -134,20 +134,20 @@ describe 'Usuário desativa produto' do
       patch reactivate_product_path(product)
 
       expect(response).to redirect_to new_user_session_path
-      expect(flash[:alert]).to eq 'Faça login para acessar'
+      expect(flash[:alert]).to eq 'Você precisa fazer login ou se registrar antes de continuar'
       expect(product.reload.active).to eq false
     end
   end
 
-  context 'enquanto visitante  - em grupo' do
+  context 'enquanto visitante - em grupo' do
     it 'e tenta desativar, mas falha devido à falta de autorização e autentificação' do
       product_a = create(:product, name: 'TV LG')
       product_b = create(:product, code: 'ASD456789', name: 'TV Samsung')
 
-      patch deactivate_all_products_path('TV')
+      patch deactivate_all_products_path(query_products: 'TV')
 
       expect(response).to redirect_to new_user_session_path
-      expect(flash[:alert]).to eq 'Faça login para acessar'
+      expect(flash[:alert]).to eq 'Você precisa fazer login ou se registrar antes de continuar'
       expect(product_a.reload.active).to eq true
       expect(product_b.reload.active).to eq true
     end
@@ -156,10 +156,10 @@ describe 'Usuário desativa produto' do
       product_a = create(:product, name: 'TV LG', active: false)
       product_b = create(:product, code: 'ASD456789', name: 'TV Samsung', active: false)
 
-      patch reactivate_all_products_path('TV')
+      patch reactivate_all_products_path(query_products: 'TV')
 
       expect(response).to redirect_to new_user_session_path
-      expect(flash[:alert]).to eq 'Faça login para acessar'
+      expect(flash[:alert]).to eq 'Você precisa fazer login ou se registrar antes de continuar'
       expect(product_a.reload.active).to eq false
       expect(product_b.reload.active).to eq false
     end
