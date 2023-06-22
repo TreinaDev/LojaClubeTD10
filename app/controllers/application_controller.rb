@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :load_product_categories
   before_action :load_cart
-
+  
   private
 
   def prevent_admin

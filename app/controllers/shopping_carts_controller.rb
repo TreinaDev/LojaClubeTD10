@@ -43,7 +43,7 @@ class ShoppingCartsController < ApplicationController
   private
 
   def verify_session
-    return unless current_user.card_info.nil? || current_user.card_info.status == 'inactive'
+    return unless current_user.card_info.nil?
 
     redirect_to root_path, alert: t('.session_error')
   end

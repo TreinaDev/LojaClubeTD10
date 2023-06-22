@@ -53,7 +53,7 @@ describe 'Usuário vê os preços em pontos' do
       click_on 'Entrar'
     end
 
-    expect(page).to have_content 'Logado com sucesso. Você não tem cartão ativo no nosso clube!'
+    expect(page).to have_content 'Você não tem cartão ativo no nosso clube, entre em contato com sua empresa.'
     expect(page).not_to have_content '4.000 Pontos'
   end
   it 'enquanto administrador e sem cartão ativo vê os preços em reais' do

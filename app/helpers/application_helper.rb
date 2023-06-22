@@ -50,7 +50,7 @@ module ApplicationHelper
   private
 
   def show_common_user_price(price)
-    return if current_user.card_info.nil? || current_user.card_info.status == 'inactive'
+    return if current_user.card_info.nil?
 
     price_points = number_with_delimiter((price * current_user.card_info.conversion_tax.to_f).round,
                                          delimiter: '.')

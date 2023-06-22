@@ -46,8 +46,8 @@
       <% end %>
     </div>
   </div>
-
-  <% if user_signed_in? && current_user.common? %>
+  
+  <% if user_signed_in? && (current_user.common? && current_user.card_info.present?) %>
     <div style="margin-top:20px;">
       <%= form_with(url: add_shopping_carts_path) do |f| %>
         <%= f.hidden_field :id, value: @product.id %>
