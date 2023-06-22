@@ -1,8 +1,8 @@
 class ProductsController < ApplicationController
   include ActiveSupport::NumberHelper
   before_action :authenticate_user!, only: %i[index new create edit update]
-  before_action :prevent_visitor, only: %i[deactivate reactivate]
-  before_action :check_user, only: %i[index new create edit update deactivate reactivate]
+  before_action :prevent_visitor, only: %i[deactivate reactivate deactivate_all reactivate_all]
+  before_action :check_user, only: %i[index new create edit update deactivate reactivate deactivate_all reactivate_all]
   before_action :set_product, only: %i[show edit update deactivate reactivate]
 
   def index
