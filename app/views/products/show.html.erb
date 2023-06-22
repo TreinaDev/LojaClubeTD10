@@ -24,8 +24,10 @@
         <dt class="col-sm-6">Marca</dt>
         <dd class="col-sm-6"><%= @product.brand %></dd>
         <% if user_signed_in? %>
-          <dt class="col-sm-6"><%= "Preço" if session[:card_data].present? || current_user&.admin? %> </dt>
-          <dd class="col-sm-6"><%= "#{show_price(@product.price)}" %></dd>
+          <% if current_user.card_info.present? || current_user&.admin? %> 
+            <dt class="col-sm-6"><%= "Preço" %> </dt> 
+            <dd class="col-sm-6"><%= "#{show_price(@product.price)}" %></dd>
+          <% end %>
         <% end %>
         <dt class="col-sm-6">Categoria</dt>
         <dd class="col-sm-6"><%= @product.product_category.name %></dd>

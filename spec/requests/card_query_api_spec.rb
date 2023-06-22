@@ -17,7 +17,6 @@ describe 'API de Consulta de cartão' do
     expect(response.body).to include 'status'
     expect(response.body).to include 'conversion_tax'
   end
-
   it 'falha ao retornar dados do cartão' do
     user = create(:user)
     fake_response = double('faraday_response', status: 404, body: { errors: 'Cartão não encontrado' })

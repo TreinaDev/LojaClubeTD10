@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Usuário adiciona produto ao carrinho' do
-  it 'com sucesso, estando autenticado' do
+  it 'com sucesso, estando autenticado, e possuíndo cartão ativo' do
     user = create(:user)
     category1 = create(:product_category, name: 'Camisetas')
     product = create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
