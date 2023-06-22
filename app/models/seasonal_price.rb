@@ -6,7 +6,7 @@ class SeasonalPrice < ApplicationRecord
   validates :end_date, comparison: { greater_than: :start_date }, if: :end_date_changed?
   validates :value, comparison: { less_than: :product_price }, if: -> { value.present? && product.present? }
   validates :value, comparison: { greater_than: 0 }, if: -> { value.present? }
-  validate :check_date_overlap
+  validate :check_date_overlap, if: -> { product.present? }
 
   before_validation :check_date, on: :update
 
@@ -18,19 +18,19 @@ class SeasonalPrice < ApplicationRecord
     current_date > end_date
   end
 
+  def period
+    start_date..end_date
+  end
+
   private
 
   def check_date_overlap
-    overlap = product.seasonal_prices.any? do |price|
-      start_date.between?(price.start_date, price.end_date) ||
-      end_date.between?(price.start_date, price.end_date)
-      # price.start_date.between?(start_date, end_date) &&
-      # price.end_date.between?(start_date, end_date)
-    end
+    return unless Product.find(product_id)
+                         .seasonal_prices
+                         .filter { |sp| sp.id != id }
+                         .any? { |seasonal_price| period.overlaps? seasonal_price.period }
 
-    if overlap 
-      errors.add(:base, :overlap_date_alert)
-    end 
+    errors.add(:base, :overlap_date_alert)
   end
 
   def current_date

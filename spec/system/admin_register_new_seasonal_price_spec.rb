@@ -56,8 +56,4 @@ describe 'Administrador cadastra novo preço sazonal' do
     expect(current_path).to eq seasonal_prices_path
     expect(page).to have_content 'Valor não pode ser maior ou igual ao preço de produto'
   end
-
-  it 'com sobreposição de datas' do
-    skip 'Implementar aqui'
-  end
 end
