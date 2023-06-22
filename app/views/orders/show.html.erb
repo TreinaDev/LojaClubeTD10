@@ -1,11 +1,12 @@
 <div class="m-3">
   <div class="m-lg-3 p-3 border shadow">
-    <h2 class="mb-4 text-center">Pedido número <%= @order.order_number %></h2>
+    <h2 class="mb-4 text-center">Número do Pedido: <%= @order.id %></h2>
     <table class="table table-striped table-hover mt-4 ">
       <thead>
         <tr class="text-center">
           <th>Produto</th>
-          <th>Valor (pontos)</th>
+          <th>Código</th>
+          <th>Valor Total</th>
           <th>Desconto</th>
           <th>Valor Final</th>
           <th>Quantidade</th>
@@ -16,6 +17,7 @@
           <% product = oi.product %>
           <tr class="text-center">
             <td><%= product.name %></td>
+            <td><%= product.code %></td>
             <td><%= product.price.round %></td>
             <td>0</td>
             <td><%= product.price.round %></td>

@@ -39,8 +39,7 @@ class ShoppingCartsController < ApplicationController
     redirect_to root_path, notice: t('.success_remove_all')
   end
 
-  def close
-  end
+  def close; end
 
   private
 

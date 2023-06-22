@@ -26,6 +26,7 @@
             <th>Produto</th>
             <th>Valor</th>
             <th>Quantidade</th>
+            <th>Desconto</th>
           </tr>
         </thead>
         <tbody class="table-group-divider">
@@ -35,9 +36,8 @@
               <tr class="text-center">
                 <td><%= product.name %></td>
                 <td><%= product.price.round %></td>
-                <td>0</td>
-                <td><%= product.price.round %></td>
                 <td><%= orderable.quantity %></td>
+                <td>0</td>
               </tr>
             </div>
           <% end %>
@@ -58,18 +58,20 @@
         <tbody class="table-group-divider">
             <div>
               <tr class="text-center">
-                <td><%= @shopping_cart.total_items %></td>
+                <td><%= @shopping_cart.total.round %></td>
                 <td>0</td>
-                <td><%= @shopping_cart.total_items %></td>
+                <td><%= @shopping_cart.total.round %></td>
               </tr>
             </div>
         </tbody>
       </table>
-        <%= form_with url: close_order_path, method: :post do |f| %>
-          <%= f.label :card_number, 'Número do cartão', class:'form-label' %>
-          <%= f.text_field :card_number, class:'form-control' %>
-          <%= f.submit 'Enviar', class:'btn btn-secondary' %>
-        <% end %>
+        <div class="border p-3" >
+          <%= form_with url: close_order_path, method: :post do |f| %>
+            <%= f.label :card_number, 'Número do Cartão', class:'form-label' %>
+            <%= f.text_field :card_number, class:'form-control' %>
+            <%= f.submit 'Concluir compra', class:'btn btn-secondary' %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

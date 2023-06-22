@@ -32,6 +32,8 @@ Rails.application.routes.draw do
     get "close", to: "shopping_carts#close"
   end
 
+  resources :orders, only: [:index, :show]
+
   get "me", to: "customer_areas#me"
   get "favorite_tab", to: "customer_areas#favorite_tab"
   post "update_phone_number", to: "users#update_phone"
