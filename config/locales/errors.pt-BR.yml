@@ -17,3 +17,4 @@ pt-BR:
               greater_than: 'precisa ser maior que zero'
             base:
               unpermited_update: Não é possível alterar um preço sazonal em andamento
+              overlap_date_alert: 'Não pode haver preço sazonal com sobreposição de datas para um mesmo produto'

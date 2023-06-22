@@ -3,6 +3,7 @@ class Product < ApplicationRecord
   has_many :orderables, dependent: :destroy
   has_many :shopping_carts, through: :orderables
   has_many :favorites, dependent: :destroy
+  has_many :seasonal_prices
 
   has_many_attached :product_images do |attachable|
     attachable.variant :thumb, resize_to_limit: [200, 200]

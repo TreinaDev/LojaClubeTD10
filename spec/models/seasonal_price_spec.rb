@@ -64,7 +64,28 @@ RSpec.describe SeasonalPrice, type: :model do
       expect(second_errors_messages).to include 'Valor precisa ser maior que zero'
     end
 
-    context 'influência do tempo' do
+    it 'inválido quando há sobreposição de datas com outros preço sazonais para o mesmo produto' do
+      #product = create(:product, code: 'abc123123', price: 200)
+      #create(:seasonal_price, product:, start_date: 1.day.from_now, end_date: 7.days.from_now)
+      #seasonal_price = SeasonalPrice.new(product:, start_date: 3.days.from_now, end_date: 5.days.from_now, value: 100)
+
+      product_category = create(:product_category)
+
+      product = Product.create!(
+        name: 'Tv', price: 200, code: 'abc123123', product_category:, brand: 'LG', description: 'Uma tv1546464464'
+      )
+
+      SeasonalPrice.create!(start_date: 1.day.from_now, end_date: 7.days.from_now, value: 100, product:)
+      seasonal_price = SeasonalPrice.create!(start_date: 3.day.from_now, end_date: 5.days.from_now, value: 100, product:)
+
+      valid = seasonal_price.valid?
+      errors_messages = seasonal_price.errors.full_messages
+
+      # expect(valid).to eq false
+      expect(errors_messages).to include 'Não pode haver preço sazonal com sobreposição de datas para um mesmo produto'
+    end
+
+    context 'com influência do tempo' do
       include ActiveSupport::Testing::TimeHelpers
 
       it 'não pode editar se tiver sendo aplicado' do
