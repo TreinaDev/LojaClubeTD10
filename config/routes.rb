@@ -20,6 +20,14 @@ Rails.application.routes.draw do
   resources :favorites, only: [:create, :destroy]
 
   resources :products, only: [:new, :create, :show, :index, :edit, :update] do
+    member do
+      patch :deactivate
+      patch :reactivate
+    end
+    collection do
+      patch :deactivate_all
+      patch :reactivate_all
+    end
     get 'search', on: :collection
   end
 
