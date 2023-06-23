@@ -26,28 +26,28 @@ class OrdersController < ApplicationController
     order = Order.new(total_value: shopping_cart.total.round, discount_amount: 0,
                       final_value: shopping_cart.total.round, cpf: current_user.cpf, user_id: current_user.id)
     if order.save
-      response = Faraday.post('http://localhost:4000/api/v1/payment') do |req|
+      transfer_products(order)
+      response = Faraday.post('http://localhost:4000/api/v1/payments') do |req|
         req.headers['Content-Type'] = 'application/json'
-        req.body = { payment_details: { cpf: order.cpf,
-                                        card_number: params[:card_number],
-                                        total_value: order.total_value,
-                                        discount_amount: order.discount_amount,
-                                        final_value: order.final_value,
-                                        order_date: I18n.l(order.created_at.to_date),
-                                        order_number: order.id } }.to_json
+        req.body = { payment: { cpf: order.cpf,
+                                card_number: params[:card_number],
+                                total_value: order.total_value,
+                                descount_amount: order.discount_amount,
+                                final_value: order.final_value,
+                                payment_date: I18n.l(order.created_at.to_date),
+                                order_number: order.id } }.to_json
       end
     else
       flash.now[:alert] = t('order.create.error')
-      redirect_to shopping_cart_path
+      redirect_to shopping_carts_path(ShoppingCart.find(session[:cart_id]))
     end
-    if response.status == 200
-      order.save
-      transfer_products(order)
+    if response.status == 201
+      @cart.destroy!
       session[:cart_id] = nil
       redirect_to order_path(order.id), notice: t('order.create.success')
     else
       flash.now[:alert] = t('order.create.error')
-      redirect_to shopping_cart_path
+      redirect_to shopping_carts_path(ShoppingCart.find(session[:cart_id]))
     end
   end
 

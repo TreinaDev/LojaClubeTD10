@@ -11,7 +11,7 @@ describe 'Usuário logado acessa a página do carrinho' do
     session = { cart_id: shopping_cart.id, balance: 20_000 }
     allow_any_instance_of(ApplicationController).to receive(:session).and_return(session)
     fake_response = double('faraday_response', status: 200, body: '[]')
-    url = 'http://localhost:4000/api/v1/payment'
+    url = 'http://localhost:4000/api/v1/payments'
     allow(Faraday).to receive(:post).with(url).and_return(fake_response)
 
     login_as(user)
