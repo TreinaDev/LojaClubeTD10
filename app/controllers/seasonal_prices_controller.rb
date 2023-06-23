@@ -1,6 +1,4 @@
 class SeasonalPricesController < ApplicationController
-  include ActiveSupport::NumberHelper
-
   before_action :authenticate_user!, only: %i[index new create update destroy]
   before_action :check_user, only: %i[index new create update destroy]
 

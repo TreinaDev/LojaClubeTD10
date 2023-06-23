@@ -82,8 +82,6 @@ RSpec.describe SeasonalPrice, type: :model do
     end
 
     context 'com influência do tempo' do
-      include ActiveSupport::Testing::TimeHelpers
-
       it 'não pode editar se tiver sendo aplicado' do
         seasonal_price = create(:seasonal_price, start_date: 1.day.from_now, end_date: 1.week.from_now)
 

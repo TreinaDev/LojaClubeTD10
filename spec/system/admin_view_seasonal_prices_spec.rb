@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 describe 'Administrador acessa listagem de preços sazonais' do
-  include ActiveSupport::Testing::TimeHelpers
-  include ActiveSupport::NumberHelper
-
   it 'com sucesso' do
     admin = create(:user, email: 'admin@punti.com')
     price = create(:seasonal_price)
