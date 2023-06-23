@@ -7,8 +7,6 @@ class ShoppingCart < ApplicationRecord
   end
 
   def total_items
-    sum = 0
     orderables.sum(&:quantity)
-    sum
   end
 end
