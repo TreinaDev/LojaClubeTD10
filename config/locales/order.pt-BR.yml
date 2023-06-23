@@ -16,3 +16,5 @@ pt-BR:
     create:
       success: 'Pedido criado com sucesso.'
       error: 'Pedido cancelado.'
+    close_order:
+      card_number_empty: 'Campo Número do Cartão não pode ser vazio.'

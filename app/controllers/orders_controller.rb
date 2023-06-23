@@ -23,32 +23,11 @@ class OrdersController < ApplicationController
 
   def close_order
     shopping_cart = ShoppingCart.find_by(id: session[:cart_id])
-    order = Order.new(total_value: shopping_cart.total.round, discount_amount: 0,
-                      final_value: shopping_cart.total.round, cpf: current_user.cpf, user_id: current_user.id)
-    if order.save
-      transfer_products(order)
-      response = Faraday.post('http://localhost:4000/api/v1/payments') do |req|
-        req.headers['Content-Type'] = 'application/json'
-        req.body = { payment: { cpf: order.cpf,
-                                card_number: params[:card_number],
-                                total_value: order.total_value,
-                                descount_amount: order.discount_amount,
-                                final_value: order.final_value,
-                                payment_date: I18n.l(order.created_at.to_date),
-                                order_number: order.id } }.to_json
-      end
-    else
-      flash.now[:alert] = t('order.create.error')
-      redirect_to shopping_carts_path(ShoppingCart.find(session[:cart_id]))
-    end
-    if response.status == 201
-      @cart.destroy!
-      session[:cart_id] = nil
-      redirect_to order_path(order.id), notice: t('order.create.success')
-    else
-      flash.now[:alert] = t('order.create.error')
-      redirect_to shopping_carts_path(ShoppingCart.find(session[:cart_id]))
-    end
+    order = build_order(shopping_cart)
+
+    return if card_number_blank?(params[:card_number], shopping_cart)
+
+    save_order_and_redirect(order)
   end
 
   private
@@ -65,5 +44,60 @@ class OrdersController < ApplicationController
       OrderItem.create!(order_id: order.id, product_id: o.product_id, quantity: o.quantity)
     end
     @cart.destroy!
+  end
+
+  def build_order(shopping_cart)
+    Order.new(
+      total_value: shopping_cart.total.round,
+      discount_amount: 0,
+      final_value: shopping_cart.total.round,
+      cpf: current_user.cpf,
+      user_id: current_user.id
+    )
+  end
+
+  def send_payment_request(order)
+    Faraday.post('http://localhost:4000/api/v1/payments') do |req|
+      req.headers['Content-Type'] = 'application/json'
+      req.body = {
+        payment: { cpf: order.cpf, card_number: params[:card_number], total_value: order.total_value,
+                   discount_amount: order.discount_amount, final_value: order.final_value,
+                   payment_date: I18n.l(order.created_at.to_date), order_number: order.id }
+      }.to_json
+    end
+  end
+
+  def destroy_cart
+    @cart.destroy!
+    session[:cart_id] = nil
+  end
+
+  def card_number_blank?(card_number, shopping_cart)
+    if card_number.blank?
+      redirect_to shopping_cart_close_path(shopping_cart),
+                  alert: t('order.close_order.card_number_empty')
+      true
+    else
+      false
+    end
+  end
+
+  def save_order_and_redirect(order)
+    if order.save
+      transfer_products(order)
+      response = send_payment_request(order)
+      response_redirect(response, order)
+    else
+      redirect_to shopping_carts_path(ShoppingCart.find(session[:cart_id])), alert: t('order.create.error')
+    end
+  end
+
+  def response_redirect(response, order)
+    if response.status == 201
+      destroy_cart
+      redirect_to order_path(order.id), notice: t('order.create.success')
+    else
+      redirect_to shopping_carts_path(ShoppingCart.find(session[:cart_id])), alert: t('order.create.error')
+    end
   end
 end

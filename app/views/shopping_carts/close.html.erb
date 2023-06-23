@@ -25,9 +25,10 @@
           <thead>
             <tr class="text-center">
               <th>Produto</th>
-              <th>Valor</th>
+              <th>Preço</th>
               <th>Quantidade</th>
               <th>Desconto</th>
+              <th>Subtotal</th>
             </tr>
           </thead>
           <tbody class="table-group-divider">
@@ -39,6 +40,7 @@
                   <td><%= product.price.round %></td>
                   <td><%= orderable.quantity %></td>
                   <td>0</td>
+                  <td><%= orderable.quantity * product.price.round %></td>
                 </tr>
               </div>
             <% end %>
@@ -54,7 +56,7 @@
           <tr class="text-center">
             <th>Subtotal</th>
             <th>Desconto</th>
-            <th>Valor Final</th>
+            <th>Total do Pedido</th>
           </tr>
         </thead>
         <tbody class="table-group-divider">
