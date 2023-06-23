@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_user
-    return if current_user.admin?
+    return if user_signed_in? && current_user.admin?
 
     redirect_to root_path, alert: t('access_denied')
   end

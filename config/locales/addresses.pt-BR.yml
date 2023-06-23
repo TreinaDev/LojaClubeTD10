@@ -1,0 +1,27 @@
+pt-BR:
+  activerecord:
+    models:
+      address:
+        one: 'Endereço'
+        other: 'Endereços'
+
+    attributes:
+      address:
+        address: 'Endereço'
+        number: 'Número'
+        city: 'Cidade'
+        state: 'Estado'
+        zipcode: 'CEP'
+        submit_text: 'Salvar endereço'
+
+  addresses:
+    create:
+      success: 'Endereço cadastrado com sucesso!'
+      error: 'Não foi possível salvar o endereço, revise os campos abaixo:'
+    destroy:
+      success: 'Endereço removido com sucesso!'
+    update:
+      success: 'Endereço editado com sucesso'
+      error: 'Não foi possível editar o endereço, revise os campos abaixo:'
+    set_default:
+      success: 'Endereço definido como padrão com sucesso.'

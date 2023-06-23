@@ -47,7 +47,7 @@ describe 'Administrador acessa index de produtos' do
     visit root_path
     click_on 'Produtos'
 
-    expect(page).to have_link 'Cadastrar Produto'
+    expect(page).to have_link 'Novo Produto'
   end
 
   it 'como visitante' do
