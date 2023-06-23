@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "registration_number": "57806849000174",
+    "brand_name": "Rebase",
+    "corporate_name": "Rebase LTDA.",
+    "active": true
+  },
+  {
+    "id": 2,
+    "registration_number": "89987772000172",
+    "brand_name": "Vindi",
+    "corporate_name": "Vindi LTDA.",
+    "active": false
+  }
+]

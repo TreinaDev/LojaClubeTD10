@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       patch :reactivate
     end
   end
-  
+
   resources :addresses, only: [:new, :create, :edit, :update, :destroy] do
     post :set_default, on: :member
   end
@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   resources :products, only: [:new, :create, :show, :index, :edit, :update] do
     get 'search', on: :collection
   end
+
+  resources :companies, only: [:index]
 
   resources :promotional_campaigns, only: [:index, :new, :create, :show, :edit, :update] do
     resources :campaign_categories, only:  [:create, :destroy]
