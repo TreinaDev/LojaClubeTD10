@@ -39,7 +39,7 @@ describe 'Usuário entra no sistema' do
     category = create(:product_category)
     create(:product, name: 'Geladeira branca', code: 'GLD678456', description: 'Geladeira bonita',
                      price: 200, product_category: category)
-    fake_response = double('faraday_response', status: 404, body: { errros: 'Cartão não encontrado' })
+    fake_response = double('faraday_response', status: 404, body: { errors: 'Cartão não encontrado' })
     allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/cards/26502001033').and_return(fake_response)
 
     visit new_user_registration_path
