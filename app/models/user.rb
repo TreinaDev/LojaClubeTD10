@@ -31,7 +31,7 @@ class User < ApplicationRecord
   def favorite_products
     favorites.map(&:product)
   end
-
+  
   private
 
   def define_role
