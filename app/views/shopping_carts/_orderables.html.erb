@@ -5,7 +5,7 @@
         <thead>
           <tr class="text-center">
             <th>Produto</th>
-            <th>Valor (pontos)</th>
+            <th>Valor</th>
             <th>Desconto</th>
             <th>Valor Final</th>
             <th>Quantidade</th>
@@ -20,7 +20,7 @@
                 <td><%= product.name %></td>
                 <td><%= product.price.round %></td>
                 <td>0</td>
-                <td><%= product.price.round %></td>
+                <td><%= orderable.total %></td>
                 <td>
                   <%= form_with(url: add_shopping_carts_path)  do |f| %>
                     <%= f.hidden_field :id, value: product.id %>

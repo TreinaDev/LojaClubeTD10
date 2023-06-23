@@ -55,7 +55,7 @@ describe 'Administrador edita um produto' do
     expect(page).to have_content 'Produto TV27 - ABC123456'
     expect(page).to have_content 'Descrição Nova descrição para o produto'
     expect(page).to have_content 'Marca AOC'
-    expect(page).to have_content 'Preço R$ 1.500,00'
+    expect(page).to have_content 'Preço 1500 Pontos'
     expect(page).to have_content 'Categoria Eletrônico'
   end
 
