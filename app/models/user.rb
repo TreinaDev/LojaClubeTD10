@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :client_addresses, -> { order(default: :desc) }, dependent: :destroy, inverse_of: :user
   has_many :addresses, through: :client_addresses
   has_many :favorites, dependent: :destroy
+  has_one :card_info, dependent: :destroy
 
   enum role: { common: 0, admin: 1 }
 

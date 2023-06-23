@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: 'sessions', registrations: 'registrations' }
-  
   root "home#index"
 
   resources :product_categories, only: [:index, :new, :create, :edit, :update] do
@@ -9,7 +8,7 @@ Rails.application.routes.draw do
       patch :reactivate
     end
   end
-  
+
   resources :addresses, only: [:new, :create, :edit, :update, :destroy] do
     post :set_default, on: :member
   end
@@ -21,6 +20,14 @@ Rails.application.routes.draw do
   resources :favorites, only: [:create, :destroy]
 
   resources :products, only: [:new, :create, :show, :index, :edit, :update] do
+    member do
+      patch :deactivate
+      patch :reactivate
+    end
+    collection do
+      patch :deactivate_all
+      patch :reactivate_all
+    end
     get 'search', on: :collection
   end
 
