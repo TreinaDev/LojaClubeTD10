@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :client_addresses, -> { order(default: :desc) }, dependent: :destroy, inverse_of: :user
+  has_many :addresses, through: :client_addresses
   has_many :favorites, dependent: :destroy
 
   enum role: { common: 0, admin: 1 }
