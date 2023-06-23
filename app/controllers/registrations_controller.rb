@@ -4,7 +4,7 @@ class RegistrationsController < Devise::RegistrationsController
     return unless current_user.common?
 
     begin
-      response_card = Faraday.get("http://localhost:4000/api/v1/cards/#{current_user.cpf}")
+      response_card = current_user.find_card
     rescue StandardError
       return flash[:notice] = t('.api_error')
     end

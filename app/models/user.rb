@@ -33,6 +33,10 @@ class User < ApplicationRecord
     favorites.map(&:product)
   end
 
+  def find_card
+    Faraday.get("http://localhost:4000/api/v1/cards/#{cpf}")
+  end
+
   private
 
   def define_role
