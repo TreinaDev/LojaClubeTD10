@@ -95,6 +95,7 @@ describe 'Usuário entra no sistema' do
     expect(current_path).to eq root_path
     expect(page).to have_content '(Funcionário limitado) felipe@gmail.com'
   end
+
   it 'e cria conta com CPF que foi afastado' do
     card_json_data = Rails.root.join('spec/support/json/card_data_active.json').read
     card_fake_response = double('faraday_response', status: 200, body: card_json_data)
