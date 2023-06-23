@@ -2,6 +2,13 @@ require 'rails_helper'
 
 describe 'Usuário entra no sistema' do
   it 'e cria uma conta' do
+    json_data = Rails.root.join('spec/support/json/cpf_active_company.json').read
+    fake_response = double('faraday_response', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/employee_profiles?cpf=26502001033').and_return(fake_response)
+    json_data = Rails.root.join('spec/support/json/card_data_active.json').read
+    fake_response2 = double('faraday_response', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/cards/26502001033').and_return(fake_response2)
+
     visit new_user_registration_path
     fill_in 'Nome', with: 'João'
     fill_in 'E-mail', with: 'joao@ig.com.br'
@@ -12,7 +19,7 @@ describe 'Usuário entra no sistema' do
     click_on 'Registrar'
 
     expect(current_path).to eq root_path
-    expect(page).to have_content 'Bem vindo! Você se registrou com sucesso.'
+    expect(page).to have_content 'Bem vindo! Você se registrou'
     expect(page).not_to have_content 'administrador'
   end
 
@@ -47,21 +54,24 @@ describe 'Usuário entra no sistema' do
     expect(page).to have_content 'Número de telefone deve conter 11 números.'
   end
 
-  it 'que está com o CPF ativo como funcionário em uma empresa' do
-    json_data = Rails.root.join('spec/support/json/cpf_active_company.json').read
+  it 'e cria conta com CPF ativo como funcionário em uma empresa' do
+    json_data = Rails.root.join('spec/support/json/card_data_active.json').read
     fake_response = double('faraday_response', status: 200, body: json_data)
-    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/cards/73962060088').and_return(fake_response)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/cards/98746307010').and_return(fake_response)
+    json_data = Rails.root.join('spec/support/json/cpf_active_company.json').read
+    fake_response2 = double('faraday_response', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/employee_profiles?cpf=98746307010').and_return(fake_response2)
 
     visit new_user_registration_path
     fill_in 'Nome', with: 'Felipe'
     fill_in 'E-mail', with: 'felipe@gmail.com'
-    fill_in 'CPF', with: '73962060088'
+    fill_in 'CPF', with: '98746307010'
     fill_in 'Número de telefone', with: '50118301012'
     fill_in 'Senha', with: 'f4k3p455w0rd'
     fill_in 'Confirme a senha', with: 'f4k3p455w0rd'
     click_on 'Registrar'
 
     expect(current_path).to eq root_path
-    expect(page).to have_content 'Logado com sucesso. O seu cartão está ativo, vamos às compras.'
+    expect(page).to have_content '(Funcionário ativo) felipe@gmail.com'
   end
 end

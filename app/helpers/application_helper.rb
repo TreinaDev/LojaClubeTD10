@@ -10,7 +10,7 @@ module ApplicationHelper
   def user_info
     return "#{current_user.email} (ADMIN)" if current_user.admin?
 
-    current_user.email
+    "(#{t(session[:status_user])}) #{current_user.email}"
   end
 
   def user_links
