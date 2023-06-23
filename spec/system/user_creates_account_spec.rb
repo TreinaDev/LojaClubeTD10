@@ -74,4 +74,45 @@ describe 'Usuário entra no sistema' do
     expect(current_path).to eq root_path
     expect(page).to have_content '(Funcionário ativo) felipe@gmail.com'
   end
+
+  it 'e cria conta com CPF a qual empresa foi desativada' do
+    card_json_data = Rails.root.join('spec/support/json/card_data_active.json').read
+    card_fake_response = double('faraday_response', status: 200, body: card_json_data)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/cards/98746307010').and_return(card_fake_response)
+    company_json_data = Rails.root.join('spec/support/json/cpf_inactive_company.json').read
+    company_fake_response = double('faraday_response', status: 200, body: company_json_data)
+    allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/employee_profiles?cpf=98746307010').and_return(company_fake_response)
+
+    visit new_user_registration_path
+    fill_in 'Nome', with: 'Felipe'
+    fill_in 'E-mail', with: 'felipe@gmail.com'
+    fill_in 'CPF', with: '98746307010'
+    fill_in 'Número de telefone', with: '50118301012'
+    fill_in 'Senha', with: 'f4k3p455w0rd'
+    fill_in 'Confirme a senha', with: 'f4k3p455w0rd'
+    click_on 'Registrar'
+
+    expect(current_path).to eq root_path
+    expect(page).to have_content '(Funcionário limitado) felipe@gmail.com'
+  end
+  it 'e cria conta com CPF que foi afastado' do
+    card_json_data = Rails.root.join('spec/support/json/card_data_active.json').read
+    card_fake_response = double('faraday_response', status: 200, body: card_json_data)
+    allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/cards/98746307010').and_return(card_fake_response)
+    company_json_data = Rails.root.join('spec/support/json/cpf_fired_company.json').read
+    company_fake_response = double('faraday_response', status: 200, body: company_json_data)
+    allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/employee_profiles?cpf=98746307010').and_return(company_fake_response)
+
+    visit new_user_registration_path
+    fill_in 'Nome', with: 'Felipe'
+    fill_in 'E-mail', with: 'felipe@gmail.com'
+    fill_in 'CPF', with: '98746307010'
+    fill_in 'Número de telefone', with: '50118301012'
+    fill_in 'Senha', with: 'f4k3p455w0rd'
+    fill_in 'Confirme a senha', with: 'f4k3p455w0rd'
+    click_on 'Registrar'
+
+    expect(current_path).to eq root_path
+    expect(page).to have_content '(Demitido) felipe@gmail.com'
+  end
 end

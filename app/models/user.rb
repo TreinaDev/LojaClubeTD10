@@ -36,6 +36,10 @@ class User < ApplicationRecord
     Faraday.get("http://localhost:3000/api/v1/employee_profiles?cpf=#{cpf}")
   end
 
+  def find_card
+    Faraday.get("http://localhost:4000/api/v1/cards/#{cpf}")
+  end
+
   private
 
   def define_role

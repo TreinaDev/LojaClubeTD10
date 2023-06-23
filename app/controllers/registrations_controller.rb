@@ -6,11 +6,9 @@ class RegistrationsController < Devise::RegistrationsController
     begin
       response_company = current_user.verify_cpf_company
       response_company_tratament(response_company)
-      if response_company.status == 200
-        response_card = Faraday.get("http://localhost:4000/api/v1/cards/#{current_user.cpf}")
-      end
+      response_card = current_user.find_card if response_company.status == 200
     rescue StandardError
-      return flash[:notice] = t('.api_error')
+      flash[:notice] = t('.api_error')
     end
   end
 
@@ -18,10 +16,6 @@ class RegistrationsController < Devise::RegistrationsController
 
   def response_company_tratament(response)
     data = JSON.parse(response.body)[0]
-    if data.blank?
-      session[:status_user] = 'visitor'
-    else  
-      session[:status_user] = data['status']
-    end
+    session[:status_user] = data.blank? ? 'visitor' : data['status']
   end
 end
