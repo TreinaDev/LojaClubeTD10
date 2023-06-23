@@ -17,6 +17,7 @@ class User < ApplicationRecord
   validates :cpf, uniqueness: true
   validate :check_phone_number_length, if: :phone_number_changed?
   validate :cpf_changed_block, if: :cpf_changed?, on: :update
+  validate :verify_company, on: :create
 
   def formatted_cpf
     cpf = self.cpf
@@ -33,7 +34,15 @@ class User < ApplicationRecord
   end
   
   private
-
+  
+  def verify_company
+    response = Faraday.get("http://localhost:3000/api/v1/employee_profiles?cpf=#{cpf}")
+    debugger
+    if JSON.parse(response.body).blank?
+      errors.add(:cpf, 'não está ativo como funcionário em nosso Clube!')
+    end
+  end
+  
   def define_role
     self.role = email.present? && email.match(/\A[\w.+-]+@punti.com\z/) ? :admin : :common
   end

@@ -1,17 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
   def create
-    begin
-      response = Faraday.get("http://localhost:3000/api/v1/employee_profiles?cpf=#{params[:user][:cpf]}")
-      @employee_response = JSON.parse(response.body)
-      if !@employee_response.blank?
-        super 
-      else  
-        flash.now[:notice] = 'Nao foi possivel fazer login'
-        redirect_to root_path
-      end
-    rescue StandardError
-      flash[:notice] = 'Nao foi possivel fazer login'
-    end
+    super
+
   end
 
   def sign_up(resource_name, resource)
