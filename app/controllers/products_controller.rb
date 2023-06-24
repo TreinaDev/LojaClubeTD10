@@ -22,11 +22,11 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
-    @categories = ProductCategory.where(parent_id: nil)
+    @categories = ProductCategory.where(parent_id: nil, active: true)
   end
 
   def edit
-    @categories = ProductCategory.where(parent_id: nil)
+    @categories = ProductCategory.where(parent_id: nil, active: true)
   end
 
   def create
@@ -35,7 +35,7 @@ class ProductsController < ApplicationController
     if @product.save
       redirect_to product_path(@product), notice: t('.product_success')
     else
-      @categories = ProductCategory.where(parent_id: nil)
+      @categories = ProductCategory.where(parent_id: nil, active: true)
       flash.now[:alert] = t('.product_fail')
       render :new
     end
@@ -46,7 +46,7 @@ class ProductsController < ApplicationController
       attach_images
       redirect_to product_path(@product), notice: t('.product_success')
     else
-      @categories = ProductCategory.where(parent_id: nil)
+      @categories = ProductCategory.where(parent_id: nil, active: true)
       flash.now[:alert] = t('.product_fail')
       render :edit
     end
@@ -58,7 +58,7 @@ class ProductsController < ApplicationController
       flash[:alert] = t('.qwery_empty')
       return redirect_to root_path
     end
-    @products = Product.where('name LIKE ?', "%#{@query}%")
+    @products = Product.where('name LIKE ? AND active = ?', "%#{@query}%", true)
     @quantity = @products.length
   end
 
