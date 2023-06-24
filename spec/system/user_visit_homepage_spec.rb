@@ -100,20 +100,28 @@ describe 'Usuário visita homepage' do
       expect(page).not_to have_link 'Categorias', href: product_categories_path
       expect(page).not_to have_content 'jose@gmail.com (ADMIN)'
     end
-    it 'e vê os preços dos produtos' do
-      user = create(:user)
+    it 'e vê os preços dos produtos em pontos, de acordo com a taxa de conversão' do
+      user = create(:user, email: 'user@email.com')
       category = create(:product_category, name: 'Eletrodomestico')
       create(:product, name: 'Geladeira branca', code: 'GLD678456', description: 'Geladeira bonita',
                        price: 200, product_category: category)
+      json_data = Rails.root.join('spec/support/json/card_data_active.json').read
+      fake_response = double('faraday_response', status: 200, body: json_data)
+      allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{user.cpf}").and_return(fake_response)
 
-      login_as(user)
       visit root_path
+      click_on 'Entrar'
+      fill_in 'E-mail',	with: 'user@email.com'
+      fill_in 'Senha',	with: 'password'
+      within 'form' do
+        click_on 'Entrar'
+      end
 
       within('#recent_products.carousel') do
         within('.card#GLD678456') do
           expect(page).to have_content 'Geladeira branca'
           expect(page).to have_content 'Geladeira bonita'
-          expect(page).to have_content '200 Pontos'
+          expect(page).to have_content '4.000 Pontos'
         end
       end
     end
