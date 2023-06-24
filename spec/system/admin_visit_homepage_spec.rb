@@ -32,12 +32,12 @@ describe 'Administrador visita homepage' do
       within('.card#AFG123456') do
         expect(page).to have_link 'Celular 1'
         expect(page).to have_content 'Celular 1 AFG'
-        expect(page).to have_content '2000 Pontos'
+        expect(page).to have_content 'R$ 2.000,00'
       end
       within('.card#ABC123456') do
         expect(page).to have_link 'Celular 2'
         expect(page).to have_content 'Celular 2 ABC'
-        expect(page).to have_content '2500 Pontos'
+        expect(page).to have_content 'R$ 2.500,00'
       end
     end
     expect(page).not_to have_css '.card#XYZ456123'

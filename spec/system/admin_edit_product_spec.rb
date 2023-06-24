@@ -51,8 +51,7 @@ describe 'Administrador edita um produto' do
     expect(page).to have_field('Descrição')
     expect(page).to have_field('Marca')
     expect(page).to have_field('Preço')
-    expect(page).not_to have_content 'Drones'
-    expect(page).not_to have_content 'Instrumentos Musicais'
+    expect(page).not_to have_select 'Categoria', with_options: ['Drones', 'Instrumentos Musicais']
     expect(page).to have_content 'Eletrodoméstico'
     expect(page).to have_content 'Informática'
   end

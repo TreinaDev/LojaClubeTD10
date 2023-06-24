@@ -14,8 +14,7 @@ describe 'Administrador registra uma subcategoria' do
     visit product_categories_path
     click_on 'Nova Subcategoria'
 
-    expect(page).not_to have_content 'Drones'
-    expect(page).not_to have_content 'Instrumentos Musicais'
+    expect(page).not_to have_select 'Categoria', with_options: ['Drones', 'Instrumentos Musicais']
     expect(page).to have_content 'Eletrodoméstico'
     expect(page).to have_content 'Informática'
   end

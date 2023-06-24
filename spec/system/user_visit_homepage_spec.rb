@@ -157,12 +157,13 @@ describe 'Usuário visita homepage' do
       user = create(:user)
       category = create(:product_category)
       create(:product, name: 'Celular 1', code: 'AFG123456', description: 'Celular 1 AFG',
-                       price: 2000, product_category: category)
+                       price: 100, product_category: category)
       create(:product, name: 'Celular 2', code: 'ABC123456', description: 'Celular 2 ABC',
-                       price: 2500, product_category: category)
+                       price: 100, product_category: category)
       product = create(:product, name: 'Celular 3', code: 'XYZ456123', description: 'Celular 3 XYZ',
                                  product_category: category)
       product.update(active: false)
+      create(:card_info, user:)
 
       login_as(user)
       visit root_path
@@ -171,12 +172,12 @@ describe 'Usuário visita homepage' do
         within('.card#AFG123456') do
           expect(page).to have_link 'Celular 1'
           expect(page).to have_content 'Celular 1 AFG'
-          expect(page).to have_content '2000 Pontos'
+          expect(page).to have_content '2.000 Pontos'
         end
         within('.card#ABC123456') do
           expect(page).to have_link 'Celular 2'
           expect(page).to have_content 'Celular 2 ABC'
-          expect(page).to have_content '2500 Pontos'
+          expect(page).to have_content '2.000 Pontos'
         end
       end
       expect(page).not_to have_css '.card#XYZ456123'
