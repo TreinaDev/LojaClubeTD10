@@ -70,7 +70,6 @@ describe 'Usuário adiciona produto ao carrinho' do
     expect(response).to have_http_status :found
     expect(flash[:notice]).to eq 'Adicionado produto ao carrinho'
   end
-
   it 'sem sucesso estando autenticado, mas sem CPF ativo como funcionário' do
     user = create(:user)
     category = create(:product_category, name: 'Camisetas')
