@@ -9,7 +9,7 @@ class SessionsController < Devise::SessionsController
       return flash[:notice] = t('.api_error')
     end
 
-    response_tratament(response_card)
+    response_treatment(response_card)
   end
 
   def destroy
@@ -21,7 +21,7 @@ class SessionsController < Devise::SessionsController
 
   private
 
-  def response_tratament(response)
+  def response_treatment(response)
     create_user_card(response) if response.status == 200
     flash[:notice] = t('.error') if response.status == 404
   end
@@ -33,7 +33,7 @@ class SessionsController < Devise::SessionsController
     else
       create_card(@data)
     end
-    flash[:notice] = t('.sucess_active')
+    flash[:notice] = t('.success_active')
   end
 
   def update_card(data)

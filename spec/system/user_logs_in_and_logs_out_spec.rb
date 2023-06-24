@@ -15,12 +15,13 @@ describe 'Usuário entra no sistema' do
     expect(page).to have_content 'Logado com sucesso.'
     expect(page).to have_button 'Sair'
   end
-  it 'e faz login, atualizando as informações do cartão' do
+
+  it 'e ao fazer login, a API de cartões atualiza as informações do cartão quando necessário' do
     user = create(:user, email: 'zezinho@mail.com', password: 'f4k3p455w0rd')
     create(:card_info, user:, conversion_tax: '50.0')
-    json_data = Rails.root.join('spec/support/json/card_data_active.json').read
-    fake_response = double('faraday_response', status: 200, body: json_data)
-    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{user.cpf}").and_return(fake_response)
+    card_json_data = Rails.root.join('spec/support/json/card_data_active.json').read
+    card_fake_response = double('faraday_response', status: 200, body: card_json_data)
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{user.cpf}").and_return(card_fake_response)
 
     visit new_user_session_path
     within 'form#new_user' do
@@ -35,7 +36,7 @@ describe 'Usuário entra no sistema' do
     expect(page).to have_button 'Sair'
   end
 
-  it 'com informações incorretas' do
+  it 'e tenta fazer login com informações incorretas' do
     create(:user, email: 'zezinho@mail.com', password: 'f4k3p455w0rd')
 
     visit new_user_session_path

@@ -15,7 +15,6 @@ pt-BR:
   prevent_admin_message: 'Administrador não tem acesso a essa página'
   recent_products: 'Produtos Recentes'
   unblocked: 'Funcionário ativo'
-  blocked: 'Funcionário limitado'
+  blocked: 'Funcionário com restrições'
   visitor: 'Visitante'
-  fired: 'Demitido'
-  
+  fired: 'Ex-funcionário'
