@@ -11,6 +11,7 @@ describe 'Usuário remove produto do carrinho' do
     category1 = create(:product_category, name: 'Camisetas')
     create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
                      description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+    create(:card_info, user:)
 
     login_as(user)
     visit root_path
@@ -29,6 +30,8 @@ describe 'Usuário remove produto do carrinho' do
                      description: 'Uma camisa azul muito bonita', code: 'CMA123456')
     create(:product, name: 'Camiseta Vermelha', price: 100, product_category: category1,
                      description: 'Uma camisa vermelha muito grande', code: 'ZDS123789')
+    create(:card_info, user:)
+
     login_as(user)
     visit root_path
     click_on 'Camiseta Azul'
@@ -41,7 +44,7 @@ describe 'Usuário remove produto do carrinho' do
     expect(current_path).to eq shopping_cart_path(1)
     expect(page).to have_content 'Produto removido com sucesso'
     expect(page).to have_content 'Camiseta Azul'
-    expect(page).to have_content 'Total: 800'
+    expect(page).to have_content 'Total: 16.000'
     expect(page).not_to have_content 'Camiseta Vermelha'
   end
   it 'todos de uma vez, com sucesso' do
@@ -74,6 +77,8 @@ describe 'Usuário remove produto do carrinho' do
     category1 = create(:product_category, name: 'Camisetas')
     create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
                      description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+    create(:card_info, user:)
+
     login_as(user)
     visit root_path
     click_on 'Camiseta Azul'

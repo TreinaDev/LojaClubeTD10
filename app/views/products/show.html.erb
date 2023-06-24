@@ -23,8 +23,12 @@
         <dd class="col-sm-6"><%= @product.description %></dd>
         <dt class="col-sm-6">Marca</dt>
         <dd class="col-sm-6"><%= @product.brand %></dd>
-        <dt class="col-sm-6">Preço</dt>
-        <dd class="col-sm-6"><%= number_to_currency @product.price %></dd>
+        <% if user_signed_in? %>
+          <% if current_user.card_info.present? || current_user&.admin? %> 
+            <dt class="col-sm-6"><%= "Preço" %> </dt> 
+            <dd class="col-sm-6"><%= "#{show_price(@product.price)}" %></dd>
+          <% end %>
+        <% end %>
         <dt class="col-sm-6">Categoria</dt>
         <dd class="col-sm-6"><%= @product.product_category.name %></dd>
       </dl>
@@ -42,8 +46,8 @@
       <% end %>
     </div>
   </div>
-
-  <% if user_signed_in? && current_user.common? %>
+  
+  <% if user_signed_in? && (current_user.common? && current_user.card_info.present?) %>
     <div style="margin-top:20px;">
       <%= form_with(url: add_shopping_carts_path) do |f| %>
         <%= f.hidden_field :id, value: @product.id %>
