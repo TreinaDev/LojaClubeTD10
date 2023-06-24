@@ -1,6 +1,25 @@
 require 'rails_helper'
 
 describe 'Administrador registra uma subcategoria' do
+  it 'e não vê categorias desativadas' do
+    admin = create(:user, email: 'admin@punti.com')
+    category_a = create(:product_category, name: 'Drones')
+    category_b = create(:product_category, name: 'Instrumentos Musicais')
+    create(:product_category, name: 'Eletrodoméstico')
+    create(:product_category, name: 'Informática')
+    category_a.update(active: false)
+    category_b.update(active: false)
+
+    login_as(admin)
+    visit product_categories_path
+    click_on 'Nova Subcategoria'
+
+    expect(page).not_to have_content 'Drones'
+    expect(page).not_to have_content 'Instrumentos Musicais'
+    expect(page).to have_content 'Eletrodoméstico'
+    expect(page).to have_content 'Informática'
+  end
+
   it 'com sucesso' do
     admin = FactoryBot.create(:user, email: 'admin@punti.com')
     FactoryBot.create(:product_category, name: 'Categoria Teste')

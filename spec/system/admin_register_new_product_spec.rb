@@ -70,6 +70,25 @@ describe 'Administrador cadastra produto' do
     end
   end
 
+  it 'e não vê categorias desativadas' do
+    admin = create(:user, email: 'admin@punti.com')
+    category_a = create(:product_category, name: 'Drones')
+    category_b = create(:product_category, name: 'Instrumentos Musicais')
+    create(:product_category, name: 'Eletrodoméstico')
+    create(:product_category, name: 'Informática')
+    category_a.update(active: false)
+    category_b.update(active: false)
+
+    login_as(admin)
+    visit products_path
+    click_on 'Novo Produto'
+
+    expect(page).not_to have_content 'Drones'
+    expect(page).not_to have_content 'Instrumentos Musicais'
+    expect(page).to have_content 'Eletrodoméstico'
+    expect(page).to have_content 'Informática'
+  end
+
   it 'com dados incompletos' do
     user = User.create!(name: 'Usuário Administrador', email: 'admin@punti.com', password: 'senha1234',
                         phone_number: '19998555544', cpf: '56685728701')
