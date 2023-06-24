@@ -31,6 +31,8 @@ describe 'Usuário remove produto do carrinho' do
     create(:product, name: 'Camiseta Vermelha', price: 100, product_category: category1,
                      description: 'Uma camisa vermelha muito grande', code: 'ZDS123789')
     create(:card_info, user:)
+    session_user = { status_user: 'unblocked' }
+    allow_any_instance_of(ApplicationController).to receive(:session).and_return(session_user)
 
     login_as(user)
     visit root_path
