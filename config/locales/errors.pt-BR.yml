@@ -6,3 +6,15 @@ pt-BR:
           attributes:
             code:
               invalid: ' deve ser composto por 3 letras e 6 números'
+        seasonal_price:
+          attributes:
+            start_date:
+              greater_than_or_equal_to: 'deve ser futura'
+            end_date:
+              greater_than: 'deve suceder data de início'
+            value: 
+              less_than: 'não pode ser maior ou igual ao preço de produto'
+              greater_than: 'precisa ser maior que zero'
+            base:
+              unpermited_update: Não é possível alterar um preço sazonal em andamento
+              overlap_date_alert: 'Não pode haver preço sazonal com sobreposição de datas para um mesmo produto'
