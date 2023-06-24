@@ -8,7 +8,7 @@ class SeasonalPricesController < ApplicationController
 
   def new
     @seasonal_price = SeasonalPrice.new
-    @products = Product.all
+    @products = Product.where(active: true)
   end
 
   def edit
@@ -20,7 +20,7 @@ class SeasonalPricesController < ApplicationController
 
     return redirect_to seasonal_prices_path, notice: t('.success') if @seasonal_price.save
 
-    @products = Product.all
+    @products = Product.where(active: true)
     flash.now[:alert] = t('.fail')
     render :new
   end

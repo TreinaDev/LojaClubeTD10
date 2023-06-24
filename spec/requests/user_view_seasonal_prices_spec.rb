@@ -21,7 +21,7 @@ describe 'Usuário vê preços sazonais' do
     expect(flash[:alert]).to eq 'Você precisa fazer login ou se registrar antes de continuar'
   end
 
-  context 'e apaga um preço sazonal' do
+  context 'e não consegue apagar um preço sazonal' do
     it 'como usuário comum' do
       user = create(:user)
       seasonal_price = create(:seasonal_price)

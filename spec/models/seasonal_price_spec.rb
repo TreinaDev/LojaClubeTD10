@@ -65,19 +65,17 @@ RSpec.describe SeasonalPrice, type: :model do
     end
 
     it 'inválido quando há sobreposição de datas com outros preço sazonais para o mesmo produto' do
-      product_category = create(:product_category)
+      product = create(:product, price: 200)
 
-      product = Product.create!(
-        name: 'Tv', price: 200, code: 'abc123123', product_category:, brand: 'LG', description: 'Uma tv1546464464'
+      create(:seasonal_price, start_date: 1.day.from_now, end_date: 7.days.from_now, value: 100, product:)
+
+      seasonal_price = build(
+        :seasonal_price, start_date: 3.days.from_now, end_date: 5.days.from_now, value: 100, product:
       )
 
-      SeasonalPrice.create!(start_date: 1.day.from_now, end_date: 7.days.from_now, value: 100, product:)
-      seasonal_price = SeasonalPrice.new(start_date: 3.days.from_now, end_date: 5.days.from_now, value: 100, product:)
-
-      valid = seasonal_price.valid?
+      seasonal_price.valid?
       errors_messages = seasonal_price.errors.full_messages
 
-      expect(valid).to eq false
       expect(errors_messages).to include 'Não pode haver preço sazonal com sobreposição de datas para um mesmo produto'
     end
 
