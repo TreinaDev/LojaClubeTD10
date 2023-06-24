@@ -22,10 +22,9 @@ class OrdersController < ApplicationController
   end
 
   def close_order
-    shopping_cart = ShoppingCart.find_by(id: session[:cart_id])
-    order = build_order(shopping_cart)
+    order = build_order(@cart)
 
-    return if card_number_blank?(params[:card_number], shopping_cart)
+    return if card_number_blank?(params[:card_number], @cart)
 
     save_order_and_redirect(order)
   end
@@ -43,7 +42,6 @@ class OrdersController < ApplicationController
     @cart.orderables.each do |o|
       OrderItem.create!(order_id: order.id, product_id: o.product_id, quantity: o.quantity)
     end
-    @cart.destroy!
   end
 
   def build_order(shopping_cart)
@@ -88,7 +86,7 @@ class OrdersController < ApplicationController
       response = send_payment_request(order)
       response_redirect(response, order)
     else
-      redirect_to shopping_carts_path(ShoppingCart.find(session[:cart_id])), alert: t('order.create.error')
+      redirect_to shopping_cart_path(@cart), alert: t('order.create.error')
     end
   end
 
@@ -97,7 +95,7 @@ class OrdersController < ApplicationController
       destroy_cart
       redirect_to order_path(order.id), notice: t('order.create.success')
     else
-      redirect_to shopping_carts_path(ShoppingCart.find(session[:cart_id])), alert: t('order.create.error')
+      redirect_to shopping_cart_path(@cart), alert: t('order.create.error')
     end
   end
 end

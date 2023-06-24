@@ -3,6 +3,9 @@ class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy
   has_many :products, through: :order_items
 
+  validates :total_value, :final_value, numericality: { greater_than: 0 }
+  validates :discount_amount, numericality: { greater_than_or_equal_to: 0 }
+
   def subtotal_price
     subtotal = 0
     order_items.each do |order_item|
