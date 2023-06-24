@@ -59,10 +59,12 @@ class OrdersController < ApplicationController
       req.headers['Content-Type'] = 'application/json'
       req.body = {
         payment: { cpf: order.cpf, card_number: params[:card_number], total_value: order.total_value,
-                   discount_amount: order.discount_amount, final_value: order.final_value,
+                   descount_amount: order.discount_amount, final_value: order.final_value,
                    payment_date: I18n.l(order.created_at.to_date), order_number: order.id }
       }.to_json
     end
+  rescue Faraday::ConnectionFailed
+    nil
   end
 
   def destroy_cart
@@ -84,6 +86,8 @@ class OrdersController < ApplicationController
     if order.save
       transfer_products(order)
       response = send_payment_request(order)
+      return redirect_to shopping_cart_path(@cart), alert: t('order.close_order.connection_error') if response.nil?
+
       response_redirect(response, order)
     else
       redirect_to shopping_cart_path(@cart), alert: t('order.create.error')

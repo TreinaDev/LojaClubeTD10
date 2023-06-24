@@ -39,7 +39,11 @@ class ShoppingCartsController < ApplicationController
     redirect_to root_path, notice: t('.success_remove_all')
   end
 
-  def close; end
+  def close
+    @default_address = current_user.client_addresses
+                                   .find_by(default: true)
+                                   &.address
+  end
 
   private
 
