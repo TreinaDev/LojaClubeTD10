@@ -15,8 +15,7 @@ describe 'Administrador registra uma subcategoria' do
     click_on 'Nova Subcategoria'
 
     expect(page).not_to have_select 'Categoria', with_options: ['Drones', 'Instrumentos Musicais']
-    expect(page).to have_content 'Eletrodoméstico'
-    expect(page).to have_content 'Informática'
+    expect(page).to have_select 'Categoria', with_options: %w[Eletrodoméstico Informática]
   end
 
   it 'com sucesso' do
