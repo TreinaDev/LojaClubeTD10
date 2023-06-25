@@ -45,7 +45,7 @@
     </div>
   </div>
   
-  <% if current_user&.can_buy? && session[:status_user] == ('unblocked' || 'blocked') %>
+  <% if current_user&.can_buy? && session[:status_user] == 'unblocked' %>
     <div style="margin-top:20px;">
       <%= form_with(url: add_shopping_carts_path) do |f| %>
         <%= f.hidden_field :id, value: @product.id %>

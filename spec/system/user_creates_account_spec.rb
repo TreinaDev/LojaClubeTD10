@@ -44,7 +44,7 @@ describe 'Usuário entra no sistema' do
     expect(page).to have_content '(Funcionário ativo) felipe@gmail.com'
   end
 
-  it 'e cria conta com CPF na empresa desativada à qual pertence' do
+  it 'e cria conta com CPF bloqueado na empresa à qual pertence' do
     company_json_data = Rails.root.join('spec/support/json/cpf_inactive_company.json').read
     company_fake_response = double('faraday_response', status: 200, body: company_json_data)
     allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/employee_profiles?cpf=98746307010').and_return(company_fake_response)
@@ -62,7 +62,7 @@ describe 'Usuário entra no sistema' do
     click_on 'Registrar'
 
     expect(current_path).to eq root_path
-    expect(page).to have_content '(Funcionário com restrições) felipe@gmail.com'
+    expect(page).to have_content '(Funcionário bloqueado) felipe@gmail.com'
   end
 
   it 'e cria uma conta mesmo que tenha sido demitido da empresa à qual pertence' do
