@@ -24,6 +24,13 @@ class User < ApplicationRecord
     cpf.to_s.gsub(/(\d{3})(\d{3})(\d{3})(\d{2})/, '\1.\2.\3-\4')
   end
 
+  def address_default
+    default_address = client_addresses.find_by(default: true)
+    return default_address.address if default_address
+
+    nil
+  end
+
   def formatted_phone
     phone_number = self.phone_number
     phone_number.to_s.gsub(/(\d{2})(\d{5})(\d{4})/, '(\1)\2-\3')
