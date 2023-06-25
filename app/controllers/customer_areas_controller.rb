@@ -19,4 +19,15 @@ class CustomerAreasController < ApplicationController
     @user = current_user
     @favorites = @user.favorites
   end
+
+  def update_points
+    begin
+      response = current_user.find_card
+      @data = JSON.parse(response.body)
+      current_user.card_info.update!(points: @data['points'])
+    rescue StandardError
+      return redirect_to customer_areas_path, notice: t('.failed')
+    end
+    redirect_to customer_areas_path, notice: t('.success')
+  end
 end

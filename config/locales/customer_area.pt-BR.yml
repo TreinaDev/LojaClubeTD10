@@ -8,7 +8,11 @@ pt-BR:
       default_adresses: 'Endereço Padrão'
       product_favorites: 'Produtos Favoritos'
       recent_orders: 'Pedidos Recentes'
+      points: 'Pontos'
     me:
       update_phone: 'Atualizar Contato'
     addresses:
       my_addresses: 'Meus endereços'
+    update_points:
+      success: 'Saldo de pontos atualizado!'
+      failed: 'Não foi possível atualizar o saldo, tente mais tarde.'

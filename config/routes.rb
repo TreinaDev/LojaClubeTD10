@@ -34,17 +34,17 @@ Rails.application.routes.draw do
   resources :promotional_campaigns, only: [:index, :new, :create, :show, :edit, :update] do
     resources :campaign_categories, only:  [:create, :destroy]
   end
-
-  get "customer_areas", to: "customer_areas#index"
-
+  
   resources :shopping_carts, only: [:show] do
     post "add", on: :collection
     post "remove", on: :collection
     post "remove_all", on: :collection
   end
-
-  get "me", to: "customer_areas#me"
+  
   get "client_addresses", to: "customer_areas#addresses"
+  get "customer_areas", to: "customer_areas#index"
   get "favorite_tab", to: "customer_areas#favorite_tab"
+  get "me", to: "customer_areas#me"
+  post "update_points", to: "customer_areas#update_points"
   post "update_phone_number", to: "users#update_phone"
 end
