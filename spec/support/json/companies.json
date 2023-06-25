@@ -1,16 +1,23 @@
 [
   {
     "id": 1,
-    "registration_number": "57806849000174",
-    "brand_name": "Rebase",
-    "corporate_name": "Rebase LTDA.",
+    "brand_name": "Apple",
+    "corporate_name": "Apple LTDA",
+    "registration_number": "12345678000195",
     "active": true
-  },
-  {
+},
+{
     "id": 2,
-    "registration_number": "89987772000172",
-    "brand_name": "Vindi",
-    "corporate_name": "Vindi LTDA.",
+    "brand_name": "Microsoft",
+    "corporate_name": "Microsoft Corporation",
+    "registration_number": "12345678000295",
+    "active": true
+},
+{
+    "id": 3,
+    "brand_name": "IBM",
+    "corporate_name": "IBM Corporation",
+    "registration_number": "12345678000395",
     "active": false
-  }
+}
 ]

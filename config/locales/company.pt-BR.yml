@@ -10,8 +10,7 @@ pt-BR:
         active: "Situação"
   companies:
     index:
-      api_error: 'Erro de conexão - Não foi possível carregar novas empresas'
-      no_company_added: 'Nenhuma empresa nova encontrada'
-      internal_error: 'Erro interno - Empresas não carregadas'
-    response_tratament:
-      internal_error: 'Erro interno - Empresas não carregadas'
+      sucess_no_company: 'Solicitação efetuada com sucesso, mas nenhuma empresa encontrada'
+      sucess_new_company_added: 'Empresas carregadas com sucesso, e nova empresa encontrada'
+      sucess_no_company_added: 'Empresas carregadas com sucesso, mas nenhuma nova empresa encontrada'
+      internal_error: 'Erro interno. Tente mais tarde. Não foi possível carregar novas empresas'
