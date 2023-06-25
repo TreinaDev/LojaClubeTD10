@@ -98,7 +98,7 @@ describe 'Usuário acessa detalhes de um pedido' do
 
   it 'e não está logado' do
     user = create(:user)
-    user_two = create(:user, email: 'cliente@email.com', cpf: '67924052054')
+    create(:user, email: 'cliente@email.com', cpf: '67924052054')
     category1 = create(:product_category, name: 'Camisetas')
     product1 = create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
                                 description: 'Uma camisa azul muito bonita', code: 'CMA123456')
@@ -106,7 +106,6 @@ describe 'Usuário acessa detalhes de um pedido' do
     order = create(:order, total_value: 64_000, discount_amount: 0, final_value: 64_000, cpf: user.cpf, user:,
                            conversion_tax: 20)
     create(:order_item, order:, product: product1, quantity: 4)
-
 
     visit order_path(order)
 
