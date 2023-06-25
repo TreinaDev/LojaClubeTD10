@@ -12,7 +12,7 @@
           <div class="card-body">
             <h5 class="card-title"><%= link_to product.name, product_path(product.id) %></h5>
             <p class="text-truncate mw-2"><%= product.description %></p>
-            <p><%= show_price(product) %></p>
+            <p><%= "#{show_price(product.price)} Pontos" %></p>
           </div>
         </div>
       </div>

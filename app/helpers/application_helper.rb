@@ -39,7 +39,28 @@ module ApplicationHelper
     end
   end
 
+  def show_price(price)
+    if current_user&.common?
+      show_common_user_price(price)
+    elsif current_user&.admin?
+      show_admin_price(price)
+    end
+  end
+
   private
+
+  def show_common_user_price(price)
+    return if current_user.card_info.nil?
+
+    price_points = number_with_delimiter((price * current_user.card_info.conversion_tax.to_f).round,
+                                         delimiter: '.')
+
+    "#{price_points} Pontos"
+  end
+
+  def show_admin_price(price)
+    number_to_currency price.to_s
+  end
 
   def logged_user_navbar
     "<li class='navbar-text'> <span> #{user_info} </span> </li>" \

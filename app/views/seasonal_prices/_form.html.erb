@@ -1,0 +1,35 @@
+
+<div class="container">
+  <%= form_with model: seasonal_price, data: { turbo: false } do |f| %>
+    <%= render partial: 'form_errors', locals: { object: seasonal_price } %>
+
+    <div class="mb-3">
+      <%= f.label :value %>
+      <%= f.number_field :value, class: 'form-control' %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :start_date %>
+      <%= f.date_field :start_date, class: 'form-control'  %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :end_date %>
+      <%= f.date_field :end_date, class: 'form-control'  %>
+    </div>
+
+    <% if products.any? %>
+      <div class="mb-3">
+        <%= f.label :product_id %>
+
+        <%= f.collection_select(
+          :product_id, products, :id, :name, { prompt: "Selecione um produto" }, { class: 'form-control mb-2' }
+        )%>
+      </div>
+    <% end %>
+
+    <div class="mb-3">
+      <%= f.submit t("#{controller_name}.#{action_name}.form.submit_text"), class: 'btn btn-secondary mt-2' %>
+    </div>
+  <% end %>
+</div>
