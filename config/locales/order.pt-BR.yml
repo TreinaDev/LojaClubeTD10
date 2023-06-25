@@ -1,4 +1,7 @@
 pt-BR:
+  pending: 'Aguardando aprovação'
+  canceled: 'Cancelado'
+  approved: 'Pagamento aprovado'
   activerecord:
     models:
       order: 'Pedido'

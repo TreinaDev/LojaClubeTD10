@@ -5,5 +5,6 @@ FactoryBot.define do
     final_value { 1000 }
     cpf { '09777513097' }
     user { create(:user) }
+    conversion_tax { 20 }
   end
 end

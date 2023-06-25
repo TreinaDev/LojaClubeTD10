@@ -1,4 +1,8 @@
 class OrdersController < ApplicationController
+  before_action :set_order, only: %i[show]
+  before_action :authenticate_user!
+  before_action :order_auth, only: %i[show]
+
   def index; end
 
   def show
@@ -10,13 +14,8 @@ class OrdersController < ApplicationController
   end
 
   def create
-    conversion_tax = 20.7
-    @order = Order.new(order_params, conversion_tax:)
-    @order.user_id = current_user.id
-    if @order.save
-      transfer_products(@order)
-      return redirect_to root_path, notice: t('order.create.success')
-    end
+    @order = Order.new(order_params, conversion_tax: current_user.card_info.conversion_tax, user_id: current_user.id)
+    save_order_model(@order)
     flash.now[:alert] = t('order.create.error')
     render :new
   end
@@ -45,12 +44,15 @@ class OrdersController < ApplicationController
   end
 
   def build_order(shopping_cart)
+    total_value = shopping_cart.total.round * current_user.card_info.conversion_tax.to_f
+    discount = 0
     Order.new(
-      total_value: shopping_cart.total.round,
-      discount_amount: 0,
-      final_value: shopping_cart.total.round,
+      total_value:,
+      discount_amount: discount,
+      final_value: total_value - discount,
       cpf: current_user.cpf,
-      user_id: current_user.id
+      user_id: current_user.id,
+      conversion_tax: current_user.card_info.conversion_tax
     )
   end
 
@@ -101,5 +103,22 @@ class OrdersController < ApplicationController
     else
       redirect_to shopping_cart_path(@cart), alert: t('order.create.error')
     end
+  end
+
+  def order_auth
+    return if @order.user_id == current_user.id || current_user.admin?
+
+    redirect_to root_path, alert: t('access_denied')
+  end
+
+  def set_order
+    @order = Order.find(params[:id])
+  end
+
+  def save_order_model(order)
+    return unless order.save
+
+    transfer_products(order)
+    redirect_to root_path, notice: t('order.create.success')
   end
 end
