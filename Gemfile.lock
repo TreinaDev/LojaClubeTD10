@@ -303,7 +303,7 @@ DEPENDENCIES
   delayed_job_active_record
   devise
   factory_bot_rails
-  faraday (~> 2.7)
+  faraday
   image_processing (~> 1.2)
   jbuilder
   jsbundling-rails

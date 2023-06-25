@@ -7,6 +7,7 @@ gem 'rails', '~> 7.0.4', '>= 7.0.4.3'
 gem 'cssbundling-rails'
 gem 'delayed_job_active_record'
 gem 'devise'
+gem 'faraday'
 gem 'jbuilder'
 gem 'jsbundling-rails'
 gem 'puma', '~> 5.0'
@@ -48,5 +49,3 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'web-console'
 end
-
-gem 'faraday', '~> 2.7'

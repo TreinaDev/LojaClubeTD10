@@ -18,9 +18,9 @@
             <div id="<%= "cart-#{product.id}" %>">
               <tr class="text-center">
                 <td><%= product.name %></td>
-                <td><%= product.price.round %></td>
+                <td><%= show_price(product.price) %></td>
                 <td>0</td>
-                <td><%= orderable.total %></td>
+                <td><%= show_price(product.price) %></td>
                 <td>
                   <%= form_with(url: add_shopping_carts_path)  do |f| %>
                     <%= f.hidden_field :id, value: product.id %>
@@ -39,7 +39,7 @@
           <% end %>
         </tbody>
       </table>
-      <p class="fw-bold">Total: <%= @shopping_cart.total.round%> pontos</p>
+      <p class="fw-bold">Total: <%= show_price(@shopping_cart.total.round) %> </p>
       <div class="d-flex gap-3">
         <%= link_to "Continuar comprando", root_path, class:"btn btn-secondary" %>
         <%= button_to "Limpar carrinho", remove_all_shopping_carts_path, class:"btn btn-danger" %>

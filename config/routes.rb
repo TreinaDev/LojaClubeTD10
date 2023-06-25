@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { sessions: 'sessions' }
+  devise_for :users, controllers: { sessions: 'sessions', registrations: 'registrations' }
   root "home#index"
 
   resources :product_categories, only: [:index, :new, :create, :edit, :update] do
@@ -50,5 +50,7 @@ Rails.application.routes.draw do
   get "client_addresses", to: "customer_areas#addresses"
   get "favorite_tab", to: "customer_areas#favorite_tab"
   post "update_phone_number", to: "users#update_phone"
+
+  resources :seasonal_prices, only: [:index, :new, :create, :edit, :update, :destroy]
   post "close_order", to: "orders#close_order"
 end
