@@ -25,7 +25,7 @@ class PromotionalCampaignsController < ApplicationController
     @promotional_campaign = PromotionalCampaign.new(promotional_campaign_params)
 
     if @promotional_campaign.save
-      redirect_to promotional_campaigns_path, notice: t('.promotional_campaign_success')
+      redirect_to promotional_campaign_path(@promotional_campaign), notice: t('.promotional_campaign_success')
     else
       @companies = Company.all
       flash.now[:alert] = t('.promotional_campaign_fail')

@@ -17,6 +17,9 @@ describe 'Admin registra uma nova Campanha Promocional' do
 
     expect(page).to have_content 'Campanha Promocional'
     expect(page).to have_content 'Campanha Promocional cadastrada com sucesso'
+    expect(page).to have_content 'Campanha Verão 2023'
+    expect(page).to have_content 'Empresa Participante CodeCampus'
+    expect(page).to have_content 'Adicionar Categorias à Campanha'
   end
 
   it 'com dados incompletos' do
