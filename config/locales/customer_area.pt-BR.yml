@@ -16,3 +16,4 @@ pt-BR:
     update_points:
       success: 'Saldo de pontos atualizado!'
       failed: 'Não foi possível atualizar o saldo, tente mais tarde.'
+      not_found: 'Cartão não encontrado. Impossível atualizar saldo!'
