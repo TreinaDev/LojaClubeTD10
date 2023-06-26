@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_21_193734) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_22_203102) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -84,7 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_21_193734) do
     t.string "registration_number"
     t.string "brand_name"
     t.string "corporate_name"
-    t.integer "status", default: 0
+    t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

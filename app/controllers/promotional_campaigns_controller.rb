@@ -10,6 +10,7 @@ class PromotionalCampaignsController < ApplicationController
   def show
     @campaign_category = CampaignCategory.new
     @categories = ProductCategory.where.not(id: @promotional_campaign.product_categories.pluck(:id)).where(active: true)
+    @categories_active = @promotional_campaign.campaign_categories.select_only_active_categories
   end
 
   def new

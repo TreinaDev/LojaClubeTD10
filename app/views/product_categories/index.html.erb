@@ -4,8 +4,8 @@
   <div class="container div-max-width p-2">
     <%= link_to 'Nova Categoria', new_product_category_path, class: 'btn btn-secondary' %>
     <%= link_to 'Nova Subcategoria', new_product_subcategory_path, class: 'btn btn-secondary' %>
-  </div> 
- 
+  </div>
+
   <table class="table table-striped table-hover mt-4">
     <thead>
       <tr class="text-center">
@@ -52,7 +52,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModaLabel">Você tem certeza? Isto irá afetar todos os produtos desta categoria.
+              <h1 class="modal-title fs-5" id="exampleModaLabel">Atenção! Desabilitar a categoria não ocultará os seus produtos. E a categoria será removida de todas as campanhas a que pertence.
               </h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -75,7 +75,7 @@
   </table>
 </section>
 
-<script>
+    <script>
 
     const statusButtons = document.querySelectorAll('.change-status');
 
@@ -91,8 +91,13 @@
 
         setTimeout(() => {
           location.reload();
+          initialBtns.forEach((btn) => {
+            btn.disabled = false;
+          });
         }, 5000);
       });
     });
+
+
 
 </script>
