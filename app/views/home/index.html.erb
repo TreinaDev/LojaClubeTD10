@@ -1,4 +1,9 @@
 <div class="container-lg mt-4">
-<h4><%= t(:recent_products)%></h4>
+  <h4><%= t(:recent_products)%></h4>
   <%= render partial: "carousel", locals:{ products: @products, id: "recent_products" }%>
+  <% if user_signed_in? %>
+    <% @campaign_products.each do |products|%>
+      <%= render partial: "carousel", locals:{ products: products, id: "promotional_products" }%>
+    <% end %>
+  <% end %>
 </div>
