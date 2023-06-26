@@ -3,9 +3,8 @@ class CompaniesController < ApplicationController
   before_action :check_user, only: %i[index]
 
   def index
-    @companies = Company.order(:brand_name)
-    @companies_active = @companies.where(active: true)
-    @companies_inactive = @companies.where(active: false)
+    @companies_active = Company.where(active: true).order(:brand_name)
+    @companies_inactive = Company.where(active: false).order(:brand_name)
     begin
       response = Faraday.get('http://localhost:3000/api/v1/companies')
       response_tratament(response)

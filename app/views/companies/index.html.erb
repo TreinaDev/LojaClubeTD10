@@ -1,6 +1,6 @@
 <div class="container shadow p-2 mb-4 bg-body-tertiary rounded">
   <h2 class="text-center mb-4">Empresas</h2>
-  <% if @companies.any? %>
+  <% if @companies_active.any? || @companies_inactive.any? %>
     <div class="container p-2" id="ativas">
       <% if @companies_active.any? %>
         <h4 class="text-center mb-4">Ativas</h4>
