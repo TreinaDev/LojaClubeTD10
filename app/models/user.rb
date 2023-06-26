@@ -26,9 +26,8 @@ class User < ApplicationRecord
 
   def address_default
     default_address = client_addresses.find_by(default: true)
-    return default_address.address if default_address
+    return default_address&.address
 
-    nil
   end
 
   def formatted_phone
