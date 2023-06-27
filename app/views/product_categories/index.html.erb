@@ -75,7 +75,7 @@
   </table>
 </section>
 
-    <script>
+<script>
 
     const statusButtons = document.querySelectorAll('.change-status');
 
@@ -83,21 +83,10 @@
 
       statusButton.addEventListener('click', () => {
 
-        const initialBtns = document.querySelectorAll('.change-status-begin');
-
-        initialBtns.forEach((btn) => {
-          btn.disabled = true;
-        });
-
         setTimeout(() => {
           location.reload();
-          initialBtns.forEach((btn) => {
-            btn.disabled = false;
-          });
         }, 5000);
       });
     });
-
-
 
 </script>
