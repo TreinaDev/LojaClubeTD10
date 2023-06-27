@@ -1,24 +1,54 @@
-# README
+<h1 align="center"> Loja do Clube de Compras :convenience_store:</h1>
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## :memo: Descrição
+A App 'Loja do Clube' é parte do Clube de Compras, projeto final da turma 10 do TreinaDev, Campus Code. Trata-se de desenvolver uma aplicação web em Ruby on Rails, com a metodologia de Desenvolvimento Guiado por Testes (TDD).
 
-Things you may want to cover:
+A aplicação oferece aos funcionários das empresas cadastradas a possibilidade de adquirir produtos, por meio de um cartão carregado com pontos. Estes usuários tem a possibilidade de aproveitar promoções e descontos oferecidos pelas suas respectivas empresas.
 
-* Ruby version
+## :books: Funcionalidades principais
 
-* System dependencies
+  - Cadastro de venda de produtos;
+  - Separação de produtos por categorias;
+  - Criação de campanhas promocionais para empresas cadastradas no sistema, através de outra app,
+    cuja API é consumida, trazendo dados das empresas;
+  - Criação de preços sazonais para produtos específicos;
 
-* Configuration
+## :wrench: Tecnologias utilizadas
+* Rails 7.0.5
+* Devise 4.9.2
+* Rspec-rails 6.0.3
+* Capybara 3.39.1
+* SQLite3 1.6.3 (x86_64-linux)
+* Bootstrap (5.3.0);
 
-* Database creation
+## :rocket: Rodando o projeto
+No terminal, clonar o projeto:
+```
+git clone git@github.com:TreinaDev/LojaClubeTD10.git
+```
 
-* Database initialization
+Na pasta da aplicação, rode o comando:
+```
+bin/setup
+```
 
-* How to run the test suite
+Executar o servidor Rails:
+```
+rails server
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+Abra o navegador com do endereço:
+```
+http://localhost:5000
+```
 
-* Deployment instructions
+Rodar os testes:
+```
+rspec
+```
 
-* ...
+## :computer: Banco de dados
+
+A estrutura do banco de dados possui a seguinte estrutura:
+
+![db](app/assets/images/Diagramas_Loja_do_clube.png)
