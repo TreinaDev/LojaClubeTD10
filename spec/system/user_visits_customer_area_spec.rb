@@ -37,9 +37,12 @@ describe 'Usuário visita área do cliente' do
     end
     it 'e vê o endereço padrão' do
       user = create(:user)
-      address = create(:address, address: 'Rua Aquidabã', number: '115',
-                                 city: 'Aracaju', state: 'Sergipe', zipcode: '48005000')
-      ClientAddress.create!(user:, address:, default: true)
+      default_address = create(:address, address: 'Rua Aquidabã', number: '115',
+                                         city: 'Aracaju', state: 'Sergipe', zipcode: '48005000')
+      ClientAddress.create!(user:, address: default_address, default: true)
+      address = create(:address, address: 'Rua Lima', number: '200',
+                                 city: 'Santos', state: 'Sao Paulo', zipcode: '65005000')
+      ClientAddress.create!(user:, address:)
 
       login_as(user)
       visit root_path
@@ -53,6 +56,11 @@ describe 'Usuário visita área do cliente' do
       expect(page).to have_content 'Aracaju'
       expect(page).to have_content 'Sergipe'
       expect(page).to have_content 'CEP: 4800500'
+      expect(page).not_to have_content 'Rua Lima'
+      expect(page).not_to have_content '200'
+      expect(page).not_to have_content 'Santos'
+      expect(page).not_to have_content 'São Paulo'
+      expect(page).not_to have_content '65005000'
     end
     it 'e vê mensagem, caso não tenha endereço padrão' do
       user = create(:user)
