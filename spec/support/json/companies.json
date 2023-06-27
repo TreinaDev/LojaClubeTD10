@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "brand_name": "Apple",
+    "corporate_name": "Apple LTDA",
+    "registration_number": "12345678000195",
+    "active": true
+},
+{
+    "id": 2,
+    "brand_name": "Microsoft",
+    "corporate_name": "Microsoft Corporation",
+    "registration_number": "12345678000295",
+    "active": true
+},
+{
+    "id": 3,
+    "brand_name": "IBM",
+    "corporate_name": "IBM Corporation",
+    "registration_number": "12345678000395",
+    "active": false
+}
+]

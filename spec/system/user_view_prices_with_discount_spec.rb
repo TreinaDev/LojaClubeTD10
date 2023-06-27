@@ -138,7 +138,7 @@ describe 'Usuário vê preços com desconto' do
     expect(page).not_to have_css('#natal-2023.carousel')
     expect(page).not_to have_content 'Rebase - Ano Novo 2023'
     expect(page).not_to have_css('#ano-novo-2023.carousel')
-    within('nav') do 
+    within('nav') do
       expect(page).to have_content '(Funcionário bloqueado) zezinho@gmail.com'
     end
   end

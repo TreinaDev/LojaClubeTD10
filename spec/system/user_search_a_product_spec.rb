@@ -105,4 +105,35 @@ describe 'Usuário pesquisa um produto' do
     expect(current_path).to eq root_path
     expect(page).to have_content 'Não é possível realizar uma busca vazia'
   end
+
+  it 'e encontra produtos, com exceção dos produtos desativados ou que não atendam a busca' do
+    category = create(:product_category, name: 'Celulares')
+    create(:product, name: 'Celular 1', code: 'AFG123456', description: 'Celular 1 AFG',
+                     product_category: category)
+    create(:product, name: 'Celular 2', code: 'ABC123456', description: 'Celular 2 ABC',
+                     product_category: category)
+    product = create(:product, name: 'Celular 3', code: 'XYZ456123', description: 'Celular 3 XYZ',
+                               product_category: category)
+    create(:product, name: 'Calculadora', code: 'CAL456123', product_category: category)
+    product.update(active: false)
+
+    visit root_path
+    find('#searchProduct').click
+    fill_in 'query',	with: 'Celular'
+    click_on 'Buscar'
+
+    expect(page).to have_content '2 resultados encontrados'
+    within('.card#AFG123456') do
+      expect(page).to have_link 'Celular 1'
+      expect(page).to have_content 'Celular 1 AFG'
+    end
+    within('.card#ABC123456') do
+      expect(page).to have_link 'Celular 2'
+      expect(page).to have_content 'Celular 2 ABC'
+    end
+    expect(page).not_to have_css '.card#XYZ456123'
+    expect(page).not_to have_link 'Celular 3'
+    expect(page).not_to have_css '.card#CAL456123'
+    expect(page).not_to have_link 'Calculadora'
+  end
 end

@@ -31,6 +31,8 @@ Rails.application.routes.draw do
     get 'search', on: :collection
   end
 
+  resources :companies, only: [:index]
+
   resources :promotional_campaigns, only: [:index, :new, :create, :show, :edit, :update] do
     resources :campaign_categories, only:  [:create, :destroy]
   end
@@ -47,4 +49,6 @@ Rails.application.routes.draw do
   get "client_addresses", to: "customer_areas#addresses"
   get "favorite_tab", to: "customer_areas#favorite_tab"
   post "update_phone_number", to: "users#update_phone"
+
+  resources :seasonal_prices, only: [:index, :new, :create, :edit, :update, :destroy]
 end

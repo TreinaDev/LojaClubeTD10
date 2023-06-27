@@ -83,6 +83,34 @@ describe 'Usuário visita homepage' do
     expect(page).to have_content 'Produtos'
     expect(page).to have_content 'Nenhum produto disponível no momento'
   end
+  it 'e vê os produtos, com exceção dos produtos desativados' do
+    category = create(:product_category)
+    create(:product, name: 'Celular 1', code: 'AFG123456', description: 'Celular 1 AFG',
+                     price: 2000, product_category: category)
+    create(:product, name: 'Celular 2', code: 'ABC123456', description: 'Celular 2 ABC',
+                     price: 2500, product_category: category)
+    product = create(:product, name: 'Celular 3', code: 'XYZ456123', description: 'Celular 3 XYZ',
+                               product_category: category)
+    product.update(active: false)
+
+    visit root_path
+
+    within('#recent_products.carousel') do
+      within('.card#AFG123456') do
+        expect(page).to have_link 'Celular 1'
+        expect(page).to have_content 'Celular 1 AFG'
+        expect(page).not_to have_content '2000 Pontos'
+      end
+      within('.card#ABC123456') do
+        expect(page).to have_link 'Celular 2'
+        expect(page).to have_content 'Celular 2 ABC'
+        expect(page).not_to have_content '2500 Pontos'
+      end
+    end
+    expect(page).not_to have_css '.card#XYZ456123'
+    expect(page).not_to have_link 'Celular 3'
+    expect(page).not_to have_content 'Celular 3 XYZ'
+  end
   context 'estando logado' do
     it 'e vê uma barra de navegação exclusiva' do
       user = create(:user, name: 'José', email: 'jose@gmail.com', password: 'jose1234')
@@ -127,6 +155,39 @@ describe 'Usuário visita homepage' do
           expect(page).to have_content '4.000 Pontos'
         end
       end
+    end
+    it 'e vê os produtos, com exceção dos produtos desativados' do
+      user = create(:user)
+      session_user = { status_user: 'unblocked' }
+      allow_any_instance_of(ApplicationController).to receive(:session).and_return(session_user)
+      category = create(:product_category)
+      create(:product, name: 'Celular 1', code: 'AFG123456', description: 'Celular 1 AFG',
+                       price: 100, product_category: category)
+      create(:product, name: 'Celular 2', code: 'ABC123456', description: 'Celular 2 ABC',
+                       price: 100, product_category: category)
+      product = create(:product, name: 'Celular 3', code: 'XYZ456123', description: 'Celular 3 XYZ',
+                                 product_category: category)
+      product.update(active: false)
+      create(:card_info, user:)
+
+      login_as(user)
+      visit root_path
+
+      within('#recent_products.carousel') do
+        within('.card#AFG123456') do
+          expect(page).to have_link 'Celular 1'
+          expect(page).to have_content 'Celular 1 AFG'
+          expect(page).to have_content '2.000 Pontos'
+        end
+        within('.card#ABC123456') do
+          expect(page).to have_link 'Celular 2'
+          expect(page).to have_content 'Celular 2 ABC'
+          expect(page).to have_content '2.000 Pontos'
+        end
+      end
+      expect(page).not_to have_css '.card#XYZ456123'
+      expect(page).not_to have_link 'Celular 3'
+      expect(page).not_to have_content 'Celular 3 XYZ'
     end
   end
 end
