@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.1.2'
 gem 'rails', '~> 7.0.4', '>= 7.0.4.3'
 
-gem 'actionpack'
+gem 'actionpack', '~> 7.0', '>= 7.0.5.1'
 gem 'cssbundling-rails'
 gem 'delayed_job_active_record'
 gem 'devise'
