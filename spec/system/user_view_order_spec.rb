@@ -7,7 +7,7 @@ describe 'Usuário acessa detalhes de um pedido' do
     product1 = create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
                                 description: 'Uma camisa azul muito bonita', code: 'CMA123456')
     create(:card_info, user:)
-    order = create(:order, total_value: 64_000, discount_amount: 0, final_value: 64_000, cpf: user.cpf, user:,
+    order = create(:order, total_value: 64_000, discount_amount: 0, final_value: 64_000, user:,
                            conversion_tax: 20)
     create(:order_item, order:, product: product1, quantity: 4)
     json_data = Rails.root.join('spec/support/json/card_data_active.json').read
@@ -41,7 +41,7 @@ describe 'Usuário acessa detalhes de um pedido' do
     product1 = create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
                                 description: 'Uma camisa azul muito bonita', code: 'CMA123456')
     create(:card_info, user:)
-    order = create(:order, total_value: 64_000, discount_amount: 0, final_value: 64_000, cpf: user.cpf, user:,
+    order = create(:order, total_value: 64_000, discount_amount: 0, final_value: 64_000, user:,
                            conversion_tax: 20)
     create(:order_item, order:, product: product1, quantity: 4)
     json_data = Rails.root.join('spec/support/json/card_data_active.json').read
@@ -75,7 +75,7 @@ describe 'Usuário acessa detalhes de um pedido' do
     product1 = create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
                                 description: 'Uma camisa azul muito bonita', code: 'CMA123456')
     create(:card_info, user:)
-    order = create(:order, total_value: 64_000, discount_amount: 0, final_value: 64_000, cpf: user.cpf, user:,
+    order = create(:order, total_value: 64_000, discount_amount: 0, final_value: 64_000, user:,
                            conversion_tax: 20)
     create(:order_item, order:, product: product1, quantity: 4)
     json_data = Rails.root.join('spec/support/json/card_data_active.json').read
@@ -103,7 +103,7 @@ describe 'Usuário acessa detalhes de um pedido' do
     product1 = create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
                                 description: 'Uma camisa azul muito bonita', code: 'CMA123456')
     create(:card_info, user:)
-    order = create(:order, total_value: 64_000, discount_amount: 0, final_value: 64_000, cpf: user.cpf, user:,
+    order = create(:order, total_value: 64_000, discount_amount: 0, final_value: 64_000, user:,
                            conversion_tax: 20)
     create(:order_item, order:, product: product1, quantity: 4)
 

@@ -15,10 +15,13 @@ pt-BR:
         card_number: 'Número do cartão'
         payment_date: 'Data de pagamento'
         user_id: 'Usuário'
-  order:
+  orders:
     create:
       success: 'Pedido criado com sucesso.'
       error: 'Pedido cancelado.'
     close_order:
       card_number_empty: 'Campo Número do Cartão não pode ser vazio.'
-      connection_error: 'Erro de conexão - transação não concluída.'
+      connection_error: 'Erro de conexão - tente novamente mais tarde.'
+      card_number_length_invalid: 'Número de cartão precisar ter 11 dígitos.'
+      card_not_present: 'Erro de conexão - por favor, faça login novamente.'
+      success: 'Pedido criado com sucesso.'

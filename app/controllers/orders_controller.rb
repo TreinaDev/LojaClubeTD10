@@ -16,14 +16,16 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params, conversion_tax: current_user.card_info.conversion_tax, user_id: current_user.id)
     save_order_model(@order)
-    flash.now[:alert] = t('order.create.error')
+    flash.now[:alert] = t('.error')
     render :new
   end
 
   def close_order
-    order = build_order(@cart)
+    return if card_not_present?
+    return if card_number_blank?
+    return if card_number_length_is_invalid?
 
-    return if card_number_blank?(params[:card_number], @cart)
+    order = build_order(@cart)
 
     save_order_and_redirect(order)
   end
@@ -46,24 +48,19 @@ class OrdersController < ApplicationController
   def build_order(shopping_cart)
     total_value = shopping_cart.total.round * current_user.card_info.conversion_tax.to_f
     discount = 0
-    Order.new(
-      total_value:,
-      discount_amount: discount,
-      final_value: total_value - discount,
-      cpf: current_user.cpf,
-      user_id: current_user.id,
-      conversion_tax: current_user.card_info.conversion_tax
-    )
+    Order.new(total_value:,
+              discount_amount: discount,
+              final_value: total_value - discount,
+              user_id: current_user.id,
+              conversion_tax: current_user.card_info.conversion_tax)
   end
 
   def send_payment_request(order)
     Faraday.post('http://localhost:4000/api/v1/payments') do |req|
       req.headers['Content-Type'] = 'application/json'
-      req.body = {
-        payment: { cpf: order.cpf, card_number: params[:card_number], total_value: order.total_value,
-                   descount_amount: order.discount_amount, final_value: order.final_value,
-                   payment_date: I18n.l(order.created_at.to_date), order_number: order.id }
-      }.to_json
+      req.body = { payment: { cpf: current_user.cpf, card_number: params[:card_number], total_value: order.total_value,
+                              descount_amount: order.discount_amount, final_value: order.final_value,
+                              payment_date: I18n.l(order.created_at.to_date), order_number: order.id } }.to_json
     end
   rescue Faraday::ConnectionFailed
     nil
@@ -74,34 +71,42 @@ class OrdersController < ApplicationController
     session[:cart_id] = nil
   end
 
-  def card_number_blank?(card_number, shopping_cart)
-    if card_number.blank?
-      redirect_to shopping_cart_close_path(shopping_cart),
-                  alert: t('order.close_order.card_number_empty')
-      true
-    else
-      false
-    end
+  def card_number_blank?
+    return false if params[:card_number].present?
+
+    redirect_to close_shopping_carts_path(@cart), alert: t('.card_number_empty')
+  end
+
+  def card_number_length_is_invalid?
+    return false if params[:card_number].length == 11
+
+    redirect_to close_shopping_carts_path(@cart), alert: t('.card_number_length_invalid')
+  end
+
+  def card_not_present?
+    return false if current_user.card_info.present?
+
+    redirect_to close_shopping_carts_path(@cart), alert: t('.card_not_present')
   end
 
   def save_order_and_redirect(order)
     if order.save
       transfer_products(order)
       response = send_payment_request(order)
-      return redirect_to shopping_cart_path(@cart), alert: t('order.close_order.connection_error') if response.nil?
+      return redirect_to shopping_cart_path(@cart), alert: t('.connection_error') if response.nil?
 
       response_redirect(response, order)
     else
-      redirect_to shopping_cart_path(@cart), alert: t('order.create.error')
+      redirect_to shopping_cart_path(@cart), alert: t('.error')
     end
   end
 
   def response_redirect(response, order)
     if response.status == 201
       destroy_cart
-      redirect_to order_path(order.id), notice: t('order.create.success')
+      redirect_to order_path(order.id), notice: t('.success')
     else
-      redirect_to shopping_cart_path(@cart), alert: t('order.create.error')
+      redirect_to shopping_cart_path(@cart), alert: t('.error')
     end
   end
 
@@ -119,6 +124,6 @@ class OrdersController < ApplicationController
     return unless order.save
 
     transfer_products(order)
-    redirect_to root_path, notice: t('order.create.success')
+    redirect_to root_path, notice: t('.success')
   end
 end

@@ -66,7 +66,7 @@ class AddressesController < ApplicationController
     if request.referer == client_addresses_url
       redirect_to client_addresses_path, notice: t('.success')
     elsif request.referer == shopping_cart_close_url(@cart)
-      redirect_to shopping_cart_close_path(@cart)
+      redirect_to close_shopping_carts_path(@cart)
     end
   end
 end

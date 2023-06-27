@@ -43,7 +43,7 @@
       <div class="d-flex gap-3">
         <%= link_to "Continuar comprando", root_path, class:"btn btn-secondary" %>
         <%= button_to "Limpar carrinho", remove_all_shopping_carts_path, class:"btn btn-danger" %>
-        <%= button_to "Finalizar compra", shopping_cart_close_path(@shopping_cart.id), method: :get, class:"btn btn-primary" %>
+        <%= button_to "Finalizar compra", close_shopping_carts_path(@shopping_cart.id), method: :get, class:"btn btn-primary" %>
       </div>
   </div>
 </div>

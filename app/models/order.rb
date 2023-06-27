@@ -5,7 +5,6 @@ class Order < ApplicationRecord
 
   validates :total_value, :final_value, numericality: { greater_than: 0 }
   validates :discount_amount, numericality: { greater_than_or_equal_to: 0 }
-  validates :cpf, presence: true, length: { is: 11 }
   validates :conversion_tax, presence: true
 
   enum status: { pending: 0, approved: 1, canceled: 2 }
