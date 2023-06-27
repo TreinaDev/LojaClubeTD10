@@ -2,8 +2,8 @@
   <h4><%= t(:recent_products)%></h4>
   <%= render partial: "carousel", locals:{ products: @products, id: "recent_products" }%>
   <% if user_signed_in? %>
-    <% @campaign_products.each do |products|%>
-      <%= render partial: "carousel", locals:{ products: products, id: "promotional_products" }%>
+    <% @campaign_products.each do |campaign|%>
+      <%= render partial: "carousel", locals:{ products: campaign, id: "promotional_products" }%>
     <% end %>
   <% end %>
 </div>

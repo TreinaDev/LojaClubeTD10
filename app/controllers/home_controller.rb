@@ -8,8 +8,8 @@ class HomeController < ApplicationController
     company = Company.find_by(registration_number: cnpj)
     if company&.promotional_campaigns.present?
       company.promotional_campaigns.each do |campaign|
-        campaign.campaign_categories.each do |category|
-          @campaign_products << category.product_category.products
+        campaign.product_categories.each do |category|
+          @campaign_products << category.products
         end
       end
     end
