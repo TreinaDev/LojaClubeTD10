@@ -1,9 +1,20 @@
 <h1 align="center"> Loja do Clube de Compras :convenience_store:</h1>
 
 ## :memo: Descrição
-A App 'Loja do Clube' é parte do Clube de Compras, projeto final da turma 10 do TreinaDev, Campus Code. Trata-se de desenvolver uma aplicação web em Ruby on Rails, com a metodologia de Desenvolvimento Guiado por Testes (TDD).
+A App 'Loja do Clube' é parte do Clube de Compras, projeto final da turma 10 do TreinaDev, Campus Code. Trata-se de desenvolver, em grupo, uma aplicação web em Ruby on Rails, com a metodologia de Desenvolvimento Guiado por Testes (TDD).
 
 A aplicação oferece aos funcionários das empresas cadastradas a possibilidade de adquirir produtos, por meio de um cartão carregado com pontos. Estes usuários tem a possibilidade de aproveitar promoções e descontos oferecidos pelas suas respectivas empresas.
+
+## :technologist: Time:
+
+  - Clauf
+  - Eduardo Celino
+  - Felipe Silva
+  - Luan
+  - Matheus Barros
+  - Mattheus Ferreira
+  - Ricardo
+  - Tereza
 
 ## :books: Funcionalidades principais
 
