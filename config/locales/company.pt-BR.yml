@@ -7,3 +7,10 @@ pt-BR:
         registration_number: "CNPJ"
         brand_name: "Nome Fantasia"
         corporate_name: "Nome Coorporativo"
+        active: "Situação"
+  companies:
+    index:
+      sucess_no_company: 'Solicitação efetuada com sucesso, mas nenhuma empresa encontrada'
+      sucess_new_company_added: 'Empresas carregadas com sucesso, e nova empresa encontrada'
+      sucess_no_company_added: 'Empresas carregadas com sucesso, mas nenhuma nova empresa encontrada'
+      internal_error: 'Erro interno. Tente mais tarde. Não foi possível carregar novas empresas'

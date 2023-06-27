@@ -31,6 +31,8 @@ Rails.application.routes.draw do
     get 'search', on: :collection
   end
 
+  resources :companies, only: [:index]
+
   resources :promotional_campaigns, only: [:index, :new, :create, :show, :edit, :update] do
     resources :campaign_categories, only:  [:create, :destroy]
   end
