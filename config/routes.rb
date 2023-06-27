@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   get "me", to: "customer_areas#me"
   get "client_addresses", to: "customer_areas#addresses"
   get "favorite_tab", to: "customer_areas#favorite_tab"
+  get "order_history", to: "customer_areas#order_history"
   post "update_phone_number", to: "users#update_phone"
 
   resources :seasonal_prices, only: [:index, :new, :create, :edit, :update, :destroy]

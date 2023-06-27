@@ -19,4 +19,7 @@ class CustomerAreasController < ApplicationController
     @user = current_user
     @favorites = @user.favorites
   end
+
+  def order_history
+  end
 end
