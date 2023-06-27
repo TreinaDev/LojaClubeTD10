@@ -8,7 +8,6 @@ class PromotionalCampaignsController < ApplicationController
   end
 
   def show
-    @promotional_campaigns = PromotionalCampaign.all
     @campaign_category = CampaignCategory.new
     @categories = ProductCategory.where.not(id: @promotional_campaign.product_categories.pluck(:id)).where(active: true)
   end
