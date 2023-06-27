@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.1.2'
 gem 'rails', '~> 7.0.4', '>= 7.0.4.3'
 
+gem 'actionpack'
 gem 'cssbundling-rails'
 gem 'delayed_job_active_record'
 gem 'devise'
@@ -15,7 +16,6 @@ gem 'sprockets-rails'
 gem 'sqlite3', '~> 1.4'
 gem 'stimulus-rails'
 gem 'turbo-rails'
-gem 'actionpack'
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
