@@ -10,11 +10,19 @@
         <p><%= current_user.name %></p>
         <p><%= current_user.email %></p>
       </div>
-      <div class="row">
+      <div class="row mb-2">
       <h3 class="fw-bold"><%= t('.adresses') %></h3>
+      <% if current_user&.address_default.present? %>
         <div>
-          <h4 class="fw-bold"><%=t('.default_adresses')%></h4>
+          <%= current_user.address_default.address %>,
+          <%= current_user.address_default.number %>
+          <%= current_user.address_default.city %> -
+          <%= current_user.address_default.state %>
+          <%= "#{t('.zipcode')}: " "#{current_user.address_default.zipcode}" %>
         </div>
+      <% else %>
+        <span><%= t('.not_default_addresses') %><span>
+      <% end %>  
       </div>
       <div class="row">
         <h3 class="fw-bold"><%= t('.recent_orders')%></h3>
