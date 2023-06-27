@@ -2,6 +2,7 @@ class PromotionalCampaign < ApplicationRecord
   belongs_to :company
   has_many :campaign_categories, dependent: :restrict_with_error
   has_many :product_categories, through: :campaign_categories
+  has_many :products, through: :product_categories
 
   validates :name, :start_date, :end_date, presence: true
 
