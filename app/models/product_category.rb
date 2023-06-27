@@ -16,4 +16,8 @@ class ProductCategory < ApplicationRecord
   def set_type
     self.type = 'ProductCategory'
   end
+
+  def delete_campaign_category
+    campaign_categories.each(&:destroy) unless active?
+  end
 end
