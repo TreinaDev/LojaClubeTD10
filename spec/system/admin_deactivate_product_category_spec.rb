@@ -10,8 +10,7 @@ describe 'Administrador desativa uma categoria' do
 
     find_button('Desativar', id: "#{cat.id}_deactivate").click
 
-    expect(page).to have_content 'Atenção! Desabilitar a categoria não ocultará os seus produtos.
-                                  E a categoria será removida de todas as campanhas a que pertence.'
+    expect(page).to have_content 'Atenção! Desabilitar a categoria não ocultará os seus produtos.'
     expect(page).to have_content 'Categoria: Categoria Teste'
   end
 

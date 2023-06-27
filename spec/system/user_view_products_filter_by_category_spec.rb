@@ -31,9 +31,9 @@ describe 'Usuário vê os produtos da categoria escolhida no menu Categorias de 
           expect(page).not_to have_content '2.000 Pontos'
         end
       end
-      expect(page).not_to have_css '.card#CMS123456'
-      expect(page).not_to have_link 'Camiseta Azul'
-      expect(page).not_to have_content 'Uma camisa azul muito bonita'
+      expect(page).to have_css '.card#CMS123456'
+      expect(page).to have_link 'Camiseta Azul'
+      expect(page).to have_content 'Uma camisa azul muito bonita'
       expect(page).not_to have_css '.card#XYZ456123'
       expect(page).not_to have_link 'Celular 3'
       expect(page).not_to have_content 'Celular 3 XYZ'
@@ -72,9 +72,9 @@ describe 'Usuário vê os produtos da categoria escolhida no menu Categorias de 
           expect(page).to have_content '2.000 Pontos'
         end
       end
-      expect(page).not_to have_css '.card#CMS123456'
-      expect(page).not_to have_link 'Camiseta Azul'
-      expect(page).not_to have_content 'Uma camisa azul muito bonita'
+      expect(page).to have_css '.card#CMS123456'
+      expect(page).to have_link 'Camiseta Azul'
+      expect(page).to have_content 'Uma camisa azul muito bonita'
       expect(page).not_to have_css '.card#XYZ456123'
       expect(page).not_to have_link 'Celular 3'
       expect(page).not_to have_content 'Celular 3 XYZ'
@@ -112,9 +112,9 @@ describe 'Usuário vê os produtos da categoria escolhida no menu Categorias de 
           expect(page).to have_content 'R$ 100,00'
         end
       end
-      expect(page).not_to have_css '.card#CMS123456'
-      expect(page).not_to have_link 'Camiseta Azul'
-      expect(page).not_to have_content 'Uma camisa azul muito bonita'
+      expect(page).to have_css '.card#CMS123456'
+      expect(page).to have_link 'Camiseta Azul'
+      expect(page).to have_content 'Uma camisa azul muito bonita'
       expect(page).not_to have_css '.card#XYZ456123'
       expect(page).not_to have_link 'Celular 3'
       expect(page).not_to have_content 'Celular 3 XYZ'
