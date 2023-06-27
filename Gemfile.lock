@@ -296,6 +296,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  actionpack
   bootsnap
   capybara
   cssbundling-rails
