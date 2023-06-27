@@ -18,7 +18,7 @@ class RegistrationsController < Devise::RegistrationsController
   def response_company_treatment(response)
     data = JSON.parse(response.body)[0] if response.status == 200
     session[:status_user] = data.blank? ? 'visitor' : data['status']
-    session[:company_cnpj] = data['company_cnpj']
+    session[:company_cnpj] = data['company_cnpj'] if data.present?
   end
 
   def response_card_treatment(response)
