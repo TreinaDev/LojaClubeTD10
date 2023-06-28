@@ -8,8 +8,7 @@
       <div class='row'>
         <h3 class="fw-bold"><%= t('.my_extract')%></h3>
       </div>
-
-      <% if @operations.present? %>
+      <% if @operations.class == Array %>
         <table class="table">
           <thead>
             <tr>
@@ -30,13 +29,15 @@
                   <% end %>
                   <%= operation['value'] %>
                 </td>
-                <td><%= operation['date'].to_date %></td>
+                <td><%= l(operation['date'].to_date) %></td>
               </tr>
             <% end %>
           </tbody>
         </table>
+      <% elsif !@error_message.nil? %>
+        <%= @error_message %>
       <% else %>
-        <p>Não foi possível obter informações do extrato deste cartão.</p>
+        <p>Nenhuma transação registrada neste cartão.</p>
       <% end %>
     </div>
   </div>

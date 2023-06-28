@@ -28,7 +28,7 @@ describe 'Usuário visualiza extrato de pontos na área do cliente' do
     card_json_data = Rails.root.join('spec/support/json/card_data_active.json').read
     card_fake_response = double('faraday_response', status: 200, body: card_json_data)
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{user.cpf}").and_return(card_fake_response)
-    extract_fake_response = double('faraday_response', status: 200, body: [])
+    extract_fake_response = double('faraday_response', status: 200, body: '{}')
     allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/extracts?card_number=44971089486246826370').and_return(extract_fake_response)
 
     login_as(user)
@@ -36,7 +36,7 @@ describe 'Usuário visualiza extrato de pontos na área do cliente' do
     click_on 'Área do Cliente'
     click_on 'Meu Extrato'
 
-    expect(page).to have_content 'Não foi possível obter informações do extrato deste cartão.'
+    expect(page).to have_content 'Nenhuma transação registrada neste cartão.'
     expect(page).not_to have_content 'Recarga'
     expect(page).not_to have_content '46'
   end
@@ -50,7 +50,7 @@ describe 'Usuário visualiza extrato de pontos na área do cliente' do
     click_on 'Área do Cliente'
     click_on 'Meu Extrato'
 
-    expect(page).to have_content 'Não foi possível consultar o seu extrato, tente mais tarde.'
+    expect(page).to have_content 'Não foi possível obter informações do extrato deste cartão.'
     expect(page).not_to have_content 'Recarga'
     expect(page).not_to have_content '46'
   end
