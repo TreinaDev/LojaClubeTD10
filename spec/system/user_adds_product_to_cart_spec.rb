@@ -28,7 +28,7 @@ describe 'Usuário adiciona produto ao carrinho' do
     expect(current_path).to eq shopping_cart_path(1)
     expect(page).to have_content 'Carrinho de compras'
     expect(page).to have_content 'Camiseta Azul'
-    expect(page).to have_content 'Valor (pontos)'
+    expect(page).to have_content 'Valor'
     expect(page).to have_content '16.000'
     expect(page).to have_content 'Quantidade'
     expect(page).to have_field 'quantity', with: '1'
@@ -53,7 +53,7 @@ describe 'Usuário adiciona produto ao carrinho' do
     expect(page).to have_content 'Alterado quantidade do produto'
     expect(page).to have_content 'Carrinho de compras'
     expect(page).to have_content 'Camiseta Azul'
-    expect(page).to have_content 'Valor (pontos)'
+    expect(page).to have_content 'Valor'
     expect(page).to have_content '20.000'
     expect(page).to have_content 'Quantidade'
     expect(page).to have_field 'quantity', with: '5'
@@ -93,7 +93,7 @@ describe 'Usuário adiciona produto ao carrinho' do
     expect(current_path).to eq shopping_cart_path(1)
     expect(page).to have_content 'Carrinho de compras'
     expect(page).to have_content 'Camiseta Azul'
-    expect(page).to have_content 'Valor (pontos)'
+    expect(page).to have_content 'Valor'
     expect(page).to have_content '16.000'
     expect(page).to have_content 'Quantidade'
     expect(page).to have_field 'quantity', with: '4'
@@ -135,7 +135,7 @@ describe 'Usuário adiciona produto ao carrinho' do
     expect(current_path).to eq shopping_cart_path(1)
     expect(page).to have_content 'Carrinho de compras'
     expect(page).to have_content 'Camiseta Azul'
-    expect(page).to have_content 'Valor (pontos)'
+    expect(page).to have_content 'Valor'
     expect(page).to have_content '16.000'
     expect(page).to have_content 'Quantidade'
     expect(page).to have_field 'quantity', with: '1'

@@ -43,7 +43,11 @@ Rails.application.routes.draw do
     post "add", on: :collection
     post "remove", on: :collection
     post "remove_all", on: :collection
+    get "close", on: :collection
   end
+
+  resources :orders, only: [:index, :show]
+  post "close_order", to: "orders#close_order"
 
   get "me", to: "customer_areas#me"
   get "client_addresses", to: "customer_areas#addresses"
