@@ -26,6 +26,7 @@ A aplicação oferece aos funcionários das empresas cadastradas a possibilidade
 
 ## :wrench: Tecnologias utilizadas
 * Rails 7.0.5
+* Ruby 3.1.2
 * Devise 4.9.2
 * Rspec-rails 6.0.3
 * Capybara 3.39.1
