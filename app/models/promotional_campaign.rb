@@ -5,7 +5,7 @@ class PromotionalCampaign < ApplicationRecord
 
   validates :name, :start_date, :end_date, presence: true
 
-  validate :check_start_date, :check_end_date, on: :create
+  validate :check_start_date, :check_end_date
 
   def in_progress?
     Time.zone.today.between?(start_date, end_date)
@@ -14,7 +14,7 @@ class PromotionalCampaign < ApplicationRecord
   private
 
   def check_start_date
-    return unless start_date.present? && start_date < Time.zone.today
+    return unless start_date.present? && start_date <= Time.zone.today
 
     errors.add(:start_date, 'deve ser no futuro')
   end
@@ -22,6 +22,6 @@ class PromotionalCampaign < ApplicationRecord
   def check_end_date
     return unless end_date.present? && end_date <= start_date
 
-    errors.add(:end_date, 'não pode ser anterior à data inicial')
+    errors.add(:end_date, 'deve ser maior que a data inicial')
   end
 end

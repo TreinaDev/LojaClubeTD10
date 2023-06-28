@@ -6,6 +6,11 @@ pt-BR:
     update:
       promotional_campaign_success: 'Campanha Promocional alterada com sucesso'
       promotional_campaign_fail: 'Não foi possível alterar a Campanha Promocional'
+    new:
+      sucess_no_company: 'Solicitação efetuada com sucesso, mas nenhuma empresa encontrada'
+      sucess_new_company_added: 'Empresas carregadas com sucesso, e nova empresa encontrada'
+      sucess_no_company_added: 'Empresas carregadas com sucesso, mas nenhuma nova empresa encontrada'
+      internal_error: 'Erro interno. Tente mais tarde. Não foi possível carregar novas empresas'
   activerecord:
     models:
       promotional_campaign: "Campanha Promocional"
@@ -16,4 +21,3 @@ pt-BR:
         end_date: "Data Final"
         company_id: "Empresa"
         company: "Empresa"
-        
