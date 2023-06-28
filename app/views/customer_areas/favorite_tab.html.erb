@@ -19,7 +19,7 @@
                         <%= image_tag(asset_path('no_image.jpg'), alt:favorite.product.name, class:"card-img-top card-image")%>
                       <% end %>
                         <div class="card-body">
-                          <h5 class="card-title text-truncate"><%= link_to favorite.product.name, product_path(favorite.product.id) %>, <%= favorite.product.brand %></h5>
+                          <h5 class="card-title text-truncate"><%= link_to "#{favorite.product.name}, #{favorite.product.brand}", product_path(favorite.product.id) %></h5>
                           <p class="text-truncate mw-2"><%= favorite.product.description %></p>
                           <p><%= "#{show_price(favorite.product.price)}" if current_user&.card_info.present? || current_user&.admin? %></p>
                           <%= button_to 'Excluir', favorite_path(favorite), method: :delete, id: favorite.id, class: 'btn btn-outline-secondary btn-sm w-100' %>

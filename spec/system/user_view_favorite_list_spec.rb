@@ -24,8 +24,10 @@ describe 'Usuário visualiza lista de favoritos' do
     category = create(:product_category)
     product1 = create(:product, name: 'TV', code: 'HJK123456', brand: 'Samsung', product_category: category)
     product2 = create(:product, name: 'Iphone', code: 'ASD123456', brand: 'Apple', product_category: category)
-    product3 = create(:product, name: 'Smartwatch', code: 'ASD163426', brand: 'Apple', product_category: category, active: false)
-    product4 = create(:product, name: 'Mouse', code: 'ASD143486', brand: 'Logitech', product_category: category, active: false)
+    product3 = create(:product, name: 'Smartwatch', code: 'ASD163426', brand: 'Apple', product_category: category,
+                                active: false)
+    product4 = create(:product, name: 'Mouse', code: 'ASD143486', brand: 'Logitech', product_category: category,
+                                active: false)
 
     Favorite.create!(user:, product: product1)
     Favorite.create!(user:, product: product2)
@@ -47,7 +49,6 @@ describe 'Usuário visualiza lista de favoritos' do
       expect(page).to have_content 'Smartwatch, Apple'
       expect(page).to have_content 'Mouse, Logitech'
     end
- 
   end
 
   it 'na área do cliente e não existem produtos favoritos indisponíveis' do
@@ -76,8 +77,10 @@ describe 'Usuário visualiza lista de favoritos' do
     user = User.create!(name: 'matheus', email: 'matheus@mail.com', password: 'senha1234',
                         phone_number: '19998555544', cpf: '56685728701')
     category = create(:product_category)
-    product1 = create(:product, name: 'TV', code: 'HJK123456', brand: 'Samsung', product_category: category, active: false)
-    product2 = create(:product, name: 'Iphone', code: 'ASD123456', brand: 'Apple', product_category: category, active: false)
+    product1 = create(:product, name: 'TV', code: 'HJK123456', brand: 'Samsung',
+                                product_category: category, active: false)
+    product2 = create(:product, name: 'Iphone', code: 'ASD123456', brand: 'Apple',
+                                product_category: category, active: false)
 
     Favorite.create!(user:, product: product1)
     Favorite.create!(user:, product: product2)
