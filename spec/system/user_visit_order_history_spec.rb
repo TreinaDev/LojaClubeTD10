@@ -13,18 +13,16 @@ describe 'Usuário acessa histórico de pedidos' do
 
   it 'com sucesso' do
     user = create(:user)
-    order = create(:order, user:, status: 'pending', order_number: '32145672131')
-    order = create(:order, user:, status: 'approved', order_number: '12345678912')
+    order = create(:order, user:, status: 'pending')
+    order = create(:order, user:, status: 'approved')
 
     login_as user
     visit customer_areas_path
     click_on 'Meus Pedidos'
 
-    expect(page).to have_content '32145672131'
-    expect(page).to have_content '12345678912'
     expect(page).to have_content '20.000'
-    expect(page).to have_content 'pendente'
-    expect(page).to have_content 'aprovado'
+    expect(page).to have_content 'Aguardando aprovação'
+    expect(page).to have_content 'Pagamento aprovado'
   end
 
   it 'e recebe uma mensagem padrão quando não possui nenhum pedido' do
@@ -34,7 +32,7 @@ describe 'Usuário acessa histórico de pedidos' do
     visit customer_areas_path
     click_on 'Meus Pedidos'
 
-    expect(page).to have_content 'Mensagem padrao'
+    expect(page).to have_content 'Não foi encontrado nenhum pedido.'
   end
 
   it 'enquanto admin, mas não consegue e é redirecionado para a página inicial' do

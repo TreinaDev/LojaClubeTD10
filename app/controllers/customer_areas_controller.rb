@@ -1,6 +1,6 @@
 class CustomerAreasController < ApplicationController
-  before_action :authenticate_user!, only: %i[index me addresses update_points]
-  before_action :prevent_admin, only: %i[index me favorite_tab addresses update_points]
+  before_action :authenticate_user!, only: %i[index me addresses update_points order_history]
+  before_action :prevent_admin, only: %i[index me favorite_tab addresses update_points order_history]
   before_action :prevent_visitor, only: %i[favorite_tab addresses]
 
   def index; end
@@ -21,9 +21,7 @@ class CustomerAreasController < ApplicationController
   end
 
   def order_history
-    # filtra somente os pedidos pendentes
-    # faz uma req para cada pedido usando faraday usando o code
-    # atualizar os status se o resultado for diferente daquele do model
+    @user_orders = current_user.orders
   end
 
   def update_points
