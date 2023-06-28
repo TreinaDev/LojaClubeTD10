@@ -4,8 +4,8 @@ Rails.application.routes.draw do
 
   resources :product_categories, only: [:index, :new, :create, :edit, :update] do
     member do
-      patch :deactivate
-      patch :reactivate
+      post :deactivate
+      post :reactivate
     end
   end
 
