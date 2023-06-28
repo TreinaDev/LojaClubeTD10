@@ -10,7 +10,7 @@ describe 'Administrador desativa uma categoria' do
 
     find_button('Desativar', id: "#{cat.id}_deactivate").click
 
-    expect(page).to have_content 'Atenção! Desabilitar a categoria não ocultará os seus produtos.'
+    expect(page).to have_content 'Você tem certeza? Isto irá afetar todos os produtos desta categoria.'
     expect(page).to have_content 'Categoria: Categoria Teste'
   end
 
@@ -21,11 +21,11 @@ describe 'Administrador desativa uma categoria' do
     login_as(admin)
     visit product_categories_path
     find_button('Desativar', id: "#{cat.id}_deactivate").click
-    find_button('Desativar', id: "#{cat.id}_deactivate_modal").click
+    within "form##{cat.id}_deactivate_modal" do
+      find_button('Desativar').click
+    end
 
-    cat.reload
-
-    expect(cat.active).to be false
+    expect(page).to have_button 'Reativar', id: "#{cat.id}_reactivate"
     expect(page).to have_content 'Categoria desabilitada com sucesso.'
   end
 
@@ -36,11 +36,13 @@ describe 'Administrador desativa uma categoria' do
     login_as(admin)
     visit product_categories_path
     find_button('Reativar', id: "#{cat.id}_reactivate").click
-    find_button('Reativar', id: "#{cat.id}_reactivate_modal").click
+    within "form##{cat.id}_reactivate_modal" do
+      find_button('Reativar').click
+    end
 
     cat.reload
 
-    expect(cat.active).to be true
+    expect(page).to have_button 'Desativar', id: "#{cat.id}_deactivate"
     expect(page).to have_content 'Categoria reativada com sucesso.'
   end
 
