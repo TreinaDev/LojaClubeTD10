@@ -51,6 +51,7 @@ Rails.application.routes.draw do
   get "client_addresses", to: "customer_areas#addresses"
   get "customer_areas", to: "customer_areas#index"
   get "favorite_tab", to: "customer_areas#favorite_tab"
+  get "extract_tab", to: "customer_areas#extract_tab"
   get "me", to: "customer_areas#me"
   post "update_points", to: "customer_areas#update_points"
   post "update_phone_number", to: "users#update_phone"
