@@ -11,7 +11,7 @@ pt-BR:
   my_extract_tab: 'Meu Extrato'
   adresses: 'Meus endereços'
   default_adresses: 'Endereço Padrão'
-  product_favorites: 'Produtos Favoritos'
+  product_favorites: 'Meus Favoritos'
   recent_orders: 'Pedidos Recentes'
   prevent_admin_message: 'Administrador não tem acesso a essa página'
   recent_products: 'Produtos Recentes'

@@ -1,24 +1,24 @@
 <div class="container-lg text-center pt-3 pe-4 ps-4">
   <h1 class="mb-1 fw-bold"><%= t(:client_area) %></h1>
-  <div class="mb-4 mt-4">
 
   <%= render 'nav-tab' %>
 
-    <div class="col-lg col-sm-12 text-start fs-3">
-      <div class="row">
-        <h3 class="fw-bold"><%= User.human_attribute_name(:name)%></h3>
-        <p><%= @user.name %></p>
-        <h3 class="fw-bold"><%= User.human_attribute_name(:email)%></h3>
-        <p><%= @user.email %></p>
-        <h3 class="fw-bold"><%= User.human_attribute_name(:cpf)%></h3>
-        <p><%= @user.formatted_cpf %></p>
-        <h3 class="fw-bold"><%= User.human_attribute_name(:phone_number)%></h3>
-        <%= form_with url: update_phone_number_path(current_user.id), method: :post, data: { turbo: false } do |f| %>
-          <div class="w-50 d-flex mb-3">
-            <%= f.text_field :phone_number, class: "form-control w-2", value: @user.formatted_phone,  maxlength: 14, id:'phone_number' %>
-            <%= f.submit t('.update_phone'), class:"btn btn-outline-secondary btn-sm ms-2" %>
-          </div>
-           <%= render partial: 'form_errors', locals: { object: @user } %>
-        <% end %>
-      </div>
+  <div class="col-lg col-sm-12 text-start fs-3">
+    <div class="row">
+      <h3 class="fw-bold"><%= User.human_attribute_name(:name)%></h3>
+      <p><%= @user.name %></p>
+      <h3 class="fw-bold"><%= User.human_attribute_name(:email)%></h3>
+      <p><%= @user.email %></p>
+      <h3 class="fw-bold"><%= User.human_attribute_name(:cpf)%></h3>
+      <p><%= @user.formatted_cpf %></p>
+      <h3 class="fw-bold"><%= User.human_attribute_name(:phone_number)%></h3>
+      <%= form_with url: update_phone_number_path(current_user.id), method: :post, data: { turbo: false } do |f| %>
+        <div class="w-50 d-flex mb-3">
+          <%= f.text_field :phone_number, class: "form-control w-2", value: @user.formatted_phone,  maxlength: 14, id:'phone_number' %>
+          <%= f.submit t('.update_phone'), class:"btn btn-outline-secondary btn-sm ms-2" %>
+        </div>
+          <%= render partial: 'form_errors', locals: { object: @user } %>
+      <% end %>
+    </div>
+  </div>
 </div>

@@ -1,8 +1,11 @@
 <section>
-  <div class="container shadow p-2 mb-4 bg-body-tertiary rounded div-max-width">
-    <h2 class="text-center"><%= t(:product_favorites) %></h2>
-
-    <div class="container div-max-width p-2" >
+  <div class="container-lg text-center pt-3 pe-4 ps-4">
+    <h1 class="mb-1 fw-bold"><%= t(:client_area) %></h1>
+    
+    <%= render 'nav-tab' %>
+    
+    <div class="container text-start div-max-width p-2" >
+      <h3 class="fw-bold"><%= t(:product_favorites) %></h3>
       <% if @favorites.any? %>
         <table class="table table-striped table-hover  mt-4 ">
           <tbody class="table-group-divider">

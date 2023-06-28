@@ -1,44 +1,42 @@
 <section class="container-lg text-center pt-3 pe-4 ps-4">
   <h1 class="mb-1 fw-bold"><%= t(:client_area) %></h1>
-  <div class="mb-4 mt-4">
 
-    <%= render 'nav-tab' %>
+  <%= render 'nav-tab' %>
     
-    <div class="col-lg col-sm-12 text-start fs-4">
-      <div class='row'>
-        <h3 class="fw-bold"><%= t('.my_extract')%></h3>
-      </div>
-      <% if @operations.class == Array %>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Descrição</th>
-              <th scope="col">Valor</th>
-              <th scope="col">Data</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @operations.each do |operation| %>
-              <tr>
-                <td scope="row"><%= operation['description'] %></td>
-                <td>
-                  <% if operation['operation_type'] == 'depósito' %>
-                    <i class="bi bi-arrow-up-circle text-success"></i>
-                  <% else %>
-                    <i class="bi bi-arrow-down-circle text-danger"></i> -
-                  <% end %>
-                  <%= operation['value'] %>
-                </td>
-                <td><%= l(operation['date'].to_date) %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      <% elsif !@error_message.nil? %>
-        <%= @error_message %>
-      <% else %>
-        <p>Nenhuma transação registrada neste cartão.</p>
-      <% end %>
+  <div class="col-lg col-sm-12 text-start fs-4">
+    <div class='row'>
+      <h3 class="fw-bold"><%= t('.my_extract')%></h3>
     </div>
+    <% if @operations.class == Array %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Descrição</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @operations.each do |operation| %>
+            <tr>
+              <td scope="row"><%= operation['description'] %></td>
+              <td>
+                <% if operation['operation_type'] == 'depósito' %>
+                  <i class="bi bi-arrow-up-circle text-success"></i>
+                <% else %>
+                  <i class="bi bi-arrow-down-circle text-danger"></i> -
+                <% end %>
+                <%= operation['value'] %>
+              </td>
+              <td><%= l(operation['date'].to_date) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% elsif !@error_message.nil? %>
+      <%= @error_message %>
+    <% else %>
+      <p>Nenhuma transação registrada neste cartão.</p>
+    <% end %>
   </div>
 </section>
