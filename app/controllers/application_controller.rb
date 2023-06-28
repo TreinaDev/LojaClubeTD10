@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_product_categories
-    @product_categories = ProductCategory.where('active = true')
+    @product_categories_navbar = ProductCategory.where('active = true')
   end
 
   def check_user
