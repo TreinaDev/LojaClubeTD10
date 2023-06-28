@@ -12,7 +12,10 @@
           <div class="card-body">
             <h5 class="card-title"><%= link_to product.name, product_path(product.id) %></h5>
             <p class="text-truncate mw-2"><%= product.description %></p>
-            <p><%= "#{show_price(product.price)}" %></p>
+            <% if current_user&.can_buy? && session[:status_user] == ('unblocked' || 'blocked') || current_user&.admin? %>
+              <p><%= show_promotional_price(product) %></p>
+              <p class="badge text-bg-primary position-absolute top-0 start-90 translate-middle"><%= load_discount(product) %></p>
+            <% end %>  
           </div>
         </div>
       </div>

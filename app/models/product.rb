@@ -16,6 +16,23 @@ class Product < ApplicationRecord
   validates :description, length: { minimum: 10 }
   validate :image_type
 
+  def lowest_price
+    if seasonal_prices.any?
+      seasonal_prices.each do |sp|
+        return sp.value if sp.start_date.past? && sp.end_date.future?
+      end
+    end
+    price
+  end
+  
+  def current_seasonal_price_find_end_date
+    if seasonal_prices.any?
+      seasonal_prices.each do |sp|
+        return sp.end_date if sp.start_date.past? && sp.end_date.future?
+      end
+    end
+  end
+
   private
 
   def image_type

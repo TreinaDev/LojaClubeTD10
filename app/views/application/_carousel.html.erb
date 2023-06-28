@@ -8,9 +8,8 @@
              <div <%= carousel_item(index) %>>
               <div class="row align-items-center">
                 <% product_array.each do |product| %>
-                  <div class= "col">
-                    <div class="card shadow-sm p-3 mb-5 bg-white rounded product-card" id=<%= product.code %>>
-
+                  <div class="col">
+                    <div class="card shadow-sm p-3 mb-3 mt-3 bg-white rounded product-card position-relative" id=<%= product.code %>>
                     <% if product.product_images.attached? %>
                       <%= image_tag(product.product_images[0], alt:product.name, class:"card-img-top card-image")%>
                     <% else %>
@@ -19,7 +18,10 @@
                       <div class="card-body">
                         <h5 class="card-title"><%= link_to product.name, product_path(product.id) %></h5>
                         <p class="text-truncate mw-2"><%= product.description %></p>
-                        <p><%= "#{show_price(product.price)}" if current_user&.card_info.present? || current_user&.admin? %></p>
+                        <% if current_user&.can_buy? && session[:status_user] == ('unblocked' || 'blocked') || current_user&.admin? %>
+                          <p><%= show_promotional_price(product) %></p>
+                          <p class="badge text-bg-primary position-absolute top-0 start-90 translate-middle"><%= load_discount(product) %></p>
+                        <% end %>
                       </div>
                     </div>
                   </div>

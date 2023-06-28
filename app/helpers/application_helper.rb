@@ -48,15 +48,40 @@ module ApplicationHelper
     end
   end
 
+  def show_promotional_price(product)
+    return show_price(product.price) if current_user&.admin?
+
+    if product.seasonal_prices.any? && product.lowest_price != product.price
+      "<div> De <span class='text-danger text-decoration-line-through'>#{show_price(product.price)}</span> por <span class='fw-bold text-success'>#{show_price(product.lowest_price)}</span> Pontos </div>".html_safe
+    else
+      "#{show_price(product.price)} Pontos"
+    end
+  end
+
+  def load_discount(product)
+    return if current_user&.admin?
+
+    return unless product.seasonal_prices.any? && product.lowest_price != product.price
+
+    discount = 100 - (product.lowest_price / product.price * 100)
+    "#{discount.round}% OFF"
+  end
+
+  def load_end_data(product)
+    return if current_user&.admin?
+
+    return unless product.seasonal_prices.any? && product.lowest_price != product.price
+
+    "Oferta válida até #{l(product.current_seasonal_price_find_end_date)}"
+  end
+
   private
 
   def show_common_user_price(price)
     return if current_user.card_info.nil? || session[:status_user] != 'unblocked'
 
-    price_points = number_with_delimiter((price * current_user.card_info.conversion_tax.to_f).round,
-                                         delimiter: '.')
-
-    "#{price_points} Pontos"
+    number_with_delimiter((price * current_user.card_info.conversion_tax.to_f).round,
+                          delimiter: '.')
   end
 
   def show_admin_price(price)
