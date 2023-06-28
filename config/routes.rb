@@ -4,8 +4,8 @@ Rails.application.routes.draw do
 
   resources :product_categories, only: [:index, :new, :create, :edit, :update] do
     member do
-      patch :deactivate
-      patch :reactivate
+      post :deactivate
+      post :reactivate
     end
   end
 
@@ -43,7 +43,10 @@ Rails.application.routes.draw do
     post "add", on: :collection
     post "remove", on: :collection
     post "remove_all", on: :collection
+    get "close", to: "shopping_carts#close"
   end
+
+  resources :orders, only: [:index, :show]
 
   get "me", to: "customer_areas#me"
   get "client_addresses", to: "customer_areas#addresses"
@@ -51,4 +54,5 @@ Rails.application.routes.draw do
   post "update_phone_number", to: "users#update_phone"
 
   resources :seasonal_prices, only: [:index, :new, :create, :edit, :update, :destroy]
+  post "close_order", to: "orders#close_order"
 end
