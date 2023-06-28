@@ -35,8 +35,7 @@ class OrdersController < ApplicationController
   def order_params
     params
       .require(:order)
-      .permit(:order_number, :total_value, :discount_amount, :final_value,
-              :cpf, :card_number, :payment_date, :user_id, :shopping_cart_id)
+      .permit(:total_value, :discount_amount, :final_value, :user_id, :conversion_tax)
   end
 
   def transfer_products(order)
