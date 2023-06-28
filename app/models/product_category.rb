@@ -9,11 +9,16 @@ class ProductCategory < ApplicationRecord
            inverse_of: :parent
 
   validates :name, presence: true, uniqueness: true
+  before_validation :delete_campaign_category, if: :active_changed?
   after_validation :set_type
 
   private
 
   def set_type
     self.type = 'ProductCategory'
+  end
+
+  def delete_campaign_category
+    campaign_categories.each(&:destroy) unless active?
   end
 end
