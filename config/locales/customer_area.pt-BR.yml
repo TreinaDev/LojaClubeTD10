@@ -4,11 +4,13 @@ pt-BR:
       my_account: 'Minha Conta'
       my_orders: 'Meus Pedidos'
       my_infos: 'Minhas Informações'
-      adresses: 'Meus endereços'
+      adresses: 'Endereço Principal'
       default_adresses: 'Endereço Padrão'
       product_favorites: 'Produtos Favoritos'
       recent_orders: 'Pedidos Recentes'
       points: 'Pontos'
+      zipcode: 'CEP'
+      not_default_addresses: 'Não possui endereço cadastrado como padrão!'
     me:
       update_phone: 'Atualizar Contato'
     addresses:

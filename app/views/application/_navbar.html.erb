@@ -7,9 +7,10 @@
         Categorias de Produtos
         </a>
         <ul class="dropdown-menu">
-          <% @product_categories.each do |pc| %>
-            <li><a class="dropdown-item" href="#"><%= pc.name %></a></li>
+          <% @product_categories_navbar.each do |pc| %>
+            <li><%= link_to(pc.name, root_path(product_category: pc.id), class: "dropdown-item")%></li>
           <% end %>
+            <li><%= link_to 'Todos os produtos', root_path, class: "dropdown-item" %></li>
         </ul>
       </li>
     </ul>
@@ -29,9 +30,11 @@
             Administração
           </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <li><%= link_to("Produtos", products_path, class: "dropdown-item")%></li>
-          <li><%= link_to("Categorias", product_categories_path, class: "dropdown-item")%></li>
           <li><%= link_to("Campanhas", promotional_campaigns_path, class: "dropdown-item")%></li>
+          <li><%= link_to("Preços sazonais", seasonal_prices_path, class: "dropdown-item")%></li>
+          <li><%= link_to("Categorias", product_categories_path, class: "dropdown-item")%></li>
+          <li><%= link_to("Empresas", companies_path, class: "dropdown-item")%></li>
+          <li><%= link_to("Produtos", products_path, class: "dropdown-item")%></li>
         </ul>
       </li>
     <% end %>

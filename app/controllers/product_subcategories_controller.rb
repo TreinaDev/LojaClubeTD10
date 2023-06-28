@@ -51,6 +51,6 @@ class ProductSubcategoriesController < ApplicationController
   private
 
   def set_category
-    @categories = ProductCategory.where(parent_id: nil)
+    @categories = ProductCategory.where(parent_id: nil, active: true)
   end
 end

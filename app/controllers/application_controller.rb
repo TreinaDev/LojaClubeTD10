@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include ActiveSupport::NumberHelper
+
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :load_product_categories
   before_action :load_cart
@@ -23,7 +25,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_product_categories
-    @product_categories = ProductCategory.where('active = true')
+    @product_categories_navbar = ProductCategory.where('active = true')
   end
 
   def check_user

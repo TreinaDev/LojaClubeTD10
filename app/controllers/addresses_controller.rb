@@ -43,8 +43,7 @@ class AddressesController < ApplicationController
         client_address.update(default: client_address.address == @address)
       end
     end
-
-    redirect_to client_addresses_path, notice: t('.success')
+    redirect_selection
   end
 
   def destroy
@@ -61,5 +60,13 @@ class AddressesController < ApplicationController
     params
       .require(:address)
       .permit(:address, :number, :city, :state, :zipcode, :submit_text)
+  end
+
+  def redirect_selection
+    if request.referer == client_addresses_url
+      redirect_to client_addresses_path, notice: t('.success')
+    elsif request.referer == shopping_cart_close_url(@cart)
+      redirect_to close_shopping_carts_path(@cart)
+    end
   end
 end
