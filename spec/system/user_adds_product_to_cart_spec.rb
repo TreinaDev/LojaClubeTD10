@@ -19,6 +19,8 @@ describe 'Usuário adiciona produto ao carrinho' do
     create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
                      description: 'Uma camisa azul muito bonita', code: 'CMA123456')
     create(:card_info, user:)
+    session_user = { status_user: 'unblocked' }
+    allow_any_instance_of(ApplicationController).to receive(:session).and_return(session_user)
 
     login_as(user)
     visit root_path
@@ -28,7 +30,7 @@ describe 'Usuário adiciona produto ao carrinho' do
     expect(current_path).to eq shopping_cart_path(1)
     expect(page).to have_content 'Carrinho de compras'
     expect(page).to have_content 'Camiseta Azul'
-    expect(page).to have_content 'Valor (pontos)'
+    expect(page).to have_content 'Valor'
     expect(page).to have_content '16.000'
     expect(page).to have_content 'Quantidade'
     expect(page).to have_field 'quantity', with: '1'
@@ -41,6 +43,8 @@ describe 'Usuário adiciona produto ao carrinho' do
     create(:product, name: 'Camiseta Azul', price: 1000, product_category: category1,
                      description: 'Uma camisa azul muito bonita', code: 'CMA123456')
     create(:card_info, user:)
+    session_user = { status_user: 'unblocked' }
+    allow_any_instance_of(ApplicationController).to receive(:session).and_return(session_user)
 
     login_as(user)
     visit root_path
@@ -53,7 +57,7 @@ describe 'Usuário adiciona produto ao carrinho' do
     expect(page).to have_content 'Alterado quantidade do produto'
     expect(page).to have_content 'Carrinho de compras'
     expect(page).to have_content 'Camiseta Azul'
-    expect(page).to have_content 'Valor (pontos)'
+    expect(page).to have_content 'Valor'
     expect(page).to have_content '20.000'
     expect(page).to have_content 'Quantidade'
     expect(page).to have_field 'quantity', with: '5'
@@ -66,6 +70,8 @@ describe 'Usuário adiciona produto ao carrinho' do
     create(:product, name: 'Camiseta Azul', price: 1000, product_category: category1,
                      description: 'Uma camisa azul muito bonita', code: 'CMA123456')
     create(:card_info, user:)
+    session_user = { status_user: 'unblocked' }
+    allow_any_instance_of(ApplicationController).to receive(:session).and_return(session_user)
 
     login_as(user)
     visit root_path
@@ -83,6 +89,8 @@ describe 'Usuário adiciona produto ao carrinho' do
     create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
                      description: 'Uma camisa azul muito bonita', code: 'CMA123456')
     create(:card_info, user:)
+    session_user = { status_user: 'unblocked' }
+    allow_any_instance_of(ApplicationController).to receive(:session).and_return(session_user)
 
     login_as(user)
     visit root_path
@@ -93,7 +101,7 @@ describe 'Usuário adiciona produto ao carrinho' do
     expect(current_path).to eq shopping_cart_path(1)
     expect(page).to have_content 'Carrinho de compras'
     expect(page).to have_content 'Camiseta Azul'
-    expect(page).to have_content 'Valor (pontos)'
+    expect(page).to have_content 'Valor'
     expect(page).to have_content '16.000'
     expect(page).to have_content 'Quantidade'
     expect(page).to have_field 'quantity', with: '4'
@@ -106,6 +114,8 @@ describe 'Usuário adiciona produto ao carrinho' do
     create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
                      description: 'Uma camisa azul muito bonita', code: 'CMA123456')
     create(:card_info, user:)
+    session_user = { status_user: 'unblocked' }
+    allow_any_instance_of(ApplicationController).to receive(:session).and_return(session_user)
 
     login_as(user)
     visit root_path
@@ -123,6 +133,8 @@ describe 'Usuário adiciona produto ao carrinho' do
     create(:product, name: 'Camiseta Vermelha', price: 100, product_category: category1,
                      description: 'Uma camisa vermelha muito grande', code: 'ZDS123789')
     create(:card_info, user:)
+    session_user = { status_user: 'unblocked' }
+    allow_any_instance_of(ApplicationController).to receive(:session).and_return(session_user)
 
     login_as(user)
     visit root_path
@@ -135,7 +147,7 @@ describe 'Usuário adiciona produto ao carrinho' do
     expect(current_path).to eq shopping_cart_path(1)
     expect(page).to have_content 'Carrinho de compras'
     expect(page).to have_content 'Camiseta Azul'
-    expect(page).to have_content 'Valor (pontos)'
+    expect(page).to have_content 'Valor'
     expect(page).to have_content '16.000'
     expect(page).to have_content 'Quantidade'
     expect(page).to have_field 'quantity', with: '1'
@@ -152,6 +164,8 @@ describe 'Usuário adiciona produto ao carrinho' do
     product = create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
                                description: 'Uma camisa azul muito bonita', code: 'CMA123456')
     create(:card_info, user:)
+    session_user = { status_user: 'unblocked' }
+    allow_any_instance_of(ApplicationController).to receive(:session).and_return(session_user)
 
     login_as(user)
     visit root_path
@@ -170,6 +184,8 @@ describe 'Usuário adiciona produto ao carrinho' do
     create(:product, name: 'Camiseta Vermelha', price: 100, product_category: category1,
                      description: 'Uma camisa vermelha muito grande', code: 'ZDS123789')
     create(:card_info, user:)
+    session_user = { status_user: 'unblocked' }
+    allow_any_instance_of(ApplicationController).to receive(:session).and_return(session_user)
 
     login_as(user)
     visit root_path
@@ -191,6 +207,8 @@ describe 'Usuário adiciona produto ao carrinho' do
     create(:product, name: 'Camiseta Vermelha', price: 100, product_category: category1,
                      description: 'Uma camisa vermelha muito grande', code: 'ZDS123789')
     create(:card_info, user:)
+    session_user = { status_user: 'unblocked' }
+    allow_any_instance_of(ApplicationController).to receive(:session).and_return(session_user)
 
     login_as(user)
     visit root_path
