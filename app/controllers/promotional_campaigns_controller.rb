@@ -9,7 +9,15 @@ class PromotionalCampaignsController < ApplicationController
 
   def show
     @campaign_category = CampaignCategory.new
-    @categories = ProductCategory.where.not(id: @promotional_campaign.product_categories.pluck(:id)).where(active: true)
+    @categories = ProductCategory.where(active: true).filter do |cat|
+      cat
+        .promotional_campaigns
+        .filter { |pc| pc.company_id == @promotional_campaign.company_id }
+        .none? do |pc|
+        (@promotional_campaign.start_date..@promotional_campaign.end_date)
+          .overlaps?(pc.start_date..pc.end_date)
+      end
+    end
   end
 
   def new
