@@ -21,11 +21,9 @@ class Product < ApplicationRecord
   end
 
   def current_seasonal_price
-    return unless seasonal_prices.any?
+    return unless seasonal_prices.any?(&:ongoing?)
 
-    seasonal_prices.each do |sp|
-      return sp if sp.ongoing?
-    end
+    seasonal_prices.first
   end
 
   private

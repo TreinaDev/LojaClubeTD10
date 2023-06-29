@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário vê preços com desconto' do
+describe 'Usuário vê campanha promocional' do
   it 'enquanto funcionário ativo e com cartão ativo, vê campanha apenas de sua empresa' do
     user = create(:user, cpf: '30450562026', email: 'zezinho@gmail.com', password: 'senha1234')
     card_json_data = Rails.root.join('spec/support/json/card_data_active.json').read
