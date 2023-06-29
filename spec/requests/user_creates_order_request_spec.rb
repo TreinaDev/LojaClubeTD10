@@ -84,7 +84,7 @@ describe 'Usuário fecha pedido' do
     json_data = Rails.root.join('spec/support/json/card_data_active.json').read
     fake_response_card = double('faraday_response', status: 200, body: json_data)
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{user.cpf}").and_return(fake_response_card)
-    allow(Faraday).to receive(:post).with("http://localhost:4000/api/v1/payments").and_raise(Faraday::ConnectionFailed)
+    allow(Faraday).to receive(:post).with('http://localhost:4000/api/v1/payments').and_raise(Faraday::ConnectionFailed)
 
     login_as(user)
     post close_order_path params: { card_number: '11111111111' }
