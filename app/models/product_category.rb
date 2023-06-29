@@ -11,6 +11,10 @@ class ProductCategory < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   after_validation :set_type
 
+  def get_parent_if_exists
+     type == 'ProductSubcategory' ? self.parent : self
+  end
+
   private
 
   def set_type
