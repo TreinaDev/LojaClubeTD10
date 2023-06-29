@@ -19,3 +19,6 @@ pt-BR:
       success: 'Saldo de pontos atualizado!'
       failed: 'Não foi possível atualizar o saldo, tente mais tarde.'
       not_found: 'Cartão não encontrado. Impossível atualizar saldo!'
+    extract_tab:
+      my_extract: 'Meu extrato'
+      failed: 'Não foi possível consultar o seu extrato, tente mais tarde.'
