@@ -27,7 +27,10 @@ class CustomerAreasController < ApplicationController
     return unless user_signed_in?
 
     @user = current_user
-    @favorites = @user.favorites
+    @favorites_active = Favorite.joins(:product)
+                                .where(user: @user, products: { active: true })
+    @favorites_inactive = Favorite.joins(:product)
+                                  .where(user: @user, products: { active: false })
   end
 
   def update_points

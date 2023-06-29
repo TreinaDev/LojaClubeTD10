@@ -1,5 +1,11 @@
 pt-BR:
   customer_areas:
+    favorite_tab: 
+      available_product: Produtos disponíveis
+      unavailable_product:
+        one: Produto indisponível
+        other: Produtos indisponíveis
+      no_favorites_selected: Você não selecionou nenhum produto como favorito
     index:
       my_account: 'Minha Conta'
       my_orders: 'Meus Pedidos'

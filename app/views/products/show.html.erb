@@ -23,11 +23,9 @@
         <dd class="col-sm-6"><%= @product.description %></dd>
         <dt class="col-sm-6">Marca</dt>
         <dd class="col-sm-6"><%= @product.brand %></dd>
-        <% if user_signed_in? %>
-          <% if current_user.card_info.present? || current_user&.admin? %> 
-            <dt class="col-sm-6"><%= "Preço" %> </dt> 
-            <dd class="col-sm-6"><%= "#{show_price(@product.price)}" %></dd>
-          <% end %>
+        <% if current_user&.can_buy? && session[:status_user] == ('unblocked' || 'blocked') || current_user&.admin? %> 
+          <dt class="col-sm-6"><%= "Preço" %> </dt> 
+          <dd class="col-sm-6"><%= "#{show_price(@product.price)}" %></dd>
         <% end %>
         <dt class="col-sm-6">Categoria</dt>
         <dd class="col-sm-6"><%= @product.product_category.name %></dd>
@@ -47,7 +45,7 @@
     </div>
   </div>
   
-  <% if user_signed_in? && (current_user.common? && current_user.card_info.present?) %>
+  <% if current_user&.can_buy? && session[:status_user] == 'unblocked' %>
     <div style="margin-top:20px;">
       <%= form_with(url: add_shopping_carts_path) do |f| %>
         <%= f.hidden_field :id, value: @product.id %>
