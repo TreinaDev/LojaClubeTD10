@@ -133,7 +133,6 @@ describe 'Usuário entra no sistema' do
     expect(page).to have_content msg
     expect(page).not_to have_content 'administrador'
   end
-
   it 'e ao criar uma conta ocorre erro na API de cartões' do
     category = create(:product_category)
     create(:product, name: 'Geladeira branca', code: 'GLD678456', description: 'Geladeira bonita',

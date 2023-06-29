@@ -118,7 +118,7 @@ RSpec.describe Product, type: :model do
 
     it 'inválido quando o arquivo anexado não for imagem no formato JPEG ou PNG' do
       product = Product.new
-      product.product_images.attach(io: Rails.root.join('spec/support/imgs/Arquivo.txt').open,
+      product.product_images.attach(io: Rails.root.join('spec/support/txt/Arquivo.txt').open,
                                     filename: 'Arquivo.txt')
 
       product.valid?
