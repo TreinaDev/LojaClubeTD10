@@ -65,10 +65,10 @@ module ApplicationHelper
   def load_discount(product, company)
     return if current_user&.admin?
 
-    return unless product.lowest_price(company) != product.price
+    return 0 if product.lowest_price(company) == product.price
 
-    discount = 100 - (product.lowest_price(company) / product.price * 100)
-    "#{discount.round}% OFF"
+    discount = 100 - ((product.lowest_price(company).to_f / product.price.to_f) * 100)
+    discount.round
   end
 
   def load_end_data(product, company)
@@ -113,5 +113,11 @@ module ApplicationHelper
     "<li class='navbar-text'> <span> #{user_info} </span> </li>" \
     "<li class='nav-item'> #{button_to(t(:log_out), destroy_user_session_path, method: :delete, class: 'nav-link')}" \
     '</li>'.html_safe
+  end
+
+  def total_cart(cart, company)
+    cart.orderables.sum do |orderable|
+      orderable.product.lowest_price(company) * orderable.quantity
+    end
   end
 end

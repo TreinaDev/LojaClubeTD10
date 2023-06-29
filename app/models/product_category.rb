@@ -13,7 +13,7 @@ class ProductCategory < ApplicationRecord
   after_validation :set_type
 
   def get_parent_if_exists
-     type == 'ProductSubcategory' ? self.parent : self
+    type == 'ProductSubcategory' ? parent : self
   end
 
   private
