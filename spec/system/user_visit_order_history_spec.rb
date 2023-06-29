@@ -13,8 +13,8 @@ describe 'Usuário acessa histórico de pedidos' do
 
   it 'com sucesso' do
     user = create(:user)
-    order = create(:order, user:, status: 'pending')
-    order = create(:order, user:, status: 'approved')
+    create(:order, user:, status: 'pending')
+    create(:order, user:, status: 'approved')
 
     login_as user
     visit customer_areas_path
@@ -40,7 +40,7 @@ describe 'Usuário acessa histórico de pedidos' do
 
     login_as(admin)
     visit order_history_path
-  
+
     expect(page).to have_content 'Administrador não tem acesso a essa página'
     expect(current_path).to eq root_path
   end
@@ -52,4 +52,3 @@ describe 'Usuário acessa histórico de pedidos' do
     expect(current_path).to eq new_user_session_path
   end
 end
-

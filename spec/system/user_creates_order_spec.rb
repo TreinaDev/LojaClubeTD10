@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Usuário logado acessa a página do carrinho' do
   it 'e finaliza pedido com sucesso' do
-    user = create(:user, email: 'user@email.com')
+    user = create(:user, email: 'user@email.com', cpf: '30383993024')
     create(:card_info, user:, points: 999_999, conversion_tax: 20)
     shopping_cart = create(:shopping_cart)
     product_category = create(:product_category, name: 'Camisetas')
@@ -11,7 +11,8 @@ describe 'Usuário logado acessa a página do carrinho' do
     shopping_cart.orderables.create(product:, shopping_cart:, quantity: 2)
     session = { cart_id: shopping_cart.id }
     allow_any_instance_of(ApplicationController).to receive(:session).and_return(session)
-    fake_response = double('faraday_response', status: 201, body: '[]')
+    payment_json_data = Rails.root.join('spec/support/json/payment_success.json').read
+    fake_response = double('faraday_response', status: 201, body: payment_json_data)
     url = 'http://localhost:4000/api/v1/payments'
     allow(Faraday).to receive(:post).with(url).and_return(fake_response)
     json_data = Rails.root.join('spec/support/json/card_data_active.json').read
