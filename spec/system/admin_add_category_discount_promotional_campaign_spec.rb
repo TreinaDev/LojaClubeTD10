@@ -111,4 +111,50 @@ describe 'Administrador adiciona uma categoria e seu respectivo desconto para um
       expect(page).to have_button('Cadastrar')
     end
   end
+
+  it 'e não visuzaliza os campos do formulário pois a campanha está em andamento' do
+    admin = create(:user, email: 'adm@punti.com')
+    create(:product_category, name: 'Celulares')
+    create(:product_category, name: 'Eletrônicos')
+    travel_to 1.week.ago do
+      create(:promotional_campaign, name: 'Natal 2023')
+    end
+
+    login_as(admin)
+    visit root_path
+    click_on 'Campanhas'
+    click_on 'Natal 2023'
+
+    expect(page).to have_content 'Natal 2023'
+    within '#form_campaign_category' do
+      expect(page).to have_content 'Adicionar Categorias à Campanha'
+      expect(page).not_to have_select('Categoria')
+      expect(page).not_to have_field('Desconto')
+      expect(page).not_to have_button('Cadastrar')
+      expect(page).to have_content 'Campanha em andamento. Não é possível mais adicionar ou remover categorias'
+    end
+  end
+
+  it 'e não visuzaliza os campos do formulário pois Não há mais categorias disponíveis' do
+    admin = create(:user, email: 'adm@punti.com')
+    category1 = create(:product_category, name: 'Celulares')
+    category2 = create(:product_category, name: 'Eletrônicos')
+    promotional_campaign_a = create(:promotional_campaign, name: 'Natal 2023')
+    create(:campaign_category, promotional_campaign: promotional_campaign_a, product_category: category1, discount: 10)
+    create(:campaign_category, promotional_campaign: promotional_campaign_a, product_category: category2, discount: 20)
+
+    login_as(admin)
+    visit root_path
+    click_on 'Campanhas'
+    click_on 'Natal 2023'
+
+    expect(page).to have_content 'Natal 2023'
+    within '#form_campaign_category' do
+      expect(page).to have_content 'Adicionar Categorias à Campanha'
+      expect(page).not_to have_select('Categoria')
+      expect(page).not_to have_field('Desconto')
+      expect(page).not_to have_button('Cadastrar')
+      expect(page).to have_content 'Não há mais categorias disponíveis a serem adicionadas à campanha'
+    end
+  end
 end
