@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "date": "2023-06-25T00:22:22.664Z",
+    "operation_type": "débito",
+    "description": "Pedido 12345678912",
+    "value": 46
+  },
+  {
+    "id": 2,
+    "date": "2023-06-25T00:22:22.697Z",
+    "operation_type": "depósito",
+    "description": "Recarga",
+    "value": 20
+  }
+]

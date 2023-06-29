@@ -7,9 +7,10 @@
         Categorias de Produtos
         </a>
         <ul class="dropdown-menu">
-          <% @product_categories.each do |pc| %>
+          <% @product_categories_navbar.each do |pc| %>
             <li><%= link_to(pc.name, root_path(product_category: pc.id), class: "dropdown-item")%></li>
           <% end %>
+            <li><%= link_to 'Todos os produtos', root_path, class: "dropdown-item" %></li>
         </ul>
       </li>
     </ul>

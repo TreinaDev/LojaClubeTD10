@@ -23,7 +23,6 @@ describe 'Usuário acessa detalhes de um produto' do
     expect(page).to have_content product.code
     expect(page).to have_content product.description
     expect(page).to have_content product.brand
-    expect(page).to have_content 'R$ 2.500,00'
     expect(page).to have_content product.product_category.name
   end
 

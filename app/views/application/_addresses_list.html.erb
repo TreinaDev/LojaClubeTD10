@@ -1,0 +1,32 @@
+<% if user.addresses.any? %>
+  <% user.addresses.each do |address| %>
+    <div class="address-card card p-4 my-4 mx-auto bg-light rounded shadow-sm">
+      <div class="d-flex justify-content-between">
+        <div>
+          <p><%= address.address %>, <%= address.number %></p>
+          <p><%= address.city %>, <%= address.state %></p>
+          <p><%= Address.human_attribute_name(:zipcode) %> <%= address.zipcode %></p>
+        </div>
+
+        <div class="actions d-flex flex-column align-self-center justify-content-between controls">
+          <% unless user.client_addresses.exists?(address_id: address.id, default: true) %>
+            <%= button_to 'Selecionar como Padrão', set_default_address_path(address), {
+                  method: :post, class: "w-100 btn btn-outline-primary btn-sm", form_class: "flex-grow-1" }
+            %>
+          <% end %>
+
+          <% if controller_name == 'customer_areas' && action_name == 'addresses' %>
+            <div class="d-flex gap-1">
+              <%= button_to 'Editar', edit_address_path(address), {
+                    method: :get, class: "w-100 btn btn-outline-secondary btn-sm", form_class: "flex-grow-1" }
+              %>
+              <%= button_to 'Remover', address_path(address), {
+                    method: :delete, class: "w-100 btn btn-outline-danger btn-sm", form_class: "flex-grow-1" }
+              %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

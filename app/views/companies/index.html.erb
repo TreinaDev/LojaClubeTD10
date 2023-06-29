@@ -17,7 +17,7 @@
               <tr class="text-center">
                 <td><%= company.corporate_name%></td>
                 <td><%= company.brand_name %></td>
-                <td><%= company.registration_number %></td>
+                <td><%= format_cnpj(company.registration_number) %></td>
               </tr>
             <% end %>
           </tbody>
@@ -43,7 +43,7 @@
               <tr class="text-center">
                 <td><%= company.corporate_name%></td>
                 <td><%= company.brand_name %></td>
-                <td><%= company.registration_number %></td>
+                <td><%= format_cnpj(company.registration_number) %></td>
               </tr>
             <% end %>
           </tbody>
@@ -53,6 +53,6 @@
       <% end %>
     </div>
   <% else %>
-    <p class="text-center">Nenhuma empresa encontrada</p>
+    <p class="text-center">Nenhuma empresa encontrada na aplicação de Gestão de Empresas</p>
   <% end %>
 </div>

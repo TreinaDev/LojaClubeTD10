@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def format_cnpj(cnpj)
+    "#{cnpj[0..1]}.#{cnpj[2..4]}.#{cnpj[5..7]}/#{cnpj[8..11]}-#{cnpj[12..13]}"
+  end
+
   def carousel_item(index)
     if index.zero?
       "class='carousel-item active'".html_safe
@@ -85,6 +89,13 @@ module ApplicationHelper
         content_tag(:span, show_price(product.lowest_price(company)).to_s, class: 'fw-bold text-success') +
         content_tag(:span, "\sPontos")
     end
+  end
+
+  def price_in_points(price)
+    return if current_user.card_info.nil?
+
+    number_with_delimiter((price * current_user.card_info.conversion_tax.to_f).round,
+                          delimiter: '.')
   end
 
   def show_common_user_price(price)
