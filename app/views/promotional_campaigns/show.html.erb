@@ -41,7 +41,7 @@
             <th></th>
           </tr>
         </thead>
-        <tbody class="table-group-divider">
+         <tbody class="table-group-divider">
           <% @promotional_campaign.campaign_categories.each do |category| %>
             <tr>
               <td><%= "#{category.product_category.name} - #{category.discount}% de desconto" %></td>

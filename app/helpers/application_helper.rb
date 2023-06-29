@@ -50,6 +50,13 @@ module ApplicationHelper
 
   private
 
+  def price_in_points(price)
+    return if current_user.card_info.nil?
+
+    number_with_delimiter((price * current_user.card_info.conversion_tax.to_f).round,
+                          delimiter: '.')
+  end
+
   def show_common_user_price(price)
     return if current_user.card_info.nil? || session[:status_user] != 'unblocked'
 
