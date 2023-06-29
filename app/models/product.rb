@@ -26,6 +26,12 @@ class Product < ApplicationRecord
     seasonal_prices.first
   end
 
+  def find_promotional_campaign(pcs)
+    pcs.find do |pc|
+      pc.campaign_categories.find_by(product_category:)
+    end
+  end
+
   private
 
   def price_by_promotional_campaign(company)
@@ -44,12 +50,6 @@ class Product < ApplicationRecord
     campaign_category = promotional.campaign_categories.find_by(product_category:)
 
     campaign_category ? price - ((campaign_category.discount * price) / 100) : price
-  end
-
-  def find_promotional_campaign(pcs)
-    pcs.find do |pc|
-      pc.campaign_categories.find_by(product_category:)
-    end
   end
 
   def image_type

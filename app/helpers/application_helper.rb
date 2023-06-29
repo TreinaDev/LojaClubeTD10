@@ -68,14 +68,32 @@ module ApplicationHelper
   end
 
   def load_end_data(product, company)
-    return if current_user&.admin?
+    return if current_user&.admin? || company.blank?
 
-    return unless product.seasonal_prices.any? && product.lowest_price(company) != product.price
-
-    "Oferta válida até #{l(product.current_seasonal_price.end_date)}"
+    offer_end_date_message(product, company)
   end
 
   private
+
+  def offer_end_date_message(product, company)
+    sc = product.current_seasonal_price
+    pc = product.find_promotional_campaign(company.promotional_campaigns)
+    if sc.present? && pc.present?
+      "Oferta válida até #{l(compare_prices(product, company))}"
+    elsif pc
+      "Oferta válida até #{l(pc.end_date)}"
+    elsif sc
+      "Oferta válida até #{l(sc.end_date)}"
+    end
+  end
+
+  def compare_prices(product, company)
+    if product.lowest_price(company) == product.current_seasonal_price.value
+      return product.current_seasonal_price.end_date
+    end
+
+    product.find_promotional_campaign(company.promotional_campaigns).end_date
+  end
 
   def text_promotional(product, company)
     content_tag :div do
