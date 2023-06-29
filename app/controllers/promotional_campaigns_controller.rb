@@ -24,8 +24,9 @@ class PromotionalCampaignsController < ApplicationController
   end
 
   def new
+    bring_companies
     @promotional_campaign = PromotionalCampaign.new
-    @companies = Company.all
+    @companies = Company.where(active: true).order(:brand_name)
   end
 
   def edit

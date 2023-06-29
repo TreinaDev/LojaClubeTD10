@@ -41,7 +41,7 @@ product4.product_images.attach(io: Rails.root.join('spec/support/imgs/cel_2.jpg'
 product4.product_images.attach(io: Rails.root.join('spec/support/imgs/cel_22.jpg').open, filename: 'cel_22.jpg')
 product4.save!
 
-Company.create!(registration_number: '34997507000183', corporate_name: 'CodeCampus LTDA.', brand_name: 'CodeCampus')
+Company.create!(registration_number: '34997507000183', corporate_name: 'Rebase LTDA.', brand_name: 'Rebase')
 Company.create!(registration_number: '86654033000170', corporate_name: 'Punti LTDA.', brand_name: 'Punti')
 
 promotional_campaign_a = PromotionalCampaign.create!(name: 'Campanha 1 Empresa 1', start_date: 5.days.from_now,
