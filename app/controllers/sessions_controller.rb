@@ -4,12 +4,13 @@ class SessionsController < Devise::SessionsController
     return unless current_user.common?
 
     begin
-      response_card = current_user.find_card
+      response_company = current_user.verify_cpf_company
+      response_company_treatment(response_company)
+      response_card_treatment(current_user.find_card) if response_company.status == 200
     rescue StandardError
-      return flash[:notice] = t('.api_error')
+      flash[:notice] = t('.api_error')
+      session[:status_user] = 'visitor'
     end
-
-    response_tratament(response_card)
   end
 
   def destroy
@@ -21,19 +22,30 @@ class SessionsController < Devise::SessionsController
 
   private
 
-  def response_tratament(response)
+  def response_company_treatment(response)
+    data = JSON.parse(response.body)[0] if response.status == 200
+    session[:status_user] = data.blank? ? 'visitor' : data['status']
+    session[:company_cnpj] = data['company_cnpj']
+  end
+
+  def response_card_treatment(response)
     create_user_card(response) if response.status == 200
-    flash[:notice] = t('.error') if response.status == 404
+    return unless response.status == 404
+
+    current_user.card_info&.destroy
+    flash[:notice] = t('.error')
   end
 
   def create_user_card(response)
     @data = JSON.parse(response.body)
+    return current_user.card_info&.destroy if @data['status'] != 'active'
+
     if current_user.card_info.present?
       update_card(@data)
     else
       create_card(@data)
     end
-    flash[:notice] = t('.sucess_active')
+    flash[:notice] = t('.success_active')
   end
 
   def update_card(data)

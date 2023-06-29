@@ -15,3 +15,7 @@ pt-BR:
   recent_orders: 'Pedidos Recentes'
   prevent_admin_message: 'Administrador não tem acesso a essa página'
   recent_products: 'Produtos Recentes'
+  unblocked: 'Funcionário ativo'
+  blocked: 'Funcionário bloqueado'
+  visitor: 'Visitante'
+  fired: 'Ex-funcionário'

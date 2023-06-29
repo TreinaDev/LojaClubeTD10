@@ -1,6 +1,6 @@
 pt-BR:
   registrations:
     create:
-      sucess_active: 'Bem vindo! O seu cartão está ativo, vamos às compras.'
-      error:  'Bem vindo! Você não tem cartão ativo no nosso clube, entre em contato com sua empresa.'
+      success_active: 'Bem vindo! O seu cartão está ativo, vamos às compras.'
+      error: 'Bem vindo! Você não tem cartão ativo no nosso clube, entre em contato com sua empresa.'
       api_error: 'Bem vindo! Ocorreu um erro interno! Seus dados podem estar desatualizados'
