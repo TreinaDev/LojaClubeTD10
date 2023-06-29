@@ -39,8 +39,8 @@
       <tbody class="table-group-divider">
           <tr class="text-center">
             <td><%= number_with_delimiter((@order.subtotal_price * @order.conversion_tax).round, delimiter: '.') %> Pontos</td>
-            <td><%= @order.discount_amount %> Pontos</td>
-            <td><%= number_with_delimiter(((@order.subtotal_price * @order.conversion_tax) - @order.discount_amount).round, delimiter: '.')  %> Pontos</td>
+            <td><%= number_with_delimiter((@order.discount_amount * @order.conversion_tax).round, delimiter: '.') %> Pontos</td>
+            <td><%= number_with_delimiter(((@order.subtotal_price - @order.discount_amount)* @order.conversion_tax).round, delimiter: '.')  %> Pontos</td>
           </tr>
       </tbody>
     </table>

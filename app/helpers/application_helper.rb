@@ -67,7 +67,7 @@ module ApplicationHelper
 
     return 0 if product.lowest_price(company) == product.price
 
-    discount = 100 - ((product.lowest_price(company).to_f / product.price.to_f) * 100)
+    discount = 100 - ((product.lowest_price(company) / product.price) * 100)
     discount.round
   end
 

@@ -45,8 +45,12 @@ class OrdersController < ApplicationController
   end
 
   def build_order(shopping_cart)
-    total_value = shopping_cart.total.round * current_user.card_info.conversion_tax.to_f
-    discount = 0
+    total_value = shopping_cart.total.round
+    discount = shopping_cart.total.round - total_cart(shopping_cart)
+    puts '-----------------------\n'
+    puts total_value
+    puts '-----------------------\n'
+    puts discount
     Order.new(total_value:,
               discount_amount: discount,
               final_value: total_value - discount,
@@ -77,7 +81,7 @@ class OrdersController < ApplicationController
   end
 
   def card_number_length_is_invalid?
-    return false if params[:card_number].length == 11
+    return false if params[:card_number].length == 20
 
     redirect_to close_shopping_carts_path(@cart), alert: t('.card_number_length_invalid')
   end
@@ -124,5 +128,11 @@ class OrdersController < ApplicationController
 
     transfer_products(order)
     redirect_to root_path, notice: t('.success')
+  end
+
+  def total_cart(cart)
+    cart.orderables.sum do |orderable|
+      orderable.product.lowest_price(@company) * orderable.quantity
+    end
   end
 end

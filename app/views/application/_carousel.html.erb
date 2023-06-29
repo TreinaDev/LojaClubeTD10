@@ -20,7 +20,7 @@
                         <p class="text-truncate mw-2"><%= product.description %></p>
                         <% if current_user&.can_buy? && session[:status_user] == ('unblocked' || 'blocked') || current_user&.admin? %>
                           <p><%= show_promotional_price(product, @company) %></p>
-                          <% unless load_discount(product, @company).zero? %>
+                          <% unless current_user&.admin? || load_discount(product, @company).zero? %>
                             <p class="badge text-bg-primary position-absolute top-0 start-90 translate-middle"><%= load_discount(product, @company) %>% OFF</p>
                           <% end %>
                         <% end %>

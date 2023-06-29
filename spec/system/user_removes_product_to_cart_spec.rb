@@ -54,6 +54,7 @@ describe 'Usuário remove produto do carrinho' do
   it 'todos de uma vez, com sucesso' do
     user = create(:user)
     cart = create(:shopping_cart)
+    create(:card_info, user:, points: 999_999, conversion_tax: 20)
     category1 = create(:product_category, name: 'Camisetas')
     product1 = create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
                                 description: 'Uma camisa azul muito bonita', code: 'CMA123456')

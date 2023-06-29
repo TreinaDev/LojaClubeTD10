@@ -18,9 +18,11 @@
   <div class="col-6">
     <div class="card-body">
       <h3 class="card-title mb-2 fw-bold">Produto <%= @product.name %> - <%= @product.code %></h3>
-
-      <% unless load_discount(@product, @company).zero? %>
-        <span class="badge text-bg-primary mt-2 mb-3 fs-4 "><%= load_discount(@product, @company) %>% OFF</span>
+      
+      <% if current_user&.common? && session[:status_user] == 'unblocked' %>
+        <% unless load_discount(@product, @company).zero? %>
+          <span class="badge text-bg-primary mt-2 mb-3 fs-4 "><%= load_discount(@product, @company) %>% OFF</span>
+        <% end %>
       <% end %>
 
       <h4 class="fw-bold text-primary mb-3"><%= load_end_data(@product, @company) %></h4>
