@@ -5,9 +5,7 @@ class OrdersController < ApplicationController
 
   def index; end
 
-  def show
-    @order = Order.find(params[:id])
-  end
+  def show; end
 
   def new
     @order = Order.new
@@ -21,9 +19,7 @@ class OrdersController < ApplicationController
   end
 
   def close_order
-    return if card_not_present?
-    return if card_number_blank?
-    return if card_number_length_is_invalid?
+    return if card_not_present? || card_number_blank? || card_number_length_is_invalid?
 
     order = build_order(@cart)
 

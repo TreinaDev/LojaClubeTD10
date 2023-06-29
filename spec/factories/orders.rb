@@ -5,5 +5,6 @@ FactoryBot.define do
     final_value { 1000 }
     user { create(:user) }
     conversion_tax { 20 }
+    payment_code { 'KRYZSMPPGA' }
   end
 end

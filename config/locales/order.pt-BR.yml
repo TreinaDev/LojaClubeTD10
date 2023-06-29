@@ -1,6 +1,6 @@
 pt-BR:
   pending: 'Aguardando aprovação'
-  canceled: 'Cancelado'
+  rejected: 'Pagamento rejeitado'
   approved: 'Pagamento aprovado'
   activerecord:
     models:

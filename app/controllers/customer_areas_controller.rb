@@ -21,7 +21,18 @@ class CustomerAreasController < ApplicationController
   end
 
   def order_history
+    update_order_status
     @user_orders = current_user.orders
+  end
+
+  def update_order_status
+    @user_pending_orders = current_user.orders.where(status: :pending)
+    @user_pending_orders.each do |order|
+      response = Faraday.get("http://localhost:4000/api/v1/payments/#{order.payment_code}")
+      order.update(status: JSON.parse(response.body)['status'])
+    rescue Faraday::ConnectionFailed
+      flash[:alert] = t('.update_error')
+    end
   end
 
   def update_points

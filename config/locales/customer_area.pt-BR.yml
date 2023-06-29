@@ -19,3 +19,5 @@ pt-BR:
       success: 'Saldo de pontos atualizado!'
       failed: 'Não foi possível atualizar o saldo, tente mais tarde.'
       not_found: 'Cartão não encontrado. Impossível atualizar saldo!'
+    order_history:
+      update_error: 'Falha em consultar o serviço de pagamentos. Os status pendentes podem estar desatualizados.'

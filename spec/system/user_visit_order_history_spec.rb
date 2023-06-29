@@ -20,9 +20,37 @@ describe 'Usuário acessa histórico de pedidos' do
     visit customer_areas_path
     click_on 'Meus Pedidos'
 
-    expect(page).to have_content '20.000'
+    expect(page).to have_content '1.000'
     expect(page).to have_content 'Aguardando aprovação'
     expect(page).to have_content 'Pagamento aprovado'
+  end
+
+  it 'com sucesso e o status do pedido é atualizado quando necessário' do
+    user = create(:user)
+    order = create(:order, user:, status: 'pending')
+    order_json_data = Rails.root.join('spec/support/json/order_status.json').read
+    fake_response = double('faraday_response', status: 201, body: order_json_data)
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/payments/#{order.payment_code}").and_return(fake_response)
+
+    login_as user
+    visit customer_areas_path
+    click_on 'Meus Pedidos'
+
+    expect(page).to have_content 'Pagamento aprovado'
+  end
+
+  it 'com sucesso, mas o status do pedido não é atualizado, pois a API de cartões está fora' do
+    user = create(:user)
+    order = create(:order, user:, status: 'pending')
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/payments/#{order.payment_code}").and_raise(Faraday::ConnectionFailed)
+
+    login_as user
+    visit customer_areas_path
+    click_on 'Meus Pedidos'
+    msg = 'Falha em consultar o serviço de pagamentos. Os status pendentes podem estar desatualizados.'
+
+    expect(page).to have_content msg
+    expect(page).not_to have_content 'Pagamento aprovado'
   end
 
   it 'e recebe uma mensagem padrão quando não possui nenhum pedido' do

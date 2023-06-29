@@ -19,9 +19,9 @@
       <% @user_orders.each do |order|%>
         <tbody>
           <tr>
-            <th scope="row"> - </th>
+            <th scope="row"><%= order.payment_code %></th>
             <td><%= l(order.created_at.to_date) %></td>
-            <td><%= number_with_delimiter((order.final_value * order.conversion_tax).round, delimiter: '.') %></td>
+            <td><%= number_with_delimiter(order.final_value, delimiter: '.') %></td>
             <td>
               <%= t(order.status) %>
             </td>
