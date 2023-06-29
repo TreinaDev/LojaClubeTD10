@@ -7,7 +7,7 @@
     <div class='row'>
       <h3 class="fw-bold"><%= t('.my_extract')%></h3>
     </div>
-    <% if @operations.class == Array %>
+    <% if @operations.present? %>
       <table class="table">
         <thead>
           <tr>
@@ -33,7 +33,7 @@
           <% end %>
         </tbody>
       </table>
-    <% elsif !@error_message.nil? %>
+    <% elsif @error_message.present? %>
       <%= @error_message %>
     <% else %>
       <p>Nenhuma transação registrada neste cartão.</p>
