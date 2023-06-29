@@ -39,6 +39,14 @@ class User < ApplicationRecord
     favorites.map(&:product)
   end
 
+  def can_buy?
+    common? && card_info.present?
+  end
+
+  def verify_cpf_company
+    Faraday.get("http://localhost:3000/api/v1/employee_profiles?cpf=#{cpf}")
+  end
+
   def find_card
     Faraday.get("http://localhost:4000/api/v1/cards/#{cpf}")
   end

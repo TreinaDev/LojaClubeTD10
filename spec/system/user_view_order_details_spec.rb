@@ -6,6 +6,9 @@ describe 'Usuário acessa detalhes de um pedido' do
     category1 = create(:product_category, name: 'Camisetas')
     product1 = create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
                                 description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+    company_json_data = Rails.root.join('spec/support/json/cpf_active_company.json').read
+    company_fake_response = double('faraday_response', status: 200, body: company_json_data)
+    allow(Faraday).to receive(:get).with("http://localhost:3000/api/v1/employee_profiles?cpf=#{user.cpf}").and_return(company_fake_response)
     create(:card_info, user:)
     order = create(:order, total_value: 64_000, discount_amount: 0, final_value: 64_000, user:,
                            conversion_tax: 20)
@@ -40,6 +43,9 @@ describe 'Usuário acessa detalhes de um pedido' do
     category1 = create(:product_category, name: 'Camisetas')
     product1 = create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
                                 description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+    company_json_data = Rails.root.join('spec/support/json/cpf_active_company.json').read
+    company_fake_response = double('faraday_response', status: 200, body: company_json_data)
+    allow(Faraday).to receive(:get).with("http://localhost:3000/api/v1/employee_profiles?cpf=#{user.cpf}").and_return(company_fake_response)
     create(:card_info, user:)
     order = create(:order, total_value: 64_000, discount_amount: 0, final_value: 64_000, user:,
                            conversion_tax: 20)
@@ -74,6 +80,9 @@ describe 'Usuário acessa detalhes de um pedido' do
     category1 = create(:product_category, name: 'Camisetas')
     product1 = create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
                                 description: 'Uma camisa azul muito bonita', code: 'CMA123456')
+    company_json_data = Rails.root.join('spec/support/json/cpf_active_company.json').read
+    company_fake_response = double('faraday_response', status: 200, body: company_json_data)
+    allow(Faraday).to receive(:get).with("http://localhost:3000/api/v1/employee_profiles?cpf=#{user_two.cpf}").and_return(company_fake_response)
     create(:card_info, user:)
     order = create(:order, total_value: 64_000, discount_amount: 0, final_value: 64_000, user:,
                            conversion_tax: 20)

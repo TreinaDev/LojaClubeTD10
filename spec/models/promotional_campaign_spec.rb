@@ -33,7 +33,7 @@ RSpec.describe PromotionalCampaign, type: :model do
     end
 
     it 'inválido quando a data inicial é menor que a data atual' do
-      promotional_campaign = PromotionalCampaign.new(start_date: 1.day.ago)
+      promotional_campaign = PromotionalCampaign.new(start_date: Time.zone.today)
 
       promotional_campaign.valid?
       result = promotional_campaign.errors.include?(:start_date)
@@ -49,7 +49,7 @@ RSpec.describe PromotionalCampaign, type: :model do
       result = promotional_campaign.errors.include?(:end_date)
 
       expect(result).to be true
-      expect(promotional_campaign.errors[:end_date]).to include('não pode ser anterior à data inicial')
+      expect(promotional_campaign.errors[:end_date]).to include('deve ser maior que a data inicial')
     end
   end
 end

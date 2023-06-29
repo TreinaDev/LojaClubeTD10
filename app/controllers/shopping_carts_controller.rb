@@ -49,7 +49,7 @@ class ShoppingCartsController < ApplicationController
   private
 
   def verify_session
-    return unless current_user.card_info.nil?
+    return unless current_user.card_info.nil? || session[:status_user] != 'unblocked'
 
     redirect_to root_path, alert: t('.session_error')
   end

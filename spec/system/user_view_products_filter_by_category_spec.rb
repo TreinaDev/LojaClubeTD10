@@ -43,6 +43,8 @@ describe 'Usuário vê os produtos da categoria escolhida no menu Categorias de 
     it 'e vê produtos ativos e não vê produtos desativados, e vê o valor de cada produto convertido em pontos' do
       user = create(:user)
       create(:card_info, user:)
+      session_user = { status_user: 'unblocked' }
+      allow_any_instance_of(ApplicationController).to receive(:session).and_return(session_user)
       category = create(:product_category, name: 'Celular')
       category_a = create(:product_category, name: 'Vestuário')
       create(:product, name: 'Camiseta Azul', code: 'CMS123456', description: 'Uma camisa azul muito bonita',
