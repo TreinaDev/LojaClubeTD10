@@ -77,7 +77,7 @@ describe 'Usuário visita homepage' do
       end
     end
   end
-  it 'e vê menssagem caso não tenha produtos disponíveis' do
+  it 'e vê mensagem caso não tenha produtos disponíveis' do
     visit root_path
 
     expect(page).to have_content 'Produtos'
@@ -130,12 +130,15 @@ describe 'Usuário visita homepage' do
     end
     it 'e vê os preços dos produtos em pontos, de acordo com a taxa de conversão' do
       user = create(:user, email: 'user@email.com')
-      category = create(:product_category, name: 'Eletrodomestico')
+      category = create(:product_category, name: 'Eletrodoméstico')
       create(:product, name: 'Geladeira branca', code: 'GLD678456', description: 'Geladeira bonita',
                        price: 200, product_category: category)
-      json_data = Rails.root.join('spec/support/json/card_data_active.json').read
-      fake_response = double('faraday_response', status: 200, body: json_data)
-      allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{user.cpf}").and_return(fake_response)
+      card_json_data = Rails.root.join('spec/support/json/card_data_active.json').read
+      card_fake_response = double('faraday_response', status: 200, body: card_json_data)
+      allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{user.cpf}").and_return(card_fake_response)
+      company_json_data = Rails.root.join('spec/support/json/cpf_active_company.json').read
+      company_fake_response = double('faraday_response', status: 200, body: company_json_data)
+      allow(Faraday).to receive(:get).with("http://localhost:3000/api/v1/employee_profiles?cpf=#{user.cpf}").and_return(company_fake_response)
 
       visit root_path
       click_on 'Entrar'
@@ -155,6 +158,8 @@ describe 'Usuário visita homepage' do
     end
     it 'e vê os produtos, com exceção dos produtos desativados' do
       user = create(:user)
+      session_user = { status_user: 'unblocked' }
+      allow_any_instance_of(ApplicationController).to receive(:session).and_return(session_user)
       category = create(:product_category)
       create(:product, name: 'Celular 1', code: 'AFG123456', description: 'Celular 1 AFG',
                        price: 100, product_category: category)

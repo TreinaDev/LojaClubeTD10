@@ -10,7 +10,8 @@ module ApplicationHelper
   def user_info
     return "#{current_user.email} (ADMIN)" if current_user.admin?
 
-    current_user.email
+    status = session[:status_user]
+    "#{status ? "(#{t(status)}) " : ''}#{current_user.email}"
   end
 
   def user_links
@@ -57,7 +58,7 @@ module ApplicationHelper
   end
 
   def show_common_user_price(price)
-    return if current_user.card_info.nil?
+    return if current_user.card_info.nil? || session[:status_user] != 'unblocked'
 
     price_points = number_with_delimiter((price * current_user.card_info.conversion_tax.to_f).round,
                                          delimiter: '.')
