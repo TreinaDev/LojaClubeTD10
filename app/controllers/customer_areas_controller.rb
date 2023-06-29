@@ -17,8 +17,8 @@ class CustomerAreasController < ApplicationController
     card_response = current_user.find_card
     card = JSON.parse(card_response.body)
     extract_response = Faraday.get("http://localhost:4000/api/v1/extracts?card_number=#{card['number']}")
-    @operations = JSON.parse(extract_response.body)
-  rescue StandardError
+    @operations = JSON.parse(extract_response.body) if extract_response.status == 200
+  rescue Faraday::ConnectionFailed
     flash.now[:alert] = t('.failed')
     @error_message = 'Não foi possível obter informações do extrato deste cartão.'
   end
