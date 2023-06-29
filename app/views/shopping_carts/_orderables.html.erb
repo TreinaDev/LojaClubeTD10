@@ -18,9 +18,9 @@
             <div id="<%= "cart-#{product.id}" %>">
               <tr class="text-center">
                 <td><%= product.name %></td>
-                <td><%= show_price(product.lowest_price) %></td>
+                <td><%= show_price(product.lowest_price(@company)) %></td>
                 <td>0</td>
-                <td><%= show_price(product.lowest_price) %></td>
+                <td><%= show_price(product.lowest_price(@company)) %></td>
                 <td>
                   <%= form_with(url: add_shopping_carts_path)  do |f| %>
                     <%= f.hidden_field :id, value: product.id %>

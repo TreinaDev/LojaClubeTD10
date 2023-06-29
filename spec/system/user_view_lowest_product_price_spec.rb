@@ -23,13 +23,13 @@ describe 'Usuário vê o menor preço do produto' do
       expect(page).to have_content 'De 5.000 por 3.000'
       expect(page).to have_content '40% OFF'
     end
-  end  
+  end
   context 'no detalhes' do
     it 'estando no período do preço sazonal' do
       user = create(:user)
       product = create(:product, name: 'Calculadora', price: 10)
       seasonal_price = create(:seasonal_price, product:, value: 5, start_date: 1.week.from_now,
-                                                end_date: 2.weeks.from_now)
+                                               end_date: 2.weeks.from_now)
       create(:seasonal_price, product:, value: 3, start_date: 3.weeks.from_now,
                               end_date: 4.weeks.from_now)
       create(:card_info, user:, conversion_tax: 10)

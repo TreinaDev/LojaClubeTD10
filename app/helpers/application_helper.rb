@@ -48,34 +48,44 @@ module ApplicationHelper
     end
   end
 
-  def show_promotional_price(product)
+  def show_promotional_price(product, company)
     return show_price(product.price) if current_user&.admin?
 
-    if product.seasonal_prices.any? && product.lowest_price != product.price
-      "<div> De <span class='text-danger text-decoration-line-through'>#{show_price(product.price)}</span> por <span class='fw-bold text-success'>#{show_price(product.lowest_price)}</span> Pontos </div>".html_safe
-    else
+    if product.lowest_price(company) == product.price
       "#{show_price(product.price)} Pontos"
+    else
+      text_promotional(product, company)
     end
   end
 
-  def load_discount(product)
+  def load_discount(product, company)
     return if current_user&.admin?
 
-    return unless product.seasonal_prices.any? && product.lowest_price != product.price
+    return unless product.lowest_price(company) != product.price
 
-    discount = 100 - (product.lowest_price / product.price * 100)
+    discount = 100 - (product.lowest_price(company) / product.price * 100)
     "#{discount.round}% OFF"
   end
 
-  def load_end_data(product)
+  def load_end_data(product, company)
     return if current_user&.admin?
 
-    return unless product.seasonal_prices.any? && product.lowest_price != product.price
+    return unless product.seasonal_prices.any? && product.lowest_price(company) != product.price
 
-    "Oferta válida até #{l(product.current_seasonal_price_find_end_date)}"
+    "Oferta válida até #{l(product.current_seasonal_price.end_date)}"
   end
 
   private
+
+  def text_promotional(product, company)
+    content_tag :div do
+      content_tag(:span, "De\s") +
+        content_tag(:span, show_price(product.price).to_s, class: 'text-danger text-decoration-line-through') +
+        content_tag(:span, "\spor\s") +
+        content_tag(:span, show_price(product.lowest_price(company)).to_s, class: 'fw-bold text-success') +
+        content_tag(:span, "\sPontos")
+    end
+  end
 
   def show_common_user_price(price)
     return if current_user.card_info.nil? || session[:status_user] != 'unblocked'

@@ -16,24 +16,43 @@ class Product < ApplicationRecord
   validates :description, length: { minimum: 10 }
   validate :image_type
 
-  def lowest_price
-    if seasonal_prices.any?
-      seasonal_prices.each do |sp|
-        return sp.value if sp.start_date.past? && sp.end_date.future?
-      end
-    end
-    price
+  def lowest_price(company)
+    [current_seasonal_price&.value, price_by_promotional_campaign(company), price].compact.min
   end
-  
-  def current_seasonal_price_find_end_date
-    if seasonal_prices.any?
-      seasonal_prices.each do |sp|
-        return sp.end_date if sp.start_date.past? && sp.end_date.future?
-      end
+
+  def current_seasonal_price
+    return unless seasonal_prices.any?
+
+    seasonal_prices.each do |sp|
+      return sp if sp.ongoing?
     end
   end
 
   private
+
+  def price_by_promotional_campaign(company)
+    return if company.nil? || company.class != Company
+
+    pcs = company.promotional_campaigns.filter(&:in_progress?)
+    return if pcs.empty?
+
+    promotional = find_promotional_campaign(pcs)
+    get_price_by_campaign(promotional) || price
+  end
+
+  def get_price_by_campaign(promotional)
+    return unless promotional
+
+    campaign_category = promotional.campaign_categories.find_by(product_category:)
+
+    campaign_category ? price - ((campaign_category.discount * price) / 100) : price
+  end
+
+  def find_promotional_campaign(pcs)
+    pcs.find do |pc|
+      pc.campaign_categories.find_by(product_category:)
+    end
+  end
 
   def image_type
     product_images.each do |image|
