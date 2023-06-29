@@ -7,15 +7,15 @@ class ApplicationController < ActionController::Base
 
   def bring_companies
     response = Faraday.get('http://localhost:3000/api/v1/companies')
-    response_tratament(response)
+    response_treatment(response)
   rescue StandardError
     flash.now[:alert] = t('.internal_error')
   end
 
-  def response_tratament(response)
+  def response_treatment(response)
     case response.status
     when 200
-      iterates_companies(response)
+      iterate_companies(response)
       flash_notice
     when 204
       flash.now[:notice] = t('.sucess_no_company')
@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def iterates_companies(response)
+  def iterate_companies(response)
     @companies_count_before = Company.count
     companies_api = JSON.parse(response.body)
     companies_api.each do |cia|
