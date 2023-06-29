@@ -15,9 +15,9 @@ describe 'Admin visualiza as empresas' do
 
     expect(current_path).to eq companies_path
     within '#ativas' do
-      expect(page).to have_content '12345678000195'
-      expect(page).to have_content '12345678000295'
-      expect(page).to have_content '58771187000107'
+      expect(page).to have_content '12.345.678/0001-95'
+      expect(page).to have_content '12.345.678/0002-95'
+      expect(page).to have_content '58.771.187/0001-07'
       expect(page).to have_content 'Apple'
       expect(page).to have_content 'Microsoft'
       expect(page).to have_content 'Empresa Existente'
@@ -26,7 +26,7 @@ describe 'Admin visualiza as empresas' do
       expect(page).to have_content 'Empresa Existente LTDA'
     end
     within '#inativas' do
-      expect(page).to have_content '12345678000395'
+      expect(page).to have_content '12.345.678/0003-95'
       expect(page).to have_content 'IBM'
       expect(page).to have_content 'IBM Corporation'
     end
@@ -52,15 +52,15 @@ describe 'Admin visualiza as empresas' do
 
     expect(current_path).to eq companies_path
     within '#ativas' do
-      expect(page).to have_content '12345678000195'
-      expect(page).to have_content '12345678000295'
+      expect(page).to have_content '12.345.678/0001-95'
+      expect(page).to have_content '12.345.678/0002-95'
       expect(page).to have_content 'Apple'
       expect(page).to have_content 'Microsoft'
       expect(page).to have_content 'Apple LTDA'
       expect(page).to have_content 'Microsoft Corporation'
     end
     within '#inativas' do
-      expect(page).to have_content '12345678000395'
+      expect(page).to have_content '12.345.678/0003-95'
       expect(page).to have_content 'IBM'
       expect(page).to have_content 'IBM Corporation'
     end
@@ -78,6 +78,7 @@ describe 'Admin visualiza as empresas' do
 
     expect(current_path).to eq companies_path
     expect(page).to have_content 'Solicitação efetuada com sucesso, mas nenhuma empresa encontrada'
+    expect(page).to have_content 'Nenhuma empresa encontrada na aplicação de Gestão de Empresas'
   end
 
   it 'e não consegue ver as empresas por erro 500' do
