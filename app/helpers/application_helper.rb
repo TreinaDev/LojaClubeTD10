@@ -70,21 +70,21 @@ module ApplicationHelper
   def offer_end_date_message(product, company)
     sc = product.current_seasonal_price
     pc = product.find_promotional_campaign(company.promotional_campaigns)
-    if sc.present? && pc.present?
+    if sc&.ongoing? && pc&.in_progress?
       "Oferta válida até #{l(compare_prices(product, company))}"
-    elsif pc
+    elsif pc&.in_progress?
       "Oferta válida até #{l(pc.end_date)}"
-    elsif sc
+    elsif sc&.ongoing?
       "Oferta válida até #{l(sc.end_date)}"
     end
   end
 
   def compare_prices(product, company)
     if product.lowest_price(company) == product.current_seasonal_price.value
-      return product.current_seasonal_price.end_date
+       product.current_seasonal_price.end_date
+    else
+        product.find_promotional_campaign(company.promotional_campaigns).end_date
     end
-
-    product.find_promotional_campaign(company.promotional_campaigns).end_date
   end
 
   def text_promotional(product, company)
