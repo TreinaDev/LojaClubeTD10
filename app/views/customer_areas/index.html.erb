@@ -1,42 +1,41 @@
 <div class="container-lg text-center pt-3 pe-4 ps-4">
   <h1 class="mb-1 fw-bold"><%= t(:client_area) %></h1>
-  <div class="mb-4 mt-4">
 
-  <%= render 'nav-tab' %>
+    <%= render 'nav-tab' %>
     
-    <div class="col-lg col-sm-12 text-start fs-4">
-      <div class="row">
-        <h3 class="fw-bold"><%= t('.my_account')%></h3>
-        <p><%= current_user.name %></p>
-        <p><%= current_user.email %></p>
-      </div>
-      <div class="row">
-      <h3 class="fw-bold"><%= t('.adresses') %></h3>
-        <div>
-          <h4 class="fw-bold"><%=t('.default_adresses')%></h4>
+  <div class="col-lg col-sm-12 text-start fs-4">
+    <div class="row">
+      <h3 class="fw-bold"><%= t('.my_account')%></h3>
+      <div class="d-flex justify-content-between">
+        <%= current_user.name %>
+        <div class="d-flex align-items-center">
+          <span class="bg-dark bg-gradient px-3 text-white rounded">
+            <strong>Saldo atual: </strong>
+            <%= "#{number_with_delimiter(current_user&.card_info&.points, delimiter: '.') || 0} #{t('.points')}" %>
+          </span>
+          <%= button_to update_points_path, id: "update_points", class: "btn btn-info ms-2" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+              <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+            </svg>
+          <% end %>
         </div>
       </div>
-      <div class="row">
-        <h3 class="fw-bold"><%= t('.recent_orders')%></h3>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Pedido</th>
-              <th scope="col">Data</th>
-              <th scope="col">Valor</th>
-              <th scope="col">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row"></th>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <p><%= current_user.email %></p>
+    </div>
+    <div class="row mb-2">
+      <h3 class="fw-bold"><%= t('.adresses') %></h3>
+      <% if current_user&.address_default.present? %>
+        <div>
+          <%= current_user.address_default.address %>,
+          <%= current_user.address_default.number %>
+          <%= current_user.address_default.city %> -
+          <%= current_user.address_default.state %>
+          <%= "#{t('.zipcode')}: " "#{current_user.address_default.zipcode}" %>
+        </div>
+      <% else %>
+        <span><%= t('.not_default_addresses') %><span>
+      <% end %>  
     </div>
   </div>
 </div>

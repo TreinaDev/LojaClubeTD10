@@ -7,8 +7,8 @@ describe 'Usuário vê seu carrinho de compras' do
     category = ProductCategory.create!(name: 'Eletrônicos')
     product1 = create(:product, name: 'Produto 1', product_category: category)
     cart.orderables.create(product: product1, shopping_cart: cart, quantity: 2)
-    session = { cart_id: cart.id }
-    allow_any_instance_of(ApplicationController).to receive(:session).and_return(session)
+    cart_session = { cart_id: cart.id }
+    allow_any_instance_of(ApplicationController).to receive(:session).and_return(cart_session)
 
     login_as(user)
     visit root_path

@@ -41,12 +41,14 @@ git clone git@github.com:TreinaDev/LojaClubeTD10.git
 
 Na pasta da aplicação, rode o comando:
 ```
-bin/setup
+
+* bin/setup
+* yarn install
 ```
 
 Executar o servidor Rails:
 ```
-rails server
+* bin/dev
 ```
 
 Abra o navegador com do endereço:

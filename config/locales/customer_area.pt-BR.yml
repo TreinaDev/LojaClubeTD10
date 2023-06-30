@@ -1,14 +1,30 @@
 pt-BR:
   customer_areas:
+    favorite_tab: 
+      available_product: Produtos disponíveis
+      unavailable_product:
+        one: Produto indisponível
+        other: Produtos indisponíveis
+      no_favorites_selected: Você não selecionou nenhum produto como favorito
     index:
       my_account: 'Minha Conta'
       my_orders: 'Meus Pedidos'
       my_infos: 'Minhas Informações'
-      adresses: 'Meus endereços'
+      adresses: 'Endereço Principal'
       default_adresses: 'Endereço Padrão'
       product_favorites: 'Produtos Favoritos'
       recent_orders: 'Pedidos Recentes'
+      points: 'Pontos'
+      zipcode: 'CEP'
+      not_default_addresses: 'Não possui endereço cadastrado como padrão!'
     me:
       update_phone: 'Atualizar Contato'
     addresses:
       my_addresses: 'Meus endereços'
+    update_points:
+      success: 'Saldo de pontos atualizado!'
+      failed: 'Não foi possível atualizar o saldo, tente mais tarde.'
+      not_found: 'Cartão não encontrado. Impossível atualizar saldo!'
+    extract_tab:
+      my_extract: 'Meu extrato'
+      failed: 'Não foi possível consultar o seu extrato, tente mais tarde.'

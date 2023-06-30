@@ -24,6 +24,11 @@ class User < ApplicationRecord
     cpf.to_s.gsub(/(\d{3})(\d{3})(\d{3})(\d{2})/, '\1.\2.\3-\4')
   end
 
+  def address_default
+    default_address = client_addresses.find_by(default: true)
+    default_address&.address
+  end
+
   def formatted_phone
     phone_number = self.phone_number
     phone_number.to_s.gsub(/(\d{2})(\d{5})(\d{4})/, '(\1)\2-\3')
@@ -31,6 +36,14 @@ class User < ApplicationRecord
 
   def favorite_products
     favorites.map(&:product)
+  end
+
+  def can_buy?
+    common? && card_info.present?
+  end
+
+  def verify_cpf_company
+    Faraday.get("http://localhost:3000/api/v1/employee_profiles?cpf=#{cpf}")
   end
 
   def find_card

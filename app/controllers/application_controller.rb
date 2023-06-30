@@ -5,6 +5,58 @@ class ApplicationController < ActionController::Base
   before_action :load_product_categories
   before_action :load_cart
 
+  def bring_companies
+    response = Faraday.get('http://localhost:3000/api/v1/companies')
+    response_treatment(response)
+  rescue StandardError
+    flash.now[:alert] = t('.internal_error')
+  end
+
+  def response_treatment(response)
+    case response.status
+    when 200
+      iterate_companies(response)
+      flash_notice
+    when 204
+      flash.now[:notice] = t('.sucess_no_company')
+    else
+      flash.now[:alert] = t('.internal_error')
+    end
+  end
+
+  def iterate_companies(response)
+    @companies_count_before = Company.count
+    companies_api = JSON.parse(response.body)
+    companies_api.each do |cia|
+      company = Company.find_by(registration_number: cia['registration_number'])
+      unless cia['active'].nil?
+        company.nil? ? create_company(cia) : update_company(cia)
+      end
+    end
+    @companies_count_after = Company.count
+  end
+
+  def create_company(cia)
+    Company.new(registration_number: cia['registration_number'],
+                brand_name: cia['brand_name'],
+                corporate_name: cia['corporate_name'],
+                active: cia['active']).save
+  end
+
+  def update_company(cia)
+    Company.find_by(registration_number: cia['registration_number']).update(brand_name: cia['brand_name'],
+                                                                            corporate_name: cia['corporate_name'],
+                                                                            active: cia['active'])
+  end
+
+  def flash_notice
+    flash.now[:notice] = if @companies_count_before == @companies_count_after
+                           t('.sucess_no_company_added')
+                         else
+                           t('.sucess_new_company_added')
+                         end
+  end
+
   private
 
   def prevent_admin
@@ -25,7 +77,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_product_categories
-    @product_categories = ProductCategory.where('active = true')
+    @product_categories_navbar = ProductCategory.where('active = true')
   end
 
   def check_user
