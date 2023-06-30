@@ -36,7 +36,7 @@ describe 'Usuário visualiza lista de favoritos' do
 
     login_as user
     visit customer_areas_path
-    click_on 'Produtos Favoritos'
+    click_on 'Meus Favoritos'
 
     expect(current_path).to eq favorite_tab_path
     within '.available' do
@@ -63,7 +63,7 @@ describe 'Usuário visualiza lista de favoritos' do
 
     login_as user
     visit customer_areas_path
-    click_on 'Produtos Favoritos'
+    click_on 'Meus Favoritos'
 
     expect(current_path).to eq favorite_tab_path
     within '.available' do
@@ -87,7 +87,7 @@ describe 'Usuário visualiza lista de favoritos' do
 
     login_as user
     visit customer_areas_path
-    click_on 'Produtos Favoritos'
+    click_on 'Meus Favoritos'
 
     expect(current_path).to eq favorite_tab_path
     within '.unavailable' do
@@ -102,7 +102,7 @@ describe 'Usuário visualiza lista de favoritos' do
                         phone_number: '19998555544', cpf: '56685728701')
     login_as user
     visit customer_areas_path
-    click_on 'Produtos Favoritos'
+    click_on 'Meus Favoritos'
 
     expect(page).to have_content 'Você não selecionou nenhum produto como favorito'
   end
