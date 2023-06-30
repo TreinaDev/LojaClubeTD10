@@ -1,0 +1,23 @@
+<div class="row align-items-center">
+  <% if @products.any? %>
+  <h2 class="text-center border-bottom mb-3 p-3"> <%= "#{@quantity} #{t('.found', count: @quantity)}"%></h2>
+    <% @products.each do |product| %>
+      <div class= "col">
+        <div class="card shadow-sm p-3 mb-5 bg-white rounded product-card" id=<%= product.code %>>
+        <% if product.product_images.attached? %>
+          <%= image_tag(product.product_images[0], alt:product.name, class:"card-img-top card-image")%>
+          <% else %>
+          <%= image_tag(asset_path('no_image.jpg'), alt:product.name, class:"card-img-top card-image")%>
+        <% end %>
+          <div class="card-body">
+            <h5 class="card-title"><%= link_to product.name, product_path(product.id) %></h5>
+            <p class="text-truncate mw-2"><%= product.description %></p>
+            <p><%= "#{show_price(product.price)}" %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <h2 class="text-center border-bottom mb-3 p-3">Nenhum produto encontrado!<h2>
+  <% end %>
+</div>

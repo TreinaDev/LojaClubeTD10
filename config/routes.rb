@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       post :deactivate
       post :reactivate
     end
+    get 'search', on: :collection
   end
 
   resources :addresses, only: [:new, :create, :edit, :update, :destroy] do
