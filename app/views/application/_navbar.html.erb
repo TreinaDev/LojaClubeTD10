@@ -17,7 +17,9 @@
                 <%= link_to("#{pc.name} &raquo;".html_safe, root_path(product_category: pc.id), class: "dropdown-item")%>
                 <ul class="dropdown-menu dropdown-submenu">
                   <% pc.subcategories.each do |sub| %>
-                    <li><%= link_to(sub.name, root_path(product_category: sub.id), class: "dropdown-item")%></li>
+                    <% if sub.active? %>
+                      <li><%= link_to(sub.name, root_path(product_category: sub.id), class: "dropdown-item")%></li>
+                    <% end %>
                   <% end %>
                 </ul>
               </li>
