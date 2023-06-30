@@ -7,6 +7,7 @@ category1 = ProductCategory.create!(name: 'TV')
 category2 = ProductCategory.create!(name: 'Celular')
 ProductCategory.create!(name: 'Eletrodomésticos')
 ProductCategory.create!(name: 'Produtos de Higiene')
+subcategory = ProductSubcategory.create!(parent_id: category1.id, name: 'Smart')
 
 product1 = Product.new(name: 'TV55', code: 'TVS123456',
                        description: 'Smart TV 65” 4K Neo QLED Samsung VA 120Hz - Wi-Fi Bluetooth Alexa Google 4 HDMI',
@@ -17,7 +18,7 @@ product1.save!
 
 product2 = Product.new(name: 'TV52', code: 'TVS654321',
                        description: 'Smart TV HD LED 32” Samsung T4300 - Wi-Fi HDR 2 HDMI 1 USB',
-                       brand: 'Samsung', price: 3500, product_category: category1)
+                       brand: 'Samsung', price: 3500, product_category: subcategory)
 product2.product_images.attach(io: Rails.root.join('spec/support/imgs/tv_2.jpg').open, filename: 'tv_2.jpg')
 product2.product_images.attach(io: Rails.root.join('spec/support/imgs/tv_22.jpg').open, filename: 'tv_22.jpg')
 product2.save!
