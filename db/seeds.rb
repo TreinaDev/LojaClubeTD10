@@ -60,7 +60,6 @@ promotional_campaign_b = PromotionalCampaign.create!(name: 'Campanha 2 Empresa 1
 
 CampaignCategory.create!(promotional_campaign: promotional_campaign_b, product_category: category1, discount: 20)
 
-
 Company.create!(registration_number: '86654033000170', corporate_name: 'Punti LTDA.', brand_name: 'Punti')
 promotional_campaign_c = PromotionalCampaign.new(name: 'Campanha 1 Empresa 2', start_date: 2.days.from_now,
                                                  end_date: 1.month.from_now, company: Company.last)
