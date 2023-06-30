@@ -1,6 +1,6 @@
 pt-BR:
   customer_areas:
-    favorite_tab: 
+    favorite_tab:
       available_product: Produtos disponíveis
       unavailable_product:
         one: Produto indisponível
@@ -25,6 +25,8 @@ pt-BR:
       success: 'Saldo de pontos atualizado!'
       failed: 'Não foi possível atualizar o saldo, tente mais tarde.'
       not_found: 'Cartão não encontrado. Impossível atualizar saldo!'
+    order_history:
+      update_error: 'Falha em consultar o serviço de pagamentos. Os status pendentes podem estar desatualizados.'
     extract_tab:
       my_extract: 'Meu extrato'
       failed: 'Não foi possível consultar o seu extrato, tente mais tarde.'

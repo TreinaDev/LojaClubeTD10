@@ -28,7 +28,7 @@ describe 'Usuário acessa detalhes de um pedido' do
 
     expect(page).to have_content 'Número do Pedido: 1'
     expect(page).to have_content "Data do Pedido: #{I18n.l(order.created_at.to_date)}"
-    expect(page).to have_content 'Status do Pedido: Aguardando aprovação'
+    expect(page).to have_content 'Status do Pedido: Aguardando pagamento'
     expect(page).to have_content 'Camiseta Azul'
     expect(page).to have_content 'CMA123456'
     expect(page).to have_content '16.000 Pontos'
@@ -65,7 +65,7 @@ describe 'Usuário acessa detalhes de um pedido' do
 
     expect(page).to have_content 'Número do Pedido: 1'
     expect(page).to have_content "Data do Pedido: #{I18n.l(order.created_at.to_date)}"
-    expect(page).to have_content 'Status do Pedido: Aguardando aprovação'
+    expect(page).to have_content 'Status do Pedido: Aguardando pagamento'
     expect(page).to have_content 'Camiseta Azul'
     expect(page).to have_content 'CMA123456'
     expect(page).to have_content '16.000 Pontos'

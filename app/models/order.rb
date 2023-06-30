@@ -7,7 +7,7 @@ class Order < ApplicationRecord
   validates :discount_amount, numericality: { greater_than_or_equal_to: 0 }
   validates :conversion_tax, presence: true
 
-  enum status: { pending: 0, approved: 1, canceled: 2 }
+  enum status: { pending: 0, approved: 1, rejected: 2 }
 
   def subtotal_price
     subtotal = 0
