@@ -105,7 +105,6 @@ describe 'Usuário pesquisa um produto' do
     expect(current_path).to eq root_path
     expect(page).to have_content 'Não é possível realizar uma busca vazia'
   end
-
   it 'e encontra produtos, com exceção dos produtos desativados ou que não atendam a busca' do
     category = create(:product_category, name: 'Celulares')
     create(:product, name: 'Celular 1', code: 'AFG123456', description: 'Celular 1 AFG',
@@ -135,5 +134,37 @@ describe 'Usuário pesquisa um produto' do
     expect(page).not_to have_link 'Celular 3'
     expect(page).not_to have_css '.card#CAL456123'
     expect(page).not_to have_link 'Calculadora'
+  end
+  context 'estando logado' do
+    it 'com sucesso' do
+      user = create(:user)
+      create(:card_info, user:, conversion_tax: 10)
+      session_user = { status_user: 'unblocked', company_cnpj: '12345678000195' }
+      allow_any_instance_of(ApplicationController).to receive(:session).and_return(session_user)
+      category = create(:product_category, name: 'Celulares')
+      create(:product, name: 'Celular Iphone', code: 'AFG123456', product_category: category, price: 100)
+      create(:product, name: 'Celular Xiaomi', code: 'ZXF456123', product_category: category, price: 200)
+      create(:product, name: 'Celular Samsung', code: 'CLL456123', product_category: category, price: 300)
+  
+      login_as(user)
+      visit root_path
+      find('#searchProduct').click
+      fill_in 'query',	with: 'Celular'
+      click_on 'Buscar'
+  
+      expect(page).to have_content '3 resultados encontrados'
+      within('.card#AFG123456') do
+        expect(page).to have_link 'Celular Iphone'
+        expect(page).to have_content '1.000 Pontos'
+      end
+      within('.card#ZXF456123') do
+        expect(page).to have_link 'Celular Xiaomi'
+        expect(page).to have_content '2.000 Pontos'
+      end
+      within('.card#CLL456123') do
+        expect(page).to have_link 'Celular Samsung'
+        expect(page).to have_content '3.000 Pontos'
+      end
+    end
   end
 end
