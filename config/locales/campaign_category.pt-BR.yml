@@ -9,6 +9,7 @@ pt-BR:
     destroy:
       campaign_category_success: 'Categoria/Desconto removidos com sucesso'
       campaign_category_fail: 'Não foi possível remover Categoria/Desconto da Campanha'
+      campaign_no_future: 'Só é possível remover categoria em uma campanha futura'
   activerecord:
     models:
       campaign_category: Categoria da Campanha

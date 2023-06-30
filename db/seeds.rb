@@ -42,20 +42,26 @@ product4.product_images.attach(io: Rails.root.join('spec/support/imgs/cel_22.jpg
 product4.save!
 
 Company.create!(registration_number: '34997507000183', corporate_name: 'Rebase LTDA.', brand_name: 'Rebase')
-Company.create!(registration_number: '86654033000170', corporate_name: 'Punti LTDA.', brand_name: 'Punti')
 
-promotional_campaign_a = PromotionalCampaign.create!(name: 'Campanha 1 Empresa 1', start_date: 5.days.from_now,
-                                                     end_date: 2.months.from_now, company: Company.first)
-CampaignCategory.create!(promotional_campaign: promotional_campaign_a, product_category: category1, discount: 10)
-CampaignCategory.create!(promotional_campaign: promotional_campaign_a, product_category: category2, discount: 20)
-promotional_campaign_a.update(start_date: 1.month.ago, end_date: 2.weeks.ago)
+promotional_campaign_a = PromotionalCampaign.new(name: 'Campanha 1 Empresa 1', start_date:  1.month.ago,
+                                                 end_date: 2.weeks.ago, company: Company.first)
+promotional_campaign_a.save(validate: false)
+
+campaign_category_a = CampaignCategory.new(promotional_campaign: promotional_campaign_a, product_category: category1,
+                                           discount: 10)
+campaign_category_a.save(validate: false)
+
+campaign_category_b = CampaignCategory.new(promotional_campaign: promotional_campaign_a, product_category: category2,
+                                           discount: 20)
+campaign_category_b.save(validate: false)
 
 promotional_campaign_b = PromotionalCampaign.create!(name: 'Campanha 2 Empresa 1', start_date: 1.week.from_now,
                                                      end_date: 1.month.from_now, company: Company.first)
 
 CampaignCategory.create!(promotional_campaign: promotional_campaign_b, product_category: category1, discount: 20)
-promotional_campaign_b.update(start_date: 1.day.ago)
 
-promotional_campaign_c = PromotionalCampaign.create!(name: 'Campanha 1 Empresa 2', start_date: 1.week.from_now,
-                                                     end_date: 1.month.from_now, company: Company.last)
-CampaignCategory.create!(promotional_campaign: promotional_campaign_b, product_category: category2, discount: 10)
+
+Company.create!(registration_number: '86654033000170', corporate_name: 'Punti LTDA.', brand_name: 'Punti')
+promotional_campaign_c = PromotionalCampaign.new(name: 'Campanha 1 Empresa 2', start_date: 2.days.from_now,
+                                                 end_date: 1.month.from_now, company: Company.last)
+promotional_campaign_c.save(validate: false)

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Administrador adiciona uma categoria e seu respectivo desconto para uma campanha promocional' do
-  it 'a partir da tela de detalhes da campanha' do
+  it 'com sucesso, para uma campanha futura' do
     admin = create(:user, email: 'adm@punti.com')
     create(:product_category, name: 'Celulares')
     create(:product_category, name: 'Eletrônicos')
@@ -83,7 +83,7 @@ describe 'Administrador adiciona uma categoria e seu respectivo desconto para um
     expect(page).to have_content 'Você não possui acesso a este módulo'
   end
 
-  it 'e não visuzaliza as categorias adicionadas à uma campanha da mesma empresa, com período sobrepostos' do
+  it 'e não visualiza as categorias adicionadas à uma campanha da mesma empresa, com período sobrepostos' do
     admin = create(:user, email: 'adm@punti.com')
     category1 = create(:product_category, name: 'Celulares')
     category2 = create(:product_category, name: 'Eletrônicos')
@@ -112,7 +112,7 @@ describe 'Administrador adiciona uma categoria e seu respectivo desconto para um
     end
   end
 
-  it 'e não visuzaliza os campos do formulário pois a campanha está em andamento' do
+  it 'e não visualiza os campos do formulário pois a campanha está em andamento' do
     admin = create(:user, email: 'adm@punti.com')
     create(:product_category, name: 'Celulares')
     create(:product_category, name: 'Eletrônicos')
@@ -131,11 +131,34 @@ describe 'Administrador adiciona uma categoria e seu respectivo desconto para um
       expect(page).not_to have_select('Categoria')
       expect(page).not_to have_field('Desconto')
       expect(page).not_to have_button('Cadastrar')
-      expect(page).to have_content 'Campanha em andamento. Não é possível mais adicionar ou remover categorias'
+      expect(page).to have_content 'Não é possível mais adicionar ou remover categorias'
     end
   end
 
-  it 'e não visuzaliza os campos do formulário pois Não há mais categorias disponíveis' do
+  it 'e não visualiza os campos do formulário pois a campanha está finalizada' do
+    admin = create(:user, email: 'adm@punti.com')
+    create(:product_category, name: 'Celulares')
+    create(:product_category, name: 'Eletrônicos')
+    travel_to 6.months.ago do
+      create(:promotional_campaign, name: 'Natal 2023')
+    end
+
+    login_as(admin)
+    visit root_path
+    click_on 'Campanhas'
+    click_on 'Natal 2023'
+
+    expect(page).to have_content 'Natal 2023'
+    within '#form_campaign_category' do
+      expect(page).to have_content 'Adicionar Categorias à Campanha'
+      expect(page).not_to have_select('Categoria')
+      expect(page).not_to have_field('Desconto')
+      expect(page).not_to have_button('Cadastrar')
+      expect(page).to have_content 'Não é possível mais adicionar ou remover categorias'
+    end
+  end
+
+  it 'e não visualiza os campos do formulário pois não há mais categorias disponíveis' do
     admin = create(:user, email: 'adm@punti.com')
     category1 = create(:product_category, name: 'Celulares')
     category2 = create(:product_category, name: 'Eletrônicos')

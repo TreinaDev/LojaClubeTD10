@@ -83,4 +83,66 @@ describe 'Administrador edita uma campanha promocional' do
     expect(page).not_to have_field('Nome')
     expect(page).to have_content 'Você não possui acesso a este módulo'
   end
+
+  it 'e não consegue editar uma campanha em andamento' do
+    admin = create(:user, email: 'adm@punti.com')
+    company = create(:company, brand_name: 'CodeCampus')
+    travel_to 6.months.ago do
+      create(:promotional_campaign, name: 'Verão 2023')
+    end
+    travel_to 1.month.ago do
+      create(:promotional_campaign, name: 'Inverno 2023', end_date: 3.months.from_now.to_date)
+    end
+    create(:promotional_campaign, name: 'Outono 2023', company:)
+
+    login_as(admin)
+    visit root_path
+    click_on 'Campanhas'
+
+    expect(page).to have_content 'Campanhas Promocionais'
+    within '#campaigns_in_progress' do
+      expect(page).to have_content 'Campanhas em andamento'
+      expect(page).to have_content 'Inverno 2023'
+      expect(page).not_to have_link 'Editar'
+    end
+    within '#campaigns_future' do
+      expect(page).to have_content 'Campanhas futuras'
+      expect(page).to have_content 'Outono 2023'
+    end
+    within '#campaigns_finished' do
+      expect(page).to have_content 'Campanhas finalizadas'
+      expect(page).to have_content 'Verão 2023'
+    end
+  end
+
+  it 'e não consegue editar uma campanha finalizada' do
+    admin = create(:user, email: 'adm@punti.com')
+    company = create(:company, brand_name: 'CodeCampus')
+    travel_to 6.months.ago do
+      create(:promotional_campaign, name: 'Verão 2023')
+    end
+    travel_to 1.month.ago do
+      create(:promotional_campaign, name: 'Inverno 2023', end_date: 3.months.from_now.to_date)
+    end
+    create(:promotional_campaign, name: 'Outono 2023', company:)
+
+    login_as(admin)
+    visit root_path
+    click_on 'Campanhas'
+
+    expect(page).to have_content 'Campanhas Promocionais'
+    within '#campaigns_in_progress' do
+      expect(page).to have_content 'Campanhas em andamento'
+      expect(page).to have_content 'Inverno 2023'
+    end
+    within '#campaigns_future' do
+      expect(page).to have_content 'Campanhas futuras'
+      expect(page).to have_content 'Outono 2023'
+    end
+    within '#campaigns_finished' do
+      expect(page).to have_content 'Campanhas finalizadas'
+      expect(page).to have_content 'Verão 2023'
+      expect(page).not_to have_link 'Editar'
+    end
+  end
 end
