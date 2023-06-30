@@ -81,9 +81,9 @@ module ApplicationHelper
 
   def compare_prices(product, company)
     if product.lowest_price(company) == product.current_seasonal_price.value
-       product.current_seasonal_price.end_date
+      product.current_seasonal_price.end_date
     else
-        product.find_promotional_campaign(company.promotional_campaigns).end_date
+      product.find_promotional_campaign(company.promotional_campaigns).end_date
     end
   end
 
