@@ -31,7 +31,7 @@ describe 'Usuário remove um produto de sua lista de favoritos' do
 
     login_as user
     visit customer_areas_path
-    click_on 'Produtos Favoritos'
+    click_on 'Meus Favoritos'
     find_button('Excluir', id: favorite.id).click
 
     expect(page).to have_content 'Produto excluído da sua lista de favoritos'
