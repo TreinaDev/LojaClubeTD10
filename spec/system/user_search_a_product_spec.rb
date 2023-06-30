@@ -145,13 +145,13 @@ describe 'Usuário pesquisa um produto' do
       create(:product, name: 'Celular Iphone', code: 'AFG123456', product_category: category, price: 100)
       create(:product, name: 'Celular Xiaomi', code: 'ZXF456123', product_category: category, price: 200)
       create(:product, name: 'Celular Samsung', code: 'CLL456123', product_category: category, price: 300)
-  
+
       login_as(user)
       visit root_path
       find('#searchProduct').click
       fill_in 'query',	with: 'Celular'
       click_on 'Buscar'
-  
+
       expect(page).to have_content '3 resultados encontrados'
       within('.card#AFG123456') do
         expect(page).to have_link 'Celular Iphone'
