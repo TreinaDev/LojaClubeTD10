@@ -24,21 +24,20 @@ class OrdersController < ApplicationController
     return if card_not_present? || card_number_blank? || card_number_length_is_invalid?
 
     order = build_order(@cart)
-
     save_order_and_redirect(order)
   end
 
   private
 
   def order_params
-    params
-      .require(:order)
-      .permit(:total_value, :discount_amount, :final_value, :user_id, :conversion_tax)
+    params.require(:order).permit(:total_value, :discount_amount, :final_value, :user_id, :conversion_tax)
   end
 
   def transfer_products(order)
-    @cart.orderables.each do |o|
-      OrderItem.create!(order_id: order.id, product_id: o.product_id, quantity: o.quantity)
+    @cart.orderables.each do |orderable|
+      OrderItem.create(order_id: order.id, product_id: orderable.product_id,
+                       quantity: orderable.quantity, price_amount: orderable.product.price,
+                       discount_amount: orderable.product.discount(@company))
     end
   end
 

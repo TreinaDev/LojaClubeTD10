@@ -12,7 +12,7 @@ describe 'Usuário acessa detalhes de um pedido' do
     create(:card_info, user:)
     order = create(:order, total_value: 64_000, discount_amount: 0, final_value: 64_000, user:,
                            conversion_tax: 20)
-    create(:order_item, order:, product: product1, quantity: 4)
+    create(:order_item, order:, product: product1, quantity: 4, price_amount: 800, discount_amount: 0)
     json_data = Rails.root.join('spec/support/json/card_data_active.json').read
     fake_response = double('faraday_response', status: 200, body: json_data)
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{user.cpf}").and_return(fake_response)
@@ -32,7 +32,7 @@ describe 'Usuário acessa detalhes de um pedido' do
     expect(page).to have_content 'Camiseta Azul'
     expect(page).to have_content 'CMA123456'
     expect(page).to have_content '16.000 Pontos'
-    expect(page).to have_content '64.000 Pontos'
+    expect(page).to have_content '0 Pontos'
     expect(page).to have_content '64.000 Pontos'
     expect(page).to have_content '64.000 Pontos'
   end
@@ -49,7 +49,7 @@ describe 'Usuário acessa detalhes de um pedido' do
     create(:card_info, user:)
     order = create(:order, total_value: 64_000, discount_amount: 0, final_value: 64_000, user:,
                            conversion_tax: 20)
-    create(:order_item, order:, product: product1, quantity: 4)
+    create(:order_item, order:, product: product1, quantity: 4, price_amount: 800)
     json_data = Rails.root.join('spec/support/json/card_data_active.json').read
     fake_response = double('faraday_response', status: 200, body: json_data)
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{user.cpf}").and_return(fake_response)

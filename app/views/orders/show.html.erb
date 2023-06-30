@@ -10,7 +10,7 @@
           <th>Código</th>
           <th>Preço</th>
           <th>Desconto</th>
-          <th>Subtotal</th>
+          <th>Total</th>
           <th>Quantidade</th>
         </tr>
       </thead>
@@ -20,9 +20,9 @@
           <tr class="text-center">
             <td><%= product.name %></td>
             <td><%= product.code %></td>
-            <td><%= number_with_delimiter((product.price * @order.conversion_tax).round, delimiter: '.') %> Pontos</td>
-            <td>0</td>
-            <td><%= number_with_delimiter((product.price * @order.conversion_tax * oi.quantity).round, delimiter: '.') %> Pontos</td>
+            <td><%= number_with_delimiter((oi.price_amount * @order.conversion_tax).round, delimiter: '.') %> Pontos</td>
+            <td><%= number_with_delimiter((oi.discount_amount * @order.conversion_tax * oi.quantity).round, delimiter: '.') %> Pontos</td>
+            <td><%= number_with_delimiter((((oi.price_amount - oi.discount_amount) * oi.quantity) * @order.conversion_tax).round, delimiter: '.') %> Pontos</td>
             <td><%= oi.quantity %></td>
           </tr>
         <% end %>

@@ -22,6 +22,10 @@ class Product < ApplicationRecord
     [current_seasonal_price&.value, price_by_promotional_campaign(company), price].compact.min
   end
 
+  def discount(company)
+    price - lowest_price(company)
+  end
+
   def current_seasonal_price
     return unless seasonal_prices.any?
 
