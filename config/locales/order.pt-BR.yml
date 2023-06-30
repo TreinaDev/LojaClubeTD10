@@ -1,5 +1,5 @@
 pt-BR:
-  pending: 'Aguardando aprovação'
+  pending: 'Aguardando pagamento'
   rejected: 'Pagamento rejeitado'
   approved: 'Pagamento aprovado'
   activerecord:

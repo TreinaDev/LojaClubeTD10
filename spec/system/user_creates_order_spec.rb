@@ -11,8 +11,8 @@ describe 'Usuário logado acessa a página do carrinho' do
     shopping_cart.orderables.create(product:, shopping_cart:, quantity: 2)
     session = { cart_id: shopping_cart.id }
     allow_any_instance_of(ApplicationController).to receive(:session).and_return(session)
-    payment_json_data = Rails.root.join('spec/support/json/payment_success.json').read
-    fake_response = double('faraday_response', status: 201, body: payment_json_data)
+    order_json_data = Rails.root.join('spec/support/json/order_with_status_pending.json').read
+    fake_response = double('faraday_response', status: 201, body: order_json_data)
     url = 'http://localhost:4000/api/v1/payments'
     allow(Faraday).to receive(:post).with(url).and_return(fake_response)
     json_data = Rails.root.join('spec/support/json/card_data_active.json').read

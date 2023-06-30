@@ -1,33 +1,68 @@
-<div class="container-lg text-center pt-3 pe-4 ps-4">
+<div class="container-lg pt-3 pe-4 ps-4">
   <h1 class="mb-1 fw-bold"><%= t(:client_area) %></h1>
 
   <%= render 'nav-tab' %>
-
-  <h3>Meus Pedidos</h3>
-  <% if @user_orders.empty? %>
-    <p>Não foi encontrado nenhum pedido.</p>
-  <% else %>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Pedido</th>
-          <th scope="col">Data</th>
-          <th scope="col">Valor</th>
-          <th scope="col">Status</th>
-        </tr>
-      </thead>
+  
+  <section class="col-lg col-sm-12 fs-5">
+    <h3 class="fw-bold">Meus Pedidos</h3>
+    <% if @user_orders.empty? %>
+      <p>Não foi encontrado nenhum pedido.</p>
+    <% else %>
       <% @user_orders.each do |order|%>
-        <tbody>
-          <tr>
-            <th scope="row"><%= order.payment_code %></th>
-            <td><%= l(order.created_at.to_date) %></td>
-            <td><%= number_with_delimiter(order.final_value, delimiter: '.') %></td>
-            <td>
-              <%= t(order.status) %>
-            </td>
-          </tr>
-        </tbody>
+        <article class="shadow-sm mb-4 p-4">
+          <div class='d-flex justify-content-between flex-wrap'>
+            <div class='d-flex flex-column gap-4'>
+              <strong>Pedido</strong>
+              <p><%= order.id %></p>
+            </div>
+            <div class='d-flex flex-column gap-4'>
+              <strong>Status</strong>
+              <p class="<%= order.status %>"><%= t(order.status) %></p>
+            </div>
+            <div class='d-flex flex-column gap-4'>
+              <strong>Data</strong>
+              <p><%= l(order.created_at.to_date) %></p>
+            </div>
+            <div class='d-flex flex-column gap-4'>
+              <strong>Valor total do pedido</strong>
+              <p><%= number_with_delimiter((order.final_value * order.conversion_tax).round, delimiter: '.') %> Pontos</p>
+            </div>
+            <div class='d-flex flex-column gap-4'>
+              <button class="btn btn-link text-decoration-none" type="button" data-bs-toggle="collapse" data-bs-target="#<%= order.payment_code %>" aria-expanded="false" aria-controls="collapseExample">
+                Detalhes
+                <i class="bi bi-chevron-down"></i>
+              </button>
+            </div>
+          </div>
+          <div class="collapse" id="<%= order.payment_code %>">
+            <h5>Produto(s)</h5>
+            <% order.products.each do |product| %>
+              <hr class="border-bottom" />
+              <div class='d-flex align-items-center justify-content-between text-center'>
+                <div class='d-flex flex-column'>
+                  <%= link_to product_path(product) do %>
+                    <%= image_tag product.product_images[0], loading: 'lazy', class: 'order-details-img'%>
+                  <% end %>
+                </div>
+                <div class='d-flex flex-column' style="min-width: 200px;">
+                  <strong>Nome</strong>
+                  <span><%= product.name %></span>
+                </div>
+                <div class='d-flex flex-column'>
+                  <strong>Quantidade</strong>
+                    <% qtd = product.order_items.find_by(order_id: order.id).quantity %>
+                  <span><%= qtd %></span>
+                </div>
+                <div class='d-flex flex-column'>
+                  <strong>Valor</strong>
+                    <% value = (product.price * qtd * order.conversion_tax).round  %>
+                  <span><%= number_with_delimiter(value, delimiter: '.') %></span>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </article>
       <% end %>
-    </table>
-  <% end %>
+    <% end %>
+  </section>
 </div>
