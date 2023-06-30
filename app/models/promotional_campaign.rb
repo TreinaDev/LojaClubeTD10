@@ -8,6 +8,10 @@ class PromotionalCampaign < ApplicationRecord
 
   validate :check_start_date, :check_end_date
 
+  def in_progress?
+    Time.zone.today.between?(start_date, end_date)
+  end
+
   def future?
     Time.zone.today < start_date
   end

@@ -3,7 +3,7 @@ class CampaignCategory < ApplicationRecord
   belongs_to :product_category
 
   validates :discount, presence: true
-  validates :discount, numericality: { greater_than: 0 }
+  validates :discount, numericality: { in: 1..99 }
 
   validate :in_progress, if: -> { promotional_campaign.present? }
   validate :finished, if: -> { promotional_campaign.present? }

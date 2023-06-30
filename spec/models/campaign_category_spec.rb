@@ -19,7 +19,7 @@ RSpec.describe CampaignCategory, type: :model do
       result = campaign_category.errors.include?(:discount)
 
       expect(result).to be true
-      expect(campaign_category.errors[:discount]).to include('deve ser maior que 0')
+      expect(campaign_category.errors[:discount]).to include('deve estar em 1..99')
     end
 
     it 'inválido quando o desconto é igual a zero' do
@@ -29,7 +29,17 @@ RSpec.describe CampaignCategory, type: :model do
       result = campaign_category.errors.include?(:discount)
 
       expect(result).to be true
-      expect(campaign_category.errors[:discount]).to include('deve ser maior que 0')
+      expect(campaign_category.errors[:discount]).to include('deve estar em 1..99')
+    end
+
+    it 'inválido quando o desconto é maior que 99' do
+      campaign_category = CampaignCategory.new(discount: 100)
+
+      campaign_category.valid?
+      result = campaign_category.errors.include?(:discount)
+
+      expect(result).to be true
+      expect(campaign_category.errors[:discount]).to include('deve estar em 1..99')
     end
 
     it 'válido quando o desconto é maior que zero' do
