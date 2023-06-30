@@ -42,7 +42,7 @@
                   <td><%= product.name %></td>
                   <td><%= price_in_points(product.price) %> Pontos</td>
                   <td><%= orderable.quantity %></td>
-                  <td><%= price_in_points(load_discount(product, @company) * product.price / 100) %></td>
+                  <td><%= price_in_points(load_discount(product, @company) * product.price / 100) %> Pontos</td>
                   <td><%= price_in_points(product.lowest_price(@company) * orderable.quantity) %> Pontos</td>
                 </tr>
               </div>
@@ -65,7 +65,7 @@
         <tbody class="table-group-divider">
             <div>
               <tr class="text-center">
-                <td><%= price_in_points(@shopping_cart.total.round) %></td>
+                <td><%= price_in_points(@shopping_cart.total.round) %> Pontos</td>
                 <td><%= price_in_points(@shopping_cart.total.round - total_cart(@shopping_cart, @company)) %> Pontos</td>
                 <td><%= price_in_points(total_cart(@shopping_cart, @company)) %> Pontos</td>
               </tr>
@@ -73,7 +73,7 @@
         </tbody>
       </table>
         <div class="border p-3 mt-3">
-          <%= form_with url: close_order_path, method: :post do |f| %>
+          <%= form_with url: close_order_path, data: {turbo: false}, method: :post do |f| %>
             <div class="d-flex gap-3">
               <div>
                 <%= f.label :card_number, 'Número do Cartão', class:'form-label mt-1' %>

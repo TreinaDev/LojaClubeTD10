@@ -12,7 +12,7 @@ class ProductCategory < ApplicationRecord
   before_validation :delete_campaign_category, if: :active_changed?
   after_validation :set_type
 
-  def get_parent_if_exists
+  def parent_if_exists
     type == 'ProductSubcategory' ? parent : self
   end
 

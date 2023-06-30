@@ -18,8 +18,8 @@
             <div id="<%= "cart-#{product.id}" %>">
               <tr class="text-center">
                 <td><%= product.name %></td>
-                <td><%= product.price * current_user.card_info.conversion_tax.to_f %></td>
-                <td><%= (load_discount(product, @company) * product.price / 100) * current_user.card_info.conversion_tax.to_f %></td>
+                <td><%= show_price(product.price) %></td>
+                <td><%= show_price((load_discount(product, @company) * product.price / 100)) %></td>
                 <td><%= show_price(product.lowest_price(@company)) %></td>
                 <td>
                   <%= form_with(url: add_shopping_carts_path)  do |f| %>

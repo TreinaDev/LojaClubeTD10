@@ -21,9 +21,7 @@ class OrdersController < ApplicationController
   end
 
   def close_order
-    return if card_not_present?
-    return if card_number_blank?
-    return if card_number_length_is_invalid?
+    return if card_not_present? || card_number_blank? || card_number_length_is_invalid?
 
     order = build_order(@cart)
 
@@ -47,14 +45,9 @@ class OrdersController < ApplicationController
   def build_order(shopping_cart)
     total_value = shopping_cart.total.round
     discount = shopping_cart.total.round - total_cart(shopping_cart)
-    puts '-----------------------\n'
-    puts total_value
-    puts '-----------------------\n'
-    puts discount
-    Order.new(total_value:,
-              discount_amount: discount,
-              final_value: total_value - discount,
-              user_id: current_user.id,
+
+    Order.new(total_value:, discount_amount: discount,
+              final_value: total_value - discount, user_id: current_user.id,
               conversion_tax: current_user.card_info.conversion_tax)
   end
 

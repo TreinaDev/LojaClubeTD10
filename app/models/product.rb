@@ -45,13 +45,13 @@ class Product < ApplicationRecord
   def get_price_by_campaign(promotional)
     return unless promotional
 
-    category = product_category.get_parent_if_exists
+    category = product_category.parent_if_exists
     campaign_category = promotional.campaign_categories.find_by(product_category: category)
     campaign_category ? price - ((campaign_category.discount * price) / 100) : price
   end
 
   def find_promotional_campaign_for_product(promotional_campaigns)
-    category = product_category.get_parent_if_exists
+    category = product_category.parent_if_exists
 
     promotional_campaigns.find do |campaign|
       campaign.campaign_categories.find_by(product_category: category)

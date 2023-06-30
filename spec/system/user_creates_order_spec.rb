@@ -22,7 +22,7 @@ describe 'Usuário logado acessa a página do carrinho' do
     login_as(user)
     click_on 'Carrinho'
     click_on 'Finalizar compra'
-    fill_in 'Número do Cartão', with: '11111111111'
+    fill_in 'Número do Cartão', with: '12345678901234567890'
     click_on 'Concluir compra'
 
     expect(current_path).to eq order_path(Order.last.id)
@@ -94,7 +94,7 @@ describe 'Usuário logado acessa a página do carrinho' do
 
     click_on 'Carrinho'
     click_on 'Finalizar compra'
-    fill_in 'Número do Cartão', with: '11111111111'
+    fill_in 'Número do Cartão', with: '12345678901234567890'
     click_on 'Concluir compra'
 
     expect(current_path).to eq shopping_cart_path(shopping_cart)
