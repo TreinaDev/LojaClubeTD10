@@ -4,8 +4,10 @@ class ProductsController < ApplicationController
                                               deactivate reactivate deactivate_all reactivate_all]
   before_action :check_user, only: %i[index new create edit update deactivate reactivate deactivate_all reactivate_all]
   before_action :set_product, only: %i[show edit update deactivate reactivate]
+  before_action :add_index_breadcrumb, only: %i[show new edit create update]
 
   def index
+    add_breadcrumb('Produtos')
     @products = Product.order(:name)
     return if params[:query_products].blank?
 
@@ -14,6 +16,7 @@ class ProductsController < ApplicationController
   end
 
   def show
+    add_breadcrumb(@product.name)
     @favorite = Favorite.new
     return unless user_signed_in? && current_user.favorite_products.include?(@product)
 
@@ -21,15 +24,18 @@ class ProductsController < ApplicationController
   end
 
   def new
+    add_breadcrumb('Novo produto')
     @product = Product.new
     @categories = ProductCategory.where(parent_id: nil, active: true)
   end
 
   def edit
+    add_breadcrumb("Editar #{@product.name}")
     @categories = ProductCategory.where(parent_id: nil, active: true)
   end
 
   def create
+    add_breadcrumb('Novo produto')
     @product = Product.new(create_params)
 
     if @product.save
@@ -42,6 +48,8 @@ class ProductsController < ApplicationController
   end
 
   def update
+    add_breadcrumb("Editar #{@product.name}")
+
     if @product.update(update_params)
       attach_images
       redirect_to product_path(@product), notice: t('.product_success')
@@ -87,6 +95,10 @@ class ProductsController < ApplicationController
   end
 
   private
+
+  def add_index_breadcrumb
+    add_breadcrumb('Produtos', products_path)
+  end
 
   def attach_images
     return if params[:product][:product_images].blank?

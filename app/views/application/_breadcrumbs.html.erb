@@ -1,0 +1,20 @@
+<nav class="my-2" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="breadcrumb py-2 px-3 rounded">
+    <li class="breadcrumb-item text-decoration-none">
+      <a class="text-decoration-none <%= @breadcrumbs.empty? ? '' : 'link-primary' %>" href="/">
+        Página Inicial
+      </a>
+    </li>
+    <% @breadcrumbs&.each do |breadcrumb| %>
+      <% if breadcrumb[:path].nil? %>
+        <li class="breadcrumb-item active" aria-current="page">
+          <%= breadcrumb[:label] %>
+        </li>
+      <% else %>
+        <li class="breadcrumb-item">
+          <%= link_to breadcrumb[:label], breadcrumb[:path], class: "text-decoration-none link-primary" %>
+        </li>
+      <% end %>
+    <% end %>
+  </ol>
+</nav>

@@ -5,6 +5,15 @@ class ApplicationController < ActionController::Base
   before_action :load_product_categories
   before_action :load_cart
   before_action :set_company
+  before_action :set_breadcrumbs
+
+  def add_breadcrumb(label, path = nil)
+    @breadcrumbs << { label:, path: }
+  end
+
+  def set_breadcrumbs
+    @breadcrumbs = []
+  end
 
   def set_campaigns
     @campaigns = []

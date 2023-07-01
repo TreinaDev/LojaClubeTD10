@@ -5,26 +5,25 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <%= favicon_link_tag asset_path('favicon-32x32.png') %>
   </head>
-
 
   <body>
     <header>
       <%= render 'navbar', locals: { product_categories: @product_categories } %>
     </header>
 
-    <main>
-    <% if !devise_controller?%>
-      <%= render 'search_modal' %>
-    <% end %>  
+    <main class="container">
+      <% if !devise_controller?%>
+        <%= render 'search_modal' %>
+        <%= render 'breadcrumbs' if current_user&.admin? %>
+      <% end %>
+
       <%= render 'flash' %>
-      <div class="container mt-3">
-        <%= yield %>
-      </div>
+
+      <%= yield %>
     </main>
 
     <%= render 'footer' %>
