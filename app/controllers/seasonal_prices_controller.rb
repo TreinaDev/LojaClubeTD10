@@ -1,6 +1,7 @@
 class SeasonalPricesController < ApplicationController
   before_action :authenticate_user!, only: %i[index new create update destroy]
   before_action :check_user, only: %i[index new create update destroy]
+  before_action :set_seasonal_price, only: %i[edit update destroy]
 
   def index
     @seasonal_prices = SeasonalPrice.joins(:product).where(products: { active: true }).order('products.name',
@@ -13,7 +14,6 @@ class SeasonalPricesController < ApplicationController
   end
 
   def edit
-    @seasonal_price = SeasonalPrice.find(params[:id])
     @product = @seasonal_price.product
   end
 
@@ -28,7 +28,6 @@ class SeasonalPricesController < ApplicationController
   end
 
   def update
-    @seasonal_price = SeasonalPrice.find(params[:id])
     @product = @seasonal_price.product
 
     if @seasonal_price.update(update_seasonal_price_params)
@@ -40,8 +39,6 @@ class SeasonalPricesController < ApplicationController
   end
 
   def destroy
-    @seasonal_price = SeasonalPrice.find(params[:id])
-
     return redirect_to seasonal_prices_path, notice: t('.success') if @seasonal_price.destroy
 
     redirect_to seasonal_prices_path, alert: t('.fail')
@@ -55,5 +52,9 @@ class SeasonalPricesController < ApplicationController
 
   def update_seasonal_price_params
     params.require(:seasonal_price).permit(:value, :start_date, :end_date)
+  end
+
+  def set_seasonal_price
+    @seasonal_price = SeasonalPrice.find(params[:id])
   end
 end
