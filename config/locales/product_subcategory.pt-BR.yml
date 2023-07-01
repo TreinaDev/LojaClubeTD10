@@ -11,15 +11,15 @@ pt-BR:
   product_subcategories:
     new:
       form: &new_form_translations
-        submit_text: 'Criar subcategoria'
+        submit_text: 'Cadastrar'
     create:
       form: *new_form_translations
       success: 'Subcategoria criada com sucesso.'
       error: 'Não foi possível criar a subcategoria, revise os campos abaixo:'
-      
+
     edit:
       form: &edit_form_translations
-        submit_text: 'Atualizar subcategoria de produtos'
+        submit_text: 'Atualizar'
     update:
       form: *edit_form_translations
       success: 'A subcategoria foi editada com sucesso.'
