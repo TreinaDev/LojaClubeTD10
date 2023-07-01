@@ -137,4 +137,56 @@ RSpec.describe Product, type: :model do
       expect(product.errors[:product_images]).to include('precisa ser do formato JPEG ou PNG')
     end
   end
+  describe '#lowest_price' do
+    it 'retorna preço da campanha quando este é menor que o preço sazonal' do
+      category = create(:product_category, name: 'Celulares')
+      product = create(:product, name: 'Calculadora', product_category: category, price: 100)
+      create(:seasonal_price, product:, value: 75, start_date: 1.week.from_now,
+                              end_date: 2.weeks.from_now)
+      company = create(:company, brand_name: 'Campus Code', registration_number: '12345678000195')
+      promotionalcampaign = create(:promotional_campaign, name: 'Natal 2023', start_date: 1.week.from_now,
+                                                          end_date: 1.month.from_now, company:)
+      create(:campaign_category, promotional_campaign: promotionalcampaign, product_category: category, discount: 50)
+
+      travel_to 9.days.from_now do
+        result = product.lowest_price(company)
+
+        expect(result).to eq 50
+        expect(result).not_to eq 75
+        expect(result).not_to eq 100
+      end
+    end
+    it 'retorna preço sazonal quando este é menor que o preço da campanha' do
+      category = create(:product_category, name: 'Celulares')
+      product = create(:product, name: 'Calculadora', product_category: category, price: 100)
+      create(:seasonal_price, product:, value: 50, start_date: 1.week.from_now,
+                              end_date: 2.weeks.from_now)
+      company = create(:company, brand_name: 'Campus Code', registration_number: '12345678000195')
+      promotionalcampaign = create(:promotional_campaign, name: 'Natal 2023', start_date: 1.week.from_now,
+                                                          end_date: 1.month.from_now, company:)
+      create(:campaign_category, promotional_campaign: promotionalcampaign, product_category: category, discount: 25)
+      travel_to 9.days.from_now do
+        result = product.lowest_price(company)
+
+        expect(result).to eq 50
+        expect(result).not_to eq 75
+        expect(result).not_to eq 100
+      end
+    end
+    it 'retorna preço normal quando não tem campanha ou preço sazonal' do
+      category = create(:product_category, name: 'Celulares')
+      product = create(:product, name: 'Calculadora', product_category: category, price: 100)
+      create(:seasonal_price, product:, value: 50, start_date: 1.week.from_now,
+                              end_date: 2.weeks.from_now)
+      company = create(:company, brand_name: 'Campus Code', registration_number: '12345678000195')
+      promotionalcampaign = create(:promotional_campaign, name: 'Natal 2023', start_date: 1.week.from_now,
+                                                          end_date: 1.month.from_now, company:)
+      create(:campaign_category, promotional_campaign: promotionalcampaign, product_category: category, discount: 25)
+      result = product.lowest_price(company)
+
+      expect(result).to eq 100
+      expect(result).not_to eq 75
+      expect(result).not_to eq 50
+    end
+  end
 end
