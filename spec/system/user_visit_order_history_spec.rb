@@ -23,7 +23,7 @@ describe 'Usuário acessa histórico de pedidos' do
     visit customer_areas_path
     click_on 'Meus Pedidos'
 
-    expect(page).to have_content '1.000 Pontos'
+    expect(page).to have_content '20.000 Pontos'
     expect(page).to have_content 'Aguardando pagamento'
     expect(page).to have_content 'Pagamento aprovado'
   end
