@@ -55,13 +55,15 @@
       <% end %>
     </div>
 
-    <div class="container p-2" >
+    <div class="container p-2">
       <% if @products.any? %>
-      <table class="table table-striped table-hover  mt-4 ">
+      <table class="table table-striped table-hover mt-4">
         <thead>
           <tr class="text-center">
             <th><%= Product.human_attribute_name(:code) %></th>
             <th><%= Product.human_attribute_name(:name) %></th>
+            <th><%= Product.human_attribute_name(:price) %></th>
+            <th colspan="3"></th>
           </tr>
         </thead>
         <tbody class="table-group-divider">
@@ -69,14 +71,20 @@
             <tr class="text-center">
               <td><%= link_to product.code, product_path(product), class: "link-secondary" %></td>
               <td><%= product.name %></td>
-              <td><%= link_to 'Editar', edit_product_path(product), class: 'btn btn-outline-secondary btn-sm', id: dom_id(product) %></td>
+              <td><%= "#{show_price(product.price)}" %></td>
               <% if product.active? %>
                 <td><%= button_to 'Desativar', deactivate_product_path(product.id, query_products: @query), method: :patch, class: 'btn btn-outline-danger btn-sm', id: "#{product.id}_deactivate" %></td>
+                <td><%= link_to 'Editar', edit_product_path(product), class: 'btn btn-outline-secondary btn-sm', id: dom_id(product) %></td>
+                <% if product.discounts? %>
+                  <td><%= link_to 'Campanhas e Promoções', campaigns_promotions_product_path(product), class: 'btn btn-outline-secondary btn-sm', id: dom_id(product) %></td>
+                <% else %>
+                  <td><%= link_to 'Cadastrar preço sazonal', new_seasonal_price_path(product_id: product.id), class: 'btn btn-outline-secondary btn-sm', id: dom_id(product) %></td>
+                <% end %>
               <% else %>
                 <td><%= button_to 'Reativar', reactivate_product_path(product.id, query_products: @query), method: :patch, class: 'btn btn-outline-danger btn-sm', id: "#{product.id}_reactivate" %></td>
+                <td colspan="2"></td>
               <% end %>
             </tr>
-
           <% end %>
         </tbody>
       </table>

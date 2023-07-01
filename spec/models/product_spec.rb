@@ -19,7 +19,7 @@ RSpec.describe Product, type: :model do
       result = product.errors.include?(:code)
 
       expect(result).to be true
-      expect(product.errors[:code]).to include(' deve ser composto por 3 letras e 6 números')
+      expect(product.errors[:code]).to include('deve ser composto por 3 letras e 6 números')
     end
 
     it 'inválido quando o código não é composto por 3 letras e 6 números' do
@@ -29,7 +29,7 @@ RSpec.describe Product, type: :model do
       result = product.errors.include?(:code)
 
       expect(result).to be true
-      expect(product.errors[:code]).to include(' deve ser composto por 3 letras e 6 números')
+      expect(product.errors[:code]).to include('deve ser composto por 3 letras e 6 números')
     end
 
     it 'inválido quando o código já está em uso' do
@@ -97,7 +97,7 @@ RSpec.describe Product, type: :model do
       expect(product.errors[:description]).to include('é muito curto (mínimo: 10 caracteres)')
     end
 
-    it 'inválido quando o preço não pode ser igual a zero' do
+    it 'inválido quando o preço é igual a zero' do
       product = Product.new(price: 0)
 
       product.valid?
@@ -114,6 +114,15 @@ RSpec.describe Product, type: :model do
       result = product.errors.include?(:price)
 
       expect(result).to be false
+    end
+
+    it 'inválido quando preço é menor que preço sazonal' do
+      product = create(:product, price: 1000)
+      create(:seasonal_price, product:, value: 800)
+
+      product.update(price: 500)
+
+      expect(product.errors[:price]).to include 'precisa ser maior que um preço sazonal existente'
     end
 
     it 'inválido quando o arquivo anexado não for imagem no formato JPEG ou PNG' do

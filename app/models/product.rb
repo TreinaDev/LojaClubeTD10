@@ -17,6 +17,11 @@ class Product < ApplicationRecord
   validates :price, numericality: { greater_than: 0 }
   validates :description, length: { minimum: 10 }
   validate :image_type
+  validate :seasonal_price_greater_than_price, on: :update, if: :price_changed?
+
+  def discounts?
+    product_category.promotional_campaigns.any? || seasonal_prices.any?
+  end
 
   def lowest_price(company)
     [current_seasonal_price&.value, price_by_promotional_campaign(company), price].compact.min
@@ -35,6 +40,14 @@ class Product < ApplicationRecord
   end
 
   private
+
+  def seasonal_price_greater_than_price
+    has_greater = seasonal_prices.any? do |seasonal_price|
+      seasonal_price.value >= price && (seasonal_price.ongoing? || seasonal_price.future?)
+    end
+
+    errors.add(:price, :greater_than_seasonal_price) if has_greater
+  end
 
   def price_by_promotional_campaign(company)
     return if company.nil? || company.class != Company
