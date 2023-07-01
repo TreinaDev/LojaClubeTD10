@@ -13,11 +13,12 @@ pt-BR:
       internal_error: 'Erro interno. Tente mais tarde. Não foi possível carregar novas empresas'
   activerecord:
     models:
-      promotional_campaign: "Campanha Promocional"
+      promotional_campaign: 'Campanha Promocional'
     attributes:
       promotional_campaign:
-        name: "Nome"
-        start_date: "Data Inicial"
-        end_date: "Data Final"
-        company_id: "Empresa"
-        company: "Empresa"
+        actions: 'Ações'
+        name: 'Nome'
+        start_date: 'Data Inicial'
+        end_date: 'Data Final'
+        company_id: 'Empresa'
+        company: 'Empresa'

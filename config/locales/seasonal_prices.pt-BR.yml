@@ -19,7 +19,7 @@ pt-BR:
         submit_text: 'Cadastrar'
     edit:
       form: &edit_form_sp
-        submit_text: 'Salvar'
+        submit_text: 'Atualizar'
     create:
       form: *new_form_sp
       success: 'Preço sazonal criado com sucesso'
