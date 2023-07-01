@@ -1,2 +1,8 @@
+<section>
+  <div class="container shadow p-2 my-4 bg-body-tertiary rounded">
+    <h2 class="text-center">Cadastrar Preço Sazonal</h2>
 
-<%= render 'form', seasonal_price: @seasonal_price, products: @products %>
+    <%= render 'product_info', product: @product %>
+    <%= render 'form', seasonal_price: @seasonal_price %>
+  </div>
+</section>
