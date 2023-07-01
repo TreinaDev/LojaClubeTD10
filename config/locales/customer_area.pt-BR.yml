@@ -20,7 +20,7 @@ pt-BR:
     me:
       update_phone: 'Atualizar Contato'
     addresses:
-      my_addresses: 'Meus endereços'
+      my_addresses: 'Meus Endereços'
     update_points:
       success: 'Saldo de pontos atualizado!'
       failed: 'Não foi possível atualizar o saldo, tente mais tarde.'
