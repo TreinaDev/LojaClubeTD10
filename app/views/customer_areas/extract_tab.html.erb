@@ -2,7 +2,7 @@
   <h1 class="mb-1 fw-bold"><%= t(:client_area) %></h1>
 
   <%= render 'nav-tab' %>
-    
+
   <div class="col-lg col-sm-12 text-start fs-4">
     <div class='row'>
       <h3 class="fw-bold"><%= t('.my_extract')%></h3>
@@ -19,7 +19,7 @@
         <tbody>
           <% @operations.each do |operation| %>
             <tr>
-              <td scope="row"><%= operation['description'] %></td>
+              <td scope="row"><%= operation['message'] %></td>
               <td>
                 <% if operation['operation_type'] == 'depósito' %>
                   <i class="bi bi-arrow-up-circle text-success"></i>
