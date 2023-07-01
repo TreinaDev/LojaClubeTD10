@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário campanha promocional' do
+describe 'Usuário vê campanha promocional' do
   it 'enquanto funcionário ativo e com cartão ativo, vê campanha apenas de sua empresa' do
     user = create(:user, cpf: '30450562026', email: 'zezinho@gmail.com', password: 'senha1234')
     card_json_data = Rails.root.join('spec/support/json/card_data_active.json').read
@@ -22,18 +22,20 @@ describe 'Usuário campanha promocional' do
     create(:campaign_category, promotional_campaign: promotionalcampaign1, product_category: category1, discount: 10)
     create(:campaign_category, promotional_campaign: promotionalcampaign2, product_category: category2, discount: 20)
 
-    visit root_path
-    click_on 'Entrar'
-    within 'form#new_user' do
-      fill_in 'E-mail', with: 'zezinho@gmail.com'
-      fill_in 'Senha', with: 'senha1234'
+    travel_to 2.weeks.from_now do
+      visit root_path
       click_on 'Entrar'
+      within 'form#new_user' do
+        fill_in 'E-mail', with: 'zezinho@gmail.com'
+        fill_in 'Senha', with: 'senha1234'
+        click_on 'Entrar'
+      end
     end
 
     expect(page).to have_content 'Campus Code - Natal 2023'
     within('#natal-2023.carousel') do
       expect(page).to have_content 'Celular Azul'
-      expect(page).to have_content '20.000 Pontos'
+      expect(page).to have_content '18.000 Pontos'
     end
     expect(page).not_to have_content 'Rebase - Ano Novo 2023'
     expect(page).not_to have_css('#ano-novo-2023.carousel')

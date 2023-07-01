@@ -17,15 +17,17 @@
   </div>
   <div class="col-6">
     <div class="card-body">
-      <h3 class="card-title mb-4 fw-bold">Produto <%= @product.name %> - <%= @product.code %></h3>
-      <dl class="row text-muted">
+      <h3 class="card-title mb-2 fw-bold">Produto <%= @product.name %> - <%= @product.code %></h3>
+      <span class="badge text-bg-primary mt-2 mb-3 fs-4 "><%= load_discount(@product, @company) %></span>
+      <h4 class="fw-bold text-primary mb-3"><%= load_end_data(@product, @company) %></h4>
+      <dl class="row text-muted fs-5">
         <dt class="col-sm-6 fw-bold">Descrição</dt>
         <dd class="col-sm-6"><%= @product.description %></dd>
         <dt class="col-sm-6">Marca</dt>
         <dd class="col-sm-6"><%= @product.brand %></dd>
         <% if current_user&.can_buy? && session[:status_user] == ('unblocked' || 'blocked') || current_user&.admin? %> 
           <dt class="col-sm-6"><%= "Preço" %> </dt> 
-          <dd class="col-sm-6"><%= "#{show_price(@product.price)}" %></dd>
+          <dd class="col-sm-6"><%= show_promotional_price(@product, @company) %></dd>
         <% end %>
         <dt class="col-sm-6">Categoria</dt>
         <dd class="col-sm-6"><%= @product.product_category.name %></dd>

@@ -40,10 +40,10 @@
               <div id="<%= "cart-#{product.id}" %>">
                 <tr class="text-center">
                   <td><%= product.name %></td>
-                  <td><%= price_in_points(product.price) %> Pontos</td>
+                  <td><%= show_price(product.price) %> Pontos</td>
                   <td><%= orderable.quantity %></td>
                   <td>0</td>
-                  <td><%= price_in_points(product.price * orderable.quantity) %> Pontos</td>
+                  <td><%= show_price(product.price * orderable.quantity) %> Pontos</td>
                 </tr>
               </div>
             <% end %>
@@ -65,9 +65,9 @@
         <tbody class="table-group-divider">
             <div>
               <tr class="text-center">
-                <td><%= price_in_points(@shopping_cart.total.round) %> Pontos</td>
+                <td><%= show_price(@shopping_cart.total.round) %> Pontos</td>
                 <td>0</td>
-                <td><%= price_in_points(@shopping_cart.total.round) %> Pontos</td>
+                <td><%= show_price(@shopping_cart.total.round) %> Pontos</td>
               </tr>
             </div>
         </tbody>
