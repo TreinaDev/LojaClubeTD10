@@ -24,11 +24,12 @@ pt-BR:
       product: Produto
     attributes:
       product:
-        name: "Nome"
-        code: "Código"
-        description: "Descrição"
+        actions: 'Ações'
+        name: 'Nome'
+        code: 'Código'
+        description: 'Descrição'
         brand: 'Marca'
-        product_category_id: "Categoria"
-        product_category: "Categoria"
+        product_category_id: 'Categoria'
+        product_category: 'Categoria'
         price: 'Preço'
         product_images: 'Fotos do produto'

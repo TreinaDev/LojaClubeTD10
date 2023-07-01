@@ -1,14 +1,13 @@
-<div class="container shadow p-2 mb-4 bg-body-tertiary rounded">
+<section class="container shadow-sm p-4 bg-body-tertiary rounded">
   <h2 class="text-center">Editar Produto</h2>
 
-<%= render 'form', product: @product, categories: @categories %>
+  <%= render 'form', product: @product, categories: @categories %>
 
-<div >
-  <% if @product.product_images.attached? %>
-    <% @product.product_images.each do |image| %>
-      <%= image_tag image.variant(:thumb) %>
+  <div >
+    <% if @product.product_images.attached? %>
+      <% @product.product_images.each do |image| %>
+        <%= image_tag image.variant(:thumb) %>
+      <% end %>
     <% end %>
-  <% end %>
-</div>
-
-</div>
+  </div>
+</section>

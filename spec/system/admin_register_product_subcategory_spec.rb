@@ -26,7 +26,7 @@ describe 'Administrador registra uma subcategoria' do
     visit new_product_subcategory_path
     fill_in 'Nome', with: 'Subcategoria Teste'
     select 'Categoria Teste', from: 'Categoria de produtos'
-    click_on 'Criar subcategoria'
+    click_on 'Cadastrar'
 
     expect(page).to have_content 'Subcategoria criada com sucesso.'
     expect(page).to have_content 'Categoria Teste'
@@ -44,7 +44,7 @@ describe 'Administrador registra uma subcategoria' do
       visit new_product_subcategory_path
       fill_in 'Nome', with: 'Categoria Teste'
       select 'Outra Categoria Teste', from: 'Categoria de produtos'
-      click_on 'Criar subcategoria'
+      click_on 'Cadastrar'
 
       expect(page).to have_content 'Não foi possível criar a subcategoria, revise os campos abaixo:'
       expect(page).to have_content 'Nome já está em uso'
@@ -59,7 +59,7 @@ describe 'Administrador registra uma subcategoria' do
       visit new_product_subcategory_path
       fill_in 'Nome', with: 'Subcategoria Teste'
       select 'Categoria Teste', from: 'Categoria de produtos'
-      click_on 'Criar subcategoria'
+      click_on 'Cadastrar'
 
       expect(page).to have_content 'Não foi possível criar a subcategoria, revise os campos abaixo:'
       expect(page).to have_content 'Nome já está em uso'
@@ -71,7 +71,7 @@ describe 'Administrador registra uma subcategoria' do
       login_as(admin)
       visit new_product_subcategory_path
       fill_in 'Nome', with: ''
-      click_on 'Criar subcategoria'
+      click_on 'Cadastrar'
 
       expect(page).to have_content 'Não foi possível criar a subcategoria, revise os campos abaixo:'
       expect(page).to have_content 'Nome não pode ficar em branco'
