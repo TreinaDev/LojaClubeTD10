@@ -17,6 +17,8 @@ class CampaignCategory < ApplicationRecord
     PromotionalCampaign.find(promotional_campaign_id)
   end
 
+  private
+
   def in_progress
     promotional_campaign = find_promotional_campaign
     errors.add(:base, :campaign_in_progress) if current_date.between?(promotional_campaign.start_date,
@@ -27,8 +29,6 @@ class CampaignCategory < ApplicationRecord
     promotional_campaign = find_promotional_campaign
     errors.add(:base, :campaign_finished) if current_date > promotional_campaign.end_date
   end
-
-  private
 
   def current_date
     Time.zone.today

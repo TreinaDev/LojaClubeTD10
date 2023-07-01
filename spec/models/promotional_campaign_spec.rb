@@ -36,9 +36,7 @@ RSpec.describe PromotionalCampaign, type: :model do
       promotional_campaign = PromotionalCampaign.new(start_date: 1.day.ago)
 
       promotional_campaign.valid?
-      result = promotional_campaign.errors.include?(:start_date)
 
-      expect(result).to be true
       expect(promotional_campaign.errors[:start_date]).to include('deve ser no futuro')
     end
 

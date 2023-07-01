@@ -77,9 +77,7 @@ RSpec.describe CampaignCategory, type: :model do
                                                product_category_id: category1, discount: 10)
 
       campaign_category.valid?
-      result = campaign_category.errors.include?(:base)
 
-      expect(result).to be true
       expect(campaign_category.errors[:base]).to \
         include('Não é possível adicionar categoria em uma campanha finalizada')
     end
