@@ -47,7 +47,7 @@
     <% end %>
 
     <%= form_with(url: products_path, method: :get, class: "d-flex input-group w-fit", role: "search") do |f|  %>
-      <%= f.text_field :query_products, class: "form-control", placeholder: "Buscar", autofocus: true %>
+      <%= f.text_field :query_products, class: "form-control", placeholder: "Buscar" %>
       <%= f.submit 'Filtrar', class: "btn btn-secondary btn-sm" %>
     <% end %>
   </div>

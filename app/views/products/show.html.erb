@@ -1,36 +1,42 @@
-<div class="row my-5">
-  <div class="col-6">
-    <div class="d-flex gap-2">
-      <% if @product.product_images.attached? %>
-        <div class="d-inline-flex flex-column flex-wrap gap-2" id="images">
-          <% @product.product_images.each do |image| %>
-            <div>
-              <%= image_tag(image, class:"resize-sml img-cursor", data: { controller: "images", action: "click->images#change" }) %>
-            </div>
-          <% end %>
-        </div>
-        <div id="display-area">
-          <%= image_tag(@product.product_images[0], class: 'resize-big image-size', id: 'displayed-image')%>
-        </div>
-      <% end %>
-    </div>
+<section class="d-flex flex-column flex-lg-row my-5 gap-3">
+  <div class="d-flex gap-2">
+    <% if @product.product_images.attached? %>
+      <div class="d-inline-flex flex-wrap gap-2" id="images">
+        <% @product.product_images.each do |image| %>
+          <figure>
+            <%= image_tag(image, class:"resize-sml img-cursor", data: { controller: "images", action: "click->images#change" }) %>
+          </figure>
+        <% end %>
+      </div>
+      <figure class="px-2" id="display-area">
+        <%= image_tag(@product.product_images[0], class: 'resize-big image-size cover-image', id: 'displayed-image')%>
+      </figure>
+    <% end %>
   </div>
-  <div class="col-6">
+  <div>
     <div class="card-body">
-      <h3 class="card-title mb-2 fw-bold">Produto <%= @product.name %> - <%= @product.code %></h3>
+      <h3 class="card-title mb-2 fw-bold"><%= @product.name %> - <%= @product.code %></h3>
       <span class="badge text-bg-primary mt-2 mb-3 fs-4 "><%= load_discount(@product, @company) %></span>
       <h4 class="fw-bold text-primary mb-3"><%= load_end_data(@product, @company) %></h4>
       <dl class="row text-muted fs-5">
-        <dt class="col-sm-6 fw-bold">Descrição</dt>
-        <dd class="col-sm-6"><%= @product.description %></dd>
-        <dt class="col-sm-6">Marca</dt>
-        <dd class="col-sm-6"><%= @product.brand %></dd>
-        <% if current_user&.can_buy? && session[:status_user] == ('unblocked' || 'blocked') || current_user&.admin? %> 
-          <dt class="col-sm-6"><%= "Preço" %> </dt> 
-          <dd class="col-sm-6"><%= show_promotional_price(@product, @company) %></dd>
+        <div class="d-flex">
+          <dt class="w-50">Descrição</dt>
+          <dd class="w-50"><%= @product.description %></dd>
+        </div>
+        <div class="d-flex">
+          <dt class="w-50">Marca</dt>
+          <dd class="w-50"><%= @product.brand %></dd>
+        </div>
+        <% if current_user&.can_buy? && session[:status_user] == ('unblocked' || 'blocked') || current_user&.admin? %>
+          <div class="d-flex">
+            <dt class="w-50">Preço</dt> 
+            <dd class="w-50"><%= show_promotional_price(@product, @company) %></dd>
+          </div>
         <% end %>
-        <dt class="col-sm-6">Categoria</dt>
-        <dd class="col-sm-6"><%= @product.product_category.name %></dd>
+        <div class="d-flex">
+          <dt class="w-50">Categoria</dt>
+          <dd class="w-50"><%= @product.product_category.name %></dd>
+        </div>
       </dl>
 
       <% if user_signed_in? && !current_user.admin? %>
@@ -61,6 +67,6 @@
       <% end %>
     </div>
   <% end %>
-</div>
+</section>
 
 

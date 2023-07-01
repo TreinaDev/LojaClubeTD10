@@ -18,7 +18,7 @@ describe 'Administrador vê as campanhas e promoções do produto' do
     find_link('Campanhas e Promoções', id: 'product_1').click
 
     expect(page).to have_content 'Produto TVS000001 - TV SAMSUNG'
-    expect(page).to have_link 'Cadastrar preço sazonal'
+    expect(page).to have_link 'Novo Preço Sazonal'
     expect(page).to have_content 'Preços Sazonais aplicados a esse produto'
     expect(page).to have_content 'Data de início'
     expect(page).to have_content 'Data de encerramento'
@@ -54,7 +54,7 @@ describe 'Administrador vê as campanhas e promoções do produto' do
     find_link('Campanhas e Promoções', id: 'product_1').click
 
     expect(page).to have_content 'Produto TVS000001 - TV SAMSUNG'
-    expect(page).to have_link 'Cadastrar preço sazonal'
+    expect(page).to have_link 'Novo Preço Sazonal'
     expect(page).to have_content 'Preços Sazonais aplicados a esse produto'
     expect(page).to have_content 'Não existem Preços Sazonais aplicados a esse produto'
     expect(page).not_to have_content 'Data de início'
@@ -86,7 +86,7 @@ describe 'Administrador vê as campanhas e promoções do produto' do
     find_link('Campanhas e Promoções', id: 'product_1').click
 
     expect(page).to have_content 'Produto TVS000001 - TV SAMSUNG'
-    expect(page).to have_link 'Cadastrar preço sazonal'
+    expect(page).to have_link 'Novo Preço Sazonal'
     expect(page).to have_content 'Preços Sazonais aplicados a esse produto'
     expect(page).to have_content 'Data de início'
     expect(page).to have_content 'Data de encerramento'

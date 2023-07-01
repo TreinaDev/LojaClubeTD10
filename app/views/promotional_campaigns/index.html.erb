@@ -17,7 +17,7 @@
       <tbody>
         <% @promotional_campaigns.each do |campaign| %>
           <tr scope="row" class="text-center">
-            <td><%= link_to campaign.name, campaign, class: "link-secondary"%></td>
+            <td><%= link_to campaign.name, campaign, class: "link-primary"%></td>
             <td><%= I18n.l(campaign.start_date) %></td>
             <td><%= I18n.l(campaign.end_date) %></td>
             <td><%= campaign.company.brand_name %></td>

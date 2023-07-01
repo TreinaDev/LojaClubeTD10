@@ -78,7 +78,7 @@ describe 'Administrador cadastra novo preço sazonal' do
       visit root_path
       click_on 'Produtos'
       find_link('Campanhas e Promoções', id: 'product_1').click
-      click_on 'Cadastrar preço sazonal'
+      click_on 'Novo Preço Sazonal'
       fill_in 'Valor', with: 9.99
       fill_in 'Data de início', with: start_date
       fill_in 'Data de encerramento', with: end_date
@@ -106,7 +106,7 @@ describe 'Administrador cadastra novo preço sazonal' do
       visit root_path
       click_on 'Produtos'
       find_link('Campanhas e Promoções', id: 'product_1').click
-      click_on 'Cadastrar preço sazonal'
+      click_on 'Novo Preço Sazonal'
       fill_in 'Valor', with: 9.99
       fill_in 'Data de início', with: start_date
       fill_in 'Data de encerramento', with: end_date
@@ -132,7 +132,7 @@ describe 'Administrador cadastra novo preço sazonal' do
       visit root_path
       click_on 'Produtos'
       find_link('Campanhas e Promoções', id: 'product_1').click
-      click_on 'Cadastrar preço sazonal'
+      click_on 'Novo Preço Sazonal'
       fill_in 'Valor', with: 9.99
       fill_in 'Data de início', with: start_date
       fill_in 'Data de encerramento', with: end_date
