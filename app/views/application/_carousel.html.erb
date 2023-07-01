@@ -16,7 +16,7 @@
                       <%= image_tag(asset_path('no_image.jpg'), alt:product.name, class:"card-img-top card-image")%>
                     <% end %>
                       <div class="card-body">
-                        <h5 class="card-title"><%= link_to product.name, product_path(product.id) %></h5>
+                        <h5 class="card-title text-truncate"><%= link_to product.name, product_path(product.id) %></h5>
                         <p class="text-truncate mw-2"><%= product.description %></p>
                         <% if current_user&.can_buy? && session[:status_user] == ('unblocked' || 'blocked') || current_user&.admin? %>
                           <p><%= show_promotional_price(product, @company) %></p>
