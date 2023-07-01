@@ -4,7 +4,7 @@
       <%= nav_link_to(t('my_account'), customer_areas_path) %>
     </li>
     <li class="nav-item">
-      <a href="#" class="nav-link"><%=t(:my_orders)%></a>
+      <%= nav_link_to(t(:my_orders), order_history_path) %>
     </li>
     <li class="nav-item">
       <%= nav_link_to(t(:adresses), client_addresses_path) %>

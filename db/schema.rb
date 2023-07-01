@@ -142,6 +142,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_29_214846) do
     t.datetime "updated_at", null: false
     t.float "conversion_tax"
     t.integer "status", default: 0
+    t.string "payment_code"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
