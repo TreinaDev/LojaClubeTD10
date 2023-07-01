@@ -12,7 +12,7 @@ describe 'Administrador edita uma subcategoria' do
     subcategory_element.click
 
     fill_in 'Nome', with: 'Subcategoria'
-    click_on 'Atualizar subcategoria de produtos'
+    click_on 'Atualizar'
 
     expect(page).to have_content 'A subcategoria foi editada com sucesso.'
     expect(page).to have_content 'Subcategoria'
@@ -29,7 +29,7 @@ describe 'Administrador edita uma subcategoria' do
     subcategory_element.click
 
     fill_in 'Nome', with: ''
-    click_on 'Atualizar subcategoria de produtos'
+    click_on 'Atualizar'
 
     expect(current_path).to eq product_subcategory_path(subcategory.id)
     expect(page).to have_content 'A subcategoria não pôde ser editada, revise os campos abaixo:'
@@ -46,7 +46,7 @@ describe 'Administrador edita uma subcategoria' do
     subcategory_element = find("a[href*='#{subcategory.id}/edit']")
     subcategory_element.click
     fill_in 'Nome', with: 'Subcategoria'
-    click_on 'Atualizar subcategoria de produtos'
+    click_on 'Atualizar'
 
     expect(current_path).to eq product_subcategory_path(subcategory.id)
     expect(page).to have_content 'A subcategoria não pôde ser editada, revise os campos abaixo:'
