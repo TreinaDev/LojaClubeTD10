@@ -20,3 +20,8 @@ pt-BR:
             base:
               unpermited_update: 'Não é possível alterar um preço sazonal em andamento'
               overlap_date_alert: 'Não pode haver preço sazonal com sobreposição de datas para um mesmo produto'
+        campaign_category:
+          attributes:
+            base:
+              campaign_in_progress: Não é possível adicionar categoria em uma campanha em andamento
+              campaign_finished: 'Não é possível adicionar categoria em uma campanha finalizada'

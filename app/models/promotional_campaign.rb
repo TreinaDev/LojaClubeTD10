@@ -12,6 +12,10 @@ class PromotionalCampaign < ApplicationRecord
     Time.zone.today.between?(start_date, end_date)
   end
 
+  def future?
+    Time.zone.today < start_date
+  end
+
   private
 
   def check_start_date
