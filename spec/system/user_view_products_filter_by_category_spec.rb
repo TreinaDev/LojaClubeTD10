@@ -19,18 +19,18 @@ describe 'Usuário vê os produtos da categoria escolhida no menu Categorias de 
       click_on 'Categorias de Produtos'
       click_on 'Celular'
 
-      within('#recent_products.carousel') do
-        within('.card#AFG123456') do
-          expect(page).to have_link 'Celular 1'
-          expect(page).to have_content 'Celular 1 AFG'
-          expect(page).not_to have_content '2.000 Pontos'
-        end
-        within('.card#ABC123456') do
-          expect(page).to have_link 'Celular 2'
-          expect(page).to have_content 'Celular 2 ABC'
-          expect(page).not_to have_content '2.000 Pontos'
-        end
+      expect(current_path).not_to eq root_path
+      within('.card#AFG123456') do
+        expect(page).to have_link 'Celular 1'
+        expect(page).to have_content 'Celular 1 AFG'
+        expect(page).not_to have_content '2.000 Pontos'
       end
+      within('.card#ABC123456') do
+        expect(page).to have_link 'Celular 2'
+        expect(page).to have_content 'Celular 2 ABC'
+        expect(page).not_to have_content '2.000 Pontos'
+      end
+
       expect(page).not_to have_css '.card#CMS123456'
       expect(page).not_to have_link 'Camiseta Azul'
       expect(page).not_to have_content 'Uma camisa azul muito bonita'
@@ -62,18 +62,17 @@ describe 'Usuário vê os produtos da categoria escolhida no menu Categorias de 
       click_on 'Categorias de Produtos'
       click_on 'Celular'
 
-      within('#recent_products.carousel') do
-        within('.card#AFG123456') do
-          expect(page).to have_link 'Celular 1'
-          expect(page).to have_content 'Celular 1 AFG'
-          expect(page).to have_content '2.000 Pontos'
-        end
-        within('.card#ABC123456') do
-          expect(page).to have_link 'Celular 2'
-          expect(page).to have_content 'Celular 2 ABC'
-          expect(page).to have_content '2.000 Pontos'
-        end
+      within('.card#AFG123456') do
+        expect(page).to have_link 'Celular 1'
+        expect(page).to have_content 'Celular 1 AFG'
+        expect(page).to have_content '2.000 Pontos'
       end
+      within('.card#ABC123456') do
+        expect(page).to have_link 'Celular 2'
+        expect(page).to have_content 'Celular 2 ABC'
+        expect(page).to have_content '2.000 Pontos'
+      end
+
       expect(page).not_to have_css '.card#CMS123456'
       expect(page).not_to have_link 'Camiseta Azul'
       expect(page).not_to have_content 'Uma camisa azul muito bonita'
@@ -102,18 +101,18 @@ describe 'Usuário vê os produtos da categoria escolhida no menu Categorias de 
       click_on 'Categorias de Produtos'
       click_on 'Celular'
 
-      within('#recent_products.carousel') do
-        within('.card#AFG123456') do
-          expect(page).to have_link 'Celular 1'
-          expect(page).to have_content 'Celular 1 AFG'
-          expect(page).to have_content 'R$ 100,00'
-        end
-        within('.card#ABC123456') do
-          expect(page).to have_link 'Celular 2'
-          expect(page).to have_content 'Celular 2 ABC'
-          expect(page).to have_content 'R$ 100,00'
-        end
+      expect(current_path).not_to eq root_path
+      within('.card#AFG123456') do
+        expect(page).to have_link 'Celular 1'
+        expect(page).to have_content 'Celular 1 AFG'
+        expect(page).to have_content 'R$ 100,00'
       end
+      within('.card#ABC123456') do
+        expect(page).to have_link 'Celular 2'
+        expect(page).to have_content 'Celular 2 ABC'
+        expect(page).to have_content 'R$ 100,00'
+      end
+
       expect(page).not_to have_css '.card#CMS123456'
       expect(page).not_to have_link 'Camiseta Azul'
       expect(page).not_to have_content 'Uma camisa azul muito bonita'
@@ -142,12 +141,10 @@ describe 'Usuário vê os produtos da categoria escolhida no menu Categorias de 
       click_on 'Categorias de Produtos'
       click_on 'Especial'
 
-      within('#recent_products.carousel') do
-        within('.card#ABC123456') do
-          expect(page).to have_link 'Celular 2'
-          expect(page).to have_content 'Celular 2 ABC'
-          expect(page).to have_content 'R$ 100,00'
-        end
+      within('.card#ABC123456') do
+        expect(page).to have_link 'Celular 2'
+        expect(page).to have_content 'Celular 2 ABC'
+        expect(page).to have_content 'R$ 100,00'
       end
       expect(page).not_to have_css '.card#AFG123456'
       expect(page).not_to have_link 'Celular 1'

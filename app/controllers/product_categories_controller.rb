@@ -16,30 +16,36 @@ class ProductCategoriesController < ApplicationController
   def create
     @product_category = ProductCategory.new(product_category_params)
     if @product_category.save
-      redirect_to product_categories_path, notice: t('product_category.create.success')
+      redirect_to product_categories_path, notice: t('.create.success')
     else
-      flash.now[:alert] = t('product_category.create.error')
+      flash.now[:alert] = t('.create.error')
       render :new
     end
   end
 
   def update
     if @product_category.update(product_category_params)
-      redirect_to product_categories_path, notice: t('product_category.update.success')
+      redirect_to product_categories_path, notice: t('.update.success')
     else
-      flash.now[:alert] = t('product_category.update.error')
+      flash.now[:alert] = t('.update.error')
       render :edit
     end
   end
 
+  def search
+    @category = ProductCategory.find(params[:products])
+    @products = @category.products.where(active: true)
+    @quantity = @products.length
+  end
+
   def deactivate
     @product_category.update(active: false)
-    redirect_to product_categories_path, notice: t('product_category.deactivate.success')
+    redirect_to product_categories_path, notice: t('.deactivate.success')
   end
 
   def reactivate
     @product_category.update(active: true)
-    redirect_to product_categories_path, notice: t('product_category.reactivate.success')
+    redirect_to product_categories_path, notice: t('.reactivate.success')
   end
 
   private
