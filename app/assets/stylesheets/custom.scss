@@ -28,6 +28,13 @@ a:hover {
   max-height: 80px;
 }
 
+.resize-big {
+  height: auto;
+  width: auto;
+  max-width: 450px;
+  max-height: 300px;
+}
+
 // Para tirar as setas do campo number_field
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -38,13 +45,6 @@ input::-webkit-inner-spin-button {
 input[type='number'] {
   -moz-appearance: textfield;
   appearance: textfield;
-}
-
-.resize-big {
-  height: auto;
-  width: auto;
-  max-width: 450px;
-  max-height: 300px;
 }
 
 .image-size {
@@ -88,4 +88,8 @@ p.pending {
 
 .w-fit {
   width: fit-content;
+}
+
+.cover-image {
+  object-fit: cover;
 }

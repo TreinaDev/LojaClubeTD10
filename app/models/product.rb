@@ -6,10 +6,7 @@ class Product < ApplicationRecord
   has_many :seasonal_prices, dependent: :destroy
   has_many :order_items, dependent: :destroy
   has_many :orders, through: :order_items
-
-  has_many_attached :product_images do |attachable|
-    attachable.variant :thumb, resize_to_limit: [200, 200]
-  end
+  has_many_attached :product_images
 
   validates :name, :code, :description, :brand, :price, presence: true
   validates :code, format: { with: /\A[A-Za-z]{3}\d{6}\z/ }
