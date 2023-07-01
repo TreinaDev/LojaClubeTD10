@@ -4,6 +4,18 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :load_product_categories
   before_action :load_cart
+  before_action :set_company
+
+  def set_campaigns
+    @campaigns = []
+
+    set_company
+    return if @company&.promotional_campaigns.blank?
+
+    @company.promotional_campaigns.filter(&:in_progress?).each do |campaign|
+      @campaigns << campaign if campaign.products.any?
+    end
+  end
 
   def bring_companies
     response = Faraday.get('http://localhost:3000/api/v1/companies')
@@ -59,6 +71,11 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def set_company
+    cnpj = session[:company_cnpj]
+    @company = Company.find_by(registration_number: cnpj)
+  end
+
   def prevent_admin
     return unless user_signed_in? && current_user.admin?
 
@@ -77,7 +94,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_product_categories
-    @product_categories_navbar = ProductCategory.where('active = true')
+    @product_categories_navbar = ProductCategory.where('active = true').order(:name)
   end
 
   def check_user

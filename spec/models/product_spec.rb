@@ -19,7 +19,7 @@ RSpec.describe Product, type: :model do
       result = product.errors.include?(:code)
 
       expect(result).to be true
-      expect(product.errors[:code]).to include(' deve ser composto por 3 letras e 6 números')
+      expect(product.errors[:code]).to include('deve ser composto por 3 letras e 6 números')
     end
 
     it 'inválido quando o código não é composto por 3 letras e 6 números' do
@@ -29,7 +29,7 @@ RSpec.describe Product, type: :model do
       result = product.errors.include?(:code)
 
       expect(result).to be true
-      expect(product.errors[:code]).to include(' deve ser composto por 3 letras e 6 números')
+      expect(product.errors[:code]).to include('deve ser composto por 3 letras e 6 números')
     end
 
     it 'inválido quando o código já está em uso' do
@@ -97,7 +97,7 @@ RSpec.describe Product, type: :model do
       expect(product.errors[:description]).to include('é muito curto (mínimo: 10 caracteres)')
     end
 
-    it 'inválido quando o preço não pode ser igual a zero' do
+    it 'inválido quando o preço é igual a zero' do
       product = Product.new(price: 0)
 
       product.valid?
@@ -116,6 +116,15 @@ RSpec.describe Product, type: :model do
       expect(result).to be false
     end
 
+    it 'inválido quando preço é menor que preço sazonal' do
+      product = create(:product, price: 1000)
+      create(:seasonal_price, product:, value: 800)
+
+      product.update(price: 500)
+
+      expect(product.errors[:price]).to include 'precisa ser maior que um preço sazonal existente'
+    end
+
     it 'inválido quando o arquivo anexado não for imagem no formato JPEG ou PNG' do
       product = Product.new
       product.product_images.attach(io: Rails.root.join('spec/support/txt/Arquivo.txt').open,
@@ -126,6 +135,58 @@ RSpec.describe Product, type: :model do
 
       expect(result).to be true
       expect(product.errors[:product_images]).to include('precisa ser do formato JPEG ou PNG')
+    end
+  end
+  describe '#lowest_price' do
+    it 'retorna preço da campanha quando este é menor que o preço sazonal' do
+      category = create(:product_category, name: 'Celulares')
+      product = create(:product, name: 'Calculadora', product_category: category, price: 100)
+      create(:seasonal_price, product:, value: 75, start_date: 1.week.from_now,
+                              end_date: 2.weeks.from_now)
+      company = create(:company, brand_name: 'Campus Code', registration_number: '12345678000195')
+      promotionalcampaign = create(:promotional_campaign, name: 'Natal 2023', start_date: 1.week.from_now,
+                                                          end_date: 1.month.from_now, company:)
+      create(:campaign_category, promotional_campaign: promotionalcampaign, product_category: category, discount: 50)
+
+      travel_to 9.days.from_now do
+        result = product.lowest_price(company)
+
+        expect(result).to eq 50
+        expect(result).not_to eq 75
+        expect(result).not_to eq 100
+      end
+    end
+    it 'retorna preço sazonal quando este é menor que o preço da campanha' do
+      category = create(:product_category, name: 'Celulares')
+      product = create(:product, name: 'Calculadora', product_category: category, price: 100)
+      create(:seasonal_price, product:, value: 50, start_date: 1.week.from_now,
+                              end_date: 2.weeks.from_now)
+      company = create(:company, brand_name: 'Campus Code', registration_number: '12345678000195')
+      promotionalcampaign = create(:promotional_campaign, name: 'Natal 2023', start_date: 1.week.from_now,
+                                                          end_date: 1.month.from_now, company:)
+      create(:campaign_category, promotional_campaign: promotionalcampaign, product_category: category, discount: 25)
+      travel_to 9.days.from_now do
+        result = product.lowest_price(company)
+
+        expect(result).to eq 50
+        expect(result).not_to eq 75
+        expect(result).not_to eq 100
+      end
+    end
+    it 'retorna preço normal quando não tem campanha ou preço sazonal' do
+      category = create(:product_category, name: 'Celulares')
+      product = create(:product, name: 'Calculadora', product_category: category, price: 100)
+      create(:seasonal_price, product:, value: 50, start_date: 1.week.from_now,
+                              end_date: 2.weeks.from_now)
+      company = create(:company, brand_name: 'Campus Code', registration_number: '12345678000195')
+      promotionalcampaign = create(:promotional_campaign, name: 'Natal 2023', start_date: 1.week.from_now,
+                                                          end_date: 1.month.from_now, company:)
+      create(:campaign_category, promotional_campaign: promotionalcampaign, product_category: category, discount: 25)
+      result = product.lowest_price(company)
+
+      expect(result).to eq 100
+      expect(result).not_to eq 75
+      expect(result).not_to eq 50
     end
   end
 end

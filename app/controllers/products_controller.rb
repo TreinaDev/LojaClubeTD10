@@ -1,9 +1,10 @@
 class ProductsController < ApplicationController
   include ActiveSupport::NumberHelper
   before_action :authenticate_user!, only: %i[index new create edit update
-                                              deactivate reactivate deactivate_all reactivate_all]
-  before_action :check_user, only: %i[index new create edit update deactivate reactivate deactivate_all reactivate_all]
-  before_action :set_product, only: %i[show edit update deactivate reactivate]
+                                              deactivate reactivate deactivate_all reactivate_all campaigns_promotions]
+  before_action :check_user, only: %i[index new create edit update deactivate reactivate
+                                      deactivate_all reactivate_all campaigns_promotions]
+  before_action :set_product, only: %i[show edit update deactivate reactivate campaigns_promotions]
 
   def index
     @products = Product.order(:name)
@@ -11,6 +12,11 @@ class ProductsController < ApplicationController
 
     @query = params[:query_products]
     @products = @products.where('name LIKE ?', "%#{@query}%")
+  end
+
+  def campaigns_promotions
+    @campaigns = @product.product_category.promotional_campaigns.order(:start_date)
+    @promotions = @product.seasonal_prices.order(:start_date)
   end
 
   def show

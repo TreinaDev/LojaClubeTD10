@@ -29,7 +29,7 @@ describe 'Usuário visita área do cliente' do
       expect(page).to have_content 'José'
       expect(page).to have_content 'jose@gmail.com'
       expect(page).to have_link 'Meus Pedidos'
-      expect(page).to have_link 'Meus endereços'
+      expect(page).to have_link 'Meus Endereços'
       expect(page).to have_link 'Minhas Informações'
       expect(page).to have_link 'Meus Favoritos'
       expect(page).to have_link 'Minha Conta'

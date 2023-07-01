@@ -11,11 +11,15 @@ class SeasonalPrice < ApplicationRecord
   before_validation :check_date, on: :update
 
   def ongoing?
-    current_date.between?(start_date, end_date)
+    current_date.between?(start_date_was, end_date_was)
   end
 
   def finished?
-    current_date > end_date
+    current_date > end_date_was
+  end
+
+  def future?
+    current_date < start_date_was
   end
 
   def period
