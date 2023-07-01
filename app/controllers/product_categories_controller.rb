@@ -33,8 +33,11 @@ class ProductCategoriesController < ApplicationController
   end
 
   def search
-    @category = ProductCategory.find(params[:products])
-    @products = @category.products.where(active: true)
+    product_category = ProductCategory.find(params[:products_category])
+    @products = Product.where(product_category:, active: true).order(created_at: :desc).to_a
+    @products_sub_categories = product_category.subcategories.map(&:products).flatten
+    @products.concat(@products_sub_categories)
+
     @quantity = @products.length
   end
 

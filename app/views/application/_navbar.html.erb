@@ -13,15 +13,15 @@
           <% @product_categories_navbar.each do |pc| %>
             <% if !pc.subcategories.any? %>
               <% if pc.type == 'ProductCategory' %>
-                <li><%= link_to(pc.name, search_product_categories_path(products: pc.id), class: "dropdown-item")%></li>
+                <li><%= link_to(pc.name, search_product_categories_path(products_category: pc.id), class: "dropdown-item")%></li>
               <% end %>
             <% else %>
               <li>
-                <%= link_to("#{pc.name} &raquo;".html_safe, search_product_categories_path(products: pc.id), class: "dropdown-item")%>
+                <%= link_to("#{pc.name} &raquo;".html_safe, search_product_categories_path(products_category: pc.id), class: "dropdown-item")%>
                 <ul class="dropdown-menu dropdown-submenu">
                   <% pc.subcategories.each do |sub| %>
                     <% if sub.active? %>
-                      <li><%= link_to(sub.name, search_product_categories_path(products: sub.id), class: "dropdown-item")%></li>
+                      <li><%= link_to(sub.name, search_product_categories_path(products_category: sub.id), class: "dropdown-item")%></li>
                     <% end %>
                   <% end %>
                 </ul>
