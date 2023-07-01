@@ -9,7 +9,7 @@ describe 'Usuário vê seus endereços na área do cliente' do
     login_as(user)
     visit root_path
     click_on 'Área do Cliente'
-    click_on 'Meus endereços'
+    click_on 'Meus Endereços'
 
     expect(page).to have_content 'Maruim'
     expect(page).to have_content 'Sergipe'
@@ -40,7 +40,7 @@ describe 'Usuário vê seus endereços na área do cliente' do
     login_as(user)
     visit root_path
     click_on 'Área do Cliente'
-    click_on 'Meus endereços'
+    click_on 'Meus Endereços'
 
     within :xpath, "//div[div/p[text()='Maruim, Sergipe']]" do
       click_on 'Remover'
@@ -69,7 +69,7 @@ describe 'Usuário vê seus endereços na área do cliente' do
     login_as(user)
     visit root_path
     click_on 'Área do Cliente'
-    click_on 'Meus endereços'
+    click_on 'Meus Endereços'
 
     within :xpath, '//div[div/p[text()="Rua Santo Antonio, 22"]]' do
       click_on 'Selecionar como Padrão'
