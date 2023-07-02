@@ -19,7 +19,7 @@ describe 'Usuário registra um novo endereço' do
     expect(page).to have_button 'Salvar endereço'
   end
 
-  it 'com sucesso' do
+  it 'com sucesso, e se torna padrão caso seja o primeiro cadastrado' do
     user = create(:user)
 
     login_as(user)
@@ -32,6 +32,31 @@ describe 'Usuário registra um novo endereço' do
     click_on 'Salvar endereço'
 
     expect(current_path).to eq client_addresses_path
+    expect(page).not_to have_button 'Selecionar como Padrão'
+    expect(ClientAddress.last.default).to eq true
+    expect(page).to have_content 'Rua Dr. Alcides Pereira, 111'
+    expect(page).to have_content 'Maruim'
+    expect(page).to have_content 'Sergipe'
+    expect(page).to have_content '49770000'
+  end
+
+  it 'com sucesso, e não se torna padrão caso já tenha endereço cadastrado' do
+    user = create(:user)
+    address = create(:address)
+    ClientAddress.create!(user:, address:)
+
+    login_as(user)
+    visit new_address_path
+    fill_in 'Endereço', with: 'Rua Dr. Alcides Pereira'
+    fill_in 'Número', with: '111'
+    fill_in 'Cidade', with: 'Maruim'
+    fill_in 'Estado', with: 'Sergipe'
+    fill_in 'CEP', with: '49770000'
+    click_on 'Salvar endereço'
+
+    expect(current_path).to eq client_addresses_path
+    expect(page).to have_button 'Selecionar como Padrão'
+    expect(ClientAddress.last.default).to eq false
     expect(page).to have_content 'Rua Dr. Alcides Pereira, 111'
     expect(page).to have_content 'Maruim'
     expect(page).to have_content 'Sergipe'
