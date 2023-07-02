@@ -19,6 +19,8 @@ pt-BR:
       found:
         one: 'resultado encontrado'
         other: 'resultados encontrados'
+    show:
+      not_access: 'Produto indisponível'   
   activerecord:
     models:
       product: Produto

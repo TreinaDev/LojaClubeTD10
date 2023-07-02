@@ -20,7 +20,7 @@
                       <div class="card-body">
                         <h5 class="card-title text-truncate"><%= link_to "#{favorite.product.name}, #{favorite.product.brand}", product_path(favorite.product.id) %></h5>
                         <p class="text-truncate mw-2"><%= favorite.product.description %></p>
-                        <p><%= show_promotional_price(favorite.product, @company) if current_user&.card_info.present? || current_user&.admin? %></p>
+                        <%= show_promotional_price(favorite.product, @company) if current_user&.card_info.present? || current_user&.admin? %>
                         <%= button_to 'Excluir', favorite_path(favorite), method: :delete, id: favorite.id, class: 'btn btn-outline-secondary btn-sm w-100' %>
                       </div>
                   </div>
