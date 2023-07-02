@@ -1,4 +1,4 @@
-<section class="d-flex flex-column flex-lg-row gap-3 my-5">
+<section style="flex-wrap: wrap;" class="d-flex flex-column flex-lg-row gap-3 my-5">
   <div class="d-flex gap-2">
     <% if @product.product_images.attached? %>
       <div class="d-inline-flex flex-column flex-wrap gap-2" id="images">
@@ -13,7 +13,7 @@
       </div>
     <% end %>
   </div>
-  <div class="card-body">
+  <div class="card-body col-10 col-lg-5">
     <h3 class="card-title mb-2 fw-bold"><%= @product.name %> - <%= @product.code %></h3>
     
     <% if current_user&.can_buy? && session[:status_user] == 'unblocked' %>
@@ -50,7 +50,7 @@
   </div>
   
   <% if current_user&.can_buy? && session[:status_user] == 'unblocked' %>
-    <div style="margin-top:20px;">
+    <div style="margin-top:20px; flex-basis: 100%;">
       <%= form_with(url: add_shopping_carts_path) do |f| %>
         <%= f.hidden_field :id, value: @product.id %>
         <div class="form-group" style="margin-bottom:10px;">
