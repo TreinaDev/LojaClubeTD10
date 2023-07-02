@@ -31,7 +31,7 @@
         <dd class="col-sm-6"><%= @product.description %></dd>
         <dt class="col-sm-6">Marca</dt>
         <dd class="col-sm-6"><%= @product.brand %></dd>
-        <% if current_user&.can_buy? && session[:status_user] == ('unblocked' || 'blocked') || current_user&.admin? %> 
+        <% if current_user&.can_buy? && session[:status_user] == ('unblocked') || current_user&.admin? %> 
           <dt class="col-sm-6"><%= "Preço" %> </dt> 
           <dd class="col-sm-6"><%= show_promotional_price(@product, @company) %></dd>
         <% end %>
