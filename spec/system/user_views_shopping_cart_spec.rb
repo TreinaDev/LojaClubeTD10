@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'Usuário vê seu carrinho de compras' do
   it 'estando logado' do
     user = create(:user)
+    create(:card_info, user:, points: 999_999, conversion_tax: 20)
     cart = ShoppingCart.create!
     category = ProductCategory.create!(name: 'Eletrônicos')
     product1 = create(:product, name: 'Produto 1', product_category: category)

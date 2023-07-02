@@ -17,9 +17,9 @@
             <% unless current_user&.admin? || load_discount(product, @company).zero? %>
               <p class="badge text-bg-primary position-absolute top-0 start-90 translate-middle"><%= load_discount(product, @company) %>% OFF</p>
             <% end %>
-          <% end %>            
+          <% end %>
           </div>
-        </div>  
+        </div>
       </div>
     <% end %>
   <% else %>

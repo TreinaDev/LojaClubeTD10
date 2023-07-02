@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
   def set_campaigns
     @campaigns = []
 
-    set_company
     return if @company&.promotional_campaigns.blank?
 
     @company.promotional_campaigns.filter(&:in_progress?).each do |campaign|
@@ -94,7 +93,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_product_categories
-    @product_categories_navbar = ProductCategory.where('active = true')
+    @product_categories_navbar = ProductCategory.where('active = true').order(:name)
   end
 
   def check_user

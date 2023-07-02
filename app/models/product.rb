@@ -24,6 +24,10 @@ class Product < ApplicationRecord
     [current_seasonal_price&.value, price_by_promotional_campaign(company), price].compact.min
   end
 
+  def discount(company)
+    price - lowest_price(company)
+  end
+
   def current_seasonal_price
     return unless seasonal_prices.any?(&:ongoing?)
 
@@ -52,16 +56,24 @@ class Product < ApplicationRecord
     pcs = company.promotional_campaigns.filter(&:in_progress?)
     return if pcs.empty?
 
-    promotional = find_promotional_campaign(pcs)
+    promotional = find_promotional_campaign_for_product(pcs)
     get_price_by_campaign(promotional) || price
   end
 
   def get_price_by_campaign(promotional)
     return unless promotional
 
-    campaign_category = promotional.campaign_categories.find_by(product_category:)
-
+    category = product_category.parent_if_exists
+    campaign_category = promotional.campaign_categories.find_by(product_category: category)
     campaign_category ? price - ((campaign_category.discount * price) / 100) : price
+  end
+
+  def find_promotional_campaign_for_product(promotional_campaigns)
+    category = product_category.parent_if_exists
+
+    promotional_campaigns.find do |campaign|
+      campaign.campaign_categories.find_by(product_category: category)
+    end
   end
 
   def image_type
