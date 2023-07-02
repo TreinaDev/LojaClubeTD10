@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
   def set_campaigns
     @campaigns = []
 
-    set_company
     return if @company&.promotional_campaigns.blank?
 
     @company.promotional_campaigns.filter(&:in_progress?).each do |campaign|
