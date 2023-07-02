@@ -1,6 +1,6 @@
 class CustomerAreasController < ApplicationController
-  before_action :authenticate_user!, only: %i[index me addresses extract_tab update_points]
-  before_action :prevent_admin, only: %i[index me favorite_tab addresses extract_tab update_points]
+  before_action :authenticate_user!, only: %i[index me addresses update_points order_history extract_tab]
+  before_action :prevent_admin, only: %i[index me favorite_tab addresses update_points order_history extract_tab]
   before_action :prevent_visitor, only: %i[favorite_tab addresses]
 
   def index; end
@@ -17,8 +17,9 @@ class CustomerAreasController < ApplicationController
     card_response = current_user.find_card
     card = JSON.parse(card_response.body)
     extract_response = Faraday.get("http://localhost:4000/api/v1/extracts?card_number=#{card['number']}")
-    @operations = JSON.parse(extract_response.body)
-  rescue StandardError
+    response_body = JSON.parse(extract_response.body)
+    @operations = response_body if extract_response.status == 200 && response_body.is_a?(Array)
+  rescue Faraday::ConnectionFailed
     flash.now[:alert] = t('.failed')
     @error_message = 'Não foi possível obter informações do extrato deste cartão.'
   end
@@ -31,6 +32,21 @@ class CustomerAreasController < ApplicationController
                                 .where(user: @user, products: { active: true })
     @favorites_inactive = Favorite.joins(:product)
                                   .where(user: @user, products: { active: false })
+  end
+
+  def order_history
+    update_order_status
+    @user_orders = current_user.orders
+  end
+
+  def update_order_status
+    @user_pending_orders = current_user.orders.where(status: :pending)
+    @user_pending_orders.each do |order|
+      response = Faraday.get("http://localhost:4000/api/v1/payments/#{order.payment_code}")
+      order.update(status: JSON.parse(response.body)['status'])
+    rescue Faraday::ConnectionFailed
+      flash[:alert] = t('.update_error')
+    end
   end
 
   def update_points

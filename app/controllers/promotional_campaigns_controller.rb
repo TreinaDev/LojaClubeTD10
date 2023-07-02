@@ -4,12 +4,26 @@ class PromotionalCampaignsController < ApplicationController
   before_action :set_promotional_campaign, only: %i[show edit update]
 
   def index
-    @promotional_campaigns = PromotionalCampaign.all
+    @promotional_campaigns_finished = PromotionalCampaign.where('end_date < ? ', Time.zone.today)
+                                                         .order(:start_date, :end_date)
+    @promotional_campaigns_in_progress = PromotionalCampaign.where('start_date <= ? AND end_date >= ?',
+                                                                   Time.zone.today, Time.zone.today)
+                                                            .order(:start_date, :end_date)
+    @promotional_campaigns_future = PromotionalCampaign.where('start_date > ? ', Time.zone.today)
+                                                       .order(:start_date, :end_date)
   end
 
   def show
     @campaign_category = CampaignCategory.new
-    @categories = ProductCategory.where.not(id: @promotional_campaign.product_categories.pluck(:id)).where(active: true)
+    @categories = ProductCategory.where(active: true, parent_id: nil).filter do |cat|
+      cat
+        .promotional_campaigns
+        .filter { |pc| pc.company_id == @promotional_campaign.company_id }
+        .none? do |pc|
+        (@promotional_campaign.start_date..@promotional_campaign.end_date)
+          .overlaps?(pc.start_date..pc.end_date)
+      end
+    end
   end
 
   def new

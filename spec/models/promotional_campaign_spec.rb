@@ -33,6 +33,14 @@ RSpec.describe PromotionalCampaign, type: :model do
     end
 
     it 'inválido quando a data inicial é menor que a data atual' do
+      promotional_campaign = PromotionalCampaign.new(start_date: 1.day.ago)
+
+      promotional_campaign.valid?
+
+      expect(promotional_campaign.errors[:start_date]).to include('deve ser no futuro')
+    end
+
+    it 'inválido quando a data inicial é igual a data atual' do
       promotional_campaign = PromotionalCampaign.new(start_date: Time.zone.today)
 
       promotional_campaign.valid?

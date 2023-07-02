@@ -1,5 +1,5 @@
 <section class="container shadow p-2 mb-4 bg-body-tertiary rounded">
-  <h2 class="text-center">Categorias de produto</h2>
+  <h2 class="text-center">Categorias de Produtos</h2>
 
   <div class="container div-max-width p-2">
     <%= link_to 'Nova Categoria', new_product_category_path, class: 'btn btn-secondary' %>
@@ -18,7 +18,13 @@
     <tbody class="table-group-divider">
       <% @product_categories&.each do |category| %>
         <tr class="text-center">
-          <td><%= category.name %></td>
+          <td>
+            <% if category.type == 'ProductSubcategory' %>
+              <%= category.parent.name %> &raquo; <%= category.name %>
+            <% else %>
+              <%= category.name %>
+            <% end %>
+          </td>
 
           <td><%= category.active? ? 'Ativa' : 'Inativa' %></td>
 

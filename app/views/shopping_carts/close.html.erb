@@ -40,7 +40,7 @@
               <div id="<%= "cart-#{product.id}" %>">
                 <tr class="text-center">
                   <td><%= product.name %></td>
-                  <td><%= price_in_points(product.price) %> Pontos</td>
+                  <td><%= show_price(product.price) %> Pontos</td>
                   <td><%= orderable.quantity %></td>
                   <td><%= price_in_points(load_discount(product, @company) * product.price / 100) %> Pontos</td>
                   <td><%= price_in_points(product.lowest_price(@company) * orderable.quantity) %> Pontos</td>

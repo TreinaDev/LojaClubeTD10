@@ -1,16 +1,4 @@
 module ApplicationHelper
-  def format_cnpj(cnpj)
-    "#{cnpj[0..1]}.#{cnpj[2..4]}.#{cnpj[5..7]}/#{cnpj[8..11]}-#{cnpj[12..13]}"
-  end
-
-  def carousel_item(index)
-    if index.zero?
-      "class='carousel-item active'".html_safe
-    else
-      "class='carousel-item'".html_safe
-    end
-  end
-
   def user_info
     return "#{current_user.email} (ADMIN)" if current_user.admin?
 
@@ -72,14 +60,32 @@ module ApplicationHelper
   end
 
   def load_end_data(product, company)
-    return if current_user&.admin?
+    return if current_user&.admin? || company.blank?
 
-    return unless product.seasonal_prices.any? && product.lowest_price(company) != product.price
-
-    "Oferta válida até #{l(product.current_seasonal_price.end_date)}"
+    offer_end_date_message(product, company)
   end
 
   private
+
+  def offer_end_date_message(product, company)
+    sc = product.current_seasonal_price
+    pc = product.find_promotional_campaign(company.promotional_campaigns)
+    if sc&.ongoing? && pc&.in_progress?
+      "Oferta válida até #{l(compare_prices(product, company))}"
+    elsif pc&.in_progress?
+      "Oferta válida até #{l(pc.end_date)}"
+    elsif sc&.ongoing?
+      "Oferta válida até #{l(sc.end_date)}"
+    end
+  end
+
+  def compare_prices(product, company)
+    if product.lowest_price(company) == product.current_seasonal_price.value
+      product.current_seasonal_price.end_date
+    else
+      product.find_promotional_campaign(company.promotional_campaigns).end_date
+    end
+  end
 
   def text_promotional(product, company)
     content_tag :div do

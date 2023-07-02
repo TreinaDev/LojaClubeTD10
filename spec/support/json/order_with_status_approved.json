@@ -1,0 +1,11 @@
+{
+  "order_number": "1",
+  "total_value": 70000,
+  "descount_amount": 0,
+  "final_value": 70000,
+  "cpf": "30383993024",
+  "card_number": "12312312311",
+  "payment_date": "2023-06-29",
+  "status": "approved",
+  "code": "KRYZSMPPGA"
+}

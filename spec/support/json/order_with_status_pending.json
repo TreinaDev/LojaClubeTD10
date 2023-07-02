@@ -1,0 +1,11 @@
+{
+  "order_number": "10",
+  "total_value": 1000,
+  "descount_amount": 10,
+  "final_value": 900,
+  "cpf": "30383993024",
+  "card_number": "22476279760601111485",
+  "payment_date": "2023-06-25",
+  "status": "pending",
+  "code": "0X2WMY45G1"
+}

@@ -5,9 +5,7 @@ class OrdersController < ApplicationController
 
   def index; end
 
-  def show
-    @order = Order.find(params[:id])
-  end
+  def show; end
 
   def new
     @order = Order.new
@@ -61,6 +59,11 @@ class OrdersController < ApplicationController
     nil
   end
 
+  def save_payment_code(order, payment_response)
+    response = JSON.parse(payment_response.body)
+    order.update(payment_code: response['code'])
+  end
+
   def destroy_cart
     @cart.destroy!
     session[:cart_id] = nil
@@ -89,6 +92,8 @@ class OrdersController < ApplicationController
       transfer_products(order)
       response = send_payment_request(order)
       return redirect_to shopping_cart_path(@cart), alert: t('.connection_error') if response.nil?
+
+      save_payment_code(order, response)
 
       response_redirect(response, order)
     else
