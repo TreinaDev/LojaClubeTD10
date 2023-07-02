@@ -100,15 +100,13 @@ module ApplicationHelper
   def price_in_points(price)
     return if current_user.card_info.nil?
 
-    number_with_delimiter((price * current_user.card_info.conversion_tax.to_f).round,
-                          delimiter: '.')
+    number_with_delimiter((price * current_user.card_info.conversion_tax.to_f).round, delimiter: '.')
   end
 
   def show_common_user_price(price)
     return if current_user.card_info.nil? || session[:status_user] != 'unblocked'
 
-    number_with_delimiter((price * current_user.card_info.conversion_tax.to_f).round,
-                          delimiter: '.')
+    number_with_delimiter((price * current_user.card_info.conversion_tax.to_f).round, delimiter: '.')
   end
 
   def show_admin_price(price)
@@ -122,8 +120,6 @@ module ApplicationHelper
   end
 
   def total_cart(cart, company)
-    cart.orderables.sum do |orderable|
-      orderable.product.lowest_price(company) * orderable.quantity
-    end
+    cart.orderables.sum { |orderable| orderable.product.lowest_price(company) * orderable.quantity }
   end
 end

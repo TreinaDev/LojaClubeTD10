@@ -4,7 +4,6 @@ class OrdersController < ApplicationController
   before_action :order_auth, only: %i[show]
 
   def index; end
-
   def show; end
 
   def new
@@ -33,18 +32,15 @@ class OrdersController < ApplicationController
 
   def transfer_products(order)
     @cart.orderables.each do |orderable|
-      OrderItem.create(order_id: order.id, product_id: orderable.product_id,
-                       quantity: orderable.quantity, price_amount: orderable.product.price,
-                       discount_amount: orderable.product.discount(@company))
+      OrderItem.create(order_id: order.id, product_id: orderable.product_id, quantity: orderable.quantity,
+                       price_amount: orderable.product.price, discount_amount: orderable.product.discount(@company))
     end
   end
 
   def build_order(shopping_cart)
     total_value = shopping_cart.total.round
     discount = shopping_cart.total.round - total_cart(shopping_cart)
-
-    Order.new(total_value:, discount_amount: discount,
-              final_value: total_value - discount, user_id: current_user.id,
+    Order.new(total_value:, discount_amount: discount, final_value: total_value - discount, user_id: current_user.id,
               conversion_tax: current_user.card_info.conversion_tax)
   end
 
@@ -94,7 +90,6 @@ class OrdersController < ApplicationController
       return redirect_to shopping_cart_path(@cart), alert: t('.connection_error') if response.nil?
 
       save_payment_code(order, response)
-
       response_redirect(response, order)
     else
       redirect_to shopping_cart_path(@cart), alert: t('.error')
@@ -128,8 +123,6 @@ class OrdersController < ApplicationController
   end
 
   def total_cart(cart)
-    cart.orderables.sum do |orderable|
-      orderable.product.lowest_price(@company) * orderable.quantity
-    end
+    cart.orderables.sum { |orderable| orderable.product.lowest_price(@company) * orderable.quantity }
   end
 end
