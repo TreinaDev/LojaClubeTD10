@@ -19,7 +19,7 @@
                         <h5 class="card-title text-truncate"><%= link_to product.name, product_path(product.id) %></h5>
                         <p class="text-truncate mw-2"><%= product.description %></p>
                         <% if current_user&.can_buy? && session[:status_user] == ('unblocked') || current_user&.admin? %>
-                          <p><%= show_promotional_price(product, @company) %></p>
+                          <%= show_promotional_price(product, @company) %>
                           <% unless current_user&.admin? || load_discount(product, @company).zero? %>
                             <p class="badge text-bg-primary position-absolute top-0 start-90 translate-middle"><%= load_discount(product, @company) %>% OFF</p>
                           <% end %>

@@ -20,10 +20,11 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @favorite = Favorite.new
-    return unless user_signed_in? && current_user.favorite_products.include?(@product)
-
-    @favorite = current_user.favorites.find { |fav| fav.product_id == @product.id }
+    if @product.active == true || current_user&.admin?
+      favorite_option(@product)
+    else
+      redirect_to root_path, alert: t('.not_access')
+    end
   end
 
   def new
@@ -60,10 +61,8 @@ class ProductsController < ApplicationController
 
   def search
     @query = params['query']
-    if @query == ''
-      flash[:alert] = t('.qwery_empty')
-      return redirect_to root_path
-    end
+    return redirect_to root_path, alert: t('.qwery_empty') if @query == ''
+
     @products = Product.where('name LIKE ? AND active = ?', "%#{@query}%", true)
     @quantity = @products.length
   end
@@ -93,6 +92,13 @@ class ProductsController < ApplicationController
   end
 
   private
+
+  def favorite_option(product)
+    @favorite = Favorite.new
+    return unless user_signed_in? && current_user.favorite_products.include?(product)
+
+    @favorite = current_user.favorites.find { |fav| fav.product_id == product.id }
+  end
 
   def attach_images
     return if params[:product][:product_images].blank?

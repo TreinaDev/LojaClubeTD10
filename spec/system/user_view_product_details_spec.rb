@@ -43,4 +43,19 @@ describe 'Usuário acessa detalhes de um produto' do
     expect(page).to have_content product.brand
     expect(page).to have_content product.product_category.name
   end
+
+  it 'e não consegue, caso produto esteja desativado' do
+    category = ProductCategory.create!(name: 'Eletrônico')
+    product = Product.create!(name: 'TV42',
+                              code: 'ABC123456',
+                              description: 'Descrição para o produto',
+                              brand: 'LG', price: 2500,
+                              product_category: category,
+                              active: false)
+
+    visit product_path(product.id)
+
+    expect(page).to have_content 'Produto indisponível'
+    expect(current_path).not_to eq product_path(product.id)
+  end
 end
