@@ -196,3 +196,7 @@ A estrutura do banco de dados possui a seguinte estrutura:
 ## Favoritos
 
 ![Favoritos](app/assets/images/favoritos.png)
+
+## Compra de um produto
+
+![Compra](app/assets/images/gif-compra.gif)
