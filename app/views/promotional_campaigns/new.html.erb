@@ -1,11 +1,9 @@
-<section>
-  <div class="container shadow p-2 my-4 bg-body-tertiary rounded">
-    <h2 class="text-center">Cadastrar Campanha Promocional</h2>
+<section class="container shadow-sm p-4 my-5 bg-body-tertiary rounded">
+  <h2 class="text-center">Cadastrar Campanha Promocional</h2>
 
-    <% if @companies.any? %>
-      <%= render 'form', promotional_campaign: @promotional_campaign, companies: @companies %>
-    <% else %>
+  <% if @companies.any? %>
+    <%= render 'form', promotional_campaign: @promotional_campaign, companies: @companies %>
+  <% else %>
     <p class="text-center">Nenhuma empresa encontrada na aplicação de Gestão de Empresas</p>
-    <% end %>
-  </div>
+  <% end %>
 </section>

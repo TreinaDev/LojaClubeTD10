@@ -11,74 +11,72 @@
 <% subcategories = (pctg_prnt_id ? pctg&.parent : pctg)&.subcategories || [] %>
 
 
-<div class="container">
-  <%= form_with model: product, data: { turbo: false } do |f| %>
-    <%= render partial: 'form_errors', locals: { object: product } %>
+<%= form_with model: product, data: { turbo: false } do |f| %>
+  <%= render partial: 'form_errors', locals: { object: product } %>
 
-    <div class="mb-3">
-      <%= f.label :product_images, class: 'form-label' %>
-      <%= f.file_field :product_images, multiple: true, class: 'form-control', type: 'file' %>
-    </div>
+  <div class="mb-3">
+    <%= f.label :product_images, class: 'form-label' %>
+    <%= f.file_field :product_images, multiple: true, class: 'form-control', type: 'file' %>
+  </div>
 
-    <div class="mb-3">
-      <%= f.label :name %>
-      <%= f.text_field :name, class: 'form-control' %>
-    </div>
+  <div class="mb-3">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
 
-    <div class="mb-3">
-      <%= f.label :code %>
-      <%= f.text_field :code, class: 'form-control'  %>
-    </div>
+  <div class="mb-3">
+    <%= f.label :code %>
+    <%= f.text_field :code, class: 'form-control'  %>
+  </div>
 
-    <div class="mb-3">
-      <%= f.label :description %>
-      <%= f.text_area :description, class: 'form-control'  %>
-    </div>
+  <div class="mb-3">
+    <%= f.label :description %>
+    <%= f.text_area :description, class: 'form-control'  %>
+  </div>
 
-    <div class="mb-3">
-      <%= f.label :brand %>
-      <%= f.text_field :brand, class: 'form-control'  %>
-    </div>
+  <div class="mb-3">
+    <%= f.label :brand %>
+    <%= f.text_field :brand, class: 'form-control'  %>
+  </div>
 
-    <div class="mb-3">
-      <%= f.label :price %>
-      <%= f.number_field :price , class: 'form-control' %>
-    </div>
+  <div class="mb-3">
+    <%= f.label :price %>
+    <%= f.number_field :price , class: 'form-control' %>
+  </div>
 
-    <div class="mb-3">
-      <%= f.label :product_category_id, 'Categoria' %>
+  <div class="mb-3">
+    <%= f.label :product_category_id, 'Categoria' %>
 
-      <%= f.collection_select(
-        :product_category_id, categories, :id, :name,
-        {
-          selected: selected_category,
-          prompt: "Selecione uma categoria"
-        },
-        {
-          data: { controller: "product-category", action: "change->product-category#update" },
-          class: 'form-control mb-2'
-        })
-      %>
-    </div>
+    <%= f.collection_select(
+      :product_category_id, categories, :id, :name,
+      {
+        selected: selected_category,
+        prompt: "Selecione uma categoria"
+      },
+      {
+        data: { controller: "product-category", action: "change->product-category#update" },
+        class: 'form-control mb-2'
+      })
+    %>
+  </div>
 
-    <div class="mb-3">
-      <%= f.label :product_category_id, 'Subcategoria', for: 'subcategorySelect'  %>
+  <div class="mb-3">
+    <%= f.label :product_category_id, 'Subcategoria', for: 'subcategorySelect'  %>
 
-      <%= f.collection_select(
-        :product_category_id, subcategories, :id, :name,
-        {
-          selected: selected_subcategory,
-          prompt: subcategories.empty? ? "Nenhuma subcategoria encontrada" : "Selecione uma subcategoria"
-        },
-        {
-          id: 'subcategorySelect', class: 'form-control mb-2',
-          disabled: subcategories.empty?
-        })
-      %>
-    </div>
+    <%= f.collection_select(
+      :product_category_id, subcategories, :id, :name,
+      {
+        selected: selected_subcategory,
+        prompt: subcategories.empty? ? "Nenhuma subcategoria encontrada" : "Selecione uma subcategoria"
+      },
+      {
+        id: 'subcategorySelect', class: 'form-control mb-2',
+        disabled: subcategories.empty?
+      })
+    %>
+  </div>
 
-    <div class="mb-3">
-      <%= f.submit 'Cadastrar', class: 'btn btn-secondary mt-2' %>
-    </div>
-  <% end %>
-</div>
+  <div class="mt-2 mb-4">
+    <%= f.submit 'Cadastrar', class: 'btn btn-primary mt-2' %>
+  </div>
+<% end %>

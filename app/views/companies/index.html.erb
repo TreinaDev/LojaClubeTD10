@@ -1,20 +1,21 @@
-<div class="container shadow p-2 mb-4 bg-body-tertiary rounded">
-  <h2 class="text-center mb-4">Empresas</h2>
+<section class="container shadow-sm p-4 my-5 bg-body-tertiary rounded">
+  <h2 class="text-center mb-3">Empresas</h2>
+  
   <% if @companies_active.any? || @companies_inactive.any? %>
-    <div class="container p-2" id="ativas">
+    <div id="ativas">
       <% if @companies_active.any? %>
-        <h4 class="text-center mb-4">Ativas</h4>
-        <table class="table table-striped table-hover  mt-4 ">
+        <h4>Ativas</h4>
+        <table class="table table-striped table-bordered mt-3">
           <thead>
             <tr class="text-center">
-              <th><%= Company.human_attribute_name(:corporate_name) %></th>
-              <th><%= Company.human_attribute_name(:brand_name) %></th>
-              <th><%= Company.human_attribute_name(:registration_number) %></th>
+              <th scope="col" class="col-4"><%= Company.human_attribute_name(:corporate_name) %></th>
+              <th scope="col" class="col-4"><%= Company.human_attribute_name(:brand_name) %></th>
+              <th scope="col" class="col-4"><%= Company.human_attribute_name(:registration_number) %></th>
             </tr>
           </thead>
-          <tbody class="table-group-divider">
+          <tbody>
             <% @companies_active.each do |company| %>
-              <tr class="text-center">
+              <tr scope="row" class="text-center">
                 <td><%= company.corporate_name%></td>
                 <td><%= company.brand_name %></td>
                 <td><%= format_cnpj(company.registration_number) %></td>
@@ -26,21 +27,21 @@
         <p class="text-center">Não existem empresas com situação ativa</p>
       <% end %>
     </div>
-    <hr>
-    <div class="container p-2" id="inativas">
+
+    <div class="mt-5" id="inativas">
       <% if @companies_inactive.any? %>
-        <h4 class="text-center mb-4">Inativas</h4>
-        <table class="table table-striped table-hover  mt-4 ">
+        <h4>Inativas</h4>
+        <table class="table table-striped table-bordered mt-3">
           <thead>
             <tr class="text-center">
-              <th><%= Company.human_attribute_name(:corporate_name) %></th>
-              <th><%= Company.human_attribute_name(:brand_name) %></th>
-              <th><%= Company.human_attribute_name(:registration_number) %></th>
+              <th scope="col" class="col-4"><%= Company.human_attribute_name(:corporate_name) %></th>
+              <th scope="col" class="col-4"><%= Company.human_attribute_name(:brand_name) %></th>
+              <th scope="col" class="col-4"><%= Company.human_attribute_name(:registration_number) %></th>
             </tr>
           </thead>
-          <tbody class="table-group-divider">
+          <tbody>
             <% @companies_inactive.each do |company| %>
-              <tr class="text-center">
+              <tr scope="row" class="text-center">
                 <td><%= company.corporate_name%></td>
                 <td><%= company.brand_name %></td>
                 <td><%= format_cnpj(company.registration_number) %></td>
@@ -55,4 +56,4 @@
   <% else %>
     <p class="text-center">Nenhuma empresa encontrada na aplicação de Gestão de Empresas</p>
   <% end %>
-</div>
+</section>
