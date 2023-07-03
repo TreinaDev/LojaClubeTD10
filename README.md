@@ -1,6 +1,6 @@
 <h1 align="center">Loja do Clube de Compras :convenience_store:</h1>
 
-## :rocket: Tecnologias
+<div align="center">
 
 ![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
 ![Rails](https://img.shields.io/badge/rails-%23CC0000.svg?style=for-the-badge&logo=ruby-on-rails&logoColor=white)
@@ -9,13 +9,19 @@
 ![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white)
 ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
 
-## :memo: Descrição
+</div >
+
+<br />
+
+## :memo: Descrição do Projeto
 
 A App 'Loja do Clube' é parte do Clube de Compras, projeto final da turma 10 do TreinaDev, Campus Code. Trata-se de desenvolver, em grupo, uma aplicação web em Ruby on Rails, com a metodologia de Desenvolvimento Guiado por Testes (TDD).
 
 A aplicação oferece aos funcionários das empresas cadastradas a possibilidade de adquirir produtos, por meio de um cartão carregado com pontos. Estes usuários tem a possibilidade de aproveitar promoções e descontos oferecidos pelas suas respectivas empresas.
 
 Esta é a segunda aplicação do projeto Clube de Compras que envolve mais 2 aplicações integradas [Gestão de Empresas](https://github.com/TreinaDev/GestaoEmpresasTD10) e [Cartões e Pagamentos](https://github.com/TreinaDev/CartoesEPagamentosTD10), por isso certifique-se de que tenha os 3 projetos rodando, para total funcionamento da aplicação do projeto Clube de Compras.
+
+<br />
 
 ## :technologist: Time:
 
@@ -38,7 +44,7 @@ Esta é a segunda aplicação do projeto Clube de Compras que envolve mais 2 apl
 
   - **Administradores**: devem ter e-mail com domínio punti.com, e são responsáveis pelos cadastros básicos da aplicação, como cadastro de categorias de produtos, produtos que estarão disponíveis na loja, pela gestão das campanhas e preços sazonais.
 
-  - **Usuários comuns**: poderão criar uma conta na plataforma.....( listar as regras do usuário comum)
+  - **Usuários comuns**: qualquer pessoa pode criar uma conta na plataforma, porém apenas os que possuem o CPF ativo na Gestão de Empresas poderão registrar pedidos. No momento em que o funcionário é bloqueado ou demitido ele deixa de possuir esse benefício.
 
 ### Página Inicial
 
@@ -58,7 +64,15 @@ Esta é a segunda aplicação do projeto Clube de Compras que envolve mais 2 apl
 
 ### Preços Sazonais
 
-- O administrador pode cadastrar preços sazonais para determinados produtos por um determinado período
+- O administrador pode cadastrar preços sazonais para determinados produtos por um determinado período.
+
+### Carrinho de Compras
+
+- O usuário pode adicionar/remover produtos no carrinho de compras.
+
+### Fazer pedido
+
+- O usuário pode concluir a compra finalizando um pedido.
 
 ### Área do Cliente
 
@@ -71,7 +85,7 @@ Esta é a segunda aplicação do projeto Clube de Compras que envolve mais 2 apl
 
 <br />
 
-## :wrench: Tecnologias utilizadas
+## :wrench: Tecnologias
 
 - Rails 7.0.5
 - Ruby 3.1.2
@@ -81,7 +95,6 @@ Esta é a segunda aplicação do projeto Clube de Compras que envolve mais 2 apl
 - SQLite3 1.6.3 (x86_64-linux)
 - Bootstrap (5.3.0);
 
-<br />
 <br />
 
 ## :rocket: Rodando o projeto
@@ -132,11 +145,23 @@ Abra o navegador com do endereço:
 http://localhost:5000
 ```
 
+Usuários:
+
+| E-mail               | Senha     | Tipo          |
+| -------------------- | --------- | ------------- |
+| `admin@punti.com`    | senha1234 | Administrador |
+| `joana@provedor.com` | senha1234 | Usuário comum |
+| `maria@provedor.com` | senha1234 | Usuário comum |
+
+<br />
+
 Rodar os testes:
 
 ```
 rspec
 ```
+
+<br />
 
 ## :computer: Banco de dados
 
@@ -144,14 +169,30 @@ A estrutura do banco de dados possui a seguinte estrutura:
 
 ![db](app/assets/images/Diagramas_Loja_do_clube.png)
 
+## Página Inicial
+
+![tela inicial](https://github.com/TreinaDev/LojaClubeTD10/assets/92684440/e5c5b662-66ca-4d85-8d06-02a821825eae)
+
 ## Detalhes do Produto
 
 ![show_1](https://github.com/TreinaDev/LojaClubeTD10/assets/92684440/8e72a0ce-1758-4238-8100-1653962f0433)
 
-## Homepage
-
-![tela inicial](https://github.com/TreinaDev/LojaClubeTD10/assets/92684440/e5c5b662-66ca-4d85-8d06-02a821825eae)
-
 ## Campanha de Empresas
 
 ![homepage_carrousel](https://github.com/TreinaDev/LojaClubeTD10/assets/92684440/f581ac95-bf8d-48fb-ba47-85863cc29e63)
+
+## Carrinho de Compras
+
+![Carrinho](app/assets/images/Carrinho.png)
+
+## Finalizar Pedido
+
+![Finalizar](app/assets/images/Finalizar.png)
+
+## Área do Cliente
+
+![Cliente](app/assets/images/area-do-cliente.png)
+
+## Favoritos
+
+![Favoritos](app/assets/images/favoritos.png)
