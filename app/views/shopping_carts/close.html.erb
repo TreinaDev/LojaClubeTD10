@@ -69,16 +69,15 @@
         <p>Endereço de Entrega</p>
         <%= form_with model: @order , data: {turbo: false} do |f| %>
           <div>
-            <% @addresses.each do |address| %>
-              <div class="form-check">
-                <%= radio_button_tag :address_id,  address.id, address.full_description %>
-              </div>
-            <% end %>
-
-            <% if @addresses.empty? %>
-              <p> Nenhum endereço cadastrado </p>
-              <%= link_to 'Cadastrar Endereço', new_address_path, class: 'btn btn-secondary' %>
-            <% end %>
+          <div class="mb-3">
+              <% if @user_addresses.empty? %>
+                <p> Nenhum endereço cadastrado </p>
+                <%= link_to 'Cadastrar Endereço', new_address_path, class: 'btn btn-secondary' %>
+              <% else %>
+                <%= hidden_field_tag :address_id, current_user.address_default.id %>
+                <div><%= current_user.address_default.full_description %></div>
+              <% end %>
+            </div>
           </div>
 
           <div class="d-flex gap-3">

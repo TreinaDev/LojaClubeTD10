@@ -42,7 +42,7 @@ class ShoppingCartsController < ApplicationController
 
   def close
     @order = Order.new
-    @addresses = current_user.addresses
+    @user_addresses = current_user.addresses
   end
 
   private
