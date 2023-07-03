@@ -69,9 +69,9 @@
         <p>Endereço de Entrega</p>
         <%= form_with model: @order , data: {turbo: false} do |f| %>
           <div>
-            <%= collection_radio_buttons(:order, :address_id, @addresses, :id, :full_description) do |b| %>
+            <% @addresses.each do |address| %>
               <div class="form-check">
-                <%= b.label(class: 'form-check-label') { b.radio_button(class: "form-check-input") + b.text} %>
+                <%= radio_button_tag :address_id,  address.id, address.full_description %>
               </div>
             <% end %>
 

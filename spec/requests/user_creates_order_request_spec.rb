@@ -20,7 +20,7 @@ describe 'Usuário fecha pedido' do
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{user.cpf}").and_return(fake_response_card)
 
     login_as(user)
-    post orders_path params: { order: { card_number: '12345678901234567890', address_id: address.id } }
+    post orders_path params: { order: { card_number: '12345678901234567890' }, address_id: address.id }
 
     expect(response).to have_http_status :found
     expect(response).to redirect_to order_path(Order.last.id)
@@ -92,7 +92,7 @@ describe 'Usuário fecha pedido' do
     allow(Faraday).to receive(:post).with('http://localhost:4000/api/v1/payments').and_raise(Faraday::ConnectionFailed)
 
     login_as(user)
-    post orders_path params: { order: { card_number: '12345678901234567890', address_id: address.id } }
+    post orders_path params: { order: { card_number: '12345678901234567890' }, address_id: address.id }
 
     expect(response).to have_http_status :found
     expect(response).to redirect_to shopping_cart_path(shopping_cart)

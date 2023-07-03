@@ -30,9 +30,8 @@ describe 'Usuário acessa histórico de pedidos' do
 
   it 'com sucesso e o status do pedido é atualizado quando necessário' do
     user = create(:user)
-    address = create(:address)
-    create(:client_address, user:, address:, default: true)
-    order = create(:order, user:, address:, status: 'pending', payment_code: 'KRYZSMPPGA')
+    order = create(:order, user:, status: 'pending', payment_code: 'KRYZSMPPGA')
+    create(:order_address, order:)
     order_json_data = Rails.root.join('spec/support/json/order_with_status_approved.json').read
     fake_response = double('faraday_response', status: 201, body: order_json_data)
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/payments/#{order.payment_code}").and_return(fake_response)
@@ -46,9 +45,8 @@ describe 'Usuário acessa histórico de pedidos' do
 
   it 'com sucesso, mas o status do pedido não é atualizado, pois a API de cartões está fora' do
     user = create(:user)
-    address = create(:address)
-    create(:client_address, user:, address:, default: true)
-    order = create(:order, user:, address:, status: 'pending', payment_code: 'KRYZSMPPGA')
+    order = create(:order, user:, status: 'pending', payment_code: 'KRYZSMPPGA')
+    create(:order_address, order:)
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/payments/#{order.payment_code}").and_raise(Faraday::ConnectionFailed)
 
     login_as user

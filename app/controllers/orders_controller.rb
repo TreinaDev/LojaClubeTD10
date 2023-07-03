@@ -7,20 +7,20 @@ class OrdersController < ApplicationController
   def show; end
 
   def create
-    return if card_not_present? || card_number_blank? || card_number_length_is_invalid?
+    return if card_not_present? || card_number_blank? || card_number_length_is_invalid? || address_invalid?
 
-    order = build_order(@cart, params[:order][:address_id])
+    order = build_order(@cart)
     save_order_and_redirect(order)
   end
 
   private
 
-  def build_order(shopping_cart, address_id)
+  def build_order(shopping_cart)
     total_value = shopping_cart.total.round
     discount = shopping_cart.total.round - total_with_discount_cart(shopping_cart)
 
     Order.new(total_value:, discount_amount: discount, final_value: total_value - discount, user_id: current_user.id,
-              conversion_tax: current_user.card_info.conversion_tax, address_id:)
+              conversion_tax: current_user.card_info.conversion_tax)
   end
 
   def transfer_products(order)
@@ -28,6 +28,13 @@ class OrdersController < ApplicationController
       OrderItem.create(order_id: order.id, product_id: orderable.product_id, quantity: orderable.quantity,
                        price_amount: orderable.product.price, discount_amount: orderable.product.discount(@company))
     end
+  end
+
+  def associate_address(order)
+    address_params = Address.find(params[:address_id])
+                            .attributes.except('id', 'created_at', 'updated_at')
+
+    OrderAddress.create(order:, **address_params)
   end
 
   def send_payment_request(order)
@@ -56,12 +63,13 @@ class OrdersController < ApplicationController
   def save_order_and_redirect(order)
     if order.save
       transfer_products(order)
+      associate_address(order)
       response = send_payment_request(order)
       return (order.destroy && redirect_to(shopping_cart_path(@cart), alert: t('.connection_error'))) if response.nil?
 
       response_redirect(response, order)
     else
-      redirect_to shopping_cart_path(@cart), alert: (order.address.nil? ? t('.address_required') : t('.error'))
+      redirect_to shopping_cart_path(@cart), alert: t('.error')
     end
   end
 
@@ -105,5 +113,11 @@ class OrdersController < ApplicationController
     return false if current_user.card_info.present?
 
     redirect_to close_shopping_carts_path(@cart), alert: t('.card_not_present')
+  end
+
+  def address_invalid?
+    return false if Address.exists? id: params[:address_id]
+
+    redirect_to shopping_cart_path(@cart), alert: t('.address_required')
   end
 end
