@@ -119,7 +119,7 @@ module ApplicationHelper
     '</li>'.html_safe
   end
 
-  def total_cart(cart, company)
+  def total_with_discount_cart(cart, company)
     cart.orderables.sum { |orderable| orderable.product.lowest_price(company) * orderable.quantity }
   end
 end

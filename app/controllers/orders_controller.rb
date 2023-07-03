@@ -6,19 +6,8 @@ class OrdersController < ApplicationController
   def index; end
   def show; end
 
-  def new
-    @order = Order.new
-  end
-
   def create
-    @order = Order.new(order_params, conversion_tax: current_user.card_info.conversion_tax, user_id: current_user.id)
-    save_order_model(@order)
-    flash.now[:alert] = t('.error')
-    render :new
-  end
-
-  def close_order
-    return if card_not_present? || card_number_blank? || card_number_length_is_invalid?
+    return if card_not_present? || card_number_blank? || card_number_length_is_invalid? || address_invalid?
 
     order = build_order(@cart)
     save_order_and_redirect(order)
@@ -26,8 +15,12 @@ class OrdersController < ApplicationController
 
   private
 
-  def order_params
-    params.require(:order).permit(:total_value, :discount_amount, :final_value, :user_id, :conversion_tax)
+  def build_order(shopping_cart)
+    total_value = shopping_cart.total.round
+    discount = shopping_cart.total.round - total_with_discount_cart(shopping_cart)
+
+    Order.new(total_value:, discount_amount: discount, final_value: total_value - discount, user_id: current_user.id,
+              conversion_tax: current_user.card_info.conversion_tax)
   end
 
   def transfer_products(order)
@@ -37,19 +30,21 @@ class OrdersController < ApplicationController
     end
   end
 
-  def build_order(shopping_cart)
-    total_value = shopping_cart.total.round
-    discount = shopping_cart.total.round - total_cart(shopping_cart)
-    Order.new(total_value:, discount_amount: discount, final_value: total_value - discount, user_id: current_user.id,
-              conversion_tax: current_user.card_info.conversion_tax)
+  def associate_address(order)
+    address_params = Address.find(params[:address_id])
+                            .attributes.except('id', 'created_at', 'updated_at')
+
+    OrderAddress.create(order:, **address_params)
   end
 
   def send_payment_request(order)
     Faraday.post('http://localhost:4000/api/v1/payments') do |req|
-      req.headers['Content-Type'] = 'application/json'
-      req.body = { payment: { cpf: current_user.cpf, card_number: params[:card_number], total_value: order.total_value,
-                              descount_amount: order.discount_amount, final_value: order.final_value,
-                              payment_date: I18n.l(order.created_at.to_date), order_number: order.id } }.to_json
+      req.body = { payment: { cpf: current_user.cpf, card_number: params[:order][:card_number],
+                              total_value: order.total_value,
+                              descount_amount: order.discount_amount,
+                              final_value: order.final_value,
+                              payment_date: Time.zone.now.to_date, order_number: order.id } }.to_json
+      req.headers = { 'Content-Type': 'application/json' }
     end
   rescue Faraday::ConnectionFailed
     nil
@@ -65,31 +60,13 @@ class OrdersController < ApplicationController
     session[:cart_id] = nil
   end
 
-  def card_number_blank?
-    return false if params[:card_number].present?
-
-    redirect_to close_shopping_carts_path(@cart), alert: t('.card_number_empty')
-  end
-
-  def card_number_length_is_invalid?
-    return false if params[:card_number].length == 20
-
-    redirect_to close_shopping_carts_path(@cart), alert: t('.card_number_length_invalid')
-  end
-
-  def card_not_present?
-    return false if current_user.card_info.present?
-
-    redirect_to close_shopping_carts_path(@cart), alert: t('.card_not_present')
-  end
-
   def save_order_and_redirect(order)
     if order.save
       transfer_products(order)
+      associate_address(order)
       response = send_payment_request(order)
-      return redirect_to shopping_cart_path(@cart), alert: t('.connection_error') if response.nil?
+      return (order.destroy && redirect_to(shopping_cart_path(@cart), alert: t('.connection_error'))) if response.nil?
 
-      save_payment_code(order, response)
       response_redirect(response, order)
     else
       redirect_to shopping_cart_path(@cart), alert: t('.error')
@@ -99,6 +76,7 @@ class OrdersController < ApplicationController
   def response_redirect(response, order)
     if response.status == 201
       destroy_cart
+      save_payment_code(order, response)
       redirect_to order_path(order.id), notice: t('.success')
     else
       redirect_to shopping_cart_path(@cart), alert: t('.error')
@@ -115,14 +93,31 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
   end
 
-  def save_order_model(order)
-    return unless order.save
-
-    transfer_products(order)
-    redirect_to root_path, notice: t('.success')
+  def total_with_discount_cart(cart)
+    cart.orderables.sum { |orderable| orderable.product.lowest_price(@company) * orderable.quantity }
   end
 
-  def total_cart(cart)
-    cart.orderables.sum { |orderable| orderable.product.lowest_price(@company) * orderable.quantity }
+  def card_number_blank?
+    return false if params[:order][:card_number].present?
+
+    redirect_to close_shopping_carts_path(@cart), alert: t('.card_number_empty')
+  end
+
+  def card_number_length_is_invalid?
+    return false if params[:order][:card_number].length == 20
+
+    redirect_to close_shopping_carts_path(@cart), alert: t('.card_number_length_invalid')
+  end
+
+  def card_not_present?
+    return false if current_user.card_info.present?
+
+    redirect_to close_shopping_carts_path(@cart), alert: t('.card_not_present')
+  end
+
+  def address_invalid?
+    return false if Address.exists? id: params[:address_id]
+
+    redirect_to shopping_cart_path(@cart), alert: t('.address_required')
   end
 end

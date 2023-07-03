@@ -2,6 +2,7 @@ class Order < ApplicationRecord
   belongs_to :user
   has_many :order_items, dependent: :destroy
   has_many :products, through: :order_items
+  has_one :address, class_name: 'OrderAddress', dependent: :destroy
 
   validates :total_value, :final_value, numericality: { greater_than: 0 }
   validates :discount_amount, numericality: { greater_than_or_equal_to: 0 }
