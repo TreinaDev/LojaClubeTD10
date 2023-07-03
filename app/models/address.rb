@@ -4,4 +4,8 @@ class Address < ApplicationRecord
 
   validates :address, :number, :city, :state, :zipcode, presence: true
   validates :zipcode, length: { is: 8 }
+
+  def full_description
+    "#{address} (#{number}), #{city} - #{state}. CEP: #{zipcode}"
+  end
 end

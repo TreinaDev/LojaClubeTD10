@@ -14,7 +14,7 @@ class AddressesController < ApplicationController
     @address = Address.new(addresses_params)
 
     if @address.save
-      status = ClientAddress.find_by(user: current_user).blank? ? true : false
+      status = ClientAddress.find_by(user: current_user).blank?
       ClientAddress.create(user: current_user, address: @address, default: status)
 
       return redirect_to client_addresses_path, notice: t('.success')

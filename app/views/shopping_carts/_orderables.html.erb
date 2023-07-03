@@ -39,7 +39,7 @@
           <% end %>
         </tbody>
       </table>
-      <p class="fw-bold">Total: <%= "#{show_price(total_cart(@shopping_cart, @company))} Pontos"%> </p>
+      <p class="fw-bold">Total: <%= "#{show_price(total_with_discount_cart(@shopping_cart, @company))} Pontos"%> </p>
       <div class="d-flex gap-3">
         <%= link_to "Continuar comprando", root_path, class:"btn btn-secondary" %>
         <%= button_to "Limpar carrinho", remove_all_shopping_carts_path, class:"btn btn-danger" %>

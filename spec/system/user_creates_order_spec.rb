@@ -3,6 +3,8 @@ require 'rails_helper'
 describe 'Usuário logado acessa a página do carrinho' do
   it 'e finaliza pedido com sucesso' do
     user = create(:user, email: 'user@email.com', cpf: '30383993024')
+    address = create(:address)
+    create(:client_address, user:, address:, default: true)
     create(:card_info, user:, points: 999_999, conversion_tax: 20)
     shopping_cart = create(:shopping_cart)
     product_category = create(:product_category, name: 'Camisetas')
@@ -46,6 +48,8 @@ describe 'Usuário logado acessa a página do carrinho' do
 
   it 'e tenta finalizar sem informar o número cartão' do
     user = create(:user, email: 'user@email.com')
+    address = create(:address)
+    create(:client_address, user:, address:, default: true)
     create(:card_info, user:, points: 999_999, conversion_tax: 20)
     shopping_cart = create(:shopping_cart)
     product_category = create(:product_category, name: 'Camisetas')
@@ -73,6 +77,8 @@ describe 'Usuário logado acessa a página do carrinho' do
 
   it 'e pedido não finaliza por erro de conexão' do
     user = create(:user, email: 'user@email.com')
+    address = create(:address)
+    create(:client_address, user:, address:, default: true)
     create(:card_info, user:, points: 999_999, conversion_tax: 20)
     shopping_cart = create(:shopping_cart)
     product_category = create(:product_category, name: 'Camisetas')
@@ -128,8 +134,7 @@ describe 'Usuário logado acessa a página do carrinho' do
     fill_in 'Número do Cartão', with: '12345678901234567890'
     click_on 'Concluir compra'
 
-    expect(page).to have_content 'Não pode finalizar pedido sem endereço cadastrado!'
-    
+    expect(current_path).to eq shopping_cart_path(shopping_cart)
+    expect(page).to have_content 'Não é possível finalizar pedido sem endereço cadastrado!'
   end
-
 end

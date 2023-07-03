@@ -2,6 +2,7 @@ class CustomerAreasController < ApplicationController
   before_action :authenticate_user!, only: %i[index me addresses update_points order_history extract_tab]
   before_action :prevent_admin, only: %i[index me favorite_tab addresses update_points order_history extract_tab]
   before_action :prevent_visitor, only: %i[favorite_tab addresses]
+  before_action :update_order_status, only: %i[order_history]
 
   def index; end
 
@@ -35,18 +36,21 @@ class CustomerAreasController < ApplicationController
   end
 
   def order_history
-    update_order_status
     @user_orders = current_user.orders
   end
 
   def update_order_status
-    @user_pending_orders = current_user.orders.where(status: :pending)
+    set_pending_orders
     @user_pending_orders.each do |order|
       response = Faraday.get("http://localhost:4000/api/v1/payments/#{order.payment_code}")
       order.update(status: JSON.parse(response.body)['status'])
     rescue Faraday::ConnectionFailed
       flash[:alert] = t('.update_error')
     end
+  end
+
+  def set_pending_orders
+    @user_pending_orders = current_user.orders.where(status: :pending).filter { |o| !o.payment_code.nil? }
   end
 
   def update_points

@@ -41,9 +41,8 @@ class ShoppingCartsController < ApplicationController
   end
 
   def close
-    @default_address = current_user.client_addresses
-                                   .find_by(default: true)
-                                   &.address
+    @order = Order.new(address: current_user.address_default)
+    @addresses = current_user.addresses
   end
 
   private

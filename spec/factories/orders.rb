@@ -4,6 +4,7 @@ FactoryBot.define do
     discount_amount { 0 }
     final_value { 1000 }
     user { create(:user) }
+    address { create(:address) }
     conversion_tax { 20 }
   end
 end
