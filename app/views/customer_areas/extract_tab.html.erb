@@ -21,10 +21,10 @@
             <tr>
               <td scope="row"><%= operation['description'] %></td>
               <td>
-                <% if operation['operation_type'] == 'recarga' %>
-                  <i class="bi bi-arrow-up-circle text-success"></i>
-                <% else %>
+                <% if operation['operation_type'] == 'débito' %>
                   <i class="bi bi-arrow-down-circle text-danger"></i> -
+                <% else %>
+                  <i class="bi bi-arrow-up-circle text-success"></i>
                 <% end %>
                 <%= operation['value'] %>
               </td>
