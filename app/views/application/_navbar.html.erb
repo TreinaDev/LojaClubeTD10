@@ -1,6 +1,9 @@
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid d-flex justify-content-between">
-    <%= link_to 'Loja do Clube', root_path, class: 'navbar-brand' %>
+    <%= link_to root_path, class: 'navbar-brand d-flex align-items-center gap-2 p-0' do %>
+      <%= image_tag(asset_path('logo.svg'), style: 'width: 40px') %>
+      <div>Loja do Clube</div>
+    <% end %>
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -10,15 +13,15 @@
           <% @product_categories_navbar.each do |pc| %>
             <% if !pc.subcategories.any? %>
               <% if pc.type == 'ProductCategory' %>
-                <li><%= link_to(pc.name, root_path(product_category: pc.id), class: "dropdown-item")%></li>
+                <li><%= link_to(pc.name, search_product_categories_path(products_category: pc.id), class: "dropdown-item")%></li>
               <% end %>
             <% else %>
               <li>
-                <%= link_to("#{pc.name} &raquo;".html_safe, root_path(product_category: pc.id), class: "dropdown-item")%>
+                <%= link_to("#{pc.name} &raquo;".html_safe, search_product_categories_path(products_category: pc.id), class: "dropdown-item")%>
                 <ul class="dropdown-menu dropdown-submenu">
                   <% pc.subcategories.each do |sub| %>
                     <% if sub.active? %>
-                      <li><%= link_to(sub.name, root_path(product_category: sub.id), class: "dropdown-item")%></li>
+                      <li><%= link_to(sub.name, search_product_categories_path(products_category: sub.id), class: "dropdown-item")%></li>
                     <% end %>
                   <% end %>
                 </ul>
@@ -46,9 +49,9 @@
           </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <li><%= link_to("Campanhas", promotional_campaigns_path, class: "dropdown-item")%></li>
-          <li><%= link_to("Preços sazonais", seasonal_prices_path, class: "dropdown-item")%></li>
           <li><%= link_to("Categorias", product_categories_path, class: "dropdown-item")%></li>
           <li><%= link_to("Empresas", companies_path, class: "dropdown-item")%></li>
+          <li><%= link_to("Preços sazonais", seasonal_prices_path, class: "dropdown-item")%></li>
           <li><%= link_to("Produtos", products_path, class: "dropdown-item")%></li>
         </ul>
       </li>

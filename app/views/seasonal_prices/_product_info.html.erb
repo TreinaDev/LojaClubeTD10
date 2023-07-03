@@ -1,0 +1,13 @@
+<div class="card-body">
+  <h3 class="card-title mb-4 fw-bold">Produto <%= @product.code %> - <%= @product.name %></h3>
+  <dl class="row text-muted">
+    <dt class="col-sm-3 fw-bold">Descrição</dt>
+    <dd class="col-sm-9"><%= @product.description %></dd>
+    <dt class="col-sm-3">Marca</dt>
+    <dd class="col-sm-9"><%= @product.brand %></dd>
+    <dt class="col-sm-3"><%= "Preço" %> </dt>
+    <dd class="col-sm-9"><%= "#{show_price(@product.price)}" %></dd>
+    <dt class="col-sm-3">Categoria</dt>
+    <dd class="col-sm-9"><%= @product.product_category.name %></dd>
+  </dl>
+</div>

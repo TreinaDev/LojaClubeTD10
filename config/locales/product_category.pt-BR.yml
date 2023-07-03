@@ -7,7 +7,7 @@ pt-BR:
         name: 'Nome'
         status: 'Status'
         actions: 'Ações'
-  product_category:
+  product_categories:
     create:
       success: 'Categoria criada com sucesso.'
       error: 'A categoria não foi salva.'
@@ -18,3 +18,8 @@ pt-BR:
       success: 'Categoria reativada com sucesso.'
     deactivate:
       success: 'Categoria desabilitada com sucesso.'
+    search:
+      found:
+        one: 'resultado encontrado'
+        other: 'resultados encontrados'
+ 

@@ -5,16 +5,23 @@ pt-BR:
         product:
           attributes:
             code:
-              invalid: ' deve ser composto por 3 letras e 6 números'
+              invalid: 'deve ser composto por 3 letras e 6 números'
+            price:
+              greater_than_seasonal_price: 'precisa ser maior que um preço sazonal existente'
         seasonal_price:
           attributes:
             start_date:
               greater_than_or_equal_to: 'deve ser futura'
             end_date:
               greater_than: 'deve suceder data de início'
-            value: 
+            value:
               less_than: 'não pode ser maior ou igual ao preço de produto'
               greater_than: 'precisa ser maior que zero'
             base:
-              unpermited_update: Não é possível alterar um preço sazonal em andamento
+              unpermited_update: 'Não é possível alterar um preço sazonal em andamento'
               overlap_date_alert: 'Não pode haver preço sazonal com sobreposição de datas para um mesmo produto'
+        campaign_category:
+          attributes:
+            base:
+              campaign_in_progress: Não é possível adicionar categoria em uma campanha em andamento
+              campaign_finished: 'Não é possível adicionar categoria em uma campanha finalizada'

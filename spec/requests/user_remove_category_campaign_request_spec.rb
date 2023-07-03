@@ -18,6 +18,42 @@ describe 'Usuário remove uma categoria de uma campanha promocional' do
       expect(response).to have_http_status :found
       expect(response).to redirect_to promotional_campaign_path(promotional_campaign.id)
     end
+
+    it 'e nao consegue pq a campanha esta em progresso' do
+      admin = create(:user, email: 'adm@punti.com')
+      create(:company)
+      category = create(:product_category)
+      travel_to 1.month.ago do
+        @promotional_campaign = create(:promotional_campaign, end_date: 3.months.from_now.to_date)
+        @campaign_category = create(:campaign_category, product_category: category,
+                                                        promotional_campaign: @promotional_campaign, discount: 20)
+      end
+
+      login_as(admin)
+      delete(promotional_campaign_campaign_category_path(@promotional_campaign.id, @campaign_category.id))
+
+      expect(CampaignCategory.count).to eq 1
+      expect(response).to have_http_status :found
+      expect(response).to redirect_to promotional_campaign_path(@promotional_campaign.id)
+    end
+
+    it 'e nao consegue pq a campanha esta no passado' do
+      admin = create(:user, email: 'adm@punti.com')
+      create(:company)
+      category = create(:product_category)
+      travel_to 6.months.ago do
+        @promotional_campaign = create(:promotional_campaign)
+        @campaign_category = create(:campaign_category, product_category: category,
+                                                        promotional_campaign: @promotional_campaign, discount: 20)
+      end
+
+      login_as(admin)
+      delete(promotional_campaign_campaign_category_path(@promotional_campaign.id, @campaign_category.id))
+
+      expect(CampaignCategory.count).to eq 1
+      expect(response).to have_http_status :found
+      expect(response).to redirect_to promotional_campaign_path(@promotional_campaign.id)
+    end
   end
 
   context 'enquanto visitante' do

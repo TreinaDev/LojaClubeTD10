@@ -7,7 +7,7 @@ describe 'Usuário registra um novo endereço' do
     login_as(user)
     visit root_path
     click_on 'Área do Cliente'
-    click_on 'Meus endereços'
+    click_on 'Meus Endereços'
     click_on 'Cadastrar novo endereço'
 
     expect(current_path).to eq new_address_path

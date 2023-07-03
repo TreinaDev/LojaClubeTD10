@@ -4,7 +4,6 @@ class OrdersController < ApplicationController
   before_action :order_auth, only: %i[show]
 
   def index; end
-
   def show; end
 
   def new
@@ -22,31 +21,26 @@ class OrdersController < ApplicationController
     return if card_not_present? || card_number_blank? || card_number_length_is_invalid?
 
     order = build_order(@cart)
-
     save_order_and_redirect(order)
   end
 
   private
 
   def order_params
-    params
-      .require(:order)
-      .permit(:total_value, :discount_amount, :final_value, :user_id, :conversion_tax)
+    params.require(:order).permit(:total_value, :discount_amount, :final_value, :user_id, :conversion_tax)
   end
 
   def transfer_products(order)
-    @cart.orderables.each do |o|
-      OrderItem.create!(order_id: order.id, product_id: o.product_id, quantity: o.quantity)
+    @cart.orderables.each do |orderable|
+      OrderItem.create(order_id: order.id, product_id: orderable.product_id, quantity: orderable.quantity,
+                       price_amount: orderable.product.price, discount_amount: orderable.product.discount(@company))
     end
   end
 
   def build_order(shopping_cart)
-    total_value = shopping_cart.total.round * current_user.card_info.conversion_tax.to_f
-    discount = 0
-    Order.new(total_value:,
-              discount_amount: discount,
-              final_value: total_value - discount,
-              user_id: current_user.id,
+    total_value = shopping_cart.total.round
+    discount = shopping_cart.total.round - total_cart(shopping_cart)
+    Order.new(total_value:, discount_amount: discount, final_value: total_value - discount, user_id: current_user.id,
               conversion_tax: current_user.card_info.conversion_tax)
   end
 
@@ -78,7 +72,7 @@ class OrdersController < ApplicationController
   end
 
   def card_number_length_is_invalid?
-    return false if params[:card_number].length == 11
+    return false if params[:card_number].length == 20
 
     redirect_to close_shopping_carts_path(@cart), alert: t('.card_number_length_invalid')
   end
@@ -96,7 +90,6 @@ class OrdersController < ApplicationController
       return redirect_to shopping_cart_path(@cart), alert: t('.connection_error') if response.nil?
 
       save_payment_code(order, response)
-
       response_redirect(response, order)
     else
       redirect_to shopping_cart_path(@cart), alert: t('.error')
@@ -127,5 +120,9 @@ class OrdersController < ApplicationController
 
     transfer_products(order)
     redirect_to root_path, notice: t('.success')
+  end
+
+  def total_cart(cart)
+    cart.orderables.sum { |orderable| orderable.product.lowest_price(@company) * orderable.quantity }
   end
 end

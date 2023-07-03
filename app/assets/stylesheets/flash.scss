@@ -1,5 +1,9 @@
-.alert-alert { @extend .alert-danger; }
-.alert-notice { @extend .alert-success; }
+.alert-alert {
+  @extend .alert-danger;
+}
+.alert-notice {
+  @extend .alert-success;
+}
 
 .flash {
   max-width: 100%;
@@ -9,7 +13,7 @@
 }
 
 .flash-outer {
-  position:absolute;
+  position: absolute;
   top: 70px;
   right: 10px;
 
@@ -17,18 +21,23 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  animation: appear-then-fade 5s both;
+  animation: appear-then-fade 8s both;
+  z-index: 10;
 }
 
 @keyframes appear-then-fade {
-  0%, 100% {
-    opacity:0
+  0%,
+  100% {
+    opacity: 0;
   }
-  5%, 60% {
-    opacity:1
+  5%,
+  60% {
+    opacity: 1;
   }
 }
 
-.alert-success, .alert-warning, .alert-danger {
+.alert-success,
+.alert-warning,
+.alert-danger {
   border-radius: 0;
 }

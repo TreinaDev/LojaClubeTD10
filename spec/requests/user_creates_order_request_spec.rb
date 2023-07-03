@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Usuário fecha pedido' do
   it 'com sucesso, autenticado e com cartão ativo' do
     user = create(:user, email: 'user@email.com', cpf: '30383993024')
-    create(:card_info, user:, points: 5000)
+    create(:card_info, user:, points: 50_000)
     shopping_cart = create(:shopping_cart)
     category1 = create(:product_category, name: 'Camisetas')
     product1 = create(:product, name: 'Camiseta Azul', price: 800, product_category: category1,
@@ -19,7 +19,7 @@ describe 'Usuário fecha pedido' do
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{user.cpf}").and_return(fake_response_card)
 
     login_as(user)
-    post close_order_path params: { card_number: '11111111111' }
+    post close_order_path params: { card_number: '12345678901234567890' }
 
     expect(response).to have_http_status :found
     expect(response).to redirect_to order_path(Order.last.id)
@@ -43,7 +43,7 @@ describe 'Usuário fecha pedido' do
     fake_response_card = double('faraday_response', status: 200, body: json_data)
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{user.cpf}").and_return(fake_response_card)
 
-    post close_order_path params: { card_number: '11111111111' }
+    post close_order_path params: { card_number: '12345678901234567890' }
 
     expect(response).to have_http_status :found
     expect(response).to redirect_to new_user_session_path
@@ -67,7 +67,7 @@ describe 'Usuário fecha pedido' do
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/cards/#{user.cpf}").and_return(fake_response_card)
 
     login_as(user)
-    post close_order_path params: { card_number: '11111111111' }
+    post close_order_path params: { card_number: '12345678901234567890' }
 
     expect(response).to have_http_status :found
     expect(response).to redirect_to close_shopping_carts_path(shopping_cart.id)
@@ -88,7 +88,7 @@ describe 'Usuário fecha pedido' do
     allow(Faraday).to receive(:post).with('http://localhost:4000/api/v1/payments').and_raise(Faraday::ConnectionFailed)
 
     login_as(user)
-    post close_order_path params: { card_number: '11111111111' }
+    post close_order_path params: { card_number: '12345678901234567890' }
 
     expect(response).to have_http_status :found
     expect(response).to redirect_to shopping_cart_path(shopping_cart)

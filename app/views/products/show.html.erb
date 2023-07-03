@@ -1,54 +1,56 @@
-<div class="row my-5">
-  <div class="col-6">
-    <div class="d-flex gap-2">
-      <% if @product.product_images.attached? %>
-        <div class="d-inline-flex flex-column flex-wrap gap-2" id="images">
-          <% @product.product_images.each do |image| %>
-            <div>
-              <%= image_tag(image, class:"resize-sml img-cursor", data: { controller: "images", action: "click->images#change" }) %>
-            </div>
-          <% end %>
-        </div>
-        <div id="display-area">
-          <%= image_tag(@product.product_images[0], class: 'resize-big image-size', id: 'displayed-image')%>
-        </div>
-      <% end %>
-    </div>
+<section style="flex-wrap: wrap;" class="d-flex flex-column flex-lg-row gap-3 my-5">
+  <div class="d-flex gap-2">
+    <% if @product.product_images.attached? %>
+      <div class="d-inline-flex flex-column flex-wrap gap-2" id="images">
+        <% @product.product_images.each do |image| %>
+          <figure>
+            <%= image_tag(image, class:"resize-sml img-cursor thumb-images p-1 rounded", data: { controller: "images", action: "click->images#change" }) %>
+          </figure>
+        <% end %>
+      </div>
+      <div id="display-area">
+        <%= image_tag(@product.product_images[0], style: 'object-fit: contain;', class: 'resize-big image-size', id: 'displayed-image')%>
+      </div>
+    <% end %>
   </div>
-  <div class="col-6">
-    <div class="card-body">
-      <h3 class="card-title mb-2 fw-bold">Produto <%= @product.name %> - <%= @product.code %></h3>
-      <span class="badge text-bg-primary mt-2 mb-3 fs-4 "><%= load_discount(@product, @company) %></span>
-      <h4 class="fw-bold text-primary mb-3"><%= load_end_data(@product, @company) %></h4>
-      <dl class="row text-muted fs-5">
-        <dt class="col-sm-6 fw-bold">Descrição</dt>
-        <dd class="col-sm-6"><%= @product.description %></dd>
-        <dt class="col-sm-6">Marca</dt>
-        <dd class="col-sm-6"><%= @product.brand %></dd>
-        <% if current_user&.can_buy? && session[:status_user] == ('unblocked' || 'blocked') || current_user&.admin? %> 
-          <dt class="col-sm-6"><%= "Preço" %> </dt> 
-          <dd class="col-sm-6"><%= show_promotional_price(@product, @company) %></dd>
-        <% end %>
-        <dt class="col-sm-6">Categoria</dt>
-        <dd class="col-sm-6"><%= @product.product_category.name %></dd>
-      </dl>
-
-      <% if user_signed_in? && !current_user.admin? %>
-        <% if !current_user.favorite_products.include?(@product) %>
-          <%= form_with model: @favorite do |f| %>
-            <%= f.hidden_field :product_id, value: @product.id %>
-            <%= f.hidden_field :user_id, value: current_user.id %>
-            <%= f.submit 'Marcar como favorito', class: 'btn btn-secondary' %>
-          <% end %>
-        <% else %>
-          <%= button_to 'Remover dos favoritos', favorite_path(@favorite.id), method: :delete, class: 'btn btn-secondary' %>
-        <% end %>
+  <div class="card-body col-10 col-lg-5">
+    <h3 class="card-title mb-2 fw-bold"><%= @product.name %> - <%= @product.code %></h3>
+    
+    <% if current_user&.can_buy? && session[:status_user] == 'unblocked' %>
+      <% unless load_discount(@product, @company).zero? %>
+        <span class="badge text-bg-primary mt-2 mb-3 fs-4"><%= load_discount(@product, @company) %>% OFF</span>
+        <h4 class="fw-bold text-primary mb-3"><%= load_end_data(@product, @company) %></h4>
       <% end %>
-    </div>
+    <% end %>
+
+    <dl class="row text-muted fs-5">
+      <dt class="col-sm-6 fw-bold">Descrição</dt>
+      <dd class="col-sm-6"><%= @product.description %></dd>
+      <dt class="col-sm-6">Marca</dt>
+      <dd class="col-sm-6"><%= @product.brand %></dd>
+      <% if current_user&.can_buy? && session[:status_user] == ('unblocked') || current_user&.admin? %> 
+        <dt class="col-sm-6"><%= "Preço" %> </dt> 
+        <dd class="col-sm-6"><%= show_promotional_price(@product, @company) %></dd>
+      <% end %>
+      <dt class="col-sm-6">Categoria</dt>
+      <dd class="col-sm-6"><%= @product.product_category.name %></dd>
+    </dl>
+
+    <% if user_signed_in? && !current_user.admin? %>
+      <% if !current_user.favorite_products.include?(@product) %>
+        <%= form_with model: @favorite do |f| %>
+          <%= f.hidden_field :product_id, value: @product.id %>
+          <%= f.hidden_field :user_id, value: current_user.id %>
+          <%= f.submit 'Marcar como favorito', class: 'btn btn-secondary' %>
+        <% end %>
+      <% else %>
+        <%= button_to 'Remover dos favoritos', favorite_path(@favorite.id), method: :delete, class: 'btn btn-secondary' %>
+      <% end %>
+    <% end %>
   </div>
   
   <% if current_user&.can_buy? && session[:status_user] == 'unblocked' %>
-    <div style="margin-top:20px;">
+    <div style="margin-top:20px; flex-basis: 100%;">
       <%= form_with(url: add_shopping_carts_path) do |f| %>
         <%= f.hidden_field :id, value: @product.id %>
         <div class="form-group" style="margin-bottom:10px;">
@@ -57,10 +59,10 @@
           <%= f.number_field :quantity, value: 1, class: "text-center", style: "width: 4em;", id: "number_field" %>
           <button type="button" id="increase_button" class="clean-button" data-controller="quantity" data-action="click->quantity#increment">+</button>
         </div>
-        <div class="actions"><%= f.submit "Adicionar ao carrinho", class: "btn btn-success mb-3" %></div>
+        <section class="actions"><%= f.submit "Adicionar ao carrinho", class: "btn btn-success mb-3" %></div>
       <% end %>
     </div>
   <% end %>
-</div>
+</section>
 
 

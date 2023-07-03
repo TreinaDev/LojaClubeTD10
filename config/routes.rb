@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       post :deactivate
       post :reactivate
     end
+    get 'search', on: :collection
   end
 
   resources :addresses, only: [:new, :create, :edit, :update, :destroy] do
@@ -23,6 +24,7 @@ Rails.application.routes.draw do
     member do
       patch :deactivate
       patch :reactivate
+      get :campaigns_promotions
     end
     collection do
       patch :deactivate_all
@@ -36,7 +38,7 @@ Rails.application.routes.draw do
   resources :promotional_campaigns, only: [:index, :new, :create, :show, :edit, :update] do
     resources :campaign_categories, only:  [:create, :destroy]
   end
-  
+
   resources :shopping_carts, only: [:show] do
     post "add", on: :collection
     post "remove", on: :collection
