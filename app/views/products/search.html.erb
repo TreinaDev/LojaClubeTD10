@@ -15,7 +15,7 @@
           <% if current_user&.can_buy? && session[:status_user] == ('unblocked') || current_user&.admin? %>
             <p><%= show_promotional_price(product, @company) %></p>
             <% unless current_user&.admin? || load_discount(product, @company).zero? %>
-              <p class="badge text-bg-primary position-absolute top-0 start-90 translate-middle"><%= load_discount(product, @company) %>% OFF</p>
+              <p class="badge text-bg-primary position-absolute top-0 start-90 translate-middle fs-6"><%= load_discount(product, @company) %>% OFF</p>
             <% end %>
           <% end %>            
           </div>
