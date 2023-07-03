@@ -191,7 +191,7 @@ A estrutura do banco de dados possui a seguinte estrutura:
 
 ## Área do Cliente
 
-![Cliente](app/assets/images/area-do-cliente.png)
+![Cliente](app/assets/images/gif-area-do-cliente.gif)
 
 ## Favoritos
 
