@@ -1,5 +1,18 @@
 <h1 align="center"> Loja do Clube de Compras :convenience_store:</h1>
 
+## :rocket: Tecnologias
+<p>
+
+![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
+![Rails](https://img.shields.io/badge/rails-%23CC0000.svg?style=for-the-badge&logo=ruby-on-rails&logoColor=white)
+![Ruby](https://img.shields.io/badge/ruby-%23CC342D.svg?style=for-the-badge&logo=ruby&logoColor=white)
+![Yarn](https://img.shields.io/badge/yarn-%232C8EBB.svg?style=for-the-badge&logo=yarn&logoColor=white)
+![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white)
+
+</p>
+
+
+
 ## :memo: Descrição
 A App 'Loja do Clube' é parte do Clube de Compras, projeto final da turma 10 do TreinaDev, Campus Code. Trata-se de desenvolver, em grupo, uma aplicação web em Ruby on Rails, com a metodologia de Desenvolvimento Guiado por Testes (TDD).
 
@@ -7,14 +20,14 @@ A aplicação oferece aos funcionários das empresas cadastradas a possibilidade
 
 ## :technologist: Time:
 
-  - Clauf
-  - Eduardo Celino
-  - Felipe Silva
-  - Luan
-  - Matheus Barros
-  - Mattheus Ferreira
-  - Ricardo
-  - Tereza
+  -  [![Perfil - Clauf](https://img.shields.io/badge/Perfil-Clauf-2ea44f)](https://github.com/ClaufSS)
+  -  [![Perfil - Eduardo Celino](https://img.shields.io/badge/Perfil-Eduardo_Celino-2ea44f)](https://github.com/ehcelino)
+  -  [![Perfil - Felipe Silva](https://img.shields.io/badge/Perfil-Felipe_Silva-2ea44f)](https://github.com/felipel7)
+  -  [![Perfil - Luan Costa](https://img.shields.io/badge/Perfil-Luan_Costa-2ea44f)](https://github.com/tbkanzaki)
+  -  [![Perfil - Matheus Barros](https://img.shields.io/badge/Perfil-Matheus_Barros-2ea44f)](https://github.com/MatheusOB21)
+  -  [![Perfil - Matheus Ferreira](https://img.shields.io/badge/Perfil-Matheus_Ferreira-2ea44f)](https://github.com/MatFerreira)
+  -  [![Perfil - Ricardo Novais](https://img.shields.io/badge/Perfil-Ricardo_Novais-2ea44f)](https://github.com/Ricardonovais1)
+  -  [![Perfil - Tereza Kanzaki](https://img.shields.io/badge/Perfil-Tereza_Kanzaki-2ea44f)](https://github.com/tbkanzaki)
 
 ## :books: Funcionalidades principais
 
@@ -41,7 +54,6 @@ git clone git@github.com:TreinaDev/LojaClubeTD10.git
 
 Na pasta da aplicação, rode o comando:
 ```
-
 * bin/setup
 * yarn install
 ```
