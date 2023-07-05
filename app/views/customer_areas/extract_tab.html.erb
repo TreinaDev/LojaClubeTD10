@@ -21,7 +21,7 @@
             <tr>
               <td scope="row"><%= operation['description'] %></td>
               <td>
-                <% if operation['operation_type'] == 'débito' %>
+                <% if operation['operation_type'] == 'débito' || operation['operation_type'] == 'cashback_usado' %>
                   <i class="bi bi-arrow-down-circle text-danger"></i> -
                 <% else %>
                   <i class="bi bi-arrow-up-circle text-success"></i>

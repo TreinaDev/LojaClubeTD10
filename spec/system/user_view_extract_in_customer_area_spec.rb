@@ -17,6 +17,7 @@ describe 'Usuário visualiza extrato de pontos na área do cliente' do
 
     expect(page).to have_content 'Pedido 12345678912'
     within 'table' do
+      expect(page).to have_css '.bi-arrow-up-circle.text-success'
       expect(page).to have_content 'Recarga'
       expect(page).to have_content '46'
       expect(page).to have_content '20'
@@ -37,6 +38,7 @@ describe 'Usuário visualiza extrato de pontos na área do cliente' do
     click_on 'Meu Extrato'
 
     expect(page).to have_content 'Nenhuma transação registrada neste cartão.'
+    expect(page).not_to have_css '.bi-arrow-up-circle.text-success'
     expect(page).not_to have_content 'Recarga'
     expect(page).not_to have_content '46'
   end
