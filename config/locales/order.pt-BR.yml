@@ -21,7 +21,7 @@ pt-BR:
       error: 'Pedido cancelado.'
       card_number_empty: 'Campo Número do Cartão não pode ser vazio.'
       connection_error: 'Erro de conexão - tente novamente mais tarde.'
-      card_number_length_invalid: 'Número de cartão precisar ter 11 dígitos.'
+      card_number_length_invalid: 'Número de cartão precisar ter 20 dígitos.'
       card_not_present: 'Erro de conexão - por favor, faça login novamente.'
       success: 'Pedido criado com sucesso.'
       address_required: 'Não é possível finalizar pedido sem endereço cadastrado!'
